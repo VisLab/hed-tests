@@ -2,7 +2,7 @@
 
 **Complete guide to the HED Test Suite**
 
----
+______________________________________________________________________
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@
    - [Quick Navigation](#quick-navigation-index)
    - [Detailed Test Listings](#detailed-test-listings)
 
----
+______________________________________________________________________
 
 ## Introduction
 
@@ -90,7 +90,7 @@ The test suite serves three primary purposes:
 - **[HED online tools](https://hedtools.org/hed)**: Web-based validation tools
 - **[HED examples](https://github.com/hed-standard/hed-examples)**: Example annotated datasets
 
----
+______________________________________________________________________
 
 ## Getting Started
 
@@ -195,7 +195,7 @@ python src/scripts/generate_test_index.py
 # Creates: docs/test_index.md
 ```
 
----
+______________________________________________________________________
 
 ## Test Format Specification
 
@@ -572,7 +572,7 @@ Here's a complete example from `TAG_INVALID.json`:
 ]
 ```
 
----
+______________________________________________________________________
 
 ## Test Coverage Report
 
@@ -631,33 +631,43 @@ Here's a complete example from `TAG_INVALID.json`:
 ### Files by Error Code
 
 #### CHARACTER_INVALID
+
 - `CHARACTER_INVALID.json`
 
 #### COMMA_MISSING
+
 - `COMMA_MISSING.json`
 
 #### DEFINITION_INVALID
+
 - `DEFINITION_INVALID.json`
 
 #### DEF_EXPAND_INVALID
+
 - `DEF_EXPAND_INVALID.json`
 
 #### DEF_INVALID
+
 - `DEF_INVALID.json`
 
 #### ELEMENT_DEPRECATED
+
 - `ELEMENT_DEPRECATED.json`
 
 #### PARENTHESES_MISMATCH
+
 - `PARENTHESES_MISMATCH.json`
 
 #### PLACEHOLDER_INVALID
+
 - `PLACEHOLDER_INVALID.json`
 
 #### SCHEMA_ATTRIBUTE_INVALID
+
 - `SCHEMA_ATTRIBUTE_INVALID.json`
 
 #### SCHEMA_ATTRIBUTE_VALUE_INVALID
+
 - `SCHEMA_ATTRIBUTE_VALUE_INVALID_ALLOWED_CHARACTER.json`
 - `SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 - `SCHEMA_ATTRIBUTE_VALUE_INVALID_DEFAULT_UNIT.json`
@@ -670,77 +680,100 @@ Here's a complete example from `TAG_INVALID.json`:
 - `SCHEMA_ATTRIBUTE_VALUE_INVALID_VALUE_CLASS.json`
 
 #### SCHEMA_CHARACTER_INVALID
+
 - `SCHEMA_CHARACTER_INVALID.json`
 
 #### SCHEMA_DEPRECATION_ERROR
+
 - `SCHEMA_DEPRECATION_ERROR.json`
 
 #### SCHEMA_DUPLICATE_NODE
+
 - `SCHEMA_DUPLICATE_NODE.json`
 
 #### SCHEMA_HEADER_INVALID
+
 - `SCHEMA_HEADER_INVALID.json`
 
 #### SCHEMA_LIBRARY_INVALID
+
 - `SCHEMA_LIBRARY_INVALID.json`
 
 #### SCHEMA_LOAD_FAILED
+
 - `SCHEMA_LOAD_FAILED.json`
 
 #### SCHEMA_SECTION_MISSING
+
 - `SCHEMA_SECTION_MISSING.json`
 
 #### SIDECAR_BRACES_INVALID
+
 - `SIDECAR_BRACES_INVALID.json`
 
 #### SIDECAR_INVALID
+
 - `SIDECAR_INVALID.json`
 
 #### SIDECAR_KEY_MISSING
+
 - `SIDECAR_KEY_MISSING.json`
 
 #### TAG_EMPTY
+
 - `TAG_EMPTY.json`
 
 #### TAG_EXPRESSION_REPEATED
+
 - `TAG_EXPRESSION_REPEATED.json`
 
 #### TAG_EXTENDED
+
 - `TAG_EXTENDED.json`
 
 #### TAG_EXTENSION_INVALID
+
 - `TAG_EXTENSION_INVALID.json`
 
 #### TAG_GROUP_ERROR
+
 - `TAG_GROUP_ERROR.json`
 
 #### TAG_INVALID
+
 - `TAG_INVALID.json`
 
 #### TAG_NAMESPACE_PREFIX_INVALID
+
 - `SCHEMA_LOAD_FAILED.json`
 - `TAG_NAMESPACE_PREFIX_INVALID.json`
 
 #### TAG_NOT_UNIQUE
+
 - `TAG_NOT_UNIQUE.json`
 
 #### TAG_REQUIRES_CHILD
+
 - `TAG_REQUIRES_CHILD.json`
 
 #### TEMPORAL_TAG_ERROR
+
 - `TEMPORAL_TAG_ERROR.json`
 - `TEMPORAL_TAG_ERROR_DELAY.json`
 
 #### UNITS_INVALID
+
 - `UNITS_INVALID.json`
 
 #### VALUE_INVALID
+
 - `VALUE_INVALID.json`
 
 #### WIKI_DELIMITERS_INVALID
+
 - `SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
----
+______________________________________________________________________
 
 ## Validator Integration Guide
 
@@ -1219,7 +1252,7 @@ Include:
 6. **Use schema versions**: Respect the schema version in each test
 7. **Handle all test types**: Support string, sidecar, event, and combo tests
 
----
+______________________________________________________________________
 
 ## Complete Test Index
 
@@ -2948,7 +2981,7 @@ Complete index of 136 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 0 pass
 
----
+______________________________________________________________________
 
 ## Support and Resources
 
@@ -2970,6 +3003,6 @@ Complete index of 136 test cases in the HED test suite.
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on adding new tests or improving existing ones.
 
----
+______________________________________________________________________
 
 **End of User Guide**
