@@ -40,13 +40,13 @@ jobs:
 
       - name: Validate test structure (validation tests)
         run: |
-          python src/scripts/validate_test_structure.py json_test_data/validation_tests
+          python src/scripts/validate_test_structure.py json_test_data/validation_test_data
         env:
           PYTHONIOENCODING: utf-8
 
       - name: Validate test structure (schema tests)
         run: |
-          python src/scripts/validate_test_structure.py json_test_data/schema_tests
+          python src/scripts/validate_test_structure.py json_test_data/schema_test_data
         env:
           PYTHONIOENCODING: utf-8
 

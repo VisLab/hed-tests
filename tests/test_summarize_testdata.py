@@ -6,6 +6,7 @@ and validate test file structure.
 """
 
 import json
+import sys
 import unittest
 from pathlib import Path
 
@@ -23,16 +24,30 @@ class TestSummarizeTestData(unittest.TestCase):
         # Collect all test files from both directories
         cls.test_files = []
 
-        validation_tests_dir = json_test_data_dir / "validation_tests"
+        validation_tests_dir = json_test_data_dir / "validation_test_data"
         if validation_tests_dir.exists():
             cls.test_files.extend(validation_tests_dir.glob("*.json"))
 
-        schema_tests_dir = json_test_data_dir / "schema_tests"
+        schema_tests_dir = json_test_data_dir / "schema_test_data"
         if schema_tests_dir.exists():
             cls.test_files.extend(schema_tests_dir.glob("*.json"))
 
         cls.test_files = sorted(cls.test_files)
-        print(f"\nFound {len(cls.test_files)} test files")
+        cls.safe_print(f"\nFound {len(cls.test_files)} test files")
+
+    @staticmethod
+    def safe_print(text):
+        """
+        Print text safely, handling Unicode encoding errors on Windows.
+
+        Parameters:
+            text (str): Text to print
+        """
+        try:
+            print(text)
+        except UnicodeEncodeError:
+            # Fall back to ASCII encoding with replacement characters
+            print(text.encode(sys.stdout.encoding or "utf-8", errors="replace").decode(sys.stdout.encoding or "utf-8"))
 
     @staticmethod
     def get_test_info(test_file, details=True):
@@ -135,23 +150,23 @@ class TestSummarizeTestData(unittest.TestCase):
 
     def test_summary(self):
         """Generate summary of all test files."""
-        print("\n" + "=" * 60)
-        print("HED TEST SUITE SUMMARY")
-        print("=" * 60)
+        self.safe_print("\n" + "=" * 60)
+        self.safe_print("HED TEST SUITE SUMMARY")
+        self.safe_print("=" * 60)
 
         for test_file in self.test_files:
             out_str = self.get_test_info(test_file, details=False)
-            print(out_str)
+            self.safe_print(out_str)
 
-        print("\n" + "=" * 60)
-        print(f"TOTAL: {len(self.test_files)} test files")
-        print("=" * 60)
+        self.safe_print("\n" + "=" * 60)
+        self.safe_print(f"TOTAL: {len(self.test_files)} test files")
+        self.safe_print("=" * 60)
 
     def test_detailed_summary(self):
         """Generate detailed summary with test examples."""
         for test_file in self.test_files:
             out_str = self.get_test_info(test_file, details=True)
-            print(out_str)
+            self.safe_print(out_str)
 
 
 if __name__ == "__main__":

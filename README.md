@@ -21,11 +21,11 @@ The HED test suite serves multiple critical functions:
 ```
 hed-tests/
 ├── json_test_data/              # Test data (primary content)
-│   ├── validation_tests/        # Individual error code tests
+│   ├── validation_test_data/    # Individual error code tests
 │   │   ├── TAG_INVALID.json
 │   │   ├── UNITS_INVALID.json
 │   │   └── ...                  # One file per error code
-│   ├── schema_tests/           # Schema validation tests
+│   ├── schema_test_data/        # Schema validation tests
 │   │   └── SCHEMA_*.json
 │   ├── validation_tests.json    # Consolidated validation tests
 │   ├── schema_tests.json        # Consolidated schema tests
@@ -93,7 +93,7 @@ import json
 from pathlib import Path
 
 # Load test file
-test_file = Path("json_test_data/validation_tests/TAG_INVALID.json")
+test_file = Path("json_test_data/validation_test_data/TAG_INVALID.json")
 tests = json.loads(test_file.read_text())
 
 # Run tests

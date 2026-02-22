@@ -1,8 +1,8 @@
 """
 Consolidate individual HED test files into unified test files for validator consumption.
 
-This script combines separate test files from json_test_data/validation_tests/
-and json_test_data/schema_tests/ into consolidated files used by validators.
+This script combines separate test files from json_test_data/validation_test_data/
+and json_test_data/schema_test_data/ into consolidated files used by validators.
 
 Usage:
     python src/scripts/consolidate_tests.py [--dry-run] [--verbose]
@@ -263,8 +263,8 @@ def main(arg_list: List[str] = None):
 
     # Define directories
     json_test_data_dir = project_root / "json_test_data"
-    validation_tests_dir = json_test_data_dir / "validation_tests"
-    schema_tests_dir = json_test_data_dir / "schema_tests"
+    validation_tests_dir = json_test_data_dir / "validation_test_data"
+    schema_tests_dir = json_test_data_dir / "schema_test_data"
 
     # Verify directories exist
     if not validation_tests_dir.exists():

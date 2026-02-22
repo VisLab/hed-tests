@@ -395,8 +395,8 @@ class TestIntegration(unittest.TestCase):
         """Set up paths to actual test data."""
         project_root = Path(__file__).parent.parent
         cls.json_test_data_dir = project_root / "json_test_data"
-        cls.validation_tests_dir = cls.json_test_data_dir / "validation_tests"
-        cls.schema_tests_dir = cls.json_test_data_dir / "schema_tests"
+        cls.validation_tests_dir = cls.json_test_data_dir / "validation_test_data"
+        cls.schema_tests_dir = cls.json_test_data_dir / "schema_test_data"
 
     def test_actual_validation_tests_structure(self):
         """Test that actual validation tests have valid structure."""
