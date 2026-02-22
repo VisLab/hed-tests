@@ -38,11 +38,11 @@ jobs:
 
       - name: Validate test structure (validation tests)
         run: |
-          python src/scripts/validate_test_structure.py json_test_data/validation_tests
+          python src/scripts/validate_test_structure.py json_test_data/validation_test_data
 
       - name: Validate test structure (schema tests)
         run: |
-          python src/scripts/validate_test_structure.py json_test_data/schema_tests
+          python src/scripts/validate_test_structure.py json_test_data/schema_test_data
 
       - name: Check test coverage
         run: |

@@ -229,13 +229,13 @@ def main():
         # Validate all files
         results = {}
 
-        # Validate validation_tests
-        validation_tests_dir = json_test_data_dir / "validation_tests"
+        # Validate validation_test_data
+        validation_tests_dir = json_test_data_dir / "validation_test_data"
         if validation_tests_dir.exists():
             results.update(validator.validate_directory(validation_tests_dir))
 
-        # Validate schema_tests
-        schema_tests_dir = json_test_data_dir / "schema_tests"
+        # Validate schema_test_data
+        schema_tests_dir = json_test_data_dir / "schema_test_data"
         if schema_tests_dir.exists():
             results.update(validator.validate_directory(schema_tests_dir))
 

@@ -46,12 +46,12 @@ class CoverageAnalyzer:
     def analyze(self):
         """Analyze all test files and collect coverage statistics."""
         # Analyze validation tests
-        validation_dir = self.test_data_dir / "validation_tests"
+        validation_dir = self.test_data_dir / "validation_test_data"
         if validation_dir.exists():
             self._analyze_directory(validation_dir, "validation")
 
         # Analyze schema tests
-        schema_dir = self.test_data_dir / "schema_tests"
+        schema_dir = self.test_data_dir / "schema_test_data"
         if schema_dir.exists():
             self._analyze_directory(schema_dir, "schema")
 

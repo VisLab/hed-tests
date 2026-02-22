@@ -290,7 +290,7 @@
           },
           "schema_tests": {
             "type": "object",
-            "description": "Tests for schema validation (schema_tests directory)",
+            "description": "Tests for schema validation (schema_test_data directory)",
             "properties": {
               "fails": {
                 "type": "array",

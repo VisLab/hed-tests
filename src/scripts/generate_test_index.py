@@ -31,12 +31,12 @@ class TestIndexGenerator:
     def generate(self):
         """Generate index from all test files."""
         # Process validation tests
-        validation_dir = self.test_data_dir / "validation_tests"
+        validation_dir = self.test_data_dir / "validation_test_data"
         if validation_dir.exists():
             self._process_directory(validation_dir, "validation")
 
         # Process schema tests
-        schema_dir = self.test_data_dir / "schema_tests"
+        schema_dir = self.test_data_dir / "schema_test_data"
         if schema_dir.exists():
             self._process_directory(schema_dir, "schema")
 
