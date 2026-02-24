@@ -1,6 +1,7 @@
 [
   {
     "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
+    "alt_codes": ["SCHEMA_ATTRIBUTE_INVALID"],
     "name": "attribute-suggestedTag-invalid",
     "warning": true,
     "description": "A suggested tag points to an unknown tag",
@@ -76,7 +77,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -90,7 +91,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''Tag-with-unknown''' {suggestedTag=Event}",
