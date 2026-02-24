@@ -164,7 +164,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -185,7 +185,7 @@
     "error_code": "SCHEMA_DUPLICATE_NODE",
     "name": "attribute-duplicate-node-unit",
     "warning": true,
-    "description": "A schema attribute issue, saying there is an unknown one.",
+    "description": "A schema has duplicate unit entries with case-insensitive name collision.",
     "schema": "",
     "definitions": [],
     "tests": {

@@ -18,7 +18,7 @@
     "correction_examples": [
       {
         "wrong": "* Tag {deprecated}",
-        "correct": "* Tag {deprecatedFrom=\"8.2.0\"}",
+        "correct": "* Tag {deprecatedFrom=\"8.4.0\"}",
         "explanation": "Added proper deprecation version specification"
       },
       {
@@ -53,7 +53,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -68,11 +68,11 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
-            "* Extension {deprecatedFrom=1.0.0}",
+            "* Extension {deprecatedFrom=1.5.0}",
             "!# end schema",
             "'''Unit classes'''",
             "'''Unit modifiers'''",
@@ -85,7 +85,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -114,7 +114,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag''' {deprecatedFrom=1.0.0}",
@@ -129,7 +129,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -148,7 +148,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag''' {deprecatedFrom=1.0.0}",
@@ -177,7 +177,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -197,7 +197,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -215,7 +215,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -246,7 +246,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -266,7 +266,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -298,7 +298,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -317,7 +317,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -348,7 +348,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -365,7 +365,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -384,7 +384,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -401,7 +401,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -418,7 +418,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -435,7 +435,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -466,7 +466,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -476,13 +476,13 @@
             "'''Unit modifiers'''",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -492,13 +492,13 @@
             "'''Unit modifiers'''",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -509,13 +509,13 @@
             "'''Unit modifiers'''",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -525,13 +525,13 @@
             "* deprecatedUnitModifier {deprecatedAttribute}",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -541,7 +541,7 @@
             "'''Value classes'''",
             "* deprecatedValueClass {deprecatedAttribute}",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
@@ -549,7 +549,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -559,13 +559,13 @@
             "'''Unit modifiers'''",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -575,13 +575,13 @@
             "'''Unit modifiers'''",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -592,13 +592,13 @@
             "'''Unit modifiers'''",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -608,13 +608,13 @@
             "* deprecatedUnitModifier {deprecatedAttribute, deprecatedFrom=1.0.0}",
             "'''Value classes'''",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
           ],
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -624,7 +624,7 @@
             "'''Value classes'''",
             "* deprecatedValueClass {deprecatedAttribute, deprecatedFrom=1.0.0}",
             "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+            "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
@@ -644,7 +644,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -662,7 +662,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",

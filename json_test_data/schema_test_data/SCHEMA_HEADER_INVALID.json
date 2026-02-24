@@ -3,7 +3,7 @@
     "error_code": "SCHEMA_HEADER_INVALID",
     "name": "schema-header-malformed-attribute",
     "warning": true,
-    "description": "A schema attribute issue, saying there is an unknown one.",
+    "description": "A schema header contains a malformed or unknown attribute.",
     "schema": "",
     "error_category": "schema_development",
     "common_causes": [
@@ -22,8 +22,8 @@
         "explanation": "Removed unknown attribute from header"
       },
       {
-        "wrong": "HED version=\"1.0.0\" library=\"test\" missingStandard=\"8.2.0\"",
-        "correct": "HED version=\"1.0.0\" library=\"test\" withStandard=\"8.2.0\"",
+        "wrong": "HED version=\"1.0.0\" library=\"test\" missingStandard=\"8.4.0\"",
+        "correct": "HED version=\"1.0.0\" library=\"test\" withStandard=\"8.4.0\"",
         "explanation": "Fixed attribute name from 'missingStandard' to 'withStandard'"
       }
     ],
@@ -70,7 +70,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -91,7 +91,7 @@
     "error_code": "SCHEMA_HEADER_INVALID",
     "name": "schema-header-unknown-attribute",
     "warning": true,
-    "description": "A schema attribute issue, saying there is an unknown one.",
+    "description": "An unknown attribute was found in the schema header.",
     "schema": "",
     "definitions": [],
     "tests": {
@@ -114,7 +114,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "'''Tag-with-unknown''' {suggestedTag=Event}",

@@ -53,7 +53,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "\t",
             "!# start schema",
@@ -69,7 +69,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "InvalidCharAfterThis\b",
             "!# start schema",
@@ -87,7 +87,7 @@
         ],
         "passes": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "This is a valid prologue.",
             "!# start schema",
@@ -118,7 +118,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag$'''",
@@ -133,7 +133,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag('''",
@@ -150,7 +150,7 @@
         ],
         "passes": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -172,14 +172,14 @@
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-invalid-other-term",
     "warning": true,
-    "description": "Invalid character in a tag term.",
+    "description": "Invalid character in a non-tag schema element name (unit, unit class, modifier, value class, attribute, or property).",
     "schema": "",
     "definitions": [],
     "tests": {
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -195,7 +195,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -212,7 +212,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -228,7 +228,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -244,7 +244,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -260,7 +260,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -278,7 +278,7 @@
         ],
         "passes": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -307,7 +307,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -324,7 +324,7 @@
         ],
         "passes": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTagÄ'''",
@@ -339,7 +339,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''ÄBaseTag'''",
@@ -368,7 +368,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -387,7 +387,7 @@
         ],
         "passes": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -406,7 +406,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -441,7 +441,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -457,7 +457,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag''' [Description goes here with invalid { character }]",
@@ -475,7 +475,7 @@
         ],
         "passes": [
           [
-            "HED version=\"8.3.0\"",
+            "HED version=\"8.4.0\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",

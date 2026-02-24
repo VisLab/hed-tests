@@ -29,7 +29,7 @@
             },
             {
                 "wrong": "library=\"score\"",
-                "correct": "library=\"score\" withStandard=\"8.2.0\"",
+                "correct": "library=\"score\" withStandard=\"8.4.0\"",
                 "explanation": "Added required withStandard attribute"
             }
         ],
@@ -63,7 +63,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score_invalidchar\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score_invalidchar\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -76,7 +76,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score1\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score1\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -89,7 +89,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"Score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"Score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -104,7 +104,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -131,7 +131,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -144,7 +144,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" withStandard=\"8.2.0\"",
+                        "HED version=\"1.0.0\" withStandard=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -159,7 +159,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -214,7 +214,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -241,7 +241,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Event''' {rooted=Event}",
@@ -273,7 +273,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewThing''' {rooted=Event}",
@@ -301,7 +301,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewNode'''",
@@ -318,7 +318,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewNode''' {rooted=Event}",
@@ -346,7 +346,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''DummyTag'''",
@@ -361,7 +361,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''DummyTag'''{rooted=NotRealTag}",
@@ -377,7 +377,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -405,7 +405,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -422,7 +422,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -444,14 +444,14 @@
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-rooted-in-duplicate-other",
         "warning": true,
-        "description": "A schema library issue, indicating the InLibrary attribute appears when it shouldn't.",
+        "description": "A library schema defines elements that duplicate entries already in the base standard schema.",
         "schema": "",
         "definitions": [],
         "tests": {
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -470,7 +470,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",

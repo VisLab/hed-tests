@@ -3,7 +3,7 @@
     "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
     "name": "attribute-invalid-allowed-character",
     "warning": true,
-    "description": "A schema unit has an invalid conversion factor",
+    "description": "A schema value class has an invalid allowedCharacter attribute value",
     "schema": "",
     "error_category": "schema_development",
     "common_causes": [
@@ -45,7 +45,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "!# end schema",
@@ -61,7 +61,7 @@
         ],
         "passes": [
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "!# end schema",
@@ -75,7 +75,7 @@
             "!# end hed"
           ],
           [
-            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+            "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
             "'''Prologue'''",
             "!# start schema",
             "!# end schema",

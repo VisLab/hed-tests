@@ -3,7 +3,7 @@
         "error_code": "SCHEMA_SECTION_MISSING",
         "name": "schema-section-missing",
         "warning": true,
-        "description": "A schema attribute issue, saying there is an unknown one.",
+        "description": "A required schema section is missing from the schema file.",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -176,7 +176,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"testlib\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"testlib\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag''' {suggestedTag=Tag}",
