@@ -40,13 +40,12 @@ Key Features
 
    User guide <user_guide>
 
-Test suite documentation
+Test suite reports
 -------------------------
 
 .. toctree::
    :maxdepth: 2
 
-   Test format specification <test_format>
    Test coverage report <test_coverage>
    Test index <test_index>
 
