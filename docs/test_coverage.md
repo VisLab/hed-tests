@@ -1,14 +1,14 @@
-# HED Test Coverage Report
+# HED test coverage report
 
 **Generated**: coverage.md
 
-## Summary Statistics
+## Summary statistics
 
 - **Total error codes covered**: 33
 - **Total test cases**: 136
 - **Error codes with AI metadata**: 33 (100.0%)
 
-## Test Type Coverage
+## Test type coverage
 
 - **combo_tests**: 23 error codes
 - **event_tests**: 23 error codes
@@ -16,7 +16,7 @@
 - **sidecar_tests**: 23 error codes
 - **string_tests**: 24 error codes
 
-## Coverage by Error Code
+## Coverage by error code
 
 | Error Code                     | Test Cases | Test Types                                            | AI Metadata | Schema Versions                |
 | ------------------------------ | ---------- | ----------------------------------------------------- | ----------- | ------------------------------ |

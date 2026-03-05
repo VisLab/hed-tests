@@ -1,8 +1,8 @@
-# HED Test Suite Index
+# HED test suite index
 
 Complete index of 136 test cases in the HED test suite.
 
-## Quick Navigation
+## Quick navigation
 
 - [CHARACTER_INVALID](#character-invalid) (4 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
