@@ -159,8 +159,7 @@ class CoverageAnalyzer:
         print(f"  Total error codes covered: {summary['total_error_codes']}")
         print(f"  Total test cases: {summary['total_test_cases']}")
         print(
-            f"  Error codes with AI metadata: {summary['codes_with_ai_metadata']} "
-            f"({summary['ai_metadata_percentage']:.1f}%)"
+            f"  Error codes with AI metadata: {summary['codes_with_ai_metadata']} ({summary['ai_metadata_percentage']:.1f}%)"
         )
 
         # Test type coverage

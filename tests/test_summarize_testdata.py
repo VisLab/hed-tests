@@ -68,7 +68,7 @@ class TestSummarizeTestData(unittest.TestCase):
         if not test_info:
             return f"EMPTY FILE: {test_file.name}"
 
-        out_list = [f"\n{'='*60}"]
+        out_list = [f"\n{'=' * 60}"]
         out_list.append(f"FILE: {test_file.name}")
         out_list.append(f"ERROR CODE: {test_info[0]['error_code']}")
         out_list.append(f"TEST CASES: {len(test_info)}")
@@ -94,7 +94,7 @@ class TestSummarizeTestData(unittest.TestCase):
                 out_list.append(f"{indent}Definitions: {len(definitions)}")
                 if details:
                     for def_str in definitions:
-                        out_list.append(f"{indent*2}{def_str}")
+                        out_list.append(f"{indent * 2}{def_str}")
 
             # Show test counts
             tests = info.get("tests", {})
@@ -127,24 +127,24 @@ class TestSummarizeTestData(unittest.TestCase):
         """
         num_fail_tests = len(test_item.get("fails", []))
         num_pass_tests = len(test_item.get("passes", []))
-        detail_list = [f"{indent*2}{title}: fail={num_fail_tests} pass={num_pass_tests}"]
+        detail_list = [f"{indent * 2}{title}: fail={num_fail_tests} pass={num_pass_tests}"]
 
         if details:
             if num_fail_tests > 0:
-                detail_list.append(f"{indent*3}Fail tests:")
+                detail_list.append(f"{indent * 3}Fail tests:")
                 for test in test_item["fails"][:3]:  # Show first 3 examples
                     test_str = str(test)[:100]  # Truncate long tests
-                    detail_list.append(f"{indent*4}{test_str}")
+                    detail_list.append(f"{indent * 4}{test_str}")
                 if num_fail_tests > 3:
-                    detail_list.append(f"{indent*4}... and {num_fail_tests - 3} more")
+                    detail_list.append(f"{indent * 4}... and {num_fail_tests - 3} more")
 
             if num_pass_tests > 0:
-                detail_list.append(f"{indent*3}Pass tests:")
+                detail_list.append(f"{indent * 3}Pass tests:")
                 for test in test_item["passes"][:3]:  # Show first 3 examples
                     test_str = str(test)[:100]  # Truncate long tests
-                    detail_list.append(f"{indent*4}{test_str}")
+                    detail_list.append(f"{indent * 4}{test_str}")
                 if num_pass_tests > 3:
-                    detail_list.append(f"{indent*4}... and {num_pass_tests - 3} more")
+                    detail_list.append(f"{indent * 4}... and {num_pass_tests - 3} more")
 
         return detail_list
 

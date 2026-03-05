@@ -34,57 +34,21 @@ Key Features
 * **Cross-platform**: Single source of truth for all validator implementations
 * **Automated validation**: JSON schema validation ensures test quality
 
-Getting started
----------------
 
 .. toctree::
    :maxdepth: 2
-
-   Introduction <introduction>
-   Validator integration guide <validator_integration>
-
-Test suite documentation
--------------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   Test format specification <test_format>
-   Test coverage report <test_coverage>
-   Test index <test_index>
-   Contributing tests <../CONTRIBUTING>
-
-For validator developers
--------------------------
-
-If you're building or maintaining a HED validator, the test suite provides comprehensive test cases to ensure your implementation matches the specification. See the :doc:`validator_integration` guide for details on consuming these tests.
-
-For contributors
-----------------
-
-Want to add new test cases or improve existing ones? See our :doc:`../CONTRIBUTING` guide for guidelines on test file format, naming conventions, and the contribution process.
-
-Repository
-----------
-
-* **Source**: https://github.com/hed-standard/hed-tests
-* **Issues**: https://github.com/hed-standard/hed-tests/issues
-* **License**: MIT
 
    User guide <user_guide>
 
-API documentation
------------------
+Test suite reports
+-------------------------
 
 .. toctree::
    :maxdepth: 2
 
-   API reference <api/index>
+   Test coverage report <test_coverage>
+   Test index <test_index>
 
-
-Indices and tables
-==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
