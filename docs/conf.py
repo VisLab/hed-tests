@@ -53,6 +53,10 @@ html_theme_options = {
 
 html_title = "HED Test Suite"
 
+# Don't generate domain-specific index pages (e.g. py-modindex.html) since
+# there is no Python API documentation in this repository.
+html_domain_indices = False
+
 # Configure sidebar
 html_sidebars = {
     "**": [
