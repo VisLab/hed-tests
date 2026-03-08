@@ -48,7 +48,6 @@ dependencies = [
 dev = [
     "ruff>=0.8.0",
     "codespell>=2.2.0",
-    "black>=26.1.0",
     "mdformat>=0.7.0",
     "mdformat-myst>=0.1.5",
 ]
@@ -126,20 +125,10 @@ max-complexity = 10
 [tool.ruff.lint.isort]
 known-first-party = ["hed"]
 
-[tool.black]
-line-length = 127
-target-version = ["py310", "py311", "py312", "py313"]
-exclude = '''
-/(
-    \.git
-  | \.venv
-  | venv
-  | __pycache__
-  | build
-  | dist
-  | \.eggs
-  | .*\.egg-info
-  | \.status
-  | json_test_data
-)/
-'''
+[tool.ruff.format]
+# Match former Black settings
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+# Excludes and line-length are inherited from [tool.ruff]
