@@ -1122,7 +1122,7 @@ ______________________________________________________________________
 ### Getting help
 
 - **Issues**: [GitHub Issues](https://github.com/hed-standard/hed-tests/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/hed-standard/hed-tests/discussions)
+- **Discussions**: [GitHub Discussions](https://github.com/orgs/hed-standard/discussions)
 - **Email**: [hed.maintainers@gmail.com](mailto:hed.maintainers@gmail.com)
 
 ### Contributing
