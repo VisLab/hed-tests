@@ -51,4 +51,3 @@ Test suite reports
 
 
 * :ref:`genindex`
-* :ref:`modindex`
