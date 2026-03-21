@@ -1,17 +1,17 @@
-# Contributing to HED Test Suite
+# Contributing to HED test suite
 
 Thank you for your interest in contributing to the HED Test Suite! This document provides guidelines for adding new tests, improving existing ones, and maintaining test quality.
 
 ## Table of contents
 
-- [Getting Started](#getting-started)
-- [Types of Contributions](#types-of-contributions)
-- [Adding New Test Cases](#adding-new-test-cases)
-- [Test File Format](#test-file-format)
-- [Validation and Quality](#validation-and-quality)
-- [Pull Request Process](#pull-request-process)
-- [Best Practices](#best-practices)
-- [Questions and Support](#questions-and-support)
+- [Getting started](#getting-started)
+- [Types of contributions](#types-of-contributions)
+- [Adding new test cases](#adding-new-test-cases)
+- [Test file format](#test-file-format)
+- [Validation and quality](#validation-and-quality)
+- [Pull request process](#pull-request-process)
+- [Best practices](#best-practices)
+- [Questions and support](#questions-and-support)
 
 ## Getting started
 
@@ -35,7 +35,7 @@ Thank you for your interest in contributing to the HED Test Suite! This document
    git checkout -b feature/add-new-tests
    ```
 
-### Familiarize Yourself
+### Familiarize yourself
 
 Before contributing, review:
 
@@ -142,7 +142,7 @@ Follow this template:
 
 Whenever possible, include multiple test types:
 
-#### String tests (Always include)
+#### String tests (always include)
 
 ```json
 "string_tests": {
@@ -228,7 +228,7 @@ Whenever possible, include multiple test types:
 }
 ```
 
-### Step 5: Add AI-Ffriendly metadata
+### Step 5: Add AI-friendly metadata
 
 **Always include** these fields for AI training:
 
@@ -403,7 +403,7 @@ git push origin feature/add-new-tests
 - Provide a clear title and description
 - Reference any related issues
 
-### PR Description template
+### PR description template
 
 ```markdown
 ## Description
