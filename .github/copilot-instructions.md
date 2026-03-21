@@ -2,8 +2,7 @@
 
 If `.status/local-environment.md` exists, read it first for local OS, shell, and virtual environment details.
 
-Use Google format for docstrings (`Parameters:` not `Args:`).
-When you create summaries of what you did, always put them in a `.status/` directory at the repository root.
+Use Google format for docstrings (`Parameters:` not `Args:`). When you create summaries of what you did, always put them in a `.status/` directory at the repository root.
 
 ## Markdown style
 
@@ -16,12 +15,14 @@ When you create summaries of what you did, always put them in a `.status/` direc
 This repository (`hed-tests`) hosts the **official JSON test suite** for HED (Hierarchical Event Descriptors) validation. It ensures consistent validation behavior across all HED validator implementations and provides AI-readable validation specifications.
 
 **Purpose**: Provide a centralized, version-controlled test suite that:
+
 - Validates HED validators (Python, JavaScript, and future implementations)
 - Serves as machine-readable specification documentation
 - Enables AI systems to understand HED validation rules
 - Ensures cross-platform validation consistency
 
 ### Related repositories
+
 - **[hed-python](https://github.com/hed-standard/hed-python)**: Python validator implementation (primary consumer)
 - **[hed-javascript](https://github.com/hed-standard/hed-javascript)**: JavaScript validator implementation (primary consumer)
 - **[hed-specification](https://github.com/hed-standard/hed-specification)**: Formal specification defining HED rules (source of truth)
@@ -64,7 +65,7 @@ python -m unittest tests.test_summarize_testdata -v
 # 3. Consolidate test files and regenerate dictionaries
 python src/scripts/consolidate_tests.py
 
-# 4. Validate JSON structure (if script exists)
+# 4. Validate JSON structure
 python src/scripts/validate_test_structure.py json_test_data/validation_test_data/
 python src/scripts/validate_test_structure.py json_test_data/schema_test_data/
 ```
@@ -103,6 +104,7 @@ Each JSON file in `validation_test_data/` or `schema_test_data/` contains an arr
 ```
 
 ### Test types
+
 1. **string_tests**: Raw HED strings
 2. **sidecar_tests**: JSON sidecar files (BIDS metadata)
 3. **event_tests**: Tabular event data with HED columns
@@ -128,9 +130,10 @@ Each JSON file in `validation_test_data/` or `schema_test_data/` contains an arr
 ## CI/CD pipeline
 
 GitHub Actions in `.github/workflows/`:
+
 - `ci.yaml`: Validate JSON structure and format
-- `black.yaml`: Python code formatting
-- `codespell.yaml`: Spell checking
+- `ruff.yaml`: Python code formatting and linting
+- `typos.yaml`: Spell checking
 - `links.yaml`: Broken link checking
 
 Replicate CI checks locally before pushing: run tests, consolidation, and JSON validation.

@@ -8,7 +8,7 @@
 # - 403 Forbidden: Some sites (npmjs.com, mathworks.com, doi.org) block automated 
 #   requests but work fine in browsers
 # - 429 Too Many Requests: Rate limiting doesn't mean the link is broken
-# - See .lycheeignore for sites/patterns that are completely excluded
+# - URL-level exclusions are in the `exclude` array below
 
 # Accept these HTTP status codes as valid
 # 200: OK (standard success)
@@ -38,4 +38,45 @@ exclude_path = [
     'sbt-webpack-macros\.html$',
     '.*-macros\.html$',
     'py-modindex\.html$',
+]
+
+# URL patterns to exclude from link checking (regex)
+# Moved from .lycheeignore — all exclusions are now in this file
+exclude = [
+    # ScienceDirect (require authentication/cookies)
+    '^https?://www\.sciencedirect\.com/',
+
+    # Springer (503 errors, but links work in browsers)
+    '^https?://link\.springer\.com/',
+
+    # INCF (certificate/network issues)
+    '^https?://.*\.incf\.org/',
+    '^https?://incf\.org/',
+    '^https?://neuroinformatics\.incf\.org/',
+
+    # DOI links that return 403 but work in browsers
+    '^https?://doi\.org/10\.1111/epi\.18113',
+
+    # NPM package links (block automated requests)
+    '^https?://.*\.npmjs\.com/package/hed-validator',
+
+    # MathWorks (block automated requests)
+    '^https?://.*\.mathworks\.com/',
+
+    # Brain Meeting poster links (expired/removed)
+    '^https?://brainmeeting.*\.ipostersessions\.com/',
+    '^https?://globalbrainconsortium\.org/documents/GBC_March-2023_Agenda_Annual_Meeting\.pdf',
+
+    # CANCTA network (authentication/access issues)
+    '^https?://.*\.cancta\.net/',
+    '^https?://cancta\.net/',
+
+    # GitHub discussions (programmatic access blocked)
+    '^https?://github\.com/hed-standard/hed-python/discussions',
+
+    # HED tools services (programmatic access blocked)
+    '^https?://hedtools\.org/hed/services_submit',
+
+    # Internal anchor links (false positives from lychee)
+    '(_anchor|-anchor)',
 ]
