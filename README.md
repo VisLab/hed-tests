@@ -1,4 +1,4 @@
-# HED Test Suite
+# HED test suite
 
 [![CI](https://github.com/hed-standard/hed-tests/actions/workflows/ci.yaml/badge.svg)](https://github.com/hed-standard/hed-tests/actions/workflows/ci.yaml) [![Documentation Status](https://readthedocs.org/projects/hed-tests/badge/?version=latest)](https://hed-tests.readthedocs.io/en/latest/?badge=latest) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -16,7 +16,7 @@ The HED test suite serves multiple critical functions:
 - **Cross-Platform Consistency**: Single source of truth for validation behavior
 - **Regression Prevention**: Catch validation changes across versions
 
-## Repository Structure
+## Repository structure
 
 ```
 hed-tests/
@@ -39,7 +39,7 @@ hed-tests/
 └── docs/                       # Documentation
 ```
 
-## Test File Format
+## Test file format
 
 Each test file contains structured JSON with the following format:
 
@@ -77,16 +77,16 @@ Each test file contains structured JSON with the following format:
 ]
 ```
 
-### Test Types
+### Test types
 
 1. **string_tests**: Raw HED strings
 2. **sidecar_tests**: JSON sidecar files (BIDS metadata)
 3. **event_tests**: Tabular event data with HED columns
 4. **combo_tests**: Combined sidecar + event data (realistic scenarios)
 
-## Usage for Validator Developers
+## Usage for validator developers
 
-### Python Validator Example
+### Python validator example
 
 ```python
 import json
@@ -111,7 +111,7 @@ for test_case in tests:
         assert len(errors) == 0, f"Should pass: {pass_string}"
 ```
 
-### JavaScript Validator Example
+### JavaScript validator example
 
 Use the consolidated `validation_tests.json` and `schema_tests.json` files:
 
@@ -133,18 +133,18 @@ validationTests.forEach(testCase => {
 });
 ```
 
-## Error Code Categories
+## Error code categories
 
 Tests are organized by error code:
 
-### Syntax Errors
+### Syntax errors
 
 - `CHARACTER_INVALID`: Invalid UTF-8 characters
 - `COMMA_MISSING`: Missing required commas
 - `PARENTHESES_MISMATCH`: Unmatched parentheses
 - `TAG_EMPTY`: Empty tags
 
-### Semantic Errors
+### Semantic errors
 
 - `TAG_INVALID`: Tag not in schema
 - `TAG_EXTENDED`: Extension validation
@@ -152,25 +152,25 @@ Tests are organized by error code:
 - `VALUE_INVALID`: Invalid tag values
 - `UNITS_INVALID`: Invalid units
 
-### Definition Errors
+### Definition errors
 
 - `DEFINITION_INVALID`: Invalid definitions
 - `DEF_INVALID`: Invalid Def usage
 - `DEF_EXPAND_INVALID`: Invalid Def-expand
 
-### Sidecar Errors
+### Sidecar errors
 
 - `SIDECAR_INVALID`: Sidecar structure issues
 - `SIDECAR_BRACES_INVALID`: Invalid brace syntax
 - `SIDECAR_KEY_MISSING`: Missing required keys
 
-### Schema Errors
+### Schema errors
 
 - `SCHEMA_ATTRIBUTE_INVALID`: Invalid schema attributes
 - `SCHEMA_DUPLICATE_NODE`: Duplicate schema nodes
 - `SCHEMA_HEADER_INVALID`: Invalid schema headers
 
-### Temporal Errors
+### Temporal errors
 
 - `TEMPORAL_TAG_ERROR`: Temporal tag issues
 - `TEMPORAL_TAG_ERROR_DELAY`: Temporal delay issues
@@ -184,7 +184,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 - JSON validation
 - Pull request process
 
-## Development Setup
+## Development setup
 
 ```powershell
 # Clone repository
@@ -199,7 +199,7 @@ python -m venv .venv
 pip install -e ".[dev,docs]"
 ```
 
-### Running Scripts
+### Running scripts
 
 ```powershell
 # Activate environment first
@@ -212,14 +212,14 @@ python src/scripts/consolidate_tests.py
 python -m unittest tests.test_summarize_testdata -v
 ```
 
-## Related Repositories
+## Related repositories
 
 - **[hed-python](https://github.com/hed-standard/hed-python)**: Python validator implementation
 - **[hed-javascript](https://github.com/hed-standard/hed-javascript)**: JavaScript validator implementation
 - **[hed-specification](https://github.com/hed-standard/hed-specification)**: Formal HED specification
 - **[hed-schemas](https://github.com/hed-standard/hed-schemas)**: HED vocabulary schemas
 
-## Test Statistics
+## Test statistics
 
 **Current coverage** (as of January 2026):
 

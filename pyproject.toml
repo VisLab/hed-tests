@@ -47,7 +47,6 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "ruff>=0.8.0",
-    "codespell>=2.2.0",
     "mdformat>=0.7.0",
     "mdformat-myst>=0.1.5",
 ]
@@ -60,9 +59,28 @@ docs = [
     "linkify-it-py>=2.0.3",
 ]
 
-[tool.codespell]
-skip = '.git,*.pdf,*.svg,deprecated,venv*,*.tsv,*.yaml,*.yml,*.json,*.rdf,*.jsonld,*.xml,*.mediawiki,*.omn,*.toml'
-ignore-words-list = 'covert,hed,recuse,disjointness,parms,te,assertIn'
+[tool.typos.files]
+extend-exclude = [
+    "*.pdf",
+    "*.svg",
+    "*.tsv",
+    "*.json",
+    "*.rdf",
+    "*.jsonld",
+    "*.xml",
+    "*.mediawiki",
+    "*.omn",
+    "deprecated",
+]
+
+[tool.typos.default.extend-words]
+covert = "covert"
+hed = "hed"
+recuse = "recuse"
+disjointness = "disjointness"
+parms = "parms"
+te = "te"
+assertIn = "assertIn"
 
 [tool.ruff]
 # Target Python 3.10+
@@ -126,7 +144,6 @@ max-complexity = 10
 known-first-party = ["hed"]
 
 [tool.ruff.format]
-# Match former Black settings
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
