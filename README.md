@@ -1,6 +1,6 @@
 # HED test suite
 
-[![CI](https://github.com/hed-standard/hed-tests/actions/workflows/ci.yaml/badge.svg)](https://github.com/hed-standard/hed-tests/actions/workflows/ci.yaml)  [![Docs](https://img.shields.io/badge/docs-hed--tests-blue.svg)](https://www.hedtags.org/hed-tests) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/hed-standard/hed-tests/actions/workflows/ci.yaml/badge.svg)](https://github.com/hed-standard/hed-tests/actions/workflows/ci.yaml) [![Docs](https://img.shields.io/badge/docs-hed--tests-blue.svg)](https://www.hedtags.org/hed-tests) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Official JSON test suite for HED (Hierarchical Event Descriptors) validation**
 
