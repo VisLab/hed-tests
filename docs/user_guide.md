@@ -1248,7 +1248,7 @@ Always include these fields for AI training:
 Before committing, validate the test structure and regenerate the consolidated files:
 
 ```powershell
-python src/scripts/validate_test_structure.py json_test_data/validation_test_data/YOUR_FILE.json
+python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/YOUR_FILE.json
 python src/scripts/consolidate_tests.py
 ```
 
