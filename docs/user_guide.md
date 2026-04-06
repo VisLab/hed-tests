@@ -53,6 +53,26 @@ git clone https://github.com/hed-standard/hed-tests.git
 cd hed-tests
 ```
 
+### Set up the environment
+
+Create and activate a virtual environment, then install the development dependencies:
+
+```powershell
+# Windows PowerShell
+python -m venv .venv
+.venv/Scripts/activate.ps1
+pip install -e ".[dev,docs]"
+```
+
+```bash
+# Linux/macOS
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev,docs]"
+```
+
+Activate the environment before running any commands in this guide.
+
 ### Repository structure
 
 ```
@@ -1109,7 +1129,266 @@ The complete, searchable test index with all 136 test cases is in [test_index.md
 
 ______________________________________________________________________
 
-## Support and contributing
+## Contributing
+
+Thank you for your interest in contributing to the HED test suite! This section provides guidelines for adding new tests, improving existing ones, and maintaining test quality.
+
+### Types of contributions
+
+#### Adding new test cases
+
+Add tests for:
+
+- **Uncovered error codes**: Check [test_coverage.md](test_coverage.md) for gaps
+- **Edge cases**: Unusual scenarios not yet tested
+- **Common mistakes**: Real-world errors developers encounter
+- **Complex scenarios**: Multi-condition tests
+
+#### Improving existing tests
+
+Enhance tests by:
+
+- Adding AI-friendly metadata (`explanation`, `common_causes`, `correction_examples`)
+- Including additional test types (sidecar, event, combo tests)
+- Expanding failing/passing cases
+- Clarifying descriptions
+
+#### Documentation and tooling
+
+- Clarify test format specifications or add integration examples
+- Improve validation scripts or add coverage analysis features
+- Enhance CI/CD workflows
+
+### Setting up to contribute
+
+1. **Fork the repository** on GitHub
+2. **Clone your fork** locally:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/hed-tests.git
+   cd hed-tests
+   ```
+3. **Set up the environment** (see [Set up the environment](#set-up-the-environment) in Getting started)
+4. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/add-new-tests
+   ```
+
+### Adding new test cases
+
+#### Step 1: Identify the error code
+
+Determine which error code your test validates. Error codes should match the HED specification:
+
+- Validation errors: `TAG_INVALID`, `UNITS_INVALID`, etc.
+- Schema errors: `SCHEMA_ATTRIBUTE_INVALID`, etc.
+
+If adding a completely new error code, create a new test file.
+
+#### Step 2: Choose the test file
+
+- **Existing error code**: Edit the corresponding file in `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/`
+- **New error code**: Create a new file named `ERROR_CODE.json`
+
+#### Step 3: Write the test case
+
+Follow this template:
+
+```json
+{
+    "error_code": "TAG_INVALID",
+    "alt_codes": [],
+    "name": "descriptive-test-name",
+    "description": "Clear description of what this tests",
+    "warning": false,
+    "schema": "8.4.0",
+    "error_category": "semantic",
+    "common_causes": [
+        "First common cause",
+        "Second common cause"
+    ],
+    "explanation": "Detailed explanation for AI and developers",
+    "correction_strategy": "How to fix this error",
+    "correction_examples": [
+        {
+            "wrong": "Invalid HED string",
+            "correct": "Corrected HED string",
+            "explanation": "Why this correction works"
+        }
+    ],
+    "definitions": [],
+    "tests": {
+        "string_tests": {
+            "fails": ["HED string that should fail validation"],
+            "passes": ["HED string that should pass validation"]
+        }
+    }
+}
+```
+
+#### Step 4: Include multiple test types
+
+Whenever possible, include multiple test types. See [Test types](#test-types) for full format details.
+
+- **String tests** (always include): Raw HED strings
+- **Sidecar tests**: JSON sidecar validation
+- **Event tests**: Tabular event data
+- **Combo tests**: Combined sidecar + event (most realistic scenarios)
+
+#### Step 5: Add AI-friendly metadata
+
+Always include these fields for AI training:
+
+- `explanation`: Detailed explanation of why this error occurs
+- `common_causes`: List of typical reasons developers encounter this error
+- `correction_strategy`: General approach to fixing the error
+- `correction_examples`: Concrete before/after examples
+
+#### Step 6: Validate your test
+
+Before committing, validate the test structure and regenerate the consolidated files:
+
+```powershell
+python src/scripts/validate_test_structure.py json_test_data/validation_test_data/YOUR_FILE.json
+python src/scripts/consolidate_tests.py
+```
+
+### Quality checklist
+
+Before submitting a PR, ensure:
+
+- [ ] **Valid JSON**: No syntax errors
+- [ ] **Passes schema validation**: Validated with `validate_test_structure.py`
+- [ ] **Both fails and passes**: Each test type includes both
+- [ ] **AI metadata included**: Explanation, causes, corrections
+- [ ] **Clear descriptions**: Self-explanatory test names
+- [ ] **Correct schema version**: Matches the schema you tested against
+- [ ] **Realistic examples**: Uses practical HED strings
+- [ ] **Consolidated files updated**: Run `consolidate_tests.py` after all edits
+
+### Testing against validators
+
+If possible, test your cases against existing validators before submitting:
+
+**Python (hed-python)**:
+
+```python
+from hed import HedString, load_schema
+
+schema = load_schema('8.4.0')
+hed_string = HedString("Your test string", schema)
+issues = hed_string.validate()
+# Verify error code appears/doesn't appear as expected
+```
+
+**JavaScript (hed-javascript)**:
+
+```javascript
+const { validateHedString } = require('hed-javascript');
+const issues = validateHedString('Your test string', schema);
+// Verify error code appears/doesn't appear as expected
+```
+
+### Pull request process
+
+1. **Commit your changes** with a clear message:
+   ```bash
+   git add json_test_data/validation_test_data/TAG_INVALID.json
+   git commit -m "Add edge case tests for TAG_INVALID"
+   ```
+2. **Push to your fork**: `git push origin feature/add-new-tests`
+3. **Open a pull request** on GitHub with a clear title and description
+4. **Address review feedback**: Maintainers may request changes; push updates to the same branch
+5. **Merge**: Once approved, maintainers will merge your PR
+
+**PR description template**:
+
+```markdown
+## Description
+Brief summary of changes.
+
+## Changes made
+- Added X new test cases for ERROR_CODE
+- Improved Y test with additional metadata
+
+## Testing
+- [x] Validated with validate_test_structure.py
+- [x] Tested against hed-python validator
+
+## Related issues
+Closes #123
+```
+
+### Best practices
+
+**Writing tests**:
+
+- Start with `string_tests`, add more test types for coverage
+- Test edge cases and common real-world mistakes
+- Include both obvious and subtle scenarios
+- Write explanations that help AI systems understand the error
+
+**Organization**:
+
+- One error code per file
+- Use descriptive, consistent test names
+- Run `consolidate_tests.py` after every edit
+
+### Test case examples
+
+**Good test case**:
+
+```json
+{
+    "error_code": "TAG_INVALID",
+    "name": "tag-invalid-nested-groups",
+    "description": "Test invalid tags within nested groups",
+    "schema": "8.4.0",
+    "error_category": "semantic",
+    "common_causes": ["Typo in tag name within complex annotation"],
+    "explanation": "Even within nested groups, all tags must exist in the schema.",
+    "correction_strategy": "Verify each tag path in nested groups using the schema browser.",
+    "correction_examples": [
+        {
+            "wrong": "(Red, (Invalidtag, Blue))",
+            "correct": "(Red, (Event, Blue))",
+            "explanation": "Replace invalid nested tag with valid schema tag"
+        }
+    ],
+    "tests": {
+        "string_tests": {
+            "fails": ["(Red, (Invalidtag, Blue))"],
+            "passes": ["(Red, (Event, Blue))"]
+        }
+    }
+}
+```
+
+**Bad test case** (avoid this):
+
+```json
+{
+    "error_code": "TAG_INVALID",
+    "name": "test1",
+    "description": "test",
+    "schema": "8.4.0",
+    "tests": {
+        "string_tests": {
+            "fails": ["x"],
+            "passes": ["y"]
+        }
+    }
+}
+```
+
+Problems: non-descriptive name, vague description, no AI metadata, unclear test strings.
+
+### Code of conduct
+
+Please be respectful and professional in all interactions. By contributing, you agree that your contributions will be licensed under the MIT License.
+
+______________________________________________________________________
+
+## Support
 
 ### HED resources
 
@@ -1124,10 +1403,6 @@ ______________________________________________________________________
 - **Issues**: [GitHub Issues](https://github.com/hed-standard/hed-tests/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/orgs/hed-standard/discussions)
 - **Email**: [hed.maintainers@gmail.com](mailto:hed.maintainers@gmail.com)
-
-### Contributing
-
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on adding new tests or improving existing ones.
 
 ______________________________________________________________________
 
