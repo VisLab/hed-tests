@@ -96,7 +96,6 @@ exclude = [
     "build",
     "dist",
     "*.egg-info",
-    ".status",
     "json_test_data",  # Test data, not code
 ]
 

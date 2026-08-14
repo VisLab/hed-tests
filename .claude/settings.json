@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  "permissions": {
+    "allow": [
+      "Bash(python -m unittest *)",
+      "Bash(python -m pytest *)",
+      "Bash(python -m pytest)",
+      "Bash(python -m ruff *)",
+      "Bash(python -m mdformat *)",
+      "Bash(python src/scripts/validate_test_structure.py *)",
+      "Bash(python src/scripts/check_coverage.py)",
+      "Bash(python -c *)",
+      "Bash(python --version)",
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git log)",
+      "Bash(git log *)",
+      "Bash(git diff)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git branch)",
+      "Bash(git ls-files *)",
+      "Bash(grep *)",
+      "Bash(ls)",
+      "Bash(ls *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(cat *)",
+      "Bash(wc *)"
+    ],
+
+    "ask": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git checkout -- *)",
+      "Bash(git restore *)",
+      "Bash(git stash *)",
+      "Bash(python src/scripts/consolidate_tests.py)",
+      "Bash(python src/scripts/generate_test_index.py)"
+    ],
+
+    "deny": [
+      "Read(.env)",
+      "Read(.envrc)",
+      "Read(.status/archive/**)",
+      "Bash(rm -rf *)",
+      "Bash(rm -r *)",
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(git reset --hard *)",
+      "Bash(pip install *)",
+      "Bash(python -m pip install *)",
+      "Bash(curl *)",
+      "Bash(wget *)"
+    ]
+  }
+}
