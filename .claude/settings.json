@@ -10,7 +10,6 @@
       "Bash(python -m mdformat *)",
       "Bash(python src/scripts/validate_test_structure.py *)",
       "Bash(python src/scripts/check_coverage.py)",
-      "Bash(python -c *)",
       "Bash(python --version)",
       "Bash(git status)",
       "Bash(git status *)",
