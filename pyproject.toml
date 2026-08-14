@@ -96,7 +96,7 @@ exclude = [
     "build",
     "dist",
     "*.egg-info",
-    ".status",
+    ".status",  # Local gitignored notes; scratch/ may hold throwaway .py files
     "json_test_data",  # Test data, not code
 ]
 

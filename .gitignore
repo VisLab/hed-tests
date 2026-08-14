@@ -59,8 +59,6 @@ lib/
 lib64/
 parts/
 sdist/
-.status/
-status/
 var/
 *.egg-info/
 .installed.cfg
@@ -118,8 +116,7 @@ site/
 /.venv/
 config.py
 
-# VS Code
-.vscode/
+# VS Code: .vscode/settings.json is committed (portable settings only)
 
 ############
 ## Windows
@@ -137,3 +134,16 @@ hed_cache/
 spec_tests/hed-specification/tests
 spec_tests/hed-examples
 spec_tests/*.json
+
+# Personal per-repo Claude Code notes (imports .status/local-environment.md)
+CLAUDE.local.md
+
+# Personal per-repo settings (absolute paths, claudeMdExcludes)
+.claude/settings.local.json
+
+# Real tokens and machine values; .env.example is the committed documentation
+.env
+
+# Working notes, plans, prompts, and decision records. Deliberately NOT
+# committed: this repo is public and .status/ holds half-formed thinking.
+.status/
