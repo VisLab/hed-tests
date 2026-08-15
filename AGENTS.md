@@ -13,7 +13,7 @@ Run from the repo root with the virtual environment active (see `.status/local-e
 - Single test module: `python -m unittest tests.test_summarize_testdata`
 - Lint: `python -m ruff check .`
 - Markdown format check: `python -m mdformat --check README.md docs`
-- Validate test data: `python src/scripts/validate_test_structure.py json_test_data/validation_test_data` and the same for `json_test_data/schema_test_data`
+- Validate test data: `python src/scripts/validate_test_structure.py` (all test directories; pass a directory or `--file <path>` to narrow)
 - Consolidate tests: `python src/scripts/consolidate_tests.py`
 - Coverage report: `python src/scripts/check_coverage.py`
 
@@ -42,7 +42,7 @@ CI (`.github/workflows/ci.yaml`) runs the structure validators, coverage, `gener
 - After editing any file under `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/`, run `consolidate_tests.py` and commit the regenerated consolidated files and dictionaries with the edit - CI runs the script but does not fail when the committed copies are stale.
 - Every test entry needs the AI metadata fields: `explanation`, `common_causes`, `correction_strategy`, `correction_examples`.
 - Keep each test data file focused on its single error code; do not duplicate test cases across files.
-- `generate_test_index.py` prints a non-ASCII status glyph and crashes on the Windows console (cp1252 encode error) after rewriting `docs/test_index.md`; run it on Linux CI, or fix the print before relying on it locally.
+- `docs/test_index.md` and `docs/test_coverage.md` are generated (by `generate_test_index.py` and `check_coverage.py --markdown`); regenerate and run mdformat on them rather than hand-editing.
 - CHANGELOG.md tracks differences between formal GitHub releases and is used when making releases. Keep it; never fold it into notes or restructure it.
 
 ## Related repositories

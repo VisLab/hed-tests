@@ -30,10 +30,12 @@
         "SCHEMA_ATTRIBUTE_VALUE_INVALID"
     ],
     "attribute-relatedTag-invalid": [
-        "SCHEMA_ATTRIBUTE_VALUE_INVALID"
+        "SCHEMA_ATTRIBUTE_VALUE_INVALID",
+        "SCHEMA_ATTRIBUTE_INVALID"
     ],
     "attribute-suggestedTag-invalid": [
-        "SCHEMA_ATTRIBUTE_VALUE_INVALID"
+        "SCHEMA_ATTRIBUTE_VALUE_INVALID",
+        "SCHEMA_ATTRIBUTE_INVALID"
     ],
     "attribute-invalid-unit-class": [
         "SCHEMA_ATTRIBUTE_VALUE_INVALID"
@@ -118,6 +120,9 @@
     ],
     "library-invalid-rooted-in-duplicate-other": [
         "SCHEMA_LIBRARY_INVALID"
+    ],
+    "schema-missing-extra-value": [
+        "SCHEMA_MISSING_EXTRA_VALUE"
     ],
     "schema-section-missing": [
         "SCHEMA_SECTION_MISSING"

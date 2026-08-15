@@ -108,11 +108,11 @@ class TestIndexGenerator:
             output_file (Path): Path to output file
         """
         lines = [
-            "# HED Test Suite Index",
+            "# HED test suite index",
             "",
             f"Complete index of {len(self.index_data)} test cases in the HED test suite.",
             "",
-            "## Quick Navigation",
+            "## Quick navigation",
             "",
         ]
 
@@ -120,7 +120,8 @@ class TestIndexGenerator:
         error_codes = sorted({entry["error_code"] for entry in self.index_data})
         for error_code in error_codes:
             count = sum(1 for e in self.index_data if e["error_code"] == error_code)
-            lines.append(f"- [{error_code}](#{error_code.lower().replace('_', '-')}) ({count} tests)")
+            plural = "s" if count != 1 else ""
+            lines.append(f"- [{error_code}](#{error_code.lower().replace('_', '-')}) ({count} test{plural})")
 
         lines.append("")
 
@@ -134,18 +135,17 @@ class TestIndexGenerator:
                 current_error_code = error_code
                 lines.extend(
                     [
-                        "",
                         f"## {error_code}",
                         "",
-                        f"**File**: `json_test_data/{entry['category']}_tests/{entry['file']}`",
+                        f"**File**: `json_test_data/{entry['category']}_test_data/{entry['file']}`",
                         "",
                     ]
                 )
 
             # Test case entry
-            warning_badge = " ⚠️ Warning" if entry["warning"] else ""
-            ai_badge = " 🤖 AI" if entry["has_ai_metadata"] else ""
-            examples_badge = " 📝 Examples" if entry["has_correction_examples"] else ""
+            warning_badge = " (warning)" if entry["warning"] else ""
+            ai_badge = " (AI metadata)" if entry["has_ai_metadata"] else ""
+            examples_badge = " (examples)" if entry["has_correction_examples"] else ""
 
             lines.extend(
                 [
@@ -182,7 +182,7 @@ class TestIndexGenerator:
         with open(output_file, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
 
-        print(f"✅ Markdown index written to: {output_file}")
+        print(f"[OK] Markdown index written to: {output_file}")
 
     def generate_json(self, output_file: Path):
         """
@@ -195,7 +195,7 @@ class TestIndexGenerator:
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(self.index_data, f, indent=2)
 
-        print(f"✅ JSON index written to: {output_file}")
+        print(f"[OK] JSON index written to: {output_file}")
 
 
 def main():

@@ -16,7 +16,7 @@ For more information, visit the HED project [homepage](https://www.hedtags.org) 
 
 The **HED test suite** (`hed-tests` repository) is the official collection of JSON test cases for validating HED validator implementations. It provides:
 
-- **Comprehensive test coverage**: 136 test cases covering 33 error codes
+- **Comprehensive test coverage**: 137 test cases covering 34 error codes
 - **Multiple test types**: String, sidecar, event, and combo tests
 - **AI-friendly metadata**: Explanations, common causes, and correction strategies
 - **Cross-platform consistency**: Single source of truth for all validators
@@ -49,6 +49,7 @@ ______________________________________________________________________
 Get the test suite from GitHub:
 
 ```bash
+# Clone the repository and enter it
 git clone https://github.com/hed-standard/hed-tests.git
 cd hed-tests
 ```
@@ -77,20 +78,20 @@ Activate the environment before running any commands in this guide.
 
 ```
 hed-tests/
-├── json_test_data/                     # All test data
-│   ├── validation_test_data/           # 25 validation error test files
-│   ├── schema_test_data/               # 17 schema error test files
-│   ├── validation_tests.json           # Consolidated validation tests
-│   ├── validation_code_dict.json       # Maps error codes to test names
-│   ├── validation_testname_dict.json   # Maps test names to error codes
-│   ├── schema_tests.json               # Consolidated schema tests
-│   ├── schema_code_dict.json           # Maps error codes to test names
-│   └── schema_testname_dict.json       # Maps test names to error codes
-├── src/
-│   ├── scripts/                        # Utility scripts
-│   └── schemas/                        # JSON schema for test validation
-├── docs/                               # Documentation (this site)
-└── tests/                              # Test utilities
+|-- json_test_data/                     # All test data
+|   |-- validation_test_data/           # One file per validation error code
+|   |-- schema_test_data/               # One file per schema error code
+|   |-- validation_tests.json           # Consolidated validation tests
+|   |-- validation_code_dict.json       # Maps error codes to test names
+|   |-- validation_testname_dict.json   # Maps test names to error codes
+|   |-- schema_tests.json               # Consolidated schema tests
+|   |-- schema_code_dict.json           # Maps error codes to test names
+|   `-- schema_testname_dict.json       # Maps test names to error codes
+|-- src/
+|   |-- scripts/                        # Utility scripts
+|   `-- schemas/                        # JSON schema for test validation
+|-- docs/                               # Documentation (this site)
+`-- tests/                              # Test utilities
 ```
 
 Test files are organized by error code in the `json_test_data` directory. Tests that are relevant to validation of HED annotations are in the `validation_test_data` subdirectory, while the tests that are relevant only to HED schema development are organized in the `schema_test_data` subdirectory.
@@ -108,61 +109,96 @@ Because the exact error code that a validator assigns to an error depends heavil
 
 Each test has a `alt_codes` key that gives acceptable alternative error codes.
 
+### Maintenance scripts
+
+Four scripts in `src/scripts/` maintain the test suite. All run from the repository root, and CI runs all four on every push. The typical workflow when adding or editing a test:
+
+1. Edit or add a test file in `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/` (one error code per file).
+2. Validate the structure with `validate_test_structure.py`.
+3. Regenerate the consolidated files with `consolidate_tests.py`.
+4. Check the result with `check_coverage.py` and `python -m unittest discover tests`.
+5. Commit the edited file **and** the regenerated consolidated files together.
+
 ### Validating the tests
 
-Ensure test files conform to the JSON schema:
+`validate_test_structure.py` checks that test files conform to the JSON schema in `src/schemas/test_schema.json`: JSON syntax, required fields, field types, and test structure.
 
 ```bash
-# Validate a single test file
-python src/scripts/validate_test_structure.py json_test_data/validation_test_data/TAG_INVALID.json
+# Validate all test directories
+python src/scripts/validate_test_structure.py
 
-# Validate all tests
-python src/scripts/validate_test_structure.py json_test_data/validation_test_data
+# Validate one directory
 python src/scripts/validate_test_structure.py json_test_data/schema_test_data
+
+# Validate a single file
+python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/TAG_INVALID.json
 ```
+
+Options: `--schema <path>` validates against a different schema file; `--verbose` shows per-file detail.
 
 ### Consolidate tests
 
-Generate consolidated test files and lookup dictionaries:
+`consolidate_tests.py` combines the individual per-error-code files into the generated files at the top of `json_test_data/` that validators actually consume (see `json_test_data/README.md`):
 
-```powershell
-python src/scripts/consolidate_tests.py
-
-# Creates:
+```bash
+# Regenerate all six consolidated files:
 #   - validation_tests.json (all validation tests)
 #   - validation_code_dict.json (error codes to test names)
 #   - validation_testname_dict.json (test names to error codes)
 #   - schema_tests.json (all schema tests)
 #   - schema_code_dict.json (error codes to test names)
 #   - schema_testname_dict.json (test names to error codes)
+python src/scripts/consolidate_tests.py
+
+# Preview what would be regenerated without writing anything
+python src/scripts/consolidate_tests.py --dry-run
 ```
 
-The consolidation process creates both combined test files and lookup dictionaries for efficient test discovery.
+Options: `--dry-run` previews the consolidation without writing files; `--verbose` shows detailed processing information.
+
+```{admonition} **Always regenerate after editing tests**
+---
+class: warning
+---
+Run `consolidate_tests.py` after every test edit and commit the regenerated
+files together with the edit. CI runs the script but does not fail when the
+committed copies are stale, so a forgotten regeneration silently leaves
+validators consuming outdated tests.
+```
 
 ### Check test coverage
 
-Analyze test coverage statistics:
+`check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
 
-```powershell
+```bash
+# Print the coverage report to the console
 python src/scripts/check_coverage.py
 
-# Output:
-# HED Test Suite Coverage Report
-# =====================================
-# Total test files: 42
-# Total test cases: 136
-# Error codes covered: 33
-# ...
+# Write the coverage report to a markdown file instead
+python src/scripts/check_coverage.py --markdown report.md
 ```
 
 ### Generate test index
 
-Create a searchable test index:
+`generate_test_index.py` regenerates `docs/test_index.md`, the searchable index of every test case organized by error code. The index is generated - edit tests, not the index.
 
-```powershell
+```bash
+# Regenerate docs/test_index.md (the default output)
 python src/scripts/generate_test_index.py
 
-# Creates: docs/test_index.md
+# Write the index to a different file
+python src/scripts/generate_test_index.py --output some_other_file.md
+
+# Produce the index as JSON (give it its own output file so the
+# markdown index is not overwritten with JSON)
+python src/scripts/generate_test_index.py --format json --output test_index.json
+```
+
+After regenerating, run the repository's markdown formatter so the index passes CI's format check:
+
+```bash
+# Format the regenerated index with the settings CI checks
+python -m mdformat --wrap no --number docs/test_index.md
 ```
 
 ______________________________________________________________________
@@ -610,6 +646,7 @@ The HED Test Suite provides standardized JSON test cases that all HED validators
 Clone the repository to access all tests:
 
 ```bash
+# Clone the repository and enter it
 git clone https://github.com/hed-standard/hed-tests.git
 cd hed-tests
 ```
@@ -617,6 +654,7 @@ cd hed-tests
 Update periodically to get new tests:
 
 ```bash
+# Pull the latest tests from the main branch
 git pull origin main
 ```
 
@@ -633,7 +671,10 @@ https://github.com/hed-standard/hed-tests/archive/refs/heads/main.zip
 Add as a git submodule to your validator repository:
 
 ```bash
+# Add the test suite as a submodule under tests/hed-tests
 git submodule add https://github.com/hed-standard/hed-tests.git tests/hed-tests
+
+# Fetch the submodule contents
 git submodule update --init --recursive
 ```
 
@@ -1116,7 +1157,7 @@ ______________________________________________________________________
 
 ## Test index
 
-The complete, searchable test index with all 136 test cases is in [test_index.md](test_index.md).
+The complete, searchable test index of every test case is in [test_index.md](test_index.md); run `check_coverage.py` for current counts.
 
 ______________________________________________________________________
 
@@ -1238,8 +1279,11 @@ Always include these fields for AI training:
 
 Before committing, validate the test structure and regenerate the consolidated files:
 
-```powershell
+```bash
+# Validate the file you edited against the test schema
 python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/YOUR_FILE.json
+
+# Regenerate the consolidated files
 python src/scripts/consolidate_tests.py
 ```
 
