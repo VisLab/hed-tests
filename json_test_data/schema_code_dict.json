@@ -1,6 +1,8 @@
 {
     "SCHEMA_ATTRIBUTE_INVALID": [
-        "attribute-invalid-unknown"
+        "attribute-invalid-unknown",
+        "attribute-relatedTag-invalid",
+        "attribute-suggestedTag-invalid"
     ],
     "SCHEMA_ATTRIBUTE_VALUE_INVALID": [
         "attribute-invalid-allowed-character",
@@ -54,6 +56,9 @@
         "library-invalid-rooted-not-in-base",
         "library-invalid-rooted-in-library-present",
         "library-invalid-rooted-in-duplicate-other"
+    ],
+    "SCHEMA_MISSING_EXTRA_VALUE": [
+        "schema-missing-extra-value"
     ],
     "SCHEMA_SECTION_MISSING": [
         "schema-section-missing"

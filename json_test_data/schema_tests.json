@@ -106,7 +106,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -127,7 +127,7 @@
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-allowed-character",
         "warning": true,
-        "description": "A schema unit has an invalid conversion factor",
+        "description": "A schema value class has an invalid allowedCharacter attribute value",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -172,7 +172,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -188,7 +188,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -202,7 +202,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -276,7 +276,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -293,7 +293,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -310,7 +310,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -327,7 +327,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -346,7 +346,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -421,7 +421,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -491,7 +491,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -510,7 +510,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -534,7 +534,7 @@
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-hed-id-changed",
         "warning": true,
-        "description": "A schema value class issue, saying there is an unknown one.",
+        "description": "A schema element has a hedId that changed from its previously assigned value.",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -620,7 +620,7 @@
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-hed-id-out-range",
         "warning": true,
-        "description": "A schema value class issue, saying there is an unknown one.",
+        "description": "A schema element has a hedId that is outside the valid allocated range for its section.",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -705,7 +705,7 @@
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-hed-id-invalid",
         "warning": true,
-        "description": "A schema value class issue, saying there is an unknown one.",
+        "description": "A schema element has a hedId with an invalid format (non-numeric or malformed).",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -795,7 +795,7 @@
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-in-library",
         "warning": true,
-        "description": "A schema unit has an invalid in library attribute(most other library errors are SCHEMA_LIBRARY_INVALID",
+        "description": "A schema element has an invalid inLibrary attribute (most other library errors are SCHEMA_LIBRARY_INVALID)",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -976,7 +976,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag''' {relatedTag=Event}",
@@ -996,6 +996,9 @@
     },
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
+        "alt_codes": [
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
         "name": "attribute-relatedTag-invalid",
         "warning": true,
         "description": "A related tag points to an unknown tag",
@@ -1074,7 +1077,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {relatedTag=Event}",
@@ -1088,7 +1091,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {relatedTag=Event}",
@@ -1108,6 +1111,9 @@
     },
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
+        "alt_codes": [
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
         "name": "attribute-suggestedTag-invalid",
         "warning": true,
         "description": "A suggested tag points to an unknown tag",
@@ -1186,7 +1192,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -1200,7 +1206,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -1268,7 +1274,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown'''",
@@ -1285,7 +1291,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown'''",
@@ -1353,7 +1359,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown'''",
@@ -1370,7 +1376,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown'''",
@@ -1445,7 +1451,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "\t",
                         "!# start schema",
@@ -1461,7 +1467,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "InvalidCharAfterThis\b",
                         "!# start schema",
@@ -1479,7 +1485,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "This is a valid prologue.",
                         "!# start schema",
@@ -1510,7 +1516,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag$'''",
@@ -1525,7 +1531,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag('''",
@@ -1542,7 +1548,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1564,14 +1570,14 @@
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-invalid-other-term",
         "warning": true,
-        "description": "Invalid character in a tag term.",
+        "description": "Invalid character in a non-tag schema element name (unit, unit class, modifier, value class, attribute, or property).",
         "schema": "",
         "definitions": [],
         "tests": {
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1587,7 +1593,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1604,7 +1610,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1620,7 +1626,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1636,7 +1642,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1652,7 +1658,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1670,7 +1676,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1699,7 +1705,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1716,7 +1722,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag\u00c4'''",
@@ -1731,7 +1737,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''\u00c4BaseTag'''",
@@ -1760,7 +1766,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1779,7 +1785,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1798,7 +1804,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1833,7 +1839,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1849,7 +1855,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag''' [Description goes here with invalid { character }]",
@@ -1867,7 +1873,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"8.3.0\"",
+                        "HED version=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1905,7 +1911,7 @@
         "correction_examples": [
             {
                 "wrong": "* Tag {deprecated}",
-                "correct": "* Tag {deprecatedFrom=\"8.2.0\"}",
+                "correct": "* Tag {deprecatedFrom=\"8.4.0\"}",
                 "explanation": "Added proper deprecation version specification"
             },
             {
@@ -1943,7 +1949,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -1958,11 +1964,11 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
-                        "* Extension {deprecatedFrom=1.0.0}",
+                        "* Extension {deprecatedFrom=1.5.0}",
                         "!# end schema",
                         "'''Unit classes'''",
                         "'''Unit modifiers'''",
@@ -1975,7 +1981,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2004,7 +2010,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag''' {deprecatedFrom=1.0.0}",
@@ -2019,7 +2025,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2038,7 +2044,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag''' {deprecatedFrom=1.0.0}",
@@ -2067,7 +2073,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2087,7 +2093,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2105,7 +2111,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2136,7 +2142,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2156,7 +2162,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2188,7 +2194,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2207,7 +2213,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2238,7 +2244,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2255,7 +2261,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2274,7 +2280,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2291,7 +2297,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2308,7 +2314,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2325,7 +2331,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2356,7 +2362,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2366,13 +2372,13 @@
                         "'''Unit modifiers'''",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2382,13 +2388,13 @@
                         "'''Unit modifiers'''",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2399,13 +2405,13 @@
                         "'''Unit modifiers'''",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2415,13 +2421,13 @@
                         "* deprecatedUnitModifier {deprecatedAttribute}",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2431,7 +2437,7 @@
                         "'''Value classes'''",
                         "* deprecatedValueClass {deprecatedAttribute}",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
@@ -2439,7 +2445,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2449,13 +2455,13 @@
                         "'''Unit modifiers'''",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2465,13 +2471,13 @@
                         "'''Unit modifiers'''",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2482,13 +2488,13 @@
                         "'''Unit modifiers'''",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2498,13 +2504,13 @@
                         "* deprecatedUnitModifier {deprecatedAttribute, deprecatedFrom=1.0.0}",
                         "'''Value classes'''",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2514,7 +2520,7 @@
                         "'''Value classes'''",
                         "* deprecatedValueClass {deprecatedAttribute, deprecatedFrom=1.0.0}",
                         "'''Schema attributes'''",
-                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementProperty}",
+                        "* deprecatedAttribute {deprecatedFrom=1.0.0, elementDomain}",
                         "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
@@ -2534,7 +2540,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2552,7 +2558,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''BaseTag'''",
@@ -2739,7 +2745,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -2760,7 +2766,7 @@
         "error_code": "SCHEMA_DUPLICATE_NODE",
         "name": "attribute-duplicate-node-unit",
         "warning": true,
-        "description": "A schema attribute issue, saying there is an unknown one.",
+        "description": "A schema has duplicate unit entries with case-insensitive name collision.",
         "schema": "",
         "definitions": [],
         "tests": {
@@ -2816,7 +2822,7 @@
         "error_code": "SCHEMA_HEADER_INVALID",
         "name": "schema-header-malformed-attribute",
         "warning": true,
-        "description": "A schema attribute issue, saying there is an unknown one.",
+        "description": "A schema header contains a malformed or unknown attribute.",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -2835,8 +2841,8 @@
                 "explanation": "Removed unknown attribute from header"
             },
             {
-                "wrong": "HED version=\"1.0.0\" library=\"test\" missingStandard=\"8.2.0\"",
-                "correct": "HED version=\"1.0.0\" library=\"test\" withStandard=\"8.2.0\"",
+                "wrong": "HED version=\"1.0.0\" library=\"test\" missingStandard=\"8.4.0\"",
+                "correct": "HED version=\"1.0.0\" library=\"test\" withStandard=\"8.4.0\"",
                 "explanation": "Fixed attribute name from 'missingStandard' to 'withStandard'"
             }
         ],
@@ -2886,7 +2892,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -2907,7 +2913,7 @@
         "error_code": "SCHEMA_HEADER_INVALID",
         "name": "schema-header-unknown-attribute",
         "warning": true,
-        "description": "A schema attribute issue, saying there is an unknown one.",
+        "description": "An unknown attribute was found in the schema header.",
         "schema": "",
         "definitions": [],
         "tests": {
@@ -2930,7 +2936,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag-with-unknown''' {suggestedTag=Event}",
@@ -2977,7 +2983,7 @@
             },
             {
                 "wrong": "library=\"score\"",
-                "correct": "library=\"score\" withStandard=\"8.2.0\"",
+                "correct": "library=\"score\" withStandard=\"8.4.0\"",
                 "explanation": "Added required withStandard attribute"
             }
         ],
@@ -3011,7 +3017,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score_invalidchar\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score_invalidchar\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3024,7 +3030,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score1\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score1\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3037,7 +3043,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"Score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"Score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3052,7 +3058,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3079,7 +3085,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3092,7 +3098,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" withStandard=\"8.2.0\"",
+                        "HED version=\"1.0.0\" withStandard=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3107,7 +3113,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3162,7 +3168,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "!# end schema",
@@ -3189,7 +3195,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Event''' {rooted=Event}",
@@ -3221,7 +3227,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewThing''' {rooted=Event}",
@@ -3249,7 +3255,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewNode'''",
@@ -3266,7 +3272,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewNode''' {rooted=Event}",
@@ -3294,7 +3300,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''DummyTag'''",
@@ -3309,7 +3315,7 @@
                         "!# end hed"
                     ],
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''DummyTag'''{rooted=NotRealTag}",
@@ -3325,7 +3331,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -3353,7 +3359,7 @@
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -3370,7 +3376,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -3392,14 +3398,14 @@
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-rooted-in-duplicate-other",
         "warning": true,
-        "description": "A schema library issue, indicating the InLibrary attribute appears when it shouldn't.",
+        "description": "A library schema defines elements that duplicate entries already in the base standard schema.",
         "schema": "",
         "definitions": [],
         "tests": {
             "schema_tests": {
                 "fails": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -3418,7 +3424,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''NewTag''' {rooted=Event}",
@@ -3439,10 +3445,222 @@
         }
     },
     {
+        "error_code": "SCHEMA_MISSING_EXTRA_VALUE",
+        "name": "schema-missing-extra-value",
+        "warning": true,
+        "description": "An extras section (Sources, Prefixes, or ExternalAnnotations) has an empty value in a required column.",
+        "schema": "",
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testunpart\"",
+                        "",
+                        "'''Prologue'''",
+                        "This schema is a standalone.",
+                        "",
+                        "!# start schema",
+                        "",
+                        "'''Test-some''' <nowiki>[Unknown stuff.]</nowiki>",
+                        "* Unknown1 <nowiki>[Unknown1 stuff]</nowiki>",
+                        "",
+                        "!# end schema",
+                        "",
+                        "'''Unit classes'''",
+                        "",
+                        "'''Unit modifiers'''",
+                        "",
+                        "'''Value classes'''",
+                        "",
+                        "'''Schema attributes'''",
+                        "* annotation <nowiki>{elementDomain, stringRange, annotationProperty} [An annotation link.]</nowiki>",
+                        "* deprecatedFrom <nowiki>{elementDomain, stringRange} [Deprecated version.]</nowiki>",
+                        "* extensionAllowed <nowiki>{tagDomain, boolRange} [Extension allowed.]</nowiki>",
+                        "* inLibrary <nowiki>{elementDomain, stringRange} [Library source.]</nowiki>",
+                        "",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[Not inherited.]</nowiki>",
+                        "* boolRange <nowiki>[Boolean value.]</nowiki>",
+                        "* elementDomain <nowiki>[Any element.]</nowiki>",
+                        "* tagDomain <nowiki>[Tag elements.]</nowiki>",
+                        "* stringRange <nowiki>[String value.]</nowiki>",
+                        "",
+                        "'''Epilogue'''",
+                        "A final section.",
+                        "",
+                        "'''Sources'''",
+                        "* <nowiki>source=,link=https://fooddb.example.org,description=A botanical database.</nowiki>",
+                        "",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testunpart\"",
+                        "",
+                        "'''Prologue'''",
+                        "This schema is a standalone.",
+                        "",
+                        "!# start schema",
+                        "",
+                        "'''Test-some''' <nowiki>[Unknown stuff.]</nowiki>",
+                        "* Unknown1 <nowiki>[Unknown1 stuff]</nowiki>",
+                        "",
+                        "!# end schema",
+                        "",
+                        "'''Unit classes'''",
+                        "",
+                        "'''Unit modifiers'''",
+                        "",
+                        "'''Value classes'''",
+                        "",
+                        "'''Schema attributes'''",
+                        "* annotation <nowiki>{elementDomain, stringRange, annotationProperty} [An annotation link.]</nowiki>",
+                        "* deprecatedFrom <nowiki>{elementDomain, stringRange} [Deprecated version.]</nowiki>",
+                        "* extensionAllowed <nowiki>{tagDomain, boolRange} [Extension allowed.]</nowiki>",
+                        "* inLibrary <nowiki>{elementDomain, stringRange} [Library source.]</nowiki>",
+                        "",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[Not inherited.]</nowiki>",
+                        "* boolRange <nowiki>[Boolean value.]</nowiki>",
+                        "* elementDomain <nowiki>[Any element.]</nowiki>",
+                        "* tagDomain <nowiki>[Tag elements.]</nowiki>",
+                        "* stringRange <nowiki>[String value.]</nowiki>",
+                        "",
+                        "'''Epilogue'''",
+                        "A final section.",
+                        "",
+                        "'''Prefixes'''",
+                        "* <nowiki>prefix=foodonto:,namespace=,description=Food Ontology</nowiki>",
+                        "",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testunpart\"",
+                        "",
+                        "'''Prologue'''",
+                        "This schema is a standalone.",
+                        "",
+                        "!# start schema",
+                        "",
+                        "'''Test-some''' <nowiki>[Unknown stuff.]</nowiki>",
+                        "* Unknown1 <nowiki>[Unknown1 stuff]</nowiki>",
+                        "",
+                        "!# end schema",
+                        "",
+                        "'''Unit classes'''",
+                        "",
+                        "'''Unit modifiers'''",
+                        "",
+                        "'''Value classes'''",
+                        "",
+                        "'''Schema attributes'''",
+                        "* annotation <nowiki>{elementDomain, stringRange, annotationProperty} [An annotation link.]</nowiki>",
+                        "* deprecatedFrom <nowiki>{elementDomain, stringRange} [Deprecated version.]</nowiki>",
+                        "* extensionAllowed <nowiki>{tagDomain, boolRange} [Extension allowed.]</nowiki>",
+                        "* inLibrary <nowiki>{elementDomain, stringRange} [Library source.]</nowiki>",
+                        "",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[Not inherited.]</nowiki>",
+                        "* boolRange <nowiki>[Boolean value.]</nowiki>",
+                        "* elementDomain <nowiki>[Any element.]</nowiki>",
+                        "* tagDomain <nowiki>[Tag elements.]</nowiki>",
+                        "* stringRange <nowiki>[String value.]</nowiki>",
+                        "",
+                        "'''Epilogue'''",
+                        "A final section.",
+                        "",
+                        "'''External annotations'''",
+                        "* <nowiki>prefix=foodonto:,id=,iri=http://example.org/123,description=A name property.</nowiki>",
+                        "",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testunpart\"",
+                        "",
+                        "'''Prologue'''",
+                        "This schema is a standalone.",
+                        "",
+                        "!# start schema",
+                        "",
+                        "'''Test-some''' <nowiki>[Unknown stuff.]</nowiki>",
+                        "* Unknown1 <nowiki>[Unknown1 stuff]</nowiki>",
+                        "* Unknown2 <nowiki>{suggestedTag=Fruit} [Unknown2 stuff]</nowiki>",
+                        "**  <nowiki># {takesValue, valueClass=digitClass, unitClass=myAngleUnits} [Try this out]</nowiki>",
+                        "",
+                        "'''Fruit''' <nowiki>[Fruit stuff.]</nowiki>",
+                        "* Apple <nowiki>{annotation=foodonto:has_botanical_name} [Apple stuff]</nowiki>",
+                        "** Honey-crisp <nowiki>[Type of apple]</nowiki>",
+                        "",
+                        "'''Vegetable''' <nowiki>[Vegetable stuff.]</nowiki>",
+                        "* Carrot <nowiki>{annotation=foodonto:has_botanical_name} [Carrot stuff]</nowiki>",
+                        "",
+                        "",
+                        "!# end schema",
+                        "",
+                        "'''Unit classes'''",
+                        "* myAngleUnits <nowiki>{defaultUnits=deg}</nowiki>",
+                        "** deg <nowiki>{conversionFactor=1.0}</nowiki>",
+                        "",
+                        "'''Unit modifiers'''",
+                        "",
+                        "'''Value classes'''",
+                        "* digitClass <nowiki>{allowedCharacter=digits} [Values that can only have digits.]</nowiki>",
+                        "",
+                        "'''Schema attributes'''",
+                        "* myAnnotation <nowiki>{elementDomain, stringRange, annotationProperty} [Special annotations.]</nowiki>",
+                        "* annotation <nowiki>{elementDomain, stringRange, annotationProperty} [An annotation link to an item in another ontology or item.]</nowiki>",
+                        "* takesValue <nowiki>{tagDomain, boolRange, annotationProperty} [This tag is a hashtag placeholder that is expected to be replaced with a user-defined value.]</nowiki>",
+                        "* defaultUnits <nowiki>{unitClassDomain, unitRange} [The default units to use if the placeholder has a unit class but the substituted value has no units.]</nowiki>",
+                        "* suggestedTag <nowiki>{tagDomain, tagRange} [A tag that is often associated with this tag.]</nowiki>",
+                        "* unitClass <nowiki>{tagDomain, unitClassRange} [The unit class that the value of a placeholder node can belong to.]</nowiki>",
+                        "* valueClass <nowiki>{tagDomain, valueClassRange} [Type of value taken on by the value of a placeholder node.]</nowiki>",
+                        "* allowedCharacter <nowiki>{unitDomain, unitModifierDomain, valueClassDomain, stringRange} [Allowed characters.]</nowiki>",
+                        "* conversionFactor <nowiki>{unitDomain, unitModifierDomain, numericRange} [Conversion factor.]</nowiki>",
+                        "* deprecatedFrom <nowiki>{elementDomain, stringRange} [Deprecated version.]</nowiki>",
+                        "* extensionAllowed <nowiki>{tagDomain, boolRange} [Extension allowed.]</nowiki>",
+                        "* inLibrary <nowiki>{elementDomain, stringRange} [Library source.]</nowiki>",
+                        "",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[Not inherited.]</nowiki>",
+                        "* boolRange <nowiki>[Boolean value.]</nowiki>",
+                        "* elementDomain <nowiki>[Any element.]</nowiki>",
+                        "* tagDomain <nowiki>[Tag elements.]</nowiki>",
+                        "* tagRange <nowiki>[Node value.]</nowiki>",
+                        "* numericRange <nowiki>[Numeric value.]</nowiki>",
+                        "* stringRange <nowiki>[String value.]</nowiki>",
+                        "* unitClassDomain <nowiki>[Unit class elements.]</nowiki>",
+                        "* unitClassRange <nowiki>[Unit class value.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[Unit modifier elements.]</nowiki>",
+                        "* unitDomain <nowiki>[Unit elements.]</nowiki>",
+                        "* unitRange <nowiki>[Unit value.]</nowiki>",
+                        "* valueClassDomain <nowiki>[Value class elements.]</nowiki>",
+                        "* valueClassRange <nowiki>[Value class value.]</nowiki>",
+                        "",
+                        "'''Epilogue'''",
+                        "A final section.",
+                        "",
+                        "'''Sources'''",
+                        "* <nowiki>source=FoodDB,link=https://fooddb.example.org,description=Botanical and nutritional database for fruits and vegetables.</nowiki>",
+                        "",
+                        "'''Prefixes'''",
+                        "* <nowiki>prefix=foodonto:,namespace=http://purl.obolibrary.org/obo/foodon.owl,description=Food Ontology (FOODON)</nowiki>",
+                        "",
+                        "'''External annotations'''",
+                        "* <nowiki>prefix=foodonto:,id=has_botanical_name,iri=http://purl.obolibrary.org/obo/FOODON_00001234,description=The botanical or scientific name of a food item.</nowiki>",
+                        "",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
         "error_code": "SCHEMA_SECTION_MISSING",
         "name": "schema-section-missing",
         "warning": true,
-        "description": "A schema attribute issue, saying there is an unknown one.",
+        "description": "A required schema section is missing from the schema file.",
         "schema": "",
         "error_category": "schema_development",
         "common_causes": [
@@ -3615,7 +3833,7 @@
                 ],
                 "passes": [
                     [
-                        "HED version=\"1.0.0\" library=\"testlib\" withStandard=\"8.2.0\" unmerged=\"True\"",
+                        "HED version=\"1.0.0\" library=\"testlib\" withStandard=\"8.4.0\" unmerged=\"True\"",
                         "'''Prologue'''",
                         "!# start schema",
                         "'''Tag''' {suggestedTag=Tag}",
