@@ -41,7 +41,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## CHARACTER_INVALID
 
-**File**: `json_test_data/validation_tests/CHARACTER_INVALID.json`
+**File**: `json_test_data/validation_test_data/CHARACTER_INVALID.json`
 
 ### character-invalid-non-printing-appears (AI metadata) (examples)
 
@@ -95,7 +95,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## COMMA_MISSING
 
-**File**: `json_test_data/validation_tests/COMMA_MISSING.json`
+**File**: `json_test_data/validation_test_data/COMMA_MISSING.json`
 
 ### comma-missing-tag-and-group (AI metadata) (examples)
 
@@ -125,7 +125,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## DEFINITION_INVALID
 
-**File**: `json_test_data/validation_tests/DEFINITION_INVALID.json`
+**File**: `json_test_data/validation_test_data/DEFINITION_INVALID.json`
 
 ### definition-invalid-bad-number-of-placeholders (AI metadata) (examples)
 
@@ -243,7 +243,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## DEF_EXPAND_INVALID
 
-**File**: `json_test_data/validation_tests/DEF_EXPAND_INVALID.json`
+**File**: `json_test_data/validation_test_data/DEF_EXPAND_INVALID.json`
 
 ### def-expand-has-extras (AI metadata) (examples)
 
@@ -325,7 +325,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## DEF_INVALID
 
-**File**: `json_test_data/validation_tests/DEF_INVALID.json`
+**File**: `json_test_data/validation_test_data/DEF_INVALID.json`
 
 ### def-invalid-bad-placeholder-value (AI metadata) (examples)
 
@@ -368,7 +368,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## ELEMENT_DEPRECATED
 
-**File**: `json_test_data/validation_tests/ELEMENT_DEPRECATED.json`
+**File**: `json_test_data/validation_test_data/ELEMENT_DEPRECATED.json`
 
 ### tag-deprecated (warning) (AI metadata) (examples)
 
@@ -385,7 +385,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## PARENTHESES_MISMATCH
 
-**File**: `json_test_data/validation_tests/PARENTHESES_MISMATCH.json`
+**File**: `json_test_data/validation_test_data/PARENTHESES_MISMATCH.json`
 
 ### parentheses-mismatch-incorrect-nesting (AI metadata) (examples)
 
@@ -415,7 +415,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## PLACEHOLDER_INVALID
 
-**File**: `json_test_data/validation_tests/PLACEHOLDER_INVALID.json`
+**File**: `json_test_data/validation_test_data/PLACEHOLDER_INVALID.json`
 
 ### placeholder-invalid-#-in-categorical-column (AI metadata) (examples)
 
@@ -465,7 +465,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_ATTRIBUTE_INVALID
 
-**File**: `json_test_data/schema_tests/SCHEMA_ATTRIBUTE_INVALID.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_INVALID.json`
 
 ### attribute-invalid-unknown (warning) (AI metadata) (examples)
 
@@ -479,7 +479,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_ATTRIBUTE_VALUE_INVALID
 
-**File**: `json_test_data/schema_tests/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
 ### attribute-conversion-factor-invalid (warning) (AI metadata) (examples)
 
@@ -603,7 +603,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_CHARACTER_INVALID
 
-**File**: `json_test_data/schema_tests/SCHEMA_CHARACTER_INVALID.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_CHARACTER_INVALID.json`
 
 ### schema-character-allowed-character-unit (warning)
 
@@ -667,7 +667,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_DEPRECATION_ERROR
 
-**File**: `json_test_data/schema_tests/SCHEMA_DEPRECATION_ERROR.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_DEPRECATION_ERROR.json`
 
 ### schema-deprecated-attribute-invalid (warning) (AI metadata) (examples)
 
@@ -751,7 +751,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_DUPLICATE_NODE
 
-**File**: `json_test_data/schema_tests/SCHEMA_DUPLICATE_NODE.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_DUPLICATE_NODE.json`
 
 ### attribute-duplicate-node (warning) (AI metadata) (examples)
 
@@ -775,7 +775,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_HEADER_INVALID
 
-**File**: `json_test_data/schema_tests/SCHEMA_HEADER_INVALID.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_HEADER_INVALID.json`
 
 ### schema-header-malformed-attribute (warning) (AI metadata) (examples)
 
@@ -799,7 +799,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_LIBRARY_INVALID
 
-**File**: `json_test_data/schema_tests/SCHEMA_LIBRARY_INVALID.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_LIBRARY_INVALID.json`
 
 ### library-invalid-bad-name (warning) (AI metadata) (examples)
 
@@ -883,7 +883,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_LOAD_FAILED
 
-**File**: `json_test_data/validation_tests/SCHEMA_LOAD_FAILED.json`
+**File**: `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`
 
 ### different-standard-schemas-in-same-merge-group (AI metadata) (examples)
 
@@ -917,13 +917,13 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_MISSING_EXTRA_VALUE
 
-**File**: `json_test_data/schema_tests/SCHEMA_MISSING_EXTRA_VALUE.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_MISSING_EXTRA_VALUE.json`
 
-### schema-missing-extra-value (warning)
+### schema-missing-extra-value (warning) (AI metadata) (examples)
 
 **Description**: An extras section (Sources, Prefixes, or ExternalAnnotations) has an empty value in a required column.
 
-**Schema**: any
+**Schema**: any **Category**: schema_development
 
 **Tests**:
 
@@ -931,7 +931,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SCHEMA_SECTION_MISSING
 
-**File**: `json_test_data/schema_tests/SCHEMA_SECTION_MISSING.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_SECTION_MISSING.json`
 
 ### schema-section-missing (warning) (AI metadata) (examples)
 
@@ -945,7 +945,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SIDECAR_BRACES_INVALID
 
-**File**: `json_test_data/validation_tests/SIDECAR_BRACES_INVALID.json`
+**File**: `json_test_data/validation_test_data/SIDECAR_BRACES_INVALID.json`
 
 ### sidecar-braces-appear-as-value-rather-than-tag (AI metadata) (examples)
 
@@ -1003,7 +1003,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SIDECAR_INVALID
 
-**File**: `json_test_data/validation_tests/SIDECAR_INVALID.json`
+**File**: `json_test_data/validation_test_data/SIDECAR_INVALID.json`
 
 ### sidecar-invalid-key-at-wrong-level (AI metadata) (examples)
 
@@ -1029,7 +1029,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## SIDECAR_KEY_MISSING
 
-**File**: `json_test_data/validation_tests/SIDECAR_KEY_MISSING.json`
+**File**: `json_test_data/validation_test_data/SIDECAR_KEY_MISSING.json`
 
 ### sidecar-key-missing (warning) (AI metadata) (examples)
 
@@ -1054,7 +1054,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_EMPTY
 
-**File**: `json_test_data/validation_tests/TAG_EMPTY.json`
+**File**: `json_test_data/validation_test_data/TAG_EMPTY.json`
 
 ### tag-empty-begin-end-comma (AI metadata) (examples)
 
@@ -1097,7 +1097,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_EXPRESSION_REPEATED
 
-**File**: `json_test_data/validation_tests/TAG_EXPRESSION_REPEATED.json`
+**File**: `json_test_data/validation_test_data/TAG_EXPRESSION_REPEATED.json`
 
 ### tag-expression-repeated-same-level (AI metadata) (examples)
 
@@ -1136,7 +1136,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_EXTENDED
 
-**File**: `json_test_data/validation_tests/TAG_EXTENDED.json`
+**File**: `json_test_data/validation_test_data/TAG_EXTENDED.json`
 
 ### tag-extended-extension (warning) (AI metadata) (examples)
 
@@ -1153,7 +1153,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_EXTENSION_INVALID
 
-**File**: `json_test_data/validation_tests/TAG_EXTENSION_INVALID.json`
+**File**: `json_test_data/validation_test_data/TAG_EXTENSION_INVALID.json`
 
 ### tag-extension-invalid-bad-node-name (AI metadata) (examples)
 
@@ -1183,7 +1183,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_GROUP_ERROR
 
-**File**: `json_test_data/validation_tests/TAG_GROUP_ERROR.json`
+**File**: `json_test_data/validation_test_data/TAG_GROUP_ERROR.json`
 
 ### multiple-top-level-tags-in-same-group (AI metadata) (examples)
 
@@ -1236,7 +1236,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_INVALID
 
-**File**: `json_test_data/validation_tests/TAG_INVALID.json`
+**File**: `json_test_data/validation_test_data/TAG_INVALID.json`
 
 ### tag-has-extra-whitespace (AI metadata) (examples)
 
@@ -1279,7 +1279,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_NAMESPACE_PREFIX_INVALID
 
-**File**: `json_test_data/validation_tests/TAG_NAMESPACE_PREFIX_INVALID.json`
+**File**: `json_test_data/validation_test_data/TAG_NAMESPACE_PREFIX_INVALID.json`
 
 ### tag-namespace_prefix-invalid-characters (AI metadata) (examples)
 
@@ -1322,7 +1322,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_NOT_UNIQUE
 
-**File**: `json_test_data/validation_tests/TAG_NOT_UNIQUE.json`
+**File**: `json_test_data/validation_test_data/TAG_NOT_UNIQUE.json`
 
 ### tag-not-unique (AI metadata) (examples)
 
@@ -1339,7 +1339,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TAG_REQUIRES_CHILD
 
-**File**: `json_test_data/validation_tests/TAG_REQUIRES_CHILD.json`
+**File**: `json_test_data/validation_test_data/TAG_REQUIRES_CHILD.json`
 
 ### tag-requires-child-missing (AI metadata) (examples)
 
@@ -1356,7 +1356,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## TEMPORAL_TAG_ERROR
 
-**File**: `json_test_data/validation_tests/TEMPORAL_TAG_ERROR.json`
+**File**: `json_test_data/validation_test_data/TEMPORAL_TAG_ERROR.json`
 
 ### na-in-onset column (AI metadata) (examples)
 
@@ -1644,7 +1644,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## UNITS_INVALID
 
-**File**: `json_test_data/validation_tests/UNITS_INVALID.json`
+**File**: `json_test_data/validation_test_data/UNITS_INVALID.json`
 
 ### units-invalid-for-unit-class (AI metadata) (examples)
 
@@ -1674,7 +1674,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## VALUE_INVALID
 
-**File**: `json_test_data/validation_tests/VALUE_INVALID.json`
+**File**: `json_test_data/validation_test_data/VALUE_INVALID.json`
 
 ### invalid-character-numeric-class (AI metadata) (examples)
 
@@ -1726,7 +1726,7 @@ Complete index of 137 test cases in the HED test suite.
 
 ## WIKI_DELIMITERS_INVALID
 
-**File**: `json_test_data/schema_tests/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
 ### attribute-conversion-format (warning) (AI metadata) (examples)
 

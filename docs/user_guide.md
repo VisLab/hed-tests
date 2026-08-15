@@ -189,8 +189,9 @@ python src/scripts/generate_test_index.py
 # Write the index to a different file
 python src/scripts/generate_test_index.py --output some_other_file.md
 
-# Produce the index as JSON instead of markdown
-python src/scripts/generate_test_index.py --format json
+# Produce the index as JSON (give it its own output file so the
+# markdown index is not overwritten with JSON)
+python src/scripts/generate_test_index.py --format json --output test_index.json
 ```
 
 After regenerating, run the repository's markdown formatter so the index passes CI's format check:

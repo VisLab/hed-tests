@@ -137,7 +137,7 @@ class TestIndexGenerator:
                     [
                         f"## {error_code}",
                         "",
-                        f"**File**: `json_test_data/{entry['category']}_tests/{entry['file']}`",
+                        f"**File**: `json_test_data/{entry['category']}_test_data/{entry['file']}`",
                         "",
                     ]
                 )
