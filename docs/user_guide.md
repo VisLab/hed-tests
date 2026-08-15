@@ -16,7 +16,7 @@ For more information, visit the HED project [homepage](https://www.hedtags.org) 
 
 The **HED test suite** (`hed-tests` repository) is the official collection of JSON test cases for validating HED validator implementations. It provides:
 
-- **Comprehensive test coverage**: 136 test cases covering 33 error codes
+- **Comprehensive test coverage**: 137 test cases covering 34 error codes
 - **Multiple test types**: String, sidecar, event, and combo tests
 - **AI-friendly metadata**: Explanations, common causes, and correction strategies
 - **Cross-platform consistency**: Single source of truth for all validators
@@ -49,6 +49,7 @@ ______________________________________________________________________
 Get the test suite from GitHub:
 
 ```bash
+# Clone the repository and enter it
 git clone https://github.com/hed-standard/hed-tests.git
 cd hed-tests
 ```
@@ -77,20 +78,20 @@ Activate the environment before running any commands in this guide.
 
 ```
 hed-tests/
-├── json_test_data/                     # All test data
-│   ├── validation_test_data/           # 25 validation error test files
-│   ├── schema_test_data/               # 17 schema error test files
-│   ├── validation_tests.json           # Consolidated validation tests
-│   ├── validation_code_dict.json       # Maps error codes to test names
-│   ├── validation_testname_dict.json   # Maps test names to error codes
-│   ├── schema_tests.json               # Consolidated schema tests
-│   ├── schema_code_dict.json           # Maps error codes to test names
-│   └── schema_testname_dict.json       # Maps test names to error codes
-├── src/
-│   ├── scripts/                        # Utility scripts
-│   └── schemas/                        # JSON schema for test validation
-├── docs/                               # Documentation (this site)
-└── tests/                              # Test utilities
+|-- json_test_data/                     # All test data
+|   |-- validation_test_data/           # One file per validation error code
+|   |-- schema_test_data/               # One file per schema error code
+|   |-- validation_tests.json           # Consolidated validation tests
+|   |-- validation_code_dict.json       # Maps error codes to test names
+|   |-- validation_testname_dict.json   # Maps test names to error codes
+|   |-- schema_tests.json               # Consolidated schema tests
+|   |-- schema_code_dict.json           # Maps error codes to test names
+|   `-- schema_testname_dict.json       # Maps test names to error codes
+|-- src/
+|   |-- scripts/                        # Utility scripts
+|   `-- schemas/                        # JSON schema for test validation
+|-- docs/                               # Documentation (this site)
+`-- tests/                              # Test utilities
 ```
 
 Test files are organized by error code in the `json_test_data` directory. Tests that are relevant to validation of HED annotations are in the `validation_test_data` subdirectory, while the tests that are relevant only to HED schema development are organized in the `schema_test_data` subdirectory.
@@ -639,6 +640,7 @@ The HED Test Suite provides standardized JSON test cases that all HED validators
 Clone the repository to access all tests:
 
 ```bash
+# Clone the repository and enter it
 git clone https://github.com/hed-standard/hed-tests.git
 cd hed-tests
 ```
@@ -646,6 +648,7 @@ cd hed-tests
 Update periodically to get new tests:
 
 ```bash
+# Pull the latest tests from the main branch
 git pull origin main
 ```
 
@@ -662,7 +665,10 @@ https://github.com/hed-standard/hed-tests/archive/refs/heads/main.zip
 Add as a git submodule to your validator repository:
 
 ```bash
+# Add the test suite as a submodule under tests/hed-tests
 git submodule add https://github.com/hed-standard/hed-tests.git tests/hed-tests
+
+# Fetch the submodule contents
 git submodule update --init --recursive
 ```
 
@@ -1145,7 +1151,7 @@ ______________________________________________________________________
 
 ## Test index
 
-The complete, searchable test index with all 136 test cases is in [test_index.md](test_index.md).
+The complete, searchable test index of every test case is in [test_index.md](test_index.md); run `check_coverage.py` for current counts.
 
 ______________________________________________________________________
 
@@ -1268,7 +1274,10 @@ Always include these fields for AI training:
 Before committing, validate the test structure and regenerate the consolidated files:
 
 ```bash
+# Validate the file you edited against the test schema
 python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/YOUR_FILE.json
+
+# Regenerate the consolidated files
 python src/scripts/consolidate_tests.py
 ```
 
