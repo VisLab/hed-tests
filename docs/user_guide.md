@@ -193,7 +193,12 @@ python src/scripts/generate_test_index.py --output some_other_file.md
 python src/scripts/generate_test_index.py --format json
 ```
 
-The script prints non-ASCII status characters; on a console that cannot encode them (for example the default Windows console), set `PYTHONIOENCODING=utf-8` before running it.
+After regenerating, run the repository's markdown formatter so the index passes CI's format check:
+
+```bash
+# Format the regenerated index with the settings CI checks
+python -m mdformat --wrap no --number docs/test_index.md
+```
 
 ______________________________________________________________________
 
