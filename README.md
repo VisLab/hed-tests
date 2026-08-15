@@ -8,7 +8,17 @@ This repository provides comprehensive, machine-readable test cases for validati
 
 ## Quick start
 
+```bash
+# Linux/macOS
+git clone https://github.com/hed-standard/hed-tests.git
+cd hed-tests
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev,docs]"
+```
+
 ```powershell
+# Windows PowerShell
 git clone https://github.com/hed-standard/hed-tests.git
 cd hed-tests
 python -m venv .venv
