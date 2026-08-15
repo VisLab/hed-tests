@@ -60,8 +60,13 @@ Four scripts in `src/scripts/` maintain the test suite. All run from the reposit
 Checks that test files conform to the official JSON schema in `src/schemas/test_schema.json`: JSON syntax, required fields, field types, and test structure. Run it on a directory or a single file after any test edit:
 
 ```bash
-python src/scripts/validate_test_structure.py json_test_data/validation_test_data
+# Validate all test directories
+python src/scripts/validate_test_structure.py
+
+# Validate one directory
 python src/scripts/validate_test_structure.py json_test_data/schema_test_data
+
+# Validate a single file
 python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/TAG_INVALID.json
 ```
 

@@ -13,7 +13,7 @@ Run from the repo root with the virtual environment active (see `.status/local-e
 - Single test module: `python -m unittest tests.test_summarize_testdata`
 - Lint: `python -m ruff check .`
 - Markdown format check: `python -m mdformat --check README.md docs`
-- Validate test data: `python src/scripts/validate_test_structure.py json_test_data/validation_test_data` and the same for `json_test_data/schema_test_data`
+- Validate test data: `python src/scripts/validate_test_structure.py` (all test directories; pass a directory or `--file <path>` to narrow)
 - Consolidate tests: `python src/scripts/consolidate_tests.py`
 - Coverage report: `python src/scripts/check_coverage.py`
 

@@ -123,12 +123,14 @@ Four scripts in `src/scripts/` maintain the test suite. All run from the reposit
 `validate_test_structure.py` checks that test files conform to the JSON schema in `src/schemas/test_schema.json`: JSON syntax, required fields, field types, and test structure.
 
 ```bash
-# Validate a single test file
-python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/TAG_INVALID.json
+# Validate all test directories
+python src/scripts/validate_test_structure.py
 
-# Validate all tests
-python src/scripts/validate_test_structure.py json_test_data/validation_test_data
+# Validate one directory
 python src/scripts/validate_test_structure.py json_test_data/schema_test_data
+
+# Validate a single file
+python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/TAG_INVALID.json
 ```
 
 Options: `--schema <path>` validates against a different schema file; `--verbose` shows per-file detail.
