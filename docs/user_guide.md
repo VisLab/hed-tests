@@ -108,24 +108,36 @@ Because the exact error code that a validator assigns to an error depends heavil
 
 Each test has a `alt_codes` key that gives acceptable alternative error codes.
 
+### Maintenance scripts
+
+Four scripts in `src/scripts/` maintain the test suite. All run from the repository root, and CI runs all four on every push. The typical workflow when adding or editing a test:
+
+1. Edit or add a test file in `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/` (one error code per file).
+2. Validate the structure with `validate_test_structure.py`.
+3. Regenerate the consolidated files with `consolidate_tests.py`.
+4. Check the result with `check_coverage.py` and `python -m unittest discover tests`.
+5. Commit the edited file **and** the regenerated consolidated files together.
+
 ### Validating the tests
 
-Ensure test files conform to the JSON schema:
+`validate_test_structure.py` checks that test files conform to the JSON schema in `src/schemas/test_schema.json`: JSON syntax, required fields, field types, and test structure.
 
 ```bash
 # Validate a single test file
-python src/scripts/validate_test_structure.py json_test_data/validation_test_data/TAG_INVALID.json
+python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/TAG_INVALID.json
 
 # Validate all tests
 python src/scripts/validate_test_structure.py json_test_data/validation_test_data
 python src/scripts/validate_test_structure.py json_test_data/schema_test_data
 ```
 
+Options: `--schema <path>` validates against a different schema file; `--verbose` shows per-file detail.
+
 ### Consolidate tests
 
-Generate consolidated test files and lookup dictionaries:
+`consolidate_tests.py` combines the individual per-error-code files into the generated files at the top of `json_test_data/` that validators actually consume (see `json_test_data/README.md`):
 
-```powershell
+```bash
 python src/scripts/consolidate_tests.py
 
 # Creates:
@@ -137,33 +149,40 @@ python src/scripts/consolidate_tests.py
 #   - schema_testname_dict.json (test names to error codes)
 ```
 
-The consolidation process creates both combined test files and lookup dictionaries for efficient test discovery.
+Options: `--dry-run` previews the consolidation without writing files; `--verbose` shows detailed processing information.
+
+```{admonition} **Always regenerate after editing tests**
+---
+class: warning
+---
+Run `consolidate_tests.py` after every test edit and commit the regenerated
+files together with the edit. CI runs the script but does not fail when the
+committed copies are stale, so a forgotten regeneration silently leaves
+validators consuming outdated tests.
+```
 
 ### Check test coverage
 
-Analyze test coverage statistics:
+`check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
 
-```powershell
+```bash
 python src/scripts/check_coverage.py
 
-# Output:
-# HED Test Suite Coverage Report
-# =====================================
-# Total test files: 42
-# Total test cases: 136
-# Error codes covered: 33
-# ...
+# Write the report to a markdown file instead:
+python src/scripts/check_coverage.py --markdown report.md
 ```
 
 ### Generate test index
 
-Create a searchable test index:
+`generate_test_index.py` regenerates `docs/test_index.md`, the searchable index of every test case organized by error code. The index is generated - edit tests, not the index.
 
-```powershell
+```bash
 python src/scripts/generate_test_index.py
-
-# Creates: docs/test_index.md
+python src/scripts/generate_test_index.py --output docs/test_index.md
+python src/scripts/generate_test_index.py --format json
 ```
+
+The script prints non-ASCII status characters; on a console that cannot encode them (for example the default Windows console), set `PYTHONIOENCODING=utf-8` before running it.
 
 ______________________________________________________________________
 

@@ -27,23 +27,77 @@ See the **[user guide](https://www.hedtags.org/hed-tests)** for complete documen
 
 ```
 hed-tests/
-├── json_test_data/
-│   ├── validation_test_data/    # One JSON file per validation error code
-│   ├── schema_test_data/        # One JSON file per schema error code
-│   ├── validation_tests.json    # Consolidated validation tests
-│   ├── schema_tests.json        # Consolidated schema tests
-│   └── *_dict.json              # Error code ↔ test name lookup dictionaries
-├── src/scripts/                 # consolidate_tests.py and validation scripts
-├── tests/                       # Test analysis utilities
-└── docs/                        # Documentation source
+|-- json_test_data/
+|   |-- validation_test_data/    # One JSON file per validation error code
+|   |-- schema_test_data/        # One JSON file per schema error code
+|   |-- validation_tests.json    # Consolidated validation tests (generated)
+|   |-- schema_tests.json        # Consolidated schema tests (generated)
+|   `-- *_dict.json              # Error code <-> test name lookups (generated)
+|-- src/scripts/                 # Maintenance scripts (see below)
+|-- src/schemas/                 # JSON schema the test files must conform to
+|-- tests/                       # Unit tests for the maintenance scripts
+`-- docs/                        # Documentation source
 ```
 
-## Test statistics
+See [json_test_data/README.md](json_test_data/README.md) for what each JSON file represents and how validators consume them.
 
-- **Validation tests**: 25 error codes
-- **Schema tests**: 18 error codes
-- **Total test cases**: 500+ individual tests
-- **Test types**: string, sidecar, event, and combo
+## Maintenance scripts
+
+Four scripts in `src/scripts/` maintain the test suite. All run from the repository root; CI runs all four on every push.
+
+### validate_test_structure.py
+
+Checks that test files conform to the official JSON schema in `src/schemas/test_schema.json`: JSON syntax, required fields, field types, and test structure. Run it on a directory or a single file after any test edit:
+
+```bash
+python src/scripts/validate_test_structure.py json_test_data/validation_test_data
+python src/scripts/validate_test_structure.py json_test_data/schema_test_data
+python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/TAG_INVALID.json
+```
+
+Options: `--schema <path>` to validate against a different schema, `--verbose` for per-file detail.
+
+### consolidate_tests.py
+
+Combines the individual per-error-code files into the six generated files at the top of `json_test_data/` (the two consolidated test files plus four lookup dictionaries) that validators actually consume:
+
+```bash
+python src/scripts/consolidate_tests.py            # regenerate all six files
+python src/scripts/consolidate_tests.py --dry-run  # preview without writing
+```
+
+**Run this after every test edit and commit the regenerated files together with the edit.** CI runs the script but does not fail when the committed copies are stale, so an uncommitted regeneration leaves validators consuming outdated tests.
+
+### check_coverage.py
+
+Reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests:
+
+```bash
+python src/scripts/check_coverage.py
+python src/scripts/check_coverage.py --markdown report.md   # write a report file
+```
+
+For current test statistics, run this script rather than trusting any count written in documentation.
+
+### generate_test_index.py
+
+Regenerates `docs/test_index.md`, the searchable index of every test case organized by error code:
+
+```bash
+python src/scripts/generate_test_index.py
+python src/scripts/generate_test_index.py --output docs/test_index.md
+python src/scripts/generate_test_index.py --format json
+```
+
+`docs/test_index.md` is generated - edit tests, not the index.
+
+### Typical maintenance workflow
+
+1. Edit or add a test file in `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/` (one error code per file).
+2. Validate: `python src/scripts/validate_test_structure.py <that directory>`.
+3. Regenerate: `python src/scripts/consolidate_tests.py`.
+4. Check the result: `python src/scripts/check_coverage.py` and `python -m unittest discover tests`.
+5. Commit the edited file **and** the regenerated consolidated files together.
 
 ## Related repositories
 
