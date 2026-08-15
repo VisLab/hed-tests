@@ -140,15 +140,17 @@ Options: `--schema <path>` validates against a different schema file; `--verbose
 `consolidate_tests.py` combines the individual per-error-code files into the generated files at the top of `json_test_data/` that validators actually consume (see `json_test_data/README.md`):
 
 ```bash
-python src/scripts/consolidate_tests.py
-
-# Creates:
+# Regenerate all six consolidated files:
 #   - validation_tests.json (all validation tests)
 #   - validation_code_dict.json (error codes to test names)
 #   - validation_testname_dict.json (test names to error codes)
 #   - schema_tests.json (all schema tests)
 #   - schema_code_dict.json (error codes to test names)
 #   - schema_testname_dict.json (test names to error codes)
+python src/scripts/consolidate_tests.py
+
+# Preview what would be regenerated without writing anything
+python src/scripts/consolidate_tests.py --dry-run
 ```
 
 Options: `--dry-run` previews the consolidation without writing files; `--verbose` shows detailed processing information.
@@ -168,9 +170,10 @@ validators consuming outdated tests.
 `check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
 
 ```bash
+# Print the coverage report to the console
 python src/scripts/check_coverage.py
 
-# Write the report to a markdown file instead:
+# Write the coverage report to a markdown file instead
 python src/scripts/check_coverage.py --markdown report.md
 ```
 
@@ -179,8 +182,13 @@ python src/scripts/check_coverage.py --markdown report.md
 `generate_test_index.py` regenerates `docs/test_index.md`, the searchable index of every test case organized by error code. The index is generated - edit tests, not the index.
 
 ```bash
+# Regenerate docs/test_index.md (the default output)
 python src/scripts/generate_test_index.py
-python src/scripts/generate_test_index.py --output docs/test_index.md
+
+# Write the index to a different file
+python src/scripts/generate_test_index.py --output some_other_file.md
+
+# Produce the index as JSON instead of markdown
 python src/scripts/generate_test_index.py --format json
 ```
 
