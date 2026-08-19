@@ -253,7 +253,7 @@ class TestCombineTests(unittest.TestCase):
         self.assertEqual(stats.total_cases, 1)
         self.assertTrue(output_path.exists())
 
-        with open(output_path, "r", encoding="utf-8") as f:
+        with open(output_path, encoding="utf-8") as f:
             combined = json.load(f)
         self.assertEqual(len(combined), 1)
 
@@ -408,7 +408,7 @@ class TestIntegration(unittest.TestCase):
 
         for test_file in test_files:
             with self.subTest(file=test_file.name):
-                with open(test_file, "r", encoding="utf-8") as f:
+                with open(test_file, encoding="utf-8") as f:
                     data = json.load(f)
 
                 self.assertIsInstance(data, list, f"{test_file.name} should contain a list")
@@ -427,7 +427,7 @@ class TestIntegration(unittest.TestCase):
         test_files = list(self.validation_tests_dir.glob("*.json"))
 
         for test_file in test_files:
-            with open(test_file, "r", encoding="utf-8") as f:
+            with open(test_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             if isinstance(data, list):

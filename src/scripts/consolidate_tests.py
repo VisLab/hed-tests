@@ -16,7 +16,6 @@ import argparse
 import json
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
 def safe_print(text: str):
@@ -34,14 +33,14 @@ class TestStatistics:
 
     def __init__(self):
         self.total_cases = 0
-        self.error_codes: Dict[str, int] = defaultdict(int)
-        self.test_types: Dict[str, int] = defaultdict(int)
+        self.error_codes: dict[str, int] = defaultdict(int)
+        self.test_types: dict[str, int] = defaultdict(int)
         self.warnings = []
         self.errors = []
         # Maps error_code -> list of test case names using that code
-        self.code_dict: Dict[str, List[str]] = defaultdict(list)
+        self.code_dict: dict[str, list[str]] = defaultdict(list)
         # Maps test case name -> list of error codes (including alt_codes)
-        self.name_dict: Dict[str, List[str]] = {}
+        self.name_dict: dict[str, list[str]] = {}
 
     def add_test_case(self, test_case: dict):
         """Add a test case to statistics tracking."""
@@ -88,7 +87,7 @@ class TestStatistics:
         self.errors.append(message)
 
 
-def validate_test_case(test_case: dict, filename: str) -> List[str]:
+def validate_test_case(test_case: dict, filename: str) -> list[str]:
     """
     Validate structure of a test case.
 
@@ -120,8 +119,8 @@ def validate_test_case(test_case: dict, filename: str) -> List[str]:
 
 
 def combine_tests(
-    test_dir: Path, output_path: Path, exclude_prefixes: List[str] = None, dry_run: bool = False, verbose: bool = False
-) -> Tuple[int, TestStatistics]:
+    test_dir: Path, output_path: Path, exclude_prefixes: list[str] = None, dry_run: bool = False, verbose: bool = False
+) -> tuple[int, TestStatistics]:
     """
     Combine multiple JSON test files into a single consolidated file.
 
@@ -155,7 +154,7 @@ def combine_tests(
             print(f"  - {test_file.name}")
 
         try:
-            with open(test_file, "r", encoding="utf-8") as file:
+            with open(test_file, encoding="utf-8") as file:
                 data = json.load(file)
 
             # Validate structure
@@ -243,7 +242,7 @@ def print_statistics(stats: TestStatistics, verbose: bool = False):
             print(f"  {error}")
 
 
-def main(arg_list: List[str] = None):
+def main(arg_list: list[str] = None):
     """
     Main function to consolidate test files.
 

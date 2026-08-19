@@ -53,7 +53,7 @@ class TestIndexGenerator:
         """
         for test_file in sorted(directory.glob("*.json")):
             try:
-                with open(test_file, "r", encoding="utf-8") as f:
+                with open(test_file, encoding="utf-8") as f:
                     test_data = json.load(f)
 
                 if not isinstance(test_data, list):

@@ -17,7 +17,6 @@ import argparse
 import json
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict
 
 
 class CoverageAnalyzer:
@@ -65,7 +64,7 @@ class CoverageAnalyzer:
         """
         for test_file in sorted(directory.glob("*.json")):
             try:
-                with open(test_file, "r", encoding="utf-8") as f:
+                with open(test_file, encoding="utf-8") as f:
                     test_data = json.load(f)
 
                 if not isinstance(test_data, list):
@@ -122,7 +121,7 @@ class CoverageAnalyzer:
         else:
             data["error_count"] += 1
 
-    def get_summary(self) -> Dict:
+    def get_summary(self) -> dict:
         """
         Get summary statistics.
 

@@ -19,7 +19,6 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 try:
     from jsonschema import Draft7Validator
@@ -48,10 +47,10 @@ class TestValidator:
         if not self.schema_path.exists():
             raise FileNotFoundError(f"Schema not found: {self.schema_path}")
 
-        with open(self.schema_path, "r", encoding="utf-8") as f:
+        with open(self.schema_path, encoding="utf-8") as f:
             return json.load(f)
 
-    def validate_file(self, test_file: Path) -> Tuple[bool, List[str]]:
+    def validate_file(self, test_file: Path) -> tuple[bool, list[str]]:
         """
         Validate a single test file.
 
@@ -69,7 +68,7 @@ class TestValidator:
 
         # Load and parse JSON
         try:
-            with open(test_file, "r", encoding="utf-8") as f:
+            with open(test_file, encoding="utf-8") as f:
                 data = json.load(f)
         except json.JSONDecodeError as e:
             return False, [f"JSON syntax error: {e}"]
@@ -87,7 +86,7 @@ class TestValidator:
 
         return len(errors) == 0, errors
 
-    def validate_directory(self, directory: Path, recursive: bool = False) -> Dict[str, Tuple[bool, List[str]]]:
+    def validate_directory(self, directory: Path, recursive: bool = False) -> dict[str, tuple[bool, list[str]]]:
         """
         Validate all JSON files in a directory.
 
@@ -123,7 +122,7 @@ class TestValidator:
         return results
 
 
-def print_results(results: Dict[str, Tuple[bool, List[str]]], verbose: bool = False):
+def print_results(results: dict[str, tuple[bool, list[str]]], verbose: bool = False):
     """
     Print validation results.
 
