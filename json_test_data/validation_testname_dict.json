@@ -134,6 +134,10 @@
     "same-library-two-compatible-versions": [
         "SCHEMA_LOAD_FAILED"
     ],
+    "duplicate-schema-in-merge-group": [
+        "SCHEMA_LOAD_FAILED",
+        "SCHEMA_LIBRARY_INVALID"
+    ],
     "prefixed-standard-schema-forms-own-group": [
         "SCHEMA_LOAD_FAILED"
     ],
@@ -162,7 +166,8 @@
         "SCHEMA_LOAD_FAILED"
     ],
     "nonexistent-schema-version-in-group": [
-        "SCHEMA_LOAD_FAILED"
+        "SCHEMA_LOAD_FAILED",
+        "FILE_NOT_FOUND"
     ],
     "sidecar-braces-contents-invalid": [
         "SIDECAR_BRACES_INVALID",

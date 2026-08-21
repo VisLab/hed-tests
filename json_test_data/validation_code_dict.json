@@ -152,6 +152,7 @@
         "different-standard-schemas-in-same-merge-group",
         "extra-standard-schemas-in-same-merge-group",
         "same-library-two-compatible-versions",
+        "duplicate-schema-in-merge-group",
         "prefixed-standard-schema-forms-own-group",
         "incompatible-merge-schemas",
         "multiple-libraries-with-same-partner",
@@ -161,6 +162,12 @@
         "unpartnered-library-in-shared-namespace",
         "two-unpartnered-libraries-in-same-namespace",
         "prefixed-group-with-mismatched-partners",
+        "nonexistent-schema-version-in-group"
+    ],
+    "SCHEMA_LIBRARY_INVALID": [
+        "duplicate-schema-in-merge-group"
+    ],
+    "FILE_NOT_FOUND": [
         "nonexistent-schema-version-in-group"
     ],
     "SIDECAR_BRACES_INVALID": [
