@@ -269,5 +269,175 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TAG_NAMESPACE_PREFIX_INVALID",
+        "alt_codes": [],
+        "name": "tag-with-namespace-has-no-schema",
+        "description": "A tag starting with name: does not have an associated schema.",
+        "warning": false,
+        "schema": [
+            "8.3.0",
+            "sc:score_1.0.0"
+        ],
+        "error_category": "validation",
+        "common_causes": [
+            "Using a namespace prefix that was never defined in the schema version specification",
+            "Typo in the prefix so it does not match any loaded namespace",
+            "Removing a schema from the specification without removing its prefixed tags"
+        ],
+        "explanation": "Every namespace prefix used in an annotation must correspond to a schema loaded under that prefix in the version specification. The schemas here define only the default namespace and sc:, so tags prefixed with ts: have no schema to validate against.",
+        "correction_strategy": "Either add a schema under the missing prefix to the version specification or change the tag prefix to one that is loaded.",
+        "correction_examples": [
+            {
+                "wrong": "ts:Red, Blue",
+                "correct": "Red, Blue",
+                "explanation": "Red is a standard schema tag, so no prefix is needed when the standard schema is in the default namespace."
+            },
+            {
+                "wrong": "ts:Red with schemas [\"8.3.0\", \"sc:score_1.0.0\"]",
+                "correct": "ts:Red with schemas [\"8.3.0\", \"sc:score_1.0.0\", \"ts:8.3.0\"]",
+                "explanation": "Adding a schema under the ts: prefix makes ts:-prefixed tags resolvable."
+            }
+        ],
+        "specification_reference": "3.2.6. Tag namespace prefixes",
+        "related_errors": ["SCHEMA_LOAD_FAILED", "TAG_INVALID"],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Red, Blue",
+                    "(ts:Red, (sc:Sleep-modulator))"
+                ],
+                "passes": [
+                    "sc:Sleep-modulator"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "ts:Red, Blue",
+                                "ball": "(ts:Red, (sc:Sleep-modulator))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "sc:Sleep-modulator"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "ts:Red, Blue"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(ts:Red, (sc:Sleep-modulator))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "sc:Sleep-modulator"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "ts:Red, Blue",
+                                    "ball": "(ts:Red, (sc:Sleep-modulator))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Acceleration/5 m-per-s^2",
+                                    "ball": "Def/Acc/7, Blue, sc:Sleep-modulator"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue, sc:Sleep-modulator"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

@@ -53,7 +53,7 @@ class TestIndexGenerator:
         """
         for test_file in sorted(directory.glob("*.json")):
             try:
-                with open(test_file, "r", encoding="utf-8") as f:
+                with open(test_file, encoding="utf-8") as f:
                     test_data = json.load(f)
 
                 if not isinstance(test_data, list):
@@ -179,7 +179,7 @@ class TestIndexGenerator:
 
         # Write to file
         output_file.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_file, "w", encoding="utf-8") as f:
+        with open(output_file, "w", encoding="utf-8", newline="\n") as f:
             f.write("\n".join(lines))
 
         print(f"[OK] Markdown index written to: {output_file}")
@@ -192,7 +192,7 @@ class TestIndexGenerator:
             output_file (Path): Path to output file
         """
         output_file.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_file, "w", encoding="utf-8") as f:
+        with open(output_file, "w", encoding="utf-8", newline="\n") as f:
             json.dump(self.index_data, f, indent=2)
 
         print(f"[OK] JSON index written to: {output_file}")

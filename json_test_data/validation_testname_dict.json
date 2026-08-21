@@ -131,11 +131,38 @@
     "extra-standard-schemas-in-same-merge-group": [
         "SCHEMA_LOAD_FAILED"
     ],
+    "same-library-two-compatible-versions": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "prefixed-standard-schema-forms-own-group": [
+        "SCHEMA_LOAD_FAILED"
+    ],
     "incompatible-merge-schemas": [
         "SCHEMA_LOAD_FAILED"
     ],
-    "tag-with-namespace-has-no-schema": [
-        "TAG_NAMESPACE_PREFIX_INVALID"
+    "multiple-libraries-with-same-partner": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "partnered-library-alone-loads-with-partner": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "namespaced-groups-load-independently": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "two-standard-versions-in-same-merge-group": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "unpartnered-library-in-shared-namespace": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "two-unpartnered-libraries-in-same-namespace": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "prefixed-group-with-mismatched-partners": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "nonexistent-schema-version-in-group": [
+        "SCHEMA_LOAD_FAILED"
     ],
     "sidecar-braces-contents-invalid": [
         "SIDECAR_BRACES_INVALID",
@@ -234,6 +261,9 @@
         "TAG_NAMESPACE_PREFIX_INVALID"
     ],
     "tag-namespace_prefix-with-colon-values": [
+        "TAG_NAMESPACE_PREFIX_INVALID"
+    ],
+    "tag-with-namespace-has-no-schema": [
         "TAG_NAMESPACE_PREFIX_INVALID"
     ],
     "tag-not-unique": [

@@ -45,6 +45,10 @@ CI (`.github/workflows/ci.yaml`) runs the structure validators, coverage, `gener
 - `docs/test_index.md` and `docs/test_coverage.md` are generated (by `generate_test_index.py` and `check_coverage.py --markdown`); regenerate and run mdformat on them rather than hand-editing.
 - CHANGELOG.md tracks differences between formal GitHub releases and is used when making releases. Keep it; never fold it into notes or restructure it.
 
+## Git flow
+
+Hosted at hed-standard; `origin` is the VisLab fork and `upstream` is hed-standard. Local `main` is a clean mirror of `upstream/main` - never commit or merge to it locally. All work goes on a branch based on `upstream/main`, pushed to the fork, and merged via a PR to hed-standard.
+
 ## Related repositories
 
 - `hed-specification` - the formal HED specification; source of truth for the rules these tests encode. Tests originated there.

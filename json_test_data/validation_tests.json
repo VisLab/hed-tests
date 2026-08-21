@@ -5610,54 +5610,52 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
         "name": "different-standard-schemas-in-same-merge-group",
-        "description": "Schemas in a merge group must be associated with the same standard schema.",
+        "description": "A standard schema version in a merge group must match the withStandard partner of the group's library schemas.",
+        "warning": false,
         "schema": [
             "8.1.0",
             "testlib_2.0.0"
         ],
-        "error_category": "schema_development",
+        "error_category": "schema",
+        "explanation": "All schemas in a merge group (the unprefixed schemas, or the schemas sharing one namespace prefix) must resolve to a single standard schema partner. Here testlib_2.0.0 is partnered with standard schema 8.4.0 (its withStandard attribute), but the group also lists standard schema 8.1.0. A standard schema in a merge group must be the same version as the group partner, so the load fails.",
         "common_causes": [
-            "Attempting to merge schemas with different standard schema versions",
-            "Incompatible library schema combinations",
-            "Version mismatch between standard and library schemas",
-            "Invalid schema merge group configuration",
-            "Missing version compatibility information"
+            "Listing a standard schema version different from the library's withStandard partner",
+            "Updating the library schema version without updating the standard schema version in the specification",
+            "Copying a version specification from a dataset that used an older library release",
+            "Not knowing which standard version a library schema is partnered with"
         ],
-        "explanation": "When merging multiple schemas, all schemas in the merge group must be compatible with the same standard schema version. Version mismatches prevent proper schema integration and validation.",
-        "correction_strategy": "Ensure all schemas in merge group use compatible standard schema versions",
+        "correction_strategy": "Look up the library schema's withStandard partner and either list that standard version or omit the standard schema entirely, since the partner is included automatically.",
         "correction_examples": [
             {
-                "wrong": "Standard: 8.1.0, Library: testlib_2.0.0 (requires 8.2.0)",
-                "correct": "Standard: 8.2.0, Library: testlib_2.0.0",
-                "explanation": "Updated standard schema to match library requirements"
+                "wrong": "[\"8.1.0\", \"testlib_2.0.0\"]",
+                "correct": "[\"8.4.0\", \"testlib_2.0.0\"]",
+                "explanation": "testlib_2.0.0 has withStandard=8.4.0, so the standard schema in its merge group must be 8.4.0."
             },
             {
-                "wrong": "Merging schemas with standards 8.1.0 and 8.3.0",
-                "correct": "All schemas use standard 8.3.0",
-                "explanation": "Unified all schemas to use same standard version"
+                "wrong": "[\"8.1.0\", \"testlib_2.0.0\"]",
+                "correct": "[\"testlib_2.0.0\"]",
+                "explanation": "A partnered library schema automatically includes its standard schema partner, so the standard version can simply be omitted."
             }
         ],
         "correction_patterns": [
-            "Check schema version compatibility requirements",
-            "Update standard schema to compatible version",
-            "Verify library schema standard requirements",
-            "Ensure merge group uses consistent versioning"
+            "Check the withStandard attribute in the library schema header",
+            "Set the standard schema version in the group to the withStandard value",
+            "Or remove the standard schema from the list and rely on the partner"
         ],
         "fix_instructions": [
-            "1. Identify the standard schema versions required by each schema in merge group",
-            "2. Find a compatible standard schema version that works for all",
-            "3. Update schema references to use the common standard version",
-            "4. Verify all schemas load successfully with the unified version",
-            "5. Test merged schema functionality"
+            "1. Find the withStandard value of each library schema in the merge group",
+            "2. Confirm all libraries in the group have the same withStandard value",
+            "3. Change the listed standard schema version to that value, or delete it",
+            "4. Reload and confirm the schemas load without error"
         ],
         "validation_hints": [
-            "Check schema version compatibility matrices",
-            "Verify library schema withStandard attributes",
-            "Test schema loading before attempting merge",
-            "Ensure all required schemas are accessible"
+            "The withStandard attribute is in the library schema's XML header",
+            "A partnered library loads its standard partner automatically",
+            "Schema loading happens before any annotation is validated"
         ],
-        "specification_reference": "3.1.3. Schema merging and compatibility",
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5675,13 +5673,31 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
         "name": "extra-standard-schemas-in-same-merge-group",
-        "description": "Standard schema in same group as its partners is okay.",
+        "description": "A standard schema in a merge group is ignored when it matches the group partner.",
+        "warning": false,
         "schema": [
-            "8.2.0",
-            "testlib_2.0.0",
-            "testlib_3.0.0",
-            "sc:8.1.0"
+            "8.4.0",
+            "testlib_2.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. testlib_2.0.0 is partnered with standard schema 8.4.0, and the listed standard schema 8.4.0 matches the group partner, so it is redundant and ignored during the merge.",
+        "common_causes": [
+            "Believing that listing the standard schema alongside its partnered library is an error"
+        ],
+        "correction_strategy": "No correction needed; a standard schema matching the group partner is allowed and ignored, though it can simply be omitted.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.2.0\", \"testlib_2.0.0\"]",
+                "correct": "[\"8.4.0\", \"testlib_2.0.0\"]",
+                "explanation": "A standard schema listed with a partnered library must match the library's withStandard partner (8.4.0); it is then ignored during the merge."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
         ],
         "definitions": [],
         "tests": {
@@ -5696,11 +5712,117 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "same-library-two-compatible-versions",
+        "description": "Two versions of the same library schema with the same partner and no conflicting elements merge.",
+        "warning": false,
+        "schema": [
+            "testlib_2.0.0",
+            "testlib_3.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. testlib_2.0.0 and testlib_3.0.0 are both partnered with standard schema 8.4.0 and their shared elements are identical, so the two versions merge into the unprefixed group like any other compatible library pair.",
+        "common_causes": [
+            "Believing that two versions of the same library can never be combined"
+        ],
+        "correction_strategy": "No correction needed; versions of one library merge when they share a partner and have no conflicting elements, though using a single version is usually clearer.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testlib_1.0.2\", \"testlib_3.0.0\"]",
+                "correct": "[\"testlib_2.0.0\", \"testlib_3.0.0\"]",
+                "explanation": "testlib_1.0.2 is unpartnered and cannot merge; both listed versions must be partnered with the same standard schema."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red",
+                    "Blue"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "prefixed-standard-schema-forms-own-group",
+        "description": "A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.",
+        "warning": false,
+        "schema": [
+            "8.4.0",
+            "sc:8.1.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. The unprefixed group holds standard schema 8.4.0 and the sc: group holds standard schema 8.1.0. Each namespace is a separate merge group, so the two standard versions do not conflict.",
+        "common_causes": [
+            "Believing only library schemas may appear under a namespace prefix",
+            "Believing all standard schema versions in a specification must agree"
+        ],
+        "correction_strategy": "No correction needed; use a namespace prefix to load a second standard schema version alongside the default one.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.4.0\", \"8.1.0\"]",
+                "correct": "[\"8.4.0\", \"sc:8.1.0\"]",
+                "explanation": "Two bare standard versions share the unprefixed group and fail; prefixing the second gives it its own merge group."
+            }
+        ],
+        "specification_reference": "3.1.1. Schema versions; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_VERSION_INVALID",
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red",
+                    "Blue"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
         "name": "incompatible-merge-schemas",
-        "description": "Schemas in a merge group must be associated with the same standard schema.",
+        "description": "Library schemas in a merge group must all have the same standard schema partner.",
+        "warning": false,
         "schema": [
             "score_2.0.0",
             "lang_1.1.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Partnered library schemas can only merge into one namespace if they share the same withStandard partner. score_2.0.0 is partnered with standard schema 8.3.0 while lang_1.1.0 is partnered with 8.4.0, so these two libraries cannot form a merge group and the load fails.",
+        "common_causes": [
+            "Combining library schema versions released against different standard schema versions",
+            "Upgrading one library in a specification without upgrading the others",
+            "Assuming any versions of two libraries can be combined"
+        ],
+        "correction_strategy": "Choose library schema versions that share the same withStandard partner, or put the incompatible library in its own namespace with a prefix.",
+        "correction_examples": [
+            {
+                "wrong": "[\"score_2.0.0\", \"lang_1.1.0\"]",
+                "correct": "[\"score_2.1.0\", \"lang_1.1.0\"]",
+                "explanation": "score_2.1.0 and lang_1.1.0 are both partnered with standard schema 8.4.0, so they can merge."
+            },
+            {
+                "wrong": "[\"score_2.0.0\", \"lang_1.1.0\"]",
+                "correct": "[\"score_2.0.0\", \"lg:lang_1.1.0\"]",
+                "explanation": "Giving lang_1.1.0 its own namespace prefix removes it from the unprefixed merge group, so the partners no longer need to match."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
         ],
         "definitions": [],
         "tests": {
@@ -5714,150 +5836,340 @@
         }
     },
     {
-        "error_code": "TAG_NAMESPACE_PREFIX_INVALID",
+        "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
-        "name": "tag-with-namespace-has-no-schema",
-        "description": "A tag starting with name: does not have an associated schema.",
+        "name": "multiple-libraries-with-same-partner",
+        "description": "Several library schemas with the same standard schema partner merge into one namespace.",
+        "warning": false,
+        "schema": [
+            "testlib_2.0.0",
+            "score_2.1.0",
+            "lang_1.1.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. testlib_2.0.0, score_2.1.0, and lang_1.1.0 are all partnered with standard schema 8.4.0 and define disjoint library elements, so all three merge with their shared partner into a single unprefixed vocabulary.",
+        "common_causes": [
+            "Believing that at most two schemas can be combined",
+            "Believing that library schemas always require namespace prefixes"
+        ],
+        "correction_strategy": "No correction needed; any number of partnered libraries sharing the same withStandard partner can merge if their elements do not conflict.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testlib_2.0.0\", \"score_2.0.0\", \"lang_1.1.0\"]",
+                "correct": "[\"testlib_2.0.0\", \"score_2.1.0\", \"lang_1.1.0\"]",
+                "explanation": "score_2.0.0 is partnered with 8.3.0 and would break the group; score_2.1.0 shares the 8.4.0 partner with the other two libraries."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red",
+                    "Blue"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "partnered-library-alone-loads-with-partner",
+        "description": "A partnered library schema listed alone automatically includes its standard schema partner.",
+        "warning": false,
+        "schema": [
+            "score_2.1.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This specification loads. A partnered library schema is distributed merged with its standard schema partner, so listing score_2.1.0 alone provides both the score library tags and the standard schema 8.4.0 tags. Standard schema tags such as Red validate without the standard schema being listed.",
+        "common_causes": [
+            "Believing the standard schema must always be listed explicitly",
+            "Believing standard tags are unavailable when only a library schema is specified"
+        ],
+        "correction_strategy": "No correction needed; a partnered library schema alone supplies its standard schema partner.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.3.0\", \"score_2.1.0\"]",
+                "correct": "[\"score_2.1.0\"]",
+                "explanation": "Listing a non-matching standard schema (8.3.0) with score_2.1.0 (partnered with 8.4.0) fails; the library alone already includes its partner."
+            }
+        ],
+        "specification_reference": "3.1.2.1. Partnered versus unpartnered; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red",
+                    "Blue"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "namespaced-groups-load-independently",
+        "description": "Schemas with different namespace prefixes form independent merge groups whose partners need not match.",
         "warning": false,
         "schema": [
             "8.3.0",
-            "sc:score_1.0.0"
+            "sc:score_2.1.0",
+            "ts:testlib_1.0.2"
         ],
-        "definitions": [
-            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-            "(Definition/MyColor, (Label/Pie))"
+        "error_category": "schema",
+        "explanation": "This combination loads. Each namespace prefix forms its own merge group: the unprefixed group holds standard schema 8.3.0, the sc: group holds score_2.1.0 (with its 8.4.0 partner), and the ts: group holds the unpartnered testlib_1.0.2, which is allowed because it is alone in its own namespace. Compatibility rules apply within each group separately, so the differing standard versions across groups are not a conflict.",
+        "common_causes": [
+            "Believing all schemas in a specification must share one standard schema version",
+            "Believing unpartnered library schemas can no longer be used at all"
         ],
+        "correction_strategy": "No correction needed; use namespace prefixes to combine schemas whose partners differ or that are unpartnered.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.3.0\", \"score_2.1.0\", \"testlib_1.0.2\"]",
+                "correct": "[\"8.3.0\", \"sc:score_2.1.0\", \"ts:testlib_1.0.2\"]",
+                "explanation": "Unprefixed, score_2.1.0's 8.4.0 partner conflicts with 8.3.0 and unpartnered testlib_1.0.2 cannot share a namespace; prefixes give each schema its own merge group."
+            }
+        ],
+        "specification_reference": "3.1.1. Schema versions; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red",
+                    "Blue"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "two-standard-versions-in-same-merge-group",
+        "description": "Two different standard schema versions cannot appear in the same merge group.",
+        "warning": false,
+        "schema": [
+            "8.3.0",
+            "8.4.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A merge group resolves to exactly one standard schema partner. Listing two different bare standard schema versions in the unprefixed group gives the group two conflicting partners, so the load fails.",
+        "common_causes": [
+            "Concatenating version specifications from two datasets",
+            "Trying to validate against two standard versions at once",
+            "Leaving the old standard version in place when upgrading"
+        ],
+        "correction_strategy": "Keep a single standard schema version per namespace; use a namespace prefix if a second standard version is genuinely needed.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.3.0\", \"8.4.0\"]",
+                "correct": "[\"8.4.0\"]",
+                "explanation": "Choose the one standard version the annotations should validate against."
+            },
+            {
+                "wrong": "[\"8.3.0\", \"8.4.0\"]",
+                "correct": "[\"8.4.0\", \"old:8.3.0\"]",
+                "explanation": "If both versions are needed, put the second in its own namespace and prefix its tags with old: in annotations."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
         "tests": {
             "string_tests": {
                 "fails": [
-                    "ts:Red, Blue",
-                    "(ts:Red, (sc:Sleep-modulator))"
+                    "Red",
+                    "Blue"
                 ],
-                "passes": [
-                    "sc:Sleep-modulator"
-                ]
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "unpartnered-library-in-shared-namespace",
+        "description": "An unpartnered library schema cannot share a namespace with other schemas.",
+        "warning": false,
+        "schema": [
+            "8.4.0",
+            "testlib_1.0.2"
+        ],
+        "error_category": "schema",
+        "explanation": "Unpartnered library schemas (no withStandard attribute) must be in their own namespace. testlib_1.0.2 is unpartnered, so it cannot be merged into the unprefixed group with standard schema 8.4.0, and the load fails.",
+        "common_causes": [
+            "Using an old unpartnered library release where a partnered version now exists",
+            "Omitting the namespace prefix an unpartnered library requires",
+            "Assuming all library schema versions behave like partnered ones"
+        ],
+        "correction_strategy": "Either upgrade to a partnered version of the library or give the unpartnered library its own namespace prefix.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.4.0\", \"testlib_1.0.2\"]",
+                "correct": "[\"8.4.0\", \"testlib_2.0.0\"]",
+                "explanation": "testlib_2.0.0 is partnered with 8.4.0, so it merges into the unprefixed group."
             },
-            "sidecar_tests": {
+            {
+                "wrong": "[\"8.4.0\", \"testlib_1.0.2\"]",
+                "correct": "[\"8.4.0\", \"ts:testlib_1.0.2\"]",
+                "explanation": "The prefix gives the unpartnered library its own namespace; its tags are then written with the ts: prefix."
+            }
+        ],
+        "specification_reference": "3.1.2.1. Partnered versus unpartnered",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
                 "fails": [
-                    {
-                        "event_code": {
-                            "HED": {
-                                "face": "ts:Red, Blue",
-                                "ball": "(ts:Red, (sc:Sleep-modulator))"
-                            }
-                        }
-                    }
+                    "Red",
+                    "Blue"
                 ],
-                "passes": [
-                    {
-                        "event_code": {
-                            "HED": {
-                                "face": "sc:Sleep-modulator"
-                            }
-                        }
-                    }
-                ]
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "two-unpartnered-libraries-in-same-namespace",
+        "description": "Two unpartnered library schemas cannot share one namespace prefix.",
+        "warning": false,
+        "schema": [
+            "ts:testlib_1.0.2",
+            "ts:score_1.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas with the same namespace prefix form one merge group, and merging requires partnered schemas with a shared standard partner. testlib_1.0.2 and score_1.0.0 are both unpartnered, so they cannot merge, and an unpartnered schema must be alone in its namespace. The load fails.",
+        "common_causes": [
+            "Reusing one prefix for several old-style library schemas",
+            "Assuming a prefix is a label rather than a merge group identifier"
+        ],
+        "correction_strategy": "Give each unpartnered library schema its own distinct namespace prefix.",
+        "correction_examples": [
+            {
+                "wrong": "[\"ts:testlib_1.0.2\", \"ts:score_1.0.0\"]",
+                "correct": "[\"ts:testlib_1.0.2\", \"sc:score_1.0.0\"]",
+                "explanation": "Distinct prefixes put each unpartnered library in its own namespace, which is required for unpartnered schemas."
+            }
+        ],
+        "specification_reference": "3.1.2.1. Partnered versus unpartnered; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Anesthetic-agent",
+                    "ts:Sleep-modulator"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "prefixed-group-with-mismatched-partners",
+        "description": "The partnered-combination rules apply inside each prefixed merge group, not only to unprefixed schemas.",
+        "warning": false,
+        "schema": [
+            "8.4.0",
+            "sc:score_2.0.0",
+            "sc:lang_1.1.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas sharing the sc: prefix form one merge group and must satisfy the same combination rules as unprefixed schemas. score_2.0.0 is partnered with standard schema 8.3.0 while lang_1.1.0 is partnered with 8.4.0, so the sc: group has conflicting partners and the load fails even though the unprefixed group (8.4.0) is fine.",
+        "common_causes": [
+            "Assuming prefixed schemas are exempt from partner compatibility rules",
+            "Grouping unrelated libraries under one prefix for convenience"
+        ],
+        "correction_strategy": "Within each prefix, use library versions sharing one withStandard partner, or split the incompatible libraries into different prefixes.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.4.0\", \"sc:score_2.0.0\", \"sc:lang_1.1.0\"]",
+                "correct": "[\"8.4.0\", \"sc:score_2.1.0\", \"sc:lang_1.1.0\"]",
+                "explanation": "score_2.1.0 and lang_1.1.0 are both partnered with 8.4.0, so the sc: group merges."
             },
-            "event_tests": {
+            {
+                "wrong": "[\"8.4.0\", \"sc:score_2.0.0\", \"sc:lang_1.1.0\"]",
+                "correct": "[\"8.4.0\", \"sc:score_2.0.0\", \"lg:lang_1.1.0\"]",
+                "explanation": "Splitting the libraries into different prefixes makes each its own merge group, so the partners no longer need to match."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
                 "fails": [
-                    [
-                        [
-                            "onset",
-                            "duration",
-                            "HED"
-                        ],
-                        [
-                            4.5,
-                            0,
-                            "ts:Red, Blue"
-                        ],
-                        [
-                            5.5,
-                            0,
-                            "(ts:Red, (sc:Sleep-modulator))"
-                        ]
-                    ]
+                    "Red",
+                    "Blue"
                 ],
-                "passes": [
-                    [
-                        [
-                            "onset",
-                            "duration",
-                            "HED"
-                        ],
-                        [
-                            4.5,
-                            0,
-                            "sc:Sleep-modulator"
-                        ]
-                    ]
-                ]
-            },
-            "combo_tests": {
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "nonexistent-schema-version-in-group",
+        "description": "A schema version that does not exist in the HED schema repositories cannot be loaded.",
+        "warning": false,
+        "schema": [
+            "8.4.0",
+            "testlib_99.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Every entry in the schema specification must name a released schema that the tools can retrieve. testlib_99.0.0 is a syntactically valid version of a real library, but no such release exists, so the schema cannot be found and the load fails.",
+        "common_causes": [
+            "Typo in the version number or library name",
+            "Referencing a prerelease or unreleased schema version",
+            "Guessing at a version instead of checking the released versions"
+        ],
+        "correction_strategy": "Check the released versions in the hed-schemas repository and use an exact released version string.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.4.0\", \"testlib_99.0.0\"]",
+                "correct": "[\"8.4.0\", \"testlib_3.0.0\"]",
+                "explanation": "testlib_3.0.0 is a released version partnered with 8.4.0; testlib_99.0.0 does not exist."
+            }
+        ],
+        "specification_reference": "3.1.1. Schema versions",
+        "related_errors": [
+            "SCHEMA_VERSION_INVALID",
+            "SCHEMA_LIBRARY_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
                 "fails": [
-                    {
-                        "sidecar": {
-                            "event_code": {
-                                "HED": {
-                                    "face": "ts:Red, Blue",
-                                    "ball": "(ts:Red, (sc:Sleep-modulator))"
-                                }
-                            }
-                        },
-                        "events": [
-                            [
-                                "onset",
-                                "duration",
-                                "event_code",
-                                "HED"
-                            ],
-                            [
-                                4.5,
-                                0,
-                                "face",
-                                "Red, Def/MyColor"
-                            ],
-                            [
-                                5.0,
-                                0,
-                                "ball",
-                                "Green"
-                            ]
-                        ]
-                    }
+                    "Red",
+                    "Blue"
                 ],
-                "passes": [
-                    {
-                        "sidecar": {
-                            "event_code": {
-                                "HED": {
-                                    "face": "Acceleration/5 m-per-s^2",
-                                    "ball": "Def/Acc/7, Blue, sc:Sleep-modulator"
-                                }
-                            }
-                        },
-                        "events": [
-                            [
-                                "onset",
-                                "duration",
-                                "event_code",
-                                "HED"
-                            ],
-                            [
-                                4.5,
-                                0,
-                                "face",
-                                "Blue, sc:Sleep-modulator"
-                            ],
-                            [
-                                5.0,
-                                0,
-                                "ball",
-                                "Green, Def/MyColor"
-                            ]
-                        ]
-                    }
-                ]
+                "passes": []
             }
         }
     },
@@ -11164,6 +11476,179 @@
                                 0,
                                 "ball",
                                 "ts:Green, ts:Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_NAMESPACE_PREFIX_INVALID",
+        "alt_codes": [],
+        "name": "tag-with-namespace-has-no-schema",
+        "description": "A tag starting with name: does not have an associated schema.",
+        "warning": false,
+        "schema": [
+            "8.3.0",
+            "sc:score_1.0.0"
+        ],
+        "error_category": "validation",
+        "common_causes": [
+            "Using a namespace prefix that was never defined in the schema version specification",
+            "Typo in the prefix so it does not match any loaded namespace",
+            "Removing a schema from the specification without removing its prefixed tags"
+        ],
+        "explanation": "Every namespace prefix used in an annotation must correspond to a schema loaded under that prefix in the version specification. The schemas here define only the default namespace and sc:, so tags prefixed with ts: have no schema to validate against.",
+        "correction_strategy": "Either add a schema under the missing prefix to the version specification or change the tag prefix to one that is loaded.",
+        "correction_examples": [
+            {
+                "wrong": "ts:Red, Blue",
+                "correct": "Red, Blue",
+                "explanation": "Red is a standard schema tag, so no prefix is needed when the standard schema is in the default namespace."
+            },
+            {
+                "wrong": "ts:Red with schemas [\"8.3.0\", \"sc:score_1.0.0\"]",
+                "correct": "ts:Red with schemas [\"8.3.0\", \"sc:score_1.0.0\", \"ts:8.3.0\"]",
+                "explanation": "Adding a schema under the ts: prefix makes ts:-prefixed tags resolvable."
+            }
+        ],
+        "specification_reference": "3.2.6. Tag namespace prefixes",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Red, Blue",
+                    "(ts:Red, (sc:Sleep-modulator))"
+                ],
+                "passes": [
+                    "sc:Sleep-modulator"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "ts:Red, Blue",
+                                "ball": "(ts:Red, (sc:Sleep-modulator))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "sc:Sleep-modulator"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "ts:Red, Blue"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(ts:Red, (sc:Sleep-modulator))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "sc:Sleep-modulator"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "ts:Red, Blue",
+                                    "ball": "(ts:Red, (sc:Sleep-modulator))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Acceleration/5 m-per-s^2",
+                                    "ball": "Def/Acc/7, Blue, sc:Sleep-modulator"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue, sc:Sleep-modulator"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
                             ]
                         ]
                     }
