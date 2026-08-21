@@ -244,7 +244,7 @@ class CoverageAnalyzer:
 
         # Write to file
         output_file.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_file, "w", encoding="utf-8") as f:
+        with open(output_file, "w", encoding="utf-8", newline="\n") as f:
             f.write("\n".join(lines))
 
         print(f"\n[SUCCESS] Markdown report written to: {output_file}")

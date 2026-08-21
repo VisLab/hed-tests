@@ -193,7 +193,7 @@ def combine_tests(
     if not dry_run:
         try:
             output_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(output_path, "w", encoding="utf-8") as output_file:
+            with open(output_path, "w", encoding="utf-8", newline="\n") as output_file:
                 json.dump(combined_data, output_file, indent=4)
             safe_print(f"✓ Wrote {len(combined_data)} test cases to {output_path.name}")
         except Exception as e:
@@ -298,9 +298,9 @@ def main(arg_list: list[str] = None):
     # Save validation test dictionaries
     if not args.dry_run:
         try:
-            with open(json_test_data_dir / "validation_code_dict.json", "w", encoding="utf-8") as f:
+            with open(json_test_data_dir / "validation_code_dict.json", "w", encoding="utf-8", newline="\n") as f:
                 json.dump(dict(val_stats.code_dict), f, indent=4)
-            with open(json_test_data_dir / "validation_testname_dict.json", "w", encoding="utf-8") as f:
+            with open(json_test_data_dir / "validation_testname_dict.json", "w", encoding="utf-8", newline="\n") as f:
                 json.dump(val_stats.name_dict, f, indent=4)
             if args.verbose:
                 print("  Saved code_dict and name_dict")
@@ -334,9 +334,9 @@ def main(arg_list: list[str] = None):
     # Save schema test dictionaries
     if not args.dry_run:
         try:
-            with open(json_test_data_dir / "schema_code_dict.json", "w", encoding="utf-8") as f:
+            with open(json_test_data_dir / "schema_code_dict.json", "w", encoding="utf-8", newline="\n") as f:
                 json.dump(dict(schema_stats.code_dict), f, indent=4)
-            with open(json_test_data_dir / "schema_testname_dict.json", "w", encoding="utf-8") as f:
+            with open(json_test_data_dir / "schema_testname_dict.json", "w", encoding="utf-8", newline="\n") as f:
                 json.dump(schema_stats.name_dict, f, indent=4)
             if args.verbose:
                 print("  Saved code_dict and name_dict")
