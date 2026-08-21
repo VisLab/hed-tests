@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 147 test cases in the HED test suite.
+Complete index of 148 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,7 +19,7 @@ Complete index of 147 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (8 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (13 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (14 tests)
 - [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
@@ -890,6 +890,16 @@ Complete index of 147 test cases in the HED test suite.
 **Description**: A standard schema version in a merge group must match the withStandard partner of the group's library schemas.
 
 **Schema**: 8.1.0, testlib_2.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### duplicate-schema-in-merge-group (AI metadata) (examples)
+
+**Description**: The same schema (same name and version) cannot appear twice in one merge group.
+
+**Schema**: testlib_2.0.0, testlib_2.0.0 **Category**: schema
 
 **Tests**:
 

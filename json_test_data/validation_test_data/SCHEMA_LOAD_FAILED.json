@@ -133,6 +133,48 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": ["SCHEMA_LIBRARY_INVALID"],
+        "name": "duplicate-schema-in-merge-group",
+        "description": "The same schema (same name and version) cannot appear twice in one merge group.",
+        "warning": false,
+        "schema": [
+            "testlib_2.0.0",
+            "testlib_2.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A merge group cannot contain multiple copies of the same schema, meaning the same name and version. Listing testlib_2.0.0 twice in the unprefixed group is an error. Different versions of the same library may appear together if they satisfy the other combination rules.",
+        "common_causes": [
+            "Copy-paste duplication in the version specification",
+            "Concatenating version lists that share a schema"
+        ],
+        "correction_strategy": "Remove the duplicate entry so each schema appears at most once per merge group.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testlib_2.0.0\", \"testlib_2.0.0\"]",
+                "correct": "[\"testlib_2.0.0\"]",
+                "explanation": "Each schema may be listed only once in a merge group."
+            },
+            {
+                "wrong": "[\"testlib_2.0.0\", \"testlib_2.0.0\"]",
+                "correct": "[\"testlib_2.0.0\", \"testlib_3.0.0\"]",
+                "explanation": "Different versions of the same library are allowed when they share a partner and have no conflicting elements."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_VERSION_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
         "name": "prefixed-standard-schema-forms-own-group",
         "description": "A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.",
@@ -491,7 +533,7 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
-        "alt_codes": [],
+        "alt_codes": ["FILE_NOT_FOUND"],
         "name": "nonexistent-schema-version-in-group",
         "description": "A schema version that does not exist in the HED schema repositories cannot be loaded.",
         "warning": false,
