@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 137 test cases in the HED test suite.
+Complete index of 147 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,7 +19,7 @@ Complete index of 137 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (8 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (3 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (13 tests)
 - [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
@@ -887,29 +887,129 @@ Complete index of 137 test cases in the HED test suite.
 
 ### different-standard-schemas-in-same-merge-group (AI metadata) (examples)
 
-**Description**: Schemas in a merge group must be associated with the same standard schema.
+**Description**: A standard schema version in a merge group must match the withStandard partner of the group's library schemas.
 
-**Schema**: 8.1.0, testlib_2.0.0 **Category**: schema_development
+**Schema**: 8.1.0, testlib_2.0.0 **Category**: schema
 
 **Tests**:
 
 - `string_tests`: 2 fail, 0 pass
 
-### extra-standard-schemas-in-same-merge-group
+### extra-standard-schemas-in-same-merge-group (AI metadata) (examples)
 
-**Description**: Standard schema in same group as its partners is okay.
+**Description**: A standard schema in a merge group is ignored when it matches the group partner.
 
-**Schema**: 8.2.0, testlib_2.0.0, testlib_3.0.0, sc:8.1.0
+**Schema**: 8.4.0, testlib_2.0.0 **Category**: schema
 
 **Tests**:
 
 - `string_tests`: 0 fail, 2 pass
 
-### incompatible-merge-schemas
+### incompatible-merge-schemas (AI metadata) (examples)
 
-**Description**: Schemas in a merge group must be associated with the same standard schema.
+**Description**: Library schemas in a merge group must all have the same standard schema partner.
 
-**Schema**: score_2.0.0, lang_1.1.0
+**Schema**: score_2.0.0, lang_1.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### multiple-libraries-with-same-partner (AI metadata) (examples)
+
+**Description**: Several library schemas with the same standard schema partner merge into one namespace.
+
+**Schema**: testlib_2.0.0, score_2.1.0, lang_1.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### namespaced-groups-load-independently (AI metadata) (examples)
+
+**Description**: Schemas with different namespace prefixes form independent merge groups whose partners need not match.
+
+**Schema**: 8.3.0, sc:score_2.1.0, ts:testlib_1.0.2 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### nonexistent-schema-version-in-group (AI metadata) (examples)
+
+**Description**: A schema version that does not exist in the HED schema repositories cannot be loaded.
+
+**Schema**: 8.4.0, testlib_99.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### partnered-library-alone-loads-with-partner (AI metadata) (examples)
+
+**Description**: A partnered library schema listed alone automatically includes its standard schema partner.
+
+**Schema**: score_2.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### prefixed-group-with-mismatched-partners (AI metadata) (examples)
+
+**Description**: The partnered-combination rules apply inside each prefixed merge group, not only to unprefixed schemas.
+
+**Schema**: 8.4.0, sc:score_2.0.0, sc:lang_1.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### prefixed-standard-schema-forms-own-group (AI metadata) (examples)
+
+**Description**: A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.
+
+**Schema**: 8.4.0, sc:8.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### same-library-two-compatible-versions (AI metadata) (examples)
+
+**Description**: Two versions of the same library schema with the same partner and no conflicting elements merge.
+
+**Schema**: testlib_2.0.0, testlib_3.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### two-standard-versions-in-same-merge-group (AI metadata) (examples)
+
+**Description**: Two different standard schema versions cannot appear in the same merge group.
+
+**Schema**: 8.3.0, 8.4.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### two-unpartnered-libraries-in-same-namespace (AI metadata) (examples)
+
+**Description**: Two unpartnered library schemas cannot share one namespace prefix.
+
+**Schema**: ts:testlib_1.0.2, ts:score_1.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### unpartnered-library-in-shared-namespace (AI metadata) (examples)
+
+**Description**: An unpartnered library schema cannot share a namespace with other schemas.
+
+**Schema**: 8.4.0, testlib_1.0.2 **Category**: schema
 
 **Tests**:
 
@@ -1307,11 +1407,11 @@ Complete index of 137 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-with-namespace-has-no-schema
+### tag-with-namespace-has-no-schema (AI metadata) (examples)
 
 **Description**: A tag starting with name: does not have an associated schema.
 
-**Schema**: 8.3.0, sc:score_1.0.0
+**Schema**: 8.3.0, sc:score_1.0.0 **Category**: validation
 
 **Tests**:
 

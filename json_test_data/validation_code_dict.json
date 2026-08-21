@@ -151,12 +151,17 @@
     "SCHEMA_LOAD_FAILED": [
         "different-standard-schemas-in-same-merge-group",
         "extra-standard-schemas-in-same-merge-group",
-        "incompatible-merge-schemas"
-    ],
-    "TAG_NAMESPACE_PREFIX_INVALID": [
-        "tag-with-namespace-has-no-schema",
-        "tag-namespace_prefix-invalid-characters",
-        "tag-namespace_prefix-with-colon-values"
+        "same-library-two-compatible-versions",
+        "prefixed-standard-schema-forms-own-group",
+        "incompatible-merge-schemas",
+        "multiple-libraries-with-same-partner",
+        "partnered-library-alone-loads-with-partner",
+        "namespaced-groups-load-independently",
+        "two-standard-versions-in-same-merge-group",
+        "unpartnered-library-in-shared-namespace",
+        "two-unpartnered-libraries-in-same-namespace",
+        "prefixed-group-with-mismatched-partners",
+        "nonexistent-schema-version-in-group"
     ],
     "SIDECAR_BRACES_INVALID": [
         "sidecar-braces-contents-invalid",
@@ -211,6 +216,11 @@
         "temporal-tag-error-inset-outside-its-event-delay",
         "temporal-tag-error-inset-group-has-extras-delay",
         "temporal-tag-error-tag-appears-where-not-allowed-delay"
+    ],
+    "TAG_NAMESPACE_PREFIX_INVALID": [
+        "tag-namespace_prefix-invalid-characters",
+        "tag-namespace_prefix-with-colon-values",
+        "tag-with-namespace-has-no-schema"
     ],
     "TAG_NOT_UNIQUE": [
         "tag-not-unique"
