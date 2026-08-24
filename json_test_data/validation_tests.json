@@ -6134,9 +6134,7 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
-        "alt_codes": [
-            "FILE_NOT_FOUND"
-        ],
+        "alt_codes": [],
         "name": "nonexistent-schema-version-in-group",
         "description": "A schema version that does not exist cannot be loaded.",
         "warning": false,
