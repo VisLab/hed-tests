@@ -5,7 +5,7 @@
         "name": "tag-namespace_prefix-invalid-characters",
         "description": "A tag prefix has invalid characters.",
         "warning": false,
-        "schema": ["8.3.0", "sc:score_1.0.0"],
+        "schema": ["8.5.0", "sc:testconflict_2.1.0"],
         "error_category": "syntax",
         "common_causes": [
             "Invalid characters in namespace prefix",
@@ -18,13 +18,13 @@
         "correction_strategy": "Use valid namespace prefixes with correct syntax",
         "correction_examples": [
             {
-                "wrong": "sc2:Sleep-modulator",
-                "correct": "sc:Sleep-modulator",
+                "wrong": "sc2:Object-one",
+                "correct": "sc:Object-one",
                 "explanation": "Used valid library schema prefix without invalid characters"
             },
             {
-                "wrong": "sca:Sleep-modulator",
-                "correct": "sc:Sleep-modulator",
+                "wrong": "sca:Object-one",
+                "correct": "sc:Object-one",
                 "explanation": "Corrected to match loaded schema namespace prefix"
             }
         ],
@@ -54,12 +54,12 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "sc2:Sleep-modulator, Red",
-                    "sca:Sleep-modulator, Red"
+                    "sc2:Object-one, Red",
+                    "sca:Object-one, Red"
                 ],
                 "passes": [
                     "Blue",
-                    "sc:Sleep-modulator, Red"
+                    "sc:Object-one, Red"
                 ]
             },
             "sidecar_tests": {
@@ -67,7 +67,7 @@
                     {
                         "event_code": {
                             "HED": {
-                                "face": "sc1:Sleep-modulator, Red",
+                                "face": "sc1:Object-one, Red",
                                 "ball": "(Def/MyColor, Onset)(Def/Acc/3.5)"
                             }
                         }
@@ -88,7 +88,7 @@
                 "fails": [
                     [
                         ["onset", "duration", "HED"],
-                        [ 4.5, 0, "sc1:Sleep-modulator, Red"]
+                        [ 4.5, 0, "sc1:Object-one, Red"]
                     ]
                 ],
                 "passes": [
@@ -104,7 +104,7 @@
                         "sidecar":  {
                             "event_code": {
                                 "HED": {
-                                    "face": "sc1:Sleep-modulator, Red",
+                                    "face": "sc1:Object-one, Red",
                                     "ball": "(Def/MyColor, Onset)(Def/Acc/3.5)"
                                 }
                             }
@@ -122,7 +122,7 @@
                         "sidecar": {
                              "event_code": {
                                 "HED": {
-                                    "face": "Acceleration/5 m-per-s^2, sc:Sleep-modulator",
+                                    "face": "Acceleration/5 m-per-s^2, sc:Object-one",
                                     "ball": "Def/Acc/7, Blue"
                                 }
                             }
@@ -144,7 +144,7 @@
         "name": "tag-namespace_prefix-with-colon-values",
         "description": "A tag prefix has invalid characters.",
         "warning": false,
-        "schema": ["ts:8.3.0"],
+        "schema": ["ts:8.5.0"],
         "error_category": "validation",
         "common_causes": [
             "Missing namespace prefix for schema-specific tags",
@@ -277,8 +277,8 @@
         "description": "A tag starting with name: does not have an associated schema.",
         "warning": false,
         "schema": [
-            "8.3.0",
-            "sc:score_1.0.0"
+            "8.5.0",
+            "sc:testconflict_2.1.0"
         ],
         "error_category": "validation",
         "common_causes": [
@@ -295,8 +295,8 @@
                 "explanation": "Red is a standard schema tag, so no prefix is needed when the standard schema is in the default namespace."
             },
             {
-                "wrong": "ts:Red with schemas [\"8.3.0\", \"sc:score_1.0.0\"]",
-                "correct": "ts:Red with schemas [\"8.3.0\", \"sc:score_1.0.0\", \"ts:8.3.0\"]",
+                "wrong": "ts:Red with schemas [\"8.5.0\", \"sc:testconflict_2.1.0\"]",
+                "correct": "ts:Red with schemas [\"8.5.0\", \"sc:testconflict_2.1.0\", \"ts:8.5.0\"]",
                 "explanation": "Adding a schema under the ts: prefix makes ts:-prefixed tags resolvable."
             }
         ],
@@ -310,10 +310,10 @@
             "string_tests": {
                 "fails": [
                     "ts:Red, Blue",
-                    "(ts:Red, (sc:Sleep-modulator))"
+                    "(ts:Red, (sc:Object-one))"
                 ],
                 "passes": [
-                    "sc:Sleep-modulator"
+                    "sc:Object-one"
                 ]
             },
             "sidecar_tests": {
@@ -322,7 +322,7 @@
                         "event_code": {
                             "HED": {
                                 "face": "ts:Red, Blue",
-                                "ball": "(ts:Red, (sc:Sleep-modulator))"
+                                "ball": "(ts:Red, (sc:Object-one))"
                             }
                         }
                     }
@@ -331,7 +331,7 @@
                     {
                         "event_code": {
                             "HED": {
-                                "face": "sc:Sleep-modulator"
+                                "face": "sc:Object-one"
                             }
                         }
                     }
@@ -353,7 +353,7 @@
                         [
                             5.5,
                             0,
-                            "(ts:Red, (sc:Sleep-modulator))"
+                            "(ts:Red, (sc:Object-one))"
                         ]
                     ]
                 ],
@@ -367,7 +367,7 @@
                         [
                             4.5,
                             0,
-                            "sc:Sleep-modulator"
+                            "sc:Object-one"
                         ]
                     ]
                 ]
@@ -379,7 +379,7 @@
                             "event_code": {
                                 "HED": {
                                     "face": "ts:Red, Blue",
-                                    "ball": "(ts:Red, (sc:Sleep-modulator))"
+                                    "ball": "(ts:Red, (sc:Object-one))"
                                 }
                             }
                         },
@@ -411,7 +411,7 @@
                             "event_code": {
                                 "HED": {
                                     "face": "Acceleration/5 m-per-s^2",
-                                    "ball": "Def/Acc/7, Blue, sc:Sleep-modulator"
+                                    "ball": "Def/Acc/7, Blue, sc:Object-one"
                                 }
                             }
                         },
@@ -426,7 +426,7 @@
                                 4.5,
                                 0,
                                 "face",
-                                "Blue, sc:Sleep-modulator"
+                                "Blue, sc:Object-one"
                             ],
                             [
                                 5.0,

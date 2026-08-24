@@ -6,11 +6,11 @@
         "description": "A standard schema version in a merge group must match the withStandard partner of the group's library schemas.",
         "warning": false,
         "schema": [
-            "8.1.0",
-            "testlib_2.0.0"
+            "8.4.0",
+            "testconflict_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "All schemas in a merge group (the unprefixed schemas, or the schemas sharing one namespace prefix) must resolve to a single standard schema partner. Here testlib_2.0.0 is partnered with standard schema 8.4.0 (its withStandard attribute), but the group also lists standard schema 8.1.0. A standard schema in a merge group must be the same version as the group partner, so the load fails.",
+        "explanation": "All schemas in a merge group (the unprefixed schemas, or the schemas sharing one namespace prefix) must resolve to a single standard schema partner. Here testconflict_2.0.0 is partnered with standard schema 8.5.0 (its withStandard attribute), but the group also lists standard schema 8.4.0. A standard schema in a merge group must be the same version as the group partner, so the load fails.",
         "common_causes": [
             "Listing a standard schema version different from the library's withStandard partner",
             "Updating the library schema version without updating the standard schema version in the specification",
@@ -20,13 +20,13 @@
         "correction_strategy": "Look up the library schema's withStandard partner and either list that standard version or omit the standard schema entirely, since the partner is included automatically.",
         "correction_examples": [
             {
-                "wrong": "[\"8.1.0\", \"testlib_2.0.0\"]",
-                "correct": "[\"8.4.0\", \"testlib_2.0.0\"]",
-                "explanation": "testlib_2.0.0 has withStandard=8.4.0, so the standard schema in its merge group must be 8.4.0."
+                "wrong": "[\"8.4.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"8.5.0\", \"testconflict_2.0.0\"]",
+                "explanation": "testconflict_2.0.0 has withStandard=8.5.0, so the standard schema in its merge group must be 8.5.0."
             },
             {
-                "wrong": "[\"8.1.0\", \"testlib_2.0.0\"]",
-                "correct": "[\"testlib_2.0.0\"]",
+                "wrong": "[\"8.4.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\"]",
                 "explanation": "A partnered library schema automatically includes its standard schema partner, so the standard version can simply be omitted."
             }
         ],
@@ -66,20 +66,20 @@
         "description": "A standard schema in a merge group is ignored when it matches the group partner.",
         "warning": false,
         "schema": [
-            "8.4.0",
-            "testlib_2.0.0"
+            "8.5.0",
+            "testconflict_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. testlib_2.0.0 is partnered with standard schema 8.4.0, and the listed standard schema 8.4.0 matches the group partner, so it is redundant and ignored during the merge.",
+        "explanation": "This combination loads. testconflict_2.0.0 is partnered with standard schema 8.5.0, and the listed standard schema 8.5.0 matches the group partner, so it is redundant and ignored during the merge.",
         "common_causes": [
             "Believing that listing the standard schema alongside its partnered library is an error"
         ],
         "correction_strategy": "No correction needed; a standard schema matching the group partner is allowed and ignored, though it can simply be omitted.",
         "correction_examples": [
             {
-                "wrong": "[\"8.2.0\", \"testlib_2.0.0\"]",
-                "correct": "[\"8.4.0\", \"testlib_2.0.0\"]",
-                "explanation": "A standard schema listed with a partnered library must match the library's withStandard partner (8.4.0); it is then ignored during the merge."
+                "wrong": "[\"8.4.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"8.5.0\", \"testconflict_2.0.0\"]",
+                "explanation": "A standard schema listed with a partnered library must match the library's withStandard partner (8.5.0); it is then ignored during the merge."
             }
         ],
         "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -89,7 +89,7 @@
             "string_tests": {
                 "fails": [],
                 "passes": [
-                    "Red",
+                    "Red, Object-one",
                     "Blue"
                 ]
             }
@@ -102,20 +102,20 @@
         "description": "Two versions of the same library schema with the same partner and no conflicting elements merge.",
         "warning": false,
         "schema": [
-            "testlib_2.0.0",
-            "testlib_3.0.0"
+            "testconflict_2.0.0",
+            "testconflict_2.1.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. testlib_2.0.0 and testlib_3.0.0 are both partnered with standard schema 8.4.0 and their shared elements are identical, so the two versions merge into the unprefixed group like any other compatible library pair.",
+        "explanation": "This combination loads. testconflict_2.0.0 and testconflict_2.1.0 are both partnered with standard schema 8.5.0, and 2.1.0 is 2.0.0 plus one added tag (Object-four), so every shared element is identical and the two versions merge into the unprefixed group like any other compatible library pair.",
         "common_causes": [
             "Believing that two versions of the same library can never be combined"
         ],
         "correction_strategy": "No correction needed; versions of one library merge when they share a partner and have no conflicting elements, though using a single version is usually clearer.",
         "correction_examples": [
             {
-                "wrong": "[\"testlib_1.0.2\", \"testlib_3.0.0\"]",
-                "correct": "[\"testlib_2.0.0\", \"testlib_3.0.0\"]",
-                "explanation": "testlib_1.0.2 is unpartnered and cannot merge; both listed versions must be partnered with the same standard schema."
+                "wrong": "[\"testconflict_1.1.0\", \"testconflict_2.1.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
+                "explanation": "testconflict_1.1.0 is unpartnered and cannot merge; both listed versions must be partnered with the same standard schema."
             }
         ],
         "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -125,51 +125,9 @@
             "string_tests": {
                 "fails": [],
                 "passes": [
-                    "Red",
-                    "Blue"
+                    "Red, Object-four",
+                    "Shared-item"
                 ]
-            }
-        }
-    },
-    {
-        "error_code": "SCHEMA_LOAD_FAILED",
-        "alt_codes": ["SCHEMA_LIBRARY_INVALID"],
-        "name": "duplicate-schema-in-merge-group",
-        "description": "The same schema (same name and version) cannot appear twice in one merge group.",
-        "warning": false,
-        "schema": [
-            "testlib_2.0.0",
-            "testlib_2.0.0"
-        ],
-        "error_category": "schema",
-        "explanation": "A merge group cannot contain multiple copies of the same schema, meaning the same name and version. Listing testlib_2.0.0 twice in the unprefixed group is an error. Different versions of the same library may appear together if they satisfy the other combination rules.",
-        "common_causes": [
-            "Copy-paste duplication in the version specification",
-            "Concatenating version lists that share a schema"
-        ],
-        "correction_strategy": "Remove the duplicate entry so each schema appears at most once per merge group.",
-        "correction_examples": [
-            {
-                "wrong": "[\"testlib_2.0.0\", \"testlib_2.0.0\"]",
-                "correct": "[\"testlib_2.0.0\"]",
-                "explanation": "Each schema may be listed only once in a merge group."
-            },
-            {
-                "wrong": "[\"testlib_2.0.0\", \"testlib_2.0.0\"]",
-                "correct": "[\"testlib_2.0.0\", \"testlib_3.0.0\"]",
-                "explanation": "Different versions of the same library are allowed when they share a partner and have no conflicting elements."
-            }
-        ],
-        "specification_reference": "3.1.2.2. Rules for partnered combination",
-        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_VERSION_INVALID"],
-        "definitions": [],
-        "tests": {
-            "string_tests": {
-                "fails": [
-                    "Red",
-                    "Blue"
-                ],
-                "passes": []
             }
         }
     },
@@ -180,11 +138,11 @@
         "description": "A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.",
         "warning": false,
         "schema": [
-            "8.4.0",
-            "sc:8.1.0"
+            "8.5.0",
+            "sc:8.4.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. The unprefixed group holds standard schema 8.4.0 and the sc: group holds standard schema 8.1.0. Each namespace is a separate merge group, so the two standard versions do not conflict.",
+        "explanation": "This combination loads. The unprefixed group holds standard schema 8.5.0 and the sc: group holds standard schema 8.4.0. Each namespace is a separate merge group, so the two standard versions do not conflict.",
         "common_causes": [
             "Believing only library schemas may appear under a namespace prefix",
             "Believing all standard schema versions in a specification must agree"
@@ -192,8 +150,8 @@
         "correction_strategy": "No correction needed; use a namespace prefix to load a second standard schema version alongside the default one.",
         "correction_examples": [
             {
-                "wrong": "[\"8.4.0\", \"8.1.0\"]",
-                "correct": "[\"8.4.0\", \"sc:8.1.0\"]",
+                "wrong": "[\"8.5.0\", \"8.4.0\"]",
+                "correct": "[\"8.5.0\", \"sc:8.4.0\"]",
                 "explanation": "Two bare standard versions share the unprefixed group and fail; prefixing the second gives it its own merge group."
             }
         ],
@@ -204,8 +162,8 @@
             "string_tests": {
                 "fails": [],
                 "passes": [
-                    "Red",
-                    "Blue"
+                    "Red, sc:Blue",
+                    "Green"
                 ]
             }
         }
@@ -217,11 +175,11 @@
         "description": "Library schemas in a merge group must all have the same standard schema partner.",
         "warning": false,
         "schema": [
-            "score_2.0.0",
-            "lang_1.1.0"
+            "testconflict_2.0.0",
+            "testminimal_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Partnered library schemas can only merge into one namespace if they share the same withStandard partner. score_2.0.0 is partnered with standard schema 8.3.0 while lang_1.1.0 is partnered with 8.4.0, so these two libraries cannot form a merge group and the load fails.",
+        "explanation": "Partnered library schemas can only merge into one namespace if they share the same withStandard partner. testconflict_2.0.0 is partnered with standard schema 8.5.0 while testminimal_2.0.0 is partnered with 8.4.0, so these two libraries cannot form a merge group and the load fails.",
         "common_causes": [
             "Combining library schema versions released against different standard schema versions",
             "Upgrading one library in a specification without upgrading the others",
@@ -230,14 +188,14 @@
         "correction_strategy": "Choose library schema versions that share the same withStandard partner, or put the incompatible library in its own namespace with a prefix.",
         "correction_examples": [
             {
-                "wrong": "[\"score_2.0.0\", \"lang_1.1.0\"]",
-                "correct": "[\"score_2.1.0\", \"lang_1.1.0\"]",
-                "explanation": "score_2.1.0 and lang_1.1.0 are both partnered with standard schema 8.4.0, so they can merge."
+                "wrong": "[\"testconflict_2.0.0\", \"testminimal_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testminimal_2.1.0\"]",
+                "explanation": "testconflict_2.0.0 and testminimal_2.1.0 are both partnered with standard schema 8.5.0, so they can merge."
             },
             {
-                "wrong": "[\"score_2.0.0\", \"lang_1.1.0\"]",
-                "correct": "[\"score_2.0.0\", \"lg:lang_1.1.0\"]",
-                "explanation": "Giving lang_1.1.0 its own namespace prefix removes it from the unprefixed merge group, so the partners no longer need to match."
+                "wrong": "[\"testconflict_2.0.0\", \"testminimal_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"tm:testminimal_2.0.0\"]",
+                "explanation": "Giving testminimal_2.0.0 its own namespace prefix removes it from the unprefixed merge group, so the partners no longer need to match."
             }
         ],
         "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -260,12 +218,12 @@
         "description": "Several library schemas with the same standard schema partner merge into one namespace.",
         "warning": false,
         "schema": [
-            "testlib_2.0.0",
-            "score_2.1.0",
-            "lang_1.1.0"
+            "testconflict_2.1.0",
+            "testclash_1.0.0",
+            "testminimal_2.1.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. testlib_2.0.0, score_2.1.0, and lang_1.1.0 are all partnered with standard schema 8.4.0 and define disjoint library elements, so all three merge with their shared partner into a single unprefixed vocabulary.",
+        "explanation": "This combination loads. testconflict_2.1.0, testclash_1.0.0, and testminimal_2.1.0 are all partnered with standard schema 8.5.0, and their library elements are either disjoint or identical (Shared-item appears in testconflict and testclash as identical copies), so all three merge with their shared partner into a single unprefixed vocabulary.",
         "common_causes": [
             "Believing that at most two schemas can be combined",
             "Believing that library schemas always require namespace prefixes"
@@ -273,9 +231,9 @@
         "correction_strategy": "No correction needed; any number of partnered libraries sharing the same withStandard partner can merge if their elements do not conflict.",
         "correction_examples": [
             {
-                "wrong": "[\"testlib_2.0.0\", \"score_2.0.0\", \"lang_1.1.0\"]",
-                "correct": "[\"testlib_2.0.0\", \"score_2.1.0\", \"lang_1.1.0\"]",
-                "explanation": "score_2.0.0 is partnered with 8.3.0 and would break the group; score_2.1.0 shares the 8.4.0 partner with the other two libraries."
+                "wrong": "[\"testconflict_2.1.0\", \"testclash_1.0.0\", \"testminimal_2.0.0\"]",
+                "correct": "[\"testconflict_2.1.0\", \"testclash_1.0.0\", \"testminimal_2.1.0\"]",
+                "explanation": "testminimal_2.0.0 is partnered with 8.4.0 and would break the group; testminimal_2.1.0 shares the 8.5.0 partner with the other two libraries."
             }
         ],
         "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -285,8 +243,8 @@
             "string_tests": {
                 "fails": [],
                 "passes": [
-                    "Red",
-                    "Blue"
+                    "Red, Object-one, Clash-one, Mini-one",
+                    "Measure-tag/5"
                 ]
             }
         }
@@ -298,10 +256,10 @@
         "description": "A partnered library schema listed alone automatically includes its standard schema partner.",
         "warning": false,
         "schema": [
-            "score_2.1.0"
+            "testconflict_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "This specification loads. A partnered library schema is distributed merged with its standard schema partner, so listing score_2.1.0 alone provides both the score library tags and the standard schema 8.4.0 tags. Standard schema tags such as Red validate without the standard schema being listed.",
+        "explanation": "This specification loads. A partnered library schema is distributed merged with its standard schema partner, so listing testconflict_2.0.0 alone provides both the testconflict library tags and the standard schema 8.5.0 tags. Standard schema tags such as Red validate without the standard schema being listed.",
         "common_causes": [
             "Believing the standard schema must always be listed explicitly",
             "Believing standard tags are unavailable when only a library schema is specified"
@@ -309,9 +267,9 @@
         "correction_strategy": "No correction needed; a partnered library schema alone supplies its standard schema partner.",
         "correction_examples": [
             {
-                "wrong": "[\"8.3.0\", \"score_2.1.0\"]",
-                "correct": "[\"score_2.1.0\"]",
-                "explanation": "Listing a non-matching standard schema (8.3.0) with score_2.1.0 (partnered with 8.4.0) fails; the library alone already includes its partner."
+                "wrong": "[\"8.4.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\"]",
+                "explanation": "Listing a non-matching standard schema (8.4.0) with testconflict_2.0.0 (partnered with 8.5.0) fails; the library alone already includes its partner."
             }
         ],
         "specification_reference": "3.1.2.1. Partnered versus unpartnered; 7.3.6. Lazy partnering",
@@ -321,8 +279,8 @@
             "string_tests": {
                 "fails": [],
                 "passes": [
-                    "Red",
-                    "Blue"
+                    "Red, Object-one",
+                    "Measure-tag/3"
                 ]
             }
         }
@@ -334,12 +292,12 @@
         "description": "Schemas with different namespace prefixes form independent merge groups whose partners need not match.",
         "warning": false,
         "schema": [
-            "8.3.0",
-            "sc:score_2.1.0",
-            "ts:testlib_1.0.2"
+            "8.4.0",
+            "sc:testconflict_2.1.0",
+            "ts:testminimal_1.0.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. Each namespace prefix forms its own merge group: the unprefixed group holds standard schema 8.3.0, the sc: group holds score_2.1.0 (with its 8.4.0 partner), and the ts: group holds the unpartnered testlib_1.0.2, which is allowed because it is alone in its own namespace. Compatibility rules apply within each group separately, so the differing standard versions across groups are not a conflict.",
+        "explanation": "This combination loads. Each namespace prefix forms its own merge group: the unprefixed group holds standard schema 8.4.0, the sc: group holds testconflict_2.1.0 (with its 8.5.0 partner), and the ts: group holds the unpartnered testminimal_1.0.0, which is allowed because it is alone in its own namespace. Compatibility rules apply within each group separately, so the differing standard versions across groups are not a conflict.",
         "common_causes": [
             "Believing all schemas in a specification must share one standard schema version",
             "Believing unpartnered library schemas can no longer be used at all"
@@ -347,9 +305,9 @@
         "correction_strategy": "No correction needed; use namespace prefixes to combine schemas whose partners differ or that are unpartnered.",
         "correction_examples": [
             {
-                "wrong": "[\"8.3.0\", \"score_2.1.0\", \"testlib_1.0.2\"]",
-                "correct": "[\"8.3.0\", \"sc:score_2.1.0\", \"ts:testlib_1.0.2\"]",
-                "explanation": "Unprefixed, score_2.1.0's 8.4.0 partner conflicts with 8.3.0 and unpartnered testlib_1.0.2 cannot share a namespace; prefixes give each schema its own merge group."
+                "wrong": "[\"8.4.0\", \"testconflict_2.1.0\", \"testminimal_1.0.0\"]",
+                "correct": "[\"8.4.0\", \"sc:testconflict_2.1.0\", \"ts:testminimal_1.0.0\"]",
+                "explanation": "Unprefixed, testconflict_2.1.0's 8.5.0 partner conflicts with 8.4.0 and unpartnered testminimal_1.0.0 cannot share a namespace; prefixes give each schema its own merge group."
             }
         ],
         "specification_reference": "3.1.1. Schema versions; 7.3.6. Lazy partnering",
@@ -359,8 +317,8 @@
             "string_tests": {
                 "fails": [],
                 "passes": [
-                    "Red",
-                    "Blue"
+                    "Red, sc:Object-four, ts:Mini-one",
+                    "Green"
                 ]
             }
         }
@@ -372,8 +330,8 @@
         "description": "Two different standard schema versions cannot appear in the same merge group.",
         "warning": false,
         "schema": [
-            "8.3.0",
-            "8.4.0"
+            "8.4.0",
+            "8.5.0"
         ],
         "error_category": "schema",
         "explanation": "A merge group resolves to exactly one standard schema partner. Listing two different bare standard schema versions in the unprefixed group gives the group two conflicting partners, so the load fails.",
@@ -385,13 +343,13 @@
         "correction_strategy": "Keep a single standard schema version per namespace; use a namespace prefix if a second standard version is genuinely needed.",
         "correction_examples": [
             {
-                "wrong": "[\"8.3.0\", \"8.4.0\"]",
-                "correct": "[\"8.4.0\"]",
+                "wrong": "[\"8.4.0\", \"8.5.0\"]",
+                "correct": "[\"8.5.0\"]",
                 "explanation": "Choose the one standard version the annotations should validate against."
             },
             {
-                "wrong": "[\"8.3.0\", \"8.4.0\"]",
-                "correct": "[\"8.4.0\", \"old:8.3.0\"]",
+                "wrong": "[\"8.4.0\", \"8.5.0\"]",
+                "correct": "[\"8.5.0\", \"old:8.4.0\"]",
                 "explanation": "If both versions are needed, put the second in its own namespace and prefix its tags with old: in annotations."
             }
         ],
@@ -415,11 +373,11 @@
         "description": "An unpartnered library schema cannot share a namespace with other schemas.",
         "warning": false,
         "schema": [
-            "8.4.0",
-            "testlib_1.0.2"
+            "8.5.0",
+            "testconflict_1.1.0"
         ],
         "error_category": "schema",
-        "explanation": "Unpartnered library schemas (no withStandard attribute) must be in their own namespace. testlib_1.0.2 is unpartnered, so it cannot be merged into the unprefixed group with standard schema 8.4.0, and the load fails.",
+        "explanation": "Unpartnered library schemas (no withStandard attribute) must be in their own namespace. testconflict_1.1.0 is unpartnered, so it cannot be merged into the unprefixed group with standard schema 8.5.0, and the load fails.",
         "common_causes": [
             "Using an old unpartnered library release where a partnered version now exists",
             "Omitting the namespace prefix an unpartnered library requires",
@@ -428,14 +386,14 @@
         "correction_strategy": "Either upgrade to a partnered version of the library or give the unpartnered library its own namespace prefix.",
         "correction_examples": [
             {
-                "wrong": "[\"8.4.0\", \"testlib_1.0.2\"]",
-                "correct": "[\"8.4.0\", \"testlib_2.0.0\"]",
-                "explanation": "testlib_2.0.0 is partnered with 8.4.0, so it merges into the unprefixed group."
+                "wrong": "[\"8.5.0\", \"testconflict_1.1.0\"]",
+                "correct": "[\"8.5.0\", \"testconflict_2.0.0\"]",
+                "explanation": "testconflict_2.0.0 is partnered with 8.5.0, so it merges into the unprefixed group."
             },
             {
-                "wrong": "[\"8.4.0\", \"testlib_1.0.2\"]",
-                "correct": "[\"8.4.0\", \"ts:testlib_1.0.2\"]",
-                "explanation": "The prefix gives the unpartnered library its own namespace; its tags are then written with the ts: prefix."
+                "wrong": "[\"8.5.0\", \"testconflict_1.1.0\"]",
+                "correct": "[\"8.5.0\", \"tc:testconflict_1.1.0\"]",
+                "explanation": "The prefix gives the unpartnered library its own namespace; its tags are then written with the tc: prefix."
             }
         ],
         "specification_reference": "3.1.2.1. Partnered versus unpartnered",
@@ -458,11 +416,11 @@
         "description": "Two unpartnered library schemas cannot share one namespace prefix.",
         "warning": false,
         "schema": [
-            "ts:testlib_1.0.2",
-            "ts:score_1.0.0"
+            "ts:testconflict_1.1.2",
+            "ts:testminimal_1.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Schemas with the same namespace prefix form one merge group, and merging requires partnered schemas with a shared standard partner. testlib_1.0.2 and score_1.0.0 are both unpartnered, so they cannot merge, and an unpartnered schema must be alone in its namespace. The load fails.",
+        "explanation": "Schemas with the same namespace prefix form one merge group, and merging requires partnered schemas with a shared standard partner. testconflict_1.1.2 and testminimal_1.0.0 are both unpartnered, so they cannot merge, and an unpartnered schema must be alone in its namespace. The load fails.",
         "common_causes": [
             "Reusing one prefix for several old-style library schemas",
             "Assuming a prefix is a label rather than a merge group identifier"
@@ -470,8 +428,8 @@
         "correction_strategy": "Give each unpartnered library schema its own distinct namespace prefix.",
         "correction_examples": [
             {
-                "wrong": "[\"ts:testlib_1.0.2\", \"ts:score_1.0.0\"]",
-                "correct": "[\"ts:testlib_1.0.2\", \"sc:score_1.0.0\"]",
+                "wrong": "[\"ts:testconflict_1.1.2\", \"ts:testminimal_1.0.0\"]",
+                "correct": "[\"tc:testconflict_1.1.2\", \"ts:testminimal_1.0.0\"]",
                 "explanation": "Distinct prefixes put each unpartnered library in its own namespace, which is required for unpartnered schemas."
             }
         ],
@@ -481,8 +439,8 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "ts:Anesthetic-agent",
-                    "ts:Sleep-modulator"
+                    "ts:Object-one",
+                    "ts:Mini-one"
                 ],
                 "passes": []
             }
@@ -495,12 +453,12 @@
         "description": "The partnered-combination rules apply inside each prefixed merge group, not only to unprefixed schemas.",
         "warning": false,
         "schema": [
-            "8.4.0",
-            "sc:score_2.0.0",
-            "sc:lang_1.1.0"
+            "8.5.0",
+            "sc:testconflict_2.0.0",
+            "sc:testminimal_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Schemas sharing the sc: prefix form one merge group and must satisfy the same combination rules as unprefixed schemas. score_2.0.0 is partnered with standard schema 8.3.0 while lang_1.1.0 is partnered with 8.4.0, so the sc: group has conflicting partners and the load fails even though the unprefixed group (8.4.0) is fine.",
+        "explanation": "Schemas sharing the sc: prefix form one merge group and must satisfy the same combination rules as unprefixed schemas. testconflict_2.0.0 is partnered with standard schema 8.5.0 while testminimal_2.0.0 is partnered with 8.4.0, so the sc: group has conflicting partners and the load fails even though the unprefixed group (8.5.0) is fine.",
         "common_causes": [
             "Assuming prefixed schemas are exempt from partner compatibility rules",
             "Grouping unrelated libraries under one prefix for convenience"
@@ -508,13 +466,13 @@
         "correction_strategy": "Within each prefix, use library versions sharing one withStandard partner, or split the incompatible libraries into different prefixes.",
         "correction_examples": [
             {
-                "wrong": "[\"8.4.0\", \"sc:score_2.0.0\", \"sc:lang_1.1.0\"]",
-                "correct": "[\"8.4.0\", \"sc:score_2.1.0\", \"sc:lang_1.1.0\"]",
-                "explanation": "score_2.1.0 and lang_1.1.0 are both partnered with 8.4.0, so the sc: group merges."
+                "wrong": "[\"8.5.0\", \"sc:testconflict_2.0.0\", \"sc:testminimal_2.0.0\"]",
+                "correct": "[\"8.5.0\", \"sc:testconflict_2.0.0\", \"sc:testminimal_2.1.0\"]",
+                "explanation": "testconflict_2.0.0 and testminimal_2.1.0 are both partnered with 8.5.0, so the sc: group merges."
             },
             {
-                "wrong": "[\"8.4.0\", \"sc:score_2.0.0\", \"sc:lang_1.1.0\"]",
-                "correct": "[\"8.4.0\", \"sc:score_2.0.0\", \"lg:lang_1.1.0\"]",
+                "wrong": "[\"8.5.0\", \"sc:testconflict_2.0.0\", \"sc:testminimal_2.0.0\"]",
+                "correct": "[\"8.5.0\", \"sc:testconflict_2.0.0\", \"tm:testminimal_2.0.0\"]",
                 "explanation": "Splitting the libraries into different prefixes makes each its own merge group, so the partners no longer need to match."
             }
         ],
@@ -535,29 +493,594 @@
         "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": ["FILE_NOT_FOUND"],
         "name": "nonexistent-schema-version-in-group",
-        "description": "A schema version that does not exist in the HED schema repositories cannot be loaded.",
+        "description": "A schema version that does not exist cannot be loaded.",
         "warning": false,
         "schema": [
-            "8.4.0",
-            "testlib_99.0.0"
+            "8.5.0",
+            "testconflict_99.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Every entry in the schema specification must name a released schema that the tools can retrieve. testlib_99.0.0 is a syntactically valid version of a real library, but no such release exists, so the schema cannot be found and the load fails.",
+        "explanation": "Every entry in the schema specification must name a schema version that the tools can retrieve. testconflict_99.0.0 is a syntactically valid version of a real library, but no such version exists, so the schema cannot be found and the load fails.",
         "common_causes": [
             "Typo in the version number or library name",
             "Referencing a prerelease or unreleased schema version",
-            "Guessing at a version instead of checking the released versions"
+            "Guessing at a version instead of checking the available versions"
         ],
-        "correction_strategy": "Check the released versions in the hed-schemas repository and use an exact released version string.",
+        "correction_strategy": "Check the available versions of the library and use an exact existing version string.",
         "correction_examples": [
             {
-                "wrong": "[\"8.4.0\", \"testlib_99.0.0\"]",
-                "correct": "[\"8.4.0\", \"testlib_3.0.0\"]",
-                "explanation": "testlib_3.0.0 is a released version partnered with 8.4.0; testlib_99.0.0 does not exist."
+                "wrong": "[\"8.5.0\", \"testconflict_99.0.0\"]",
+                "correct": "[\"8.5.0\", \"testconflict_2.0.0\"]",
+                "explanation": "testconflict_2.0.0 is an existing version partnered with 8.5.0; testconflict_99.0.0 does not exist."
             }
         ],
         "specification_reference": "3.1.1. Schema versions",
         "related_errors": ["SCHEMA_VERSION_INVALID", "SCHEMA_LIBRARY_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": ["SCHEMA_LIBRARY_INVALID"],
+        "name": "duplicate-schema-in-merge-group",
+        "description": "The same schema (same name and version) cannot appear twice in one merge group.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testconflict_2.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A merge group cannot contain multiple copies of the same schema, meaning the same name and version. Listing testconflict_2.0.0 twice in the unprefixed group is an error. Different versions of the same library may appear together if they satisfy the other combination rules.",
+        "common_causes": [
+            "Copy-paste duplication in the version specification",
+            "Concatenating version lists that share a schema"
+        ],
+        "correction_strategy": "Remove the duplicate entry so each schema appears at most once per merge group.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\"]",
+                "explanation": "Each schema may be listed only once in a merge group."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
+                "explanation": "Different versions of the same library are allowed when they share a partner and have no conflicting elements."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_VERSION_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-attribute-value",
+        "description": "Library schemas sharing an element must give it identical attribute values.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_2.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas in a merge group may share an element only if the element is identical in every schema that declares it. Both libraries declare the top-level tag Attribute-item, but testconflict gives it suggestedTag=Object-one while testclash gives it suggestedTag=Clash-one. The attribute values differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Two libraries reusing a tag name for different purposes",
+            "Copies of a shared element drifting apart as the libraries evolve",
+            "Updating an attribute value in one library but not in its counterpart"
+        ],
+        "correction_strategy": "Make the shared element identical in every library (including attribute values), rename one of the elements, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_1.0.0\"]",
+                "explanation": "testclash_1.0.0's only shared element (Shared-item) is an identical copy of testconflict's, so the libraries merge."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_2.0.0\"]",
+                "explanation": "In separate namespaces the two Attribute-item declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-description",
+        "description": "Library schemas sharing an element must give it the same description.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_3.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas in a merge group may share an element only if the element is identical in every schema that declares it, including its description text. Both libraries declare the top-level tag Description-item with the same attributes and position, but the description texts differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Rewording a shared element's description in one library only",
+            "Two libraries independently defining the same tag name with different meanings"
+        ],
+        "correction_strategy": "Make the shared element's description identical in every library, rename one of the elements, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_3.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_1.0.0\"]",
+                "explanation": "testclash_1.0.0's only shared element (Shared-item) is an identical copy, description included, so the libraries merge."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_3.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_3.0.0\"]",
+                "explanation": "In separate namespaces the two Description-item declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-ancestor-path",
+        "description": "Library schemas sharing an element must place it at the same position in the hierarchy.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_4.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas in a merge group may share an element only if the element has the same ancestor path in every schema that declares it. testconflict declares Nested-item as a child of Anchor-item while testclash_4.0.0 declares Nested-item at the top level. The ancestor paths differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Moving a tag to a new parent in one library but not in its counterpart",
+            "Two libraries placing the same tag name at different points in their hierarchies"
+        ],
+        "correction_strategy": "Place the shared element at the same position in every library, rename one of the elements, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_4.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_1.0.0\"]",
+                "explanation": "testclash_1.0.0's only shared element (Shared-item) sits at the same top-level position in both libraries, so they merge."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_4.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_4.0.0\"]",
+                "explanation": "In separate namespaces the two Nested-item declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-placeholder-child",
+        "description": "A shared element must have a placeholder (#) child in all schemas that declare it or in none.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_5.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas in a merge group may share an element only if the element takes a value in every schema that declares it or in none. testconflict's Placeholder-item has a # (takesValue) child while testclash_5.0.0's Placeholder-item has no children. The placeholder presence differs, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Adding a value placeholder to a shared tag in one library only",
+            "Two libraries disagreeing on whether a tag takes a value"
+        ],
+        "correction_strategy": "Give the shared element the same placeholder child in every library (or none), rename one of the elements, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_5.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_1.0.0\"]",
+                "explanation": "testclash_1.0.0's only shared element (Shared-item) has no placeholder child in either library, so they merge."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_5.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_5.0.0\"]",
+                "explanation": "In separate namespaces the two Placeholder-item declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "shared-element-compatible-across-libraries",
+        "description": "Two libraries may declare the same element when the declarations are identical.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_1.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Both libraries declare the top-level tag Shared-item with the same description, the same attributes, the same position, and no placeholder child. Identical shared elements are compatible, so the merge keeps a single copy of Shared-item and the load succeeds.",
+        "common_causes": [
+            "Believing that any tag name overlap between libraries prevents merging"
+        ],
+        "correction_strategy": "No correction needed; libraries may share elements as long as the shared declarations are identical.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_3.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_1.0.0\"]",
+                "explanation": "testclash_3.0.0's shared element differs in description and cannot merge; testclash_1.0.0's shared element is an identical copy and can."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Shared-item, Clash-one",
+                    "Red"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "same-library-two-incompatible-versions",
+        "description": "Two versions of the same library must still be element-compatible to merge.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.1.0",
+            "testconflict_2.1.1"
+        ],
+        "error_category": "schema",
+        "explanation": "Versions of one library merge only when their shared elements are identical, exactly like different libraries. testconflict_2.1.1 differs from 2.1.0 only in the description of Measure-tag (a patch-level revision), but even that one changed description makes the shared element incompatible, so the two versions cannot merge and the load fails.",
+        "common_causes": [
+            "Assuming any two versions of one library can be combined",
+            "Combining a version with its own patch release, which by definition changed some description or similar detail"
+        ],
+        "correction_strategy": "Use a single version of the library, or two versions whose shared elements are identical.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.1.0\", \"testconflict_2.1.1\"]",
+                "correct": "[\"testconflict_2.1.1\"]",
+                "explanation": "Using one version avoids the element comparison entirely."
+            },
+            {
+                "wrong": "[\"testconflict_2.1.0\", \"testconflict_2.1.1\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
+                "explanation": "testconflict_2.1.0 is testconflict_2.0.0 plus one added tag, so every shared element is identical and the versions merge."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-rooted-vs-top-level",
+        "description": "A tag rooted in the standard schema in one library cannot merge with an unrooted top-level tag of the same name in another.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_6.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "testconflict declares Rooted-tag with rooted=Event, so in the merged vocabulary it sits under the standard Event tag (path Event/Rooted-tag). testclash_6.0.0 declares Rooted-tag as an ordinary top-level tag (path Rooted-tag). The same element cannot be rooted in one library and unrooted in the other: the ancestor paths (and the rooted attribute itself) differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Adding the rooted attribute to a shared tag in one library only",
+            "Two libraries disagreeing on whether a subtree extends the standard schema or stands alone"
+        ],
+        "correction_strategy": "Give the shared element the same rooted attribute (or none) in every library, rename one of the elements, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_6.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_8.0.0\"]",
+                "explanation": "testclash_8.0.0 declares Rooted-tag with the same rooted=Event anchor as testconflict, so the shared element is compatible."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_6.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_6.0.0\"]",
+                "explanation": "In separate namespaces the two Rooted-tag declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-rooted-different-anchors",
+        "description": "A shared rooted tag must be rooted at the same standard schema node in every library.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_7.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "testconflict declares Rooted-tag with rooted=Event (merged path Event/Rooted-tag) while testclash_7.0.0 declares Rooted-tag with rooted=Item (merged path Item/Rooted-tag). The two declarations anchor the same tag at different standard schema nodes, so the ancestor paths differ, the elements are incompatible, and the load fails.",
+        "common_causes": [
+            "Re-anchoring a rooted subtree in one library but not in its counterpart",
+            "Two libraries extending different standard subtrees with the same tag name"
+        ],
+        "correction_strategy": "Root the shared element at the same standard schema node in every library, rename one of the elements, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_7.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_8.0.0\"]",
+                "explanation": "testclash_8.0.0 roots Rooted-tag at Event, matching testconflict, so the shared element is compatible."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_7.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_7.0.0\"]",
+                "explanation": "In separate namespaces the two Rooted-tag declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "shared-rooted-hierarchy-different-children",
+        "description": "A shared element may have different non-placeholder children in different libraries.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_8.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Both libraries declare Rooted-tag identically (rooted=Event, same description) and both declare its child Rooted-one identically. testconflict additionally gives Rooted-tag the child Rooted-two and gives Rooted-one the child Deep-one, while testclash_8.0.0 additionally gives Rooted-tag the child Rooted-three. Different non-placeholder children are allowed for a shared element, so the merged vocabulary has Rooted-tag with children Rooted-one (with Deep-one), Rooted-two, and Rooted-three.",
+        "common_causes": [
+            "Believing two libraries extending the same shared subtree cannot be combined"
+        ],
+        "correction_strategy": "No correction needed; libraries may each add their own children under a shared element as long as the shared elements themselves are identical.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_9.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_8.0.0\"]",
+                "explanation": "testclash_9.0.0 changes the shared child Rooted-one's description and cannot merge; testclash_8.0.0 keeps the shared elements identical and adds only its own child."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Rooted-one, Rooted-three",
+                    "Rooted-two"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-in-shared-child",
+        "description": "A changed shared child makes libraries incompatible even when their non-shared siblings would be allowed.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_9.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Both libraries declare Rooted-tag identically, and testclash_9.0.0's own child Rooted-three would be an allowed non-shared addition. But both libraries also declare the child Rooted-one, and testclash_9.0.0 gives it a different description. The compatibility rules apply to every shared element, not just the top of a shared subtree, so the changed shared child makes the libraries incompatible and the load fails.",
+        "common_causes": [
+            "Rewording a shared child's description while adding library-specific siblings",
+            "Assuming only the root of a shared subtree needs to match"
+        ],
+        "correction_strategy": "Make every shared element of the subtree identical across the libraries, rename the changed child, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_9.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_8.0.0\"]",
+                "explanation": "testclash_8.0.0 declares the shared child Rooted-one identically and keeps its own sibling Rooted-three, so the libraries merge."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_9.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_9.0.0\"]",
+                "explanation": "In separate namespaces the two Rooted-one declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "shared-rooted-tag-disjoint-children",
+        "description": "A shared element's children may be entirely disjoint between libraries.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_10.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Both libraries declare Rooted-tag identically (rooted=Event, same description), but their child sets do not overlap at all: testconflict declares Rooted-one (with Deep-one) and Rooted-two, while testclash_10.0.0 declares only Rooted-four. A shared element's children may be entirely disjoint, so the merged Rooted-tag carries all four children and the load succeeds.",
+        "common_causes": [
+            "Believing a shared element must have the same children everywhere it is declared"
+        ],
+        "correction_strategy": "No correction needed; only the shared elements themselves must match, and child sets may be disjoint.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_6.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_10.0.0\"]",
+                "explanation": "testclash_6.0.0's Rooted-tag is unrooted and conflicts; testclash_10.0.0's Rooted-tag matches testconflict's and only its children differ, which is allowed."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Rooted-two, Rooted-four",
+                    "Red"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "shared-hierarchy-diverges-at-grandchild",
+        "description": "Libraries sharing an identical chain of elements may diverge below it.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_11.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Both libraries declare the chain Rooted-tag (rooted=Event) with child Rooted-one identically. Below that chain they diverge: testconflict gives Rooted-one the child Deep-one while testclash_11.0.0 gives it the child Deep-two. Because every shared element is identical and the differing grandchildren are not shared, the merge succeeds and Rooted-one carries both Deep-one and Deep-two.",
+        "common_causes": [
+            "Believing hierarchies that overlap for several levels cannot be combined"
+        ],
+        "correction_strategy": "No correction needed; libraries may extend a shared chain with different elements at any depth as long as the shared elements match.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_12.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_11.0.0\"]",
+                "explanation": "testclash_12.0.0 changes the shared grandchild Deep-one's description and cannot merge; testclash_11.0.0 adds its own grandchild Deep-two instead, which is allowed."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Deep-one, Deep-two",
+                    "Red"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-in-shared-grandchild",
+        "description": "The element compatibility rules recurse into every depth of a shared hierarchy.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testclash_12.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Both libraries declare the chain Rooted-tag (rooted=Event) with child Rooted-one identically, and both declare the grandchild Deep-one under Rooted-one. testclash_12.0.0 gives Deep-one a different description. Compatibility applies to every shared element at every depth, so the changed shared grandchild makes the libraries incompatible and the load fails, even though everything above it matches.",
+        "common_causes": [
+            "Rewording a deeply nested shared element's description in one library only",
+            "Assuming compatibility is only checked near the top of a shared subtree"
+        ],
+        "correction_strategy": "Make the shared element identical at every depth of the shared hierarchy, rename the changed element, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_12.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testclash_11.0.0\"]",
+                "explanation": "testclash_11.0.0 leaves the shared chain identical and adds its own grandchild Deep-two instead of changing the shared Deep-one."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_12.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_12.0.0\"]",
+                "explanation": "In separate namespaces the two Deep-one declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_LIBRARY_INVALID", "SCHEMA_DUPLICATE_NODE"],
         "definitions": [],
         "tests": {
             "string_tests": {

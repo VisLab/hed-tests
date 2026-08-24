@@ -1,0 +1,48 @@
+HED library="testconflict" version="1.1.0"
+
+'''Prologue'''
+testconflict 1.1.0 is unpartnered. Change from 1.0.0: adds Object-three under Object-tag (minor bump: new tag).
+
+!# start schema
+
+'''Object-tag''' <nowiki>[An ordinary hierarchy of items used for annotations in load tests.]</nowiki>
+* Object-one <nowiki>[The first object item.]</nowiki>
+* Object-two <nowiki>[The second object item.]</nowiki>
+* Object-three <nowiki>[The third object item.]</nowiki>
+
+'''Measure-tag''' <nowiki>[A tag that takes a measurement value in load tests.]</nowiki>
+* <nowiki># {takesValue}[Value of Measure-tag.]</nowiki>
+
+'''Legacy-tag''' <nowiki>[An obsolete tag present only in the 1.x versions of testconflict.]</nowiki>
+
+'''Shared-item''' <nowiki>[An item identical in every library that shares it.]</nowiki>
+
+'''Attribute-item''' <nowiki>{suggestedTag=Object-one}[An item whose suggestedTag value is the controlled difference between libraries.]</nowiki>
+
+'''Description-item''' <nowiki>[An item whose description text is the controlled difference between libraries. This is the testconflict wording.]</nowiki>
+
+'''Anchor-item''' <nowiki>[The testconflict parent of Nested-item.]</nowiki>
+* Nested-item <nowiki>[An item whose position in the hierarchy is the controlled difference between libraries.]</nowiki>
+
+'''Placeholder-item''' <nowiki>[An item whose placeholder child presence is the controlled difference between libraries.]</nowiki>
+* <nowiki># {takesValue}[Value of Placeholder-item.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+* suggestedTag <nowiki>[A schema attribute that indicates another tag that is often associated with this tag. This attribute is used by tagging tools to provide tagging suggestions.]</nowiki>
+* takesValue <nowiki>{boolProperty}[A schema attribute indicating the tag is a hashtag placeholder that is expected to be replaced with a user-defined value.]</nowiki>
+
+'''Properties'''
+* boolProperty <nowiki>[Indicates that the schema attribute represents something that is either true or false and does not have a value. Attributes without this value are assumed to have string values.]</nowiki>
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

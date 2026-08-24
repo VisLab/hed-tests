@@ -1,0 +1,27 @@
+HED library="testminimal" version="1.0.0"
+
+'''Prologue'''
+testminimal 1.0.0 is the unpartnered base version of the testminimal library, the third library name in the hed-tests test schema set. Its vocabulary (Mini-tag with Mini-one and Mini-two) never changes across versions.
+
+!# start schema
+
+'''Mini-tag''' <nowiki>[The testminimal scaffold tag.]</nowiki>
+* Mini-one <nowiki>[The first child of Mini-tag.]</nowiki>
+* Mini-two <nowiki>[The second child of Mini-tag.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

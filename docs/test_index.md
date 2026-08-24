@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 148 test cases in the HED test suite.
+Complete index of 161 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,7 +19,7 @@ Complete index of 148 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (8 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (14 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (27 tests)
 - [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
@@ -889,7 +889,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A standard schema version in a merge group must match the withStandard partner of the group's library schemas.
 
-**Schema**: 8.1.0, testlib_2.0.0 **Category**: schema
+**Schema**: 8.4.0, testconflict_2.0.0 **Category**: schema
 
 **Tests**:
 
@@ -899,7 +899,87 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The same schema (same name and version) cannot appear twice in one merge group.
 
-**Schema**: testlib_2.0.0, testlib_2.0.0 **Category**: schema
+**Schema**: testconflict_2.0.0, testconflict_2.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-ancestor-path (AI metadata) (examples)
+
+**Description**: Library schemas sharing an element must place it at the same position in the hierarchy.
+
+**Schema**: testconflict_2.0.0, testclash_4.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-attribute-value (AI metadata) (examples)
+
+**Description**: Library schemas sharing an element must give it identical attribute values.
+
+**Schema**: testconflict_2.0.0, testclash_2.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-description (AI metadata) (examples)
+
+**Description**: Library schemas sharing an element must give it the same description.
+
+**Schema**: testconflict_2.0.0, testclash_3.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-in-shared-child (AI metadata) (examples)
+
+**Description**: A changed shared child makes libraries incompatible even when their non-shared siblings would be allowed.
+
+**Schema**: testconflict_2.0.0, testclash_9.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-in-shared-grandchild (AI metadata) (examples)
+
+**Description**: The element compatibility rules recurse into every depth of a shared hierarchy.
+
+**Schema**: testconflict_2.0.0, testclash_12.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-placeholder-child (AI metadata) (examples)
+
+**Description**: A shared element must have a placeholder (#) child in all schemas that declare it or in none.
+
+**Schema**: testconflict_2.0.0, testclash_5.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-rooted-different-anchors (AI metadata) (examples)
+
+**Description**: A shared rooted tag must be rooted at the same standard schema node in every library.
+
+**Schema**: testconflict_2.0.0, testclash_7.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-rooted-vs-top-level (AI metadata) (examples)
+
+**Description**: A tag rooted in the standard schema in one library cannot merge with an unrooted top-level tag of the same name in another.
+
+**Schema**: testconflict_2.0.0, testclash_6.0.0 **Category**: schema
 
 **Tests**:
 
@@ -909,7 +989,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A standard schema in a merge group is ignored when it matches the group partner.
 
-**Schema**: 8.4.0, testlib_2.0.0 **Category**: schema
+**Schema**: 8.5.0, testconflict_2.0.0 **Category**: schema
 
 **Tests**:
 
@@ -919,7 +999,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Library schemas in a merge group must all have the same standard schema partner.
 
-**Schema**: score_2.0.0, lang_1.1.0 **Category**: schema
+**Schema**: testconflict_2.0.0, testminimal_2.0.0 **Category**: schema
 
 **Tests**:
 
@@ -929,7 +1009,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Several library schemas with the same standard schema partner merge into one namespace.
 
-**Schema**: testlib_2.0.0, score_2.1.0, lang_1.1.0 **Category**: schema
+**Schema**: testconflict_2.1.0, testclash_1.0.0, testminimal_2.1.0 **Category**: schema
 
 **Tests**:
 
@@ -939,7 +1019,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Schemas with different namespace prefixes form independent merge groups whose partners need not match.
 
-**Schema**: 8.3.0, sc:score_2.1.0, ts:testlib_1.0.2 **Category**: schema
+**Schema**: 8.4.0, sc:testconflict_2.1.0, ts:testminimal_1.0.0 **Category**: schema
 
 **Tests**:
 
@@ -947,9 +1027,9 @@ Complete index of 148 test cases in the HED test suite.
 
 ### nonexistent-schema-version-in-group (AI metadata) (examples)
 
-**Description**: A schema version that does not exist in the HED schema repositories cannot be loaded.
+**Description**: A schema version that does not exist cannot be loaded.
 
-**Schema**: 8.4.0, testlib_99.0.0 **Category**: schema
+**Schema**: 8.5.0, testconflict_99.0.0 **Category**: schema
 
 **Tests**:
 
@@ -959,7 +1039,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A partnered library schema listed alone automatically includes its standard schema partner.
 
-**Schema**: score_2.1.0 **Category**: schema
+**Schema**: testconflict_2.0.0 **Category**: schema
 
 **Tests**:
 
@@ -969,7 +1049,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The partnered-combination rules apply inside each prefixed merge group, not only to unprefixed schemas.
 
-**Schema**: 8.4.0, sc:score_2.0.0, sc:lang_1.1.0 **Category**: schema
+**Schema**: 8.5.0, sc:testconflict_2.0.0, sc:testminimal_2.0.0 **Category**: schema
 
 **Tests**:
 
@@ -979,7 +1059,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.
 
-**Schema**: 8.4.0, sc:8.1.0 **Category**: schema
+**Schema**: 8.5.0, sc:8.4.0 **Category**: schema
 
 **Tests**:
 
@@ -989,7 +1069,57 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two versions of the same library schema with the same partner and no conflicting elements merge.
 
-**Schema**: testlib_2.0.0, testlib_3.0.0 **Category**: schema
+**Schema**: testconflict_2.0.0, testconflict_2.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### same-library-two-incompatible-versions (AI metadata) (examples)
+
+**Description**: Two versions of the same library must still be element-compatible to merge.
+
+**Schema**: testconflict_2.1.0, testconflict_2.1.1 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### shared-element-compatible-across-libraries (AI metadata) (examples)
+
+**Description**: Two libraries may declare the same element when the declarations are identical.
+
+**Schema**: testconflict_2.0.0, testclash_1.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### shared-hierarchy-diverges-at-grandchild (AI metadata) (examples)
+
+**Description**: Libraries sharing an identical chain of elements may diverge below it.
+
+**Schema**: testconflict_2.0.0, testclash_11.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### shared-rooted-hierarchy-different-children (AI metadata) (examples)
+
+**Description**: A shared element may have different non-placeholder children in different libraries.
+
+**Schema**: testconflict_2.0.0, testclash_8.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### shared-rooted-tag-disjoint-children (AI metadata) (examples)
+
+**Description**: A shared element's children may be entirely disjoint between libraries.
+
+**Schema**: testconflict_2.0.0, testclash_10.0.0 **Category**: schema
 
 **Tests**:
 
@@ -999,7 +1129,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two different standard schema versions cannot appear in the same merge group.
 
-**Schema**: 8.3.0, 8.4.0 **Category**: schema
+**Schema**: 8.4.0, 8.5.0 **Category**: schema
 
 **Tests**:
 
@@ -1009,7 +1139,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two unpartnered library schemas cannot share one namespace prefix.
 
-**Schema**: ts:testlib_1.0.2, ts:score_1.0.0 **Category**: schema
+**Schema**: ts:testconflict_1.1.2, ts:testminimal_1.0.0 **Category**: schema
 
 **Tests**:
 
@@ -1019,7 +1149,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An unpartnered library schema cannot share a namespace with other schemas.
 
-**Schema**: 8.4.0, testlib_1.0.2 **Category**: schema
+**Schema**: 8.5.0, testconflict_1.1.0 **Category**: schema
 
 **Tests**:
 
@@ -1395,7 +1525,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag prefix has invalid characters.
 
-**Schema**: 8.3.0, sc:score_1.0.0 **Category**: syntax
+**Schema**: 8.5.0, sc:testconflict_2.1.0 **Category**: syntax
 
 **Tests**:
 
@@ -1408,7 +1538,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag prefix has invalid characters.
 
-**Schema**: ts:8.3.0 **Category**: validation
+**Schema**: ts:8.5.0 **Category**: validation
 
 **Tests**:
 
@@ -1421,7 +1551,7 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag starting with name: does not have an associated schema.
 
-**Schema**: 8.3.0, sc:score_1.0.0 **Category**: validation
+**Schema**: 8.5.0, sc:testconflict_2.1.0 **Category**: validation
 
 **Tests**:
 

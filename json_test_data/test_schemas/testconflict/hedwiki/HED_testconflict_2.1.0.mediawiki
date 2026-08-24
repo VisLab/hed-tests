@@ -1,0 +1,49 @@
+HED version="2.1.0" library="testconflict" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testconflict 2.1.0 partners with standard schema 8.5.0. Change from 2.0.0: adds Object-four under Object-tag (minor bump: new tag). Element-compatible with 2.0.0, so the two versions can merge.
+
+!# start schema
+
+'''Object-tag''' <nowiki>[An ordinary hierarchy of items used for annotations in schema load tests.]</nowiki>
+* Object-one <nowiki>[The first object item.]</nowiki>
+* Object-two <nowiki>[The second object item.]</nowiki>
+* Object-three <nowiki>[The third object item.]</nowiki>
+* Object-four <nowiki>[The fourth object item.]</nowiki>
+
+'''Measure-tag''' <nowiki>[A tag that takes a measurement value in load tests.]</nowiki>
+* <nowiki># {takesValue}[Value of Measure-tag.]</nowiki>
+
+'''Shared-item''' <nowiki>[An item identical in every library that shares it.]</nowiki>
+
+'''Attribute-item''' <nowiki>{suggestedTag=Object-one}[An item whose suggestedTag value is the controlled difference between libraries.]</nowiki>
+
+'''Description-item''' <nowiki>[An item whose description text is the controlled difference between libraries. This is the testconflict wording.]</nowiki>
+
+'''Anchor-item''' <nowiki>[The testconflict parent of Nested-item.]</nowiki>
+* Nested-item <nowiki>[An item whose position in the hierarchy is the controlled difference between libraries.]</nowiki>
+
+'''Placeholder-item''' <nowiki>[An item whose placeholder child presence is the controlled difference between libraries.]</nowiki>
+* <nowiki># {takesValue}[Value of Placeholder-item.]</nowiki>
+
+'''Rooted-tag''' <nowiki>{rooted=Event}[The target subtree of the rooted and shared-hierarchy load cases.]</nowiki>
+* Rooted-one <nowiki>[The first child of Rooted-tag, shared across libraries in the hierarchy cases.]</nowiki>
+** Deep-one <nowiki>[The grandchild of Rooted-tag through Rooted-one.]</nowiki>
+* Rooted-two <nowiki>[The second child of Rooted-tag, specific to testconflict.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

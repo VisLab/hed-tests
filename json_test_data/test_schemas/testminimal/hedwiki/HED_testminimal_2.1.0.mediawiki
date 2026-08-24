@@ -1,0 +1,27 @@
+HED version="2.1.0" library="testminimal" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testminimal 2.1.0 partners with standard schema 8.5.0. Change from 2.0.0: the standard schema partner version changed (minor bump). Vocabulary unchanged.
+
+!# start schema
+
+'''Mini-tag''' <nowiki>[The testminimal scaffold tag.]</nowiki>
+* Mini-one <nowiki>[The first child of Mini-tag.]</nowiki>
+* Mini-two <nowiki>[The second child of Mini-tag.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed
