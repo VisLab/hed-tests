@@ -152,7 +152,6 @@
         "different-standard-schemas-in-same-merge-group",
         "extra-standard-schemas-in-same-merge-group",
         "same-library-two-compatible-versions",
-        "duplicate-schema-in-merge-group",
         "prefixed-standard-schema-forms-own-group",
         "incompatible-merge-schemas",
         "multiple-libraries-with-same-partner",
@@ -162,13 +161,27 @@
         "unpartnered-library-in-shared-namespace",
         "two-unpartnered-libraries-in-same-namespace",
         "prefixed-group-with-mismatched-partners",
+        "nonexistent-schema-version-in-group",
+        "duplicate-schema-in-merge-group",
+        "element-conflict-attribute-value",
+        "element-conflict-description",
+        "element-conflict-ancestor-path",
+        "element-conflict-placeholder-child",
+        "shared-element-compatible-across-libraries",
+        "same-library-two-incompatible-versions",
+        "element-conflict-rooted-vs-top-level",
+        "element-conflict-rooted-different-anchors",
+        "shared-rooted-hierarchy-different-children",
+        "element-conflict-in-shared-child",
+        "shared-rooted-tag-disjoint-children",
+        "shared-hierarchy-diverges-at-grandchild",
+        "element-conflict-in-shared-grandchild"
+    ],
+    "FILE_NOT_FOUND": [
         "nonexistent-schema-version-in-group"
     ],
     "SCHEMA_LIBRARY_INVALID": [
         "duplicate-schema-in-merge-group"
-    ],
-    "FILE_NOT_FOUND": [
-        "nonexistent-schema-version-in-group"
     ],
     "SIDECAR_BRACES_INVALID": [
         "sidecar-braces-contents-invalid",

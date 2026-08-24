@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 148 test cases in the HED test suite.
+Complete index of 161 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,7 +19,7 @@ Complete index of 148 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (8 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (14 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (27 tests)
 - [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
@@ -47,7 +47,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The HED string contains a UTF-8 character.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -60,7 +61,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The curly brace notation is used outside a sidecar.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -72,7 +74,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An invalid character was used in an 8.3.0 or greater style name value class.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -85,7 +88,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An invalid character was as a value in a placeholder or as a tag extension.
 
-**Schema**: 8.2.0 **Category**: validation
+**Schema**: 8.2.0
+**Category**: validation
 
 **Tests**:
 
@@ -101,7 +105,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag and a tag group are not separated by commas: A(B,D).
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -114,7 +119,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two tag groups are not separated by commas: (A, B)(C, D).
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -131,7 +137,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A definition that includes a placeholder (`#`) does not have exactly two `#` characters.
 
-**Schema**: 8.4.0 **Category**: placeholder
+**Schema**: 8.4.0
+**Category**: placeholder
 
 **Tests**:
 
@@ -142,7 +149,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag with a required or unique attribute appears in a definition.
 
-**Schema**: 8.4.0 **Category**: content
+**Schema**: 8.4.0
+**Category**: content
 
 **Tests**:
 
@@ -153,7 +161,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A definition's enclosing tag group has an empty inner group (i.e., the definition's contents).
 
-**Schema**: 8.4.0 **Category**: content
+**Schema**: 8.4.0
+**Category**: content
 
 **Tests**:
 
@@ -164,7 +173,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A definition's inner tag group contains `Definition`, `Def` or `Def-expand` tags.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -176,7 +186,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A definition's enclosing tag group contains more than a `Definition` tag and an inner group.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -187,7 +198,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Multiple `Definition` tags with same name are encountered.
 
-**Schema**: 8.4.0 **Category**: uniqueness
+**Schema**: 8.4.0
+**Category**: uniqueness
 
 **Tests**:
 
@@ -198,7 +210,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Definitions of the same name appear with and without a `#`.
 
-**Schema**: 8.4.0 **Category**: consistency
+**Schema**: 8.4.0
+**Category**: consistency
 
 **Tests**:
 
@@ -209,7 +222,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A definition has placeholders (`#`) in incorrect positions.
 
-**Schema**: 8.4.0 **Category**: placeholder
+**Schema**: 8.4.0
+**Category**: placeholder
 
 **Tests**:
 
@@ -220,7 +234,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A Definition tag does not appear in a tag group at the top level in an annotation.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -232,7 +247,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A definition appears in an unexpected place such as an events file or sidecar.
 
-**Schema**: 8.4.0 **Category**: context
+**Schema**: 8.4.0
+**Category**: context
 
 **Tests**:
 
@@ -249,7 +265,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A Def-expand has extra tags or groups.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -262,7 +279,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `Def-expand` has an incorrect type of placeholder value.
 
-**Schema**: 8.4.0 **Category**: value
+**Schema**: 8.4.0
+**Category**: value
 
 **Tests**:
 
@@ -275,7 +293,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `Def-expand` is missing an expected placeholder value or has an unexpected placeholder value.
 
-**Schema**: 8.4.0 **Category**: content
+**Schema**: 8.4.0
+**Category**: content
 
 **Tests**:
 
@@ -288,7 +307,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `Def-expand` tag's name does not correspond to a definition.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -301,7 +321,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The tags within a Def-expand do not match the corresponding definition.
 
-**Schema**: 8.4.0 **Category**: content
+**Schema**: 8.4.0
+**Category**: content
 
 **Tests**:
 
@@ -314,7 +335,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A Def-expand is missing its inner group containing the definition.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -331,7 +353,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `Def` has a placeholder value of incorrect format or units for definition.
 
-**Schema**: 8.4.0 **Category**: value
+**Schema**: 8.4.0
+**Category**: value
 
 **Tests**:
 
@@ -344,7 +367,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `Def` tag is missing an expected placeholder value or has an unexpected placeholder value.
 
-**Schema**: 8.4.0 **Category**: placeholder
+**Schema**: 8.4.0
+**Category**: placeholder
 
 **Tests**:
 
@@ -357,7 +381,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `Def` tag's name does not correspond to a definition.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -374,7 +399,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag is deprecated
 
-**Schema**: 8.2.0 **Category**: semantic
+**Schema**: 8.2.0
+**Category**: semantic
 
 **Tests**:
 
@@ -391,7 +417,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The open and closed parentheses are not correctly nested in the HED string.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -404,7 +431,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A HED string does not have the same number of open and closed parentheses.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -421,7 +449,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A JSON sidecar has a placeholder (`#`) in the HED dictionary for a categorical column.
 
-**Schema**: 8.4.0 **Category**: context
+**Schema**: 8.4.0
+**Category**: context
 
 **Tests**:
 
@@ -432,7 +461,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A placeholder (`#`) is used in JSON sidecar or definition, but its parent in the schema does not have a placeholder child.
 
-**Schema**: 8.4.0 **Category**: schema
+**Schema**: 8.4.0
+**Category**: schema
 
 **Tests**:
 
@@ -443,7 +473,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A JSON sidecar does not have exactly one placeholder (`#`) in each HED string representing a value column.
 
-**Schema**: 8.4.0 **Category**: count
+**Schema**: 8.4.0
+**Category**: count
 
 **Tests**:
 
@@ -454,7 +485,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A `#` appears in a place that it should not (such as in the `HED` column of an event file outside a definition).
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -471,7 +503,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema attribute issue, saying there is an unknown one.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -485,7 +518,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema unit has an invalid conversion factor
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -495,7 +529,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema unit class has an invalid default value
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -505,7 +540,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema value class has an invalid allowedCharacter attribute value
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -515,7 +551,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema element has a hedId that changed from its previously assigned value.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -525,7 +562,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema element has a hedId with an invalid format (non-numeric or malformed).
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -535,7 +573,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema element has a hedId that is outside the valid allocated range for its section.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -545,7 +584,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema element has an invalid inLibrary attribute (most other library errors are SCHEMA_LIBRARY_INVALID)
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -555,7 +595,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema unit class issue, saying there is an unknown one.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -565,7 +606,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema value class issue, saying there is an unknown one.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -575,7 +617,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A non placeholder tag has takes value, unit class, or value class
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -585,7 +628,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A related tag points to an unknown tag
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -595,7 +639,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A suggested tag points to an unknown tag
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -639,7 +684,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Invalid character in prologue or epilogue.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -673,7 +719,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema attribute issue, saying there is an unhandled deprecated attribute.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -757,7 +804,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema attribute issue, saying there is a duplicate node.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -781,7 +829,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema header contains a malformed or unknown attribute.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -805,7 +854,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema library issue, indicating the name is invalid.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -889,7 +939,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A standard schema version in a merge group must match the withStandard partner of the group's library schemas.
 
-**Schema**: 8.1.0, testlib_2.0.0 **Category**: schema
+**Schema**: 8.4.0, testconflict_2.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -899,7 +950,96 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The same schema (same name and version) cannot appear twice in one merge group.
 
-**Schema**: testlib_2.0.0, testlib_2.0.0 **Category**: schema
+**Schema**: testconflict_2.0.0, testconflict_2.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-ancestor-path (AI metadata) (examples)
+
+**Description**: Library schemas sharing an element must place it at the same position in the hierarchy.
+
+**Schema**: testconflict_2.0.0, testclash_4.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-attribute-value (AI metadata) (examples)
+
+**Description**: Library schemas sharing an element must give it identical attribute values.
+
+**Schema**: testconflict_2.0.0, testclash_2.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-description (AI metadata) (examples)
+
+**Description**: Library schemas sharing an element must give it the same description.
+
+**Schema**: testconflict_2.0.0, testclash_3.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-in-shared-child (AI metadata) (examples)
+
+**Description**: A changed shared child makes libraries incompatible even when their non-shared siblings would be allowed.
+
+**Schema**: testconflict_2.0.0, testclash_9.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-in-shared-grandchild (AI metadata) (examples)
+
+**Description**: The element compatibility rules recurse into every depth of a shared hierarchy.
+
+**Schema**: testconflict_2.0.0, testclash_12.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-placeholder-child (AI metadata) (examples)
+
+**Description**: A shared element must have a placeholder (#) child in all schemas that declare it or in none.
+
+**Schema**: testconflict_2.0.0, testclash_5.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-rooted-different-anchors (AI metadata) (examples)
+
+**Description**: A shared rooted tag must be rooted at the same standard schema node in every library.
+
+**Schema**: testconflict_2.0.0, testclash_7.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### element-conflict-rooted-vs-top-level (AI metadata) (examples)
+
+**Description**: A tag rooted in the standard schema in one library cannot merge with an unrooted top-level tag of the same name in another.
+
+**Schema**: testconflict_2.0.0, testclash_6.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -909,7 +1049,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A standard schema in a merge group is ignored when it matches the group partner.
 
-**Schema**: 8.4.0, testlib_2.0.0 **Category**: schema
+**Schema**: 8.5.0, testconflict_2.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -919,7 +1060,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Library schemas in a merge group must all have the same standard schema partner.
 
-**Schema**: score_2.0.0, lang_1.1.0 **Category**: schema
+**Schema**: testconflict_2.0.0, testminimal_2.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -929,7 +1071,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Several library schemas with the same standard schema partner merge into one namespace.
 
-**Schema**: testlib_2.0.0, score_2.1.0, lang_1.1.0 **Category**: schema
+**Schema**: testconflict_2.1.0, testclash_1.0.0, testminimal_2.1.0
+**Category**: schema
 
 **Tests**:
 
@@ -939,7 +1082,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Schemas with different namespace prefixes form independent merge groups whose partners need not match.
 
-**Schema**: 8.3.0, sc:score_2.1.0, ts:testlib_1.0.2 **Category**: schema
+**Schema**: 8.4.0, sc:testconflict_2.1.0, ts:testminimal_1.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -947,9 +1091,10 @@ Complete index of 148 test cases in the HED test suite.
 
 ### nonexistent-schema-version-in-group (AI metadata) (examples)
 
-**Description**: A schema version that does not exist in the HED schema repositories cannot be loaded.
+**Description**: A schema version that does not exist cannot be loaded.
 
-**Schema**: 8.4.0, testlib_99.0.0 **Category**: schema
+**Schema**: 8.5.0, testconflict_99.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -959,7 +1104,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A partnered library schema listed alone automatically includes its standard schema partner.
 
-**Schema**: score_2.1.0 **Category**: schema
+**Schema**: testconflict_2.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -969,7 +1115,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The partnered-combination rules apply inside each prefixed merge group, not only to unprefixed schemas.
 
-**Schema**: 8.4.0, sc:score_2.0.0, sc:lang_1.1.0 **Category**: schema
+**Schema**: 8.5.0, sc:testconflict_2.0.0, sc:testminimal_2.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -979,7 +1126,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.
 
-**Schema**: 8.4.0, sc:8.1.0 **Category**: schema
+**Schema**: 8.5.0, sc:8.4.0
+**Category**: schema
 
 **Tests**:
 
@@ -989,7 +1137,63 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two versions of the same library schema with the same partner and no conflicting elements merge.
 
-**Schema**: testlib_2.0.0, testlib_3.0.0 **Category**: schema
+**Schema**: testconflict_2.0.0, testconflict_2.1.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### same-library-two-incompatible-versions (AI metadata) (examples)
+
+**Description**: Two versions of the same library must still be element-compatible to merge.
+
+**Schema**: testconflict_2.1.0, testconflict_2.1.1
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### shared-element-compatible-across-libraries (AI metadata) (examples)
+
+**Description**: Two libraries may declare the same element when the declarations are identical.
+
+**Schema**: testconflict_2.0.0, testclash_1.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### shared-hierarchy-diverges-at-grandchild (AI metadata) (examples)
+
+**Description**: Libraries sharing an identical chain of elements may diverge below it.
+
+**Schema**: testconflict_2.0.0, testclash_11.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### shared-rooted-hierarchy-different-children (AI metadata) (examples)
+
+**Description**: A shared element may have different non-placeholder children in different libraries.
+
+**Schema**: testconflict_2.0.0, testclash_8.0.0
+**Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### shared-rooted-tag-disjoint-children (AI metadata) (examples)
+
+**Description**: A shared element's children may be entirely disjoint between libraries.
+
+**Schema**: testconflict_2.0.0, testclash_10.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -999,7 +1203,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two different standard schema versions cannot appear in the same merge group.
 
-**Schema**: 8.3.0, 8.4.0 **Category**: schema
+**Schema**: 8.4.0, 8.5.0
+**Category**: schema
 
 **Tests**:
 
@@ -1009,7 +1214,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Two unpartnered library schemas cannot share one namespace prefix.
 
-**Schema**: ts:testlib_1.0.2, ts:score_1.0.0 **Category**: schema
+**Schema**: ts:testconflict_1.1.2, ts:testminimal_1.0.0
+**Category**: schema
 
 **Tests**:
 
@@ -1019,7 +1225,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An unpartnered library schema cannot share a namespace with other schemas.
 
-**Schema**: 8.4.0, testlib_1.0.2 **Category**: schema
+**Schema**: 8.5.0, testconflict_1.1.0
+**Category**: schema
 
 **Tests**:
 
@@ -1033,7 +1240,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An extras section (Sources, Prefixes, or ExternalAnnotations) has an empty value in a required column.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -1047,7 +1255,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A required schema section is missing from the schema file.
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 
@@ -1061,7 +1270,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The curly braces are in a value rather than as a separate tag substitute.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1072,7 +1282,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The item in curly braces has a HED annotation that contains curly braces.
 
-**Schema**: 8.4.0 **Category**: reference
+**Schema**: 8.4.0
+**Category**: reference
 
 **Tests**:
 
@@ -1083,7 +1294,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The item in curly braces is not the word HED or a column name with HED annotations in the sidecar.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1094,7 +1306,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A curly brace reference must only appear where a tag could.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1104,7 +1317,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The item in curly braces has a HED annotation that contains itself.
 
-**Schema**: 8.4.0 **Category**: reference
+**Schema**: 8.4.0
+**Category**: reference
 
 **Tests**:
 
@@ -1119,7 +1333,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The HED key is not a second-level dictionary key.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1130,7 +1345,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An annotation entry is provided for `n/a`.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1145,7 +1361,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A value in a categorical column does not have an expected entry in a sidecar.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -1155,7 +1372,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: (Warning) A sidecar uses a \{HED} column which does not appear in the corresponding tsv file.
 
-**Schema**: 8.4.0 **Category**: reference
+**Schema**: 8.4.0
+**Category**: reference
 
 **Tests**:
 
@@ -1170,7 +1388,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A HED string begins or ends with a comma (ignoring white space).
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1183,7 +1402,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag group is empty (i.e., empty parentheses are not allowed).
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1196,7 +1416,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A HED string has extra commas or parentheses separated by only white space.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1213,7 +1434,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag is repeated in the same tag group or level.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -1226,7 +1448,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Tags are repeated because two rows have the same onset value.
 
-**Schema**: 8.4.0 **Category**: duplication
+**Schema**: 8.4.0
+**Category**: duplication
 
 **Tests**:
 
@@ -1237,7 +1460,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Tags are repeated because two rows have the same onset value.
 
-**Schema**: 8.4.0 **Category**: temporal_logic
+**Schema**: 8.4.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1252,7 +1476,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag represents an extension from the schema.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -1269,7 +1494,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag extension term does not comply with rules for schema nodes.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -1282,7 +1508,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag extension term is already in the schema.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -1299,7 +1526,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: Multiple tags with the topLevelTagGroup attribute appear in the same top-level tag group. (Delay and Duration are allowed to be in the same topLevelTagGroup).
 
-**Schema**: 8.4.0 **Category**: cardinality
+**Schema**: 8.4.0
+**Category**: cardinality
 
 **Tests**:
 
@@ -1312,7 +1540,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag with the topLevelTagGroup does not appear at a HED tag group at the top level in an assembled HED annotation.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1324,7 +1553,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag has tagGroup or topLevelTagGroup attribute, but is not enclosed in parentheses.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1337,7 +1567,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag with the topLevelTagGroup does not appear at a HED tag group at the top level in an assembled HED annotation.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1352,7 +1583,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A HED tag has extra internal whitespace, including directly before or after slashes.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1365,7 +1597,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A HED tag has leading, trailing or consecutive slashes.
 
-**Schema**: 8.4.0 **Category**: syntax
+**Schema**: 8.4.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1378,7 +1611,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The tag is not valid in the schema it is associated with.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -1395,7 +1629,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag prefix has invalid characters.
 
-**Schema**: 8.3.0, sc:score_1.0.0 **Category**: syntax
+**Schema**: 8.5.0, sc:testconflict_2.1.0
+**Category**: syntax
 
 **Tests**:
 
@@ -1408,7 +1643,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag prefix has invalid characters.
 
-**Schema**: ts:8.3.0 **Category**: validation
+**Schema**: ts:8.5.0
+**Category**: validation
 
 **Tests**:
 
@@ -1421,7 +1657,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag starting with name: does not have an associated schema.
 
-**Schema**: 8.3.0, sc:score_1.0.0 **Category**: validation
+**Schema**: 8.5.0, sc:testconflict_2.1.0
+**Category**: validation
 
 **Tests**:
 
@@ -1438,7 +1675,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag with unique attribute appears more than once in an event-level HED string.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.4.0
+**Category**: semantic
 
 **Tests**:
 
@@ -1455,7 +1693,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag has the requireChild schema attribute but does not have a child.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1472,7 +1711,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: n/a is in the onset column.
 
-**Schema**: 8.4.0 **Category**: data_format
+**Schema**: 8.4.0
+**Category**: data_format
 
 **Tests**:
 
@@ -1482,7 +1722,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.
 
-**Schema**: 8.4.0 **Category**: temporal_logic
+**Schema**: 8.4.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1492,7 +1733,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.
 
-**Schema**: 8.3.0 **Category**: temporal_logic
+**Schema**: 8.3.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1502,7 +1744,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A Duration or Delay has extra tags or groups.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1514,7 +1757,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset tag group with has tags besides the anchor Def or Def-expand that are not in a tag group.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1527,7 +1771,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset tag group with has tags besides the anchor Def or Def-expand that are not in a tag group.
 
-**Schema**: 8.3.0 **Category**: temporal
+**Schema**: 8.3.0
+**Category**: temporal
 
 **Tests**:
 
@@ -1540,7 +1785,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Inset group has tags or groups in addition to its defining Def or Def-expand.
 
-**Schema**: 8.4.0 **Category**: temporal
+**Schema**: 8.4.0
+**Category**: temporal
 
 **Tests**:
 
@@ -1551,7 +1797,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Inset group has tags or groups in addition to its defining Def or Def-expand.
 
-**Schema**: 8.3.0 **Category**: temporal
+**Schema**: 8.3.0
+**Category**: temporal
 
 **Tests**:
 
@@ -1562,7 +1809,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Inset tag is not grouped with a Def or Def-expand of an ongoing Onset.
 
-**Schema**: 8.4.0 **Category**: temporal_logic
+**Schema**: 8.4.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1573,7 +1821,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Inset tag is not grouped with a Def or Def-expand of an ongoing Onset.
 
-**Schema**: 8.3.0 **Category**: temporal_logic
+**Schema**: 8.3.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1584,7 +1833,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Offset tag associated with a given definition appears after a previous Offset tag without the appearance of an intervening Onset of the same name.
 
-**Schema**: 8.3.0 **Category**: temporal_logic
+**Schema**: 8.3.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1595,7 +1845,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset or Offset tag appears in a nested tag group (not a top-level tag group).
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1608,7 +1859,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A delay appears in a group not in the top level.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1621,7 +1873,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset or Offset tag does not appear in a tag group.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1634,7 +1887,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A Delay is not in the tag group.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1647,7 +1901,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Offset appears with one or more tags or additional tag groups.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1659,7 +1914,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Offset appears with one or more tags or additional tag groups.
 
-**Schema**: 8.4.0 **Category**: temporal
+**Schema**: 8.4.0
+**Category**: temporal
 
 **Tests**:
 
@@ -1671,7 +1927,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Offset tag associated with a given definition appears after a previous Offset tag without the appearance of an intervening Onset of the same name.
 
-**Schema**: 8.4.0 **Category**: temporal_logic
+**Schema**: 8.4.0
+**Category**: temporal_logic
 
 **Tests**:
 
@@ -1682,7 +1939,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset group has more than one additional tag group.
 
-**Schema**: 8.4.0 **Category**: structure
+**Schema**: 8.4.0
+**Category**: structure
 
 **Tests**:
 
@@ -1695,7 +1953,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset group has more than one additional tag group.
 
-**Schema**: 8.4.0 **Category**: temporal
+**Schema**: 8.4.0
+**Category**: temporal
 
 **Tests**:
 
@@ -1708,7 +1967,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A temporal tag appears appears in a tsv with no onset column
 
-**Schema**: 8.4.0 **Category**: context
+**Schema**: 8.4.0
+**Category**: context
 
 **Tests**:
 
@@ -1719,7 +1979,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Inset, Offset, or Onset tag appears in a tsv with no onset column
 
-**Schema**: 8.3.0 **Category**: context
+**Schema**: 8.3.0
+**Category**: context
 
 **Tests**:
 
@@ -1730,7 +1991,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset or Offset tag is not grouped with exactly one Def-expand tag group or a Def tag.
 
-**Schema**: 8.4.0 **Category**: content
+**Schema**: 8.4.0
+**Category**: content
 
 **Tests**:
 
@@ -1743,7 +2005,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An Onset or Offset tag is not grouped with exactly one Def-expand tag group or a Def tag.
 
-**Schema**: 8.4.0 **Category**: temporal
+**Schema**: 8.4.0
+**Category**: temporal
 
 **Tests**:
 
@@ -1760,7 +2023,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag has a value with units that are invalid or not of the correct unit class for the tag.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -1773,7 +2037,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A unit modifier is applied to units that are not SI units.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -1790,7 +2055,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: An invalid character was used in an 8.3.0 or greater style numeric value class.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -1801,7 +2067,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The value substituted for a placeholder (`#`) is not valid.
 
-**Schema**: 8.3.0 **Category**: validation
+**Schema**: 8.3.0
+**Category**: validation
 
 **Tests**:
 
@@ -1812,7 +2079,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: The units are not separated from the value by a single blank.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -1825,7 +2093,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A tag placeholder value is incompatible with the specified value class.
 
-**Schema**: 8.4.0 **Category**: validation
+**Schema**: 8.4.0
+**Category**: validation
 
 **Tests**:
 
@@ -1842,7 +2111,8 @@ Complete index of 148 test cases in the HED test suite.
 
 **Description**: A schema unit has an invalid conversion factor due to bad formatting
 
-**Schema**: any **Category**: schema_development
+**Schema**: any
+**Category**: schema_development
 
 **Tests**:
 

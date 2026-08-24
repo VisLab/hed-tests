@@ -134,10 +134,6 @@
     "same-library-two-compatible-versions": [
         "SCHEMA_LOAD_FAILED"
     ],
-    "duplicate-schema-in-merge-group": [
-        "SCHEMA_LOAD_FAILED",
-        "SCHEMA_LIBRARY_INVALID"
-    ],
     "prefixed-standard-schema-forms-own-group": [
         "SCHEMA_LOAD_FAILED"
     ],
@@ -168,6 +164,49 @@
     "nonexistent-schema-version-in-group": [
         "SCHEMA_LOAD_FAILED",
         "FILE_NOT_FOUND"
+    ],
+    "duplicate-schema-in-merge-group": [
+        "SCHEMA_LOAD_FAILED",
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "element-conflict-attribute-value": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-description": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-ancestor-path": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-placeholder-child": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "shared-element-compatible-across-libraries": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "same-library-two-incompatible-versions": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-rooted-vs-top-level": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-rooted-different-anchors": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "shared-rooted-hierarchy-different-children": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-in-shared-child": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "shared-rooted-tag-disjoint-children": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "shared-hierarchy-diverges-at-grandchild": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-in-shared-grandchild": [
+        "SCHEMA_LOAD_FAILED"
     ],
     "sidecar-braces-contents-invalid": [
         "SIDECAR_BRACES_INVALID",
