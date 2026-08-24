@@ -1,0 +1,30 @@
+HED version="10.0.0" library="testclash" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testclash 10.0.0 partners with standard schema 8.5.0. Change from 9.0.0: the Rooted-tag probe now has only the testclash-only child Rooted-four (major bump: previous probe deleted). Element-compatible with testconflict 2.x: the shared root's children are fully disjoint.
+
+!# start schema
+
+'''Clash-tag''' <nowiki>[The constant testclash scaffold tag.]</nowiki>
+* Clash-one <nowiki>[The first scaffold child of Clash-tag.]</nowiki>
+* Clash-two <nowiki>[The second scaffold child of Clash-tag.]</nowiki>
+
+'''Rooted-tag''' <nowiki>{rooted=Event}[The target subtree of the rooted and shared-hierarchy load cases.]</nowiki>
+* Rooted-four <nowiki>[A child of Rooted-tag that only testclash defines.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

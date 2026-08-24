@@ -1,0 +1,29 @@
+HED version="1.0.0" library="testclash" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testclash 1.0.0 is the base version of the conflict-companion library, partnered with standard schema 8.5.0. Every testclash version carries the constant Clash-tag scaffold plus at most one probe element shared with testconflict 2.x; each new version deletes the previous probe and adds the next, so every bump is a major version (tag deleted). Probe here: Shared-item, an identical copy of testconflict's Shared-item (compatible share).
+
+!# start schema
+
+'''Clash-tag''' <nowiki>[The constant testclash scaffold tag.]</nowiki>
+* Clash-one <nowiki>[The first scaffold child of Clash-tag.]</nowiki>
+* Clash-two <nowiki>[The second scaffold child of Clash-tag.]</nowiki>
+
+'''Shared-item''' <nowiki>[An item identical in every library that shares it.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed
