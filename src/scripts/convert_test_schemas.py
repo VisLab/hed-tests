@@ -170,6 +170,23 @@ def existing_vendored_commits() -> dict[str, str]:
     }
 
 
+def version_sort_key(wiki_path: Path) -> tuple:
+    """Order wiki files by numeric version components (2.0.0 before 10.0.0).
+
+    Parameters:
+        wiki_path (Path): A HED_<library>_<version>.mediawiki path.
+
+    Returns:
+        tuple: A key sorting numeric versions numerically; anything
+            non-numeric sorts after them by file name.
+    """
+    version = wiki_path.stem.rsplit("_", 1)[-1]
+    parts = version.split(".")
+    if parts and all(part.isdigit() for part in parts):
+        return (0, tuple(int(part) for part in parts), wiki_path.name)
+    return (1, (), wiki_path.name)
+
+
 def discover_libraries() -> list[Path]:
     """Find the library subdirectories of the test schema set.
 
@@ -238,7 +255,7 @@ def convert_all(verbose: bool) -> tuple[dict, list[str]]:
                 versions: dict = {}
                 unmerged_dir = library_dir / "hedxml_unmerged"
                 unmerged_dir.mkdir(exist_ok=True)
-                for wiki_path in sorted((library_dir / "hedwiki").glob("*.mediawiki")):
+                for wiki_path in sorted((library_dir / "hedwiki").glob("*.mediawiki"), key=version_sort_key):
                     version, partner = parse_wiki_header(wiki_path)
                     expected_name = f"HED_{library}_{version}.mediawiki"
                     if wiki_path.name != expected_name:
@@ -306,6 +323,10 @@ def main() -> int:
     parser.add_argument("--hed-schemas", type=str, help="Path to a local hed-schemas checkout (with --refresh)")
     parser.add_argument("--verbose", action="store_true", help="Show per-file processing information")
     args = parser.parse_args()
+
+    # Both --refresh (copy targets) and conversion (merged XML outputs) write
+    # into hedxml/; make sure it exists rather than assuming it.
+    HEDXML_DIR.mkdir(parents=True, exist_ok=True)
 
     if args.refresh:
         if not args.hed_schemas:
