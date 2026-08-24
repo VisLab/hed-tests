@@ -162,8 +162,7 @@
         "SCHEMA_LOAD_FAILED"
     ],
     "nonexistent-schema-version-in-group": [
-        "SCHEMA_LOAD_FAILED",
-        "FILE_NOT_FOUND"
+        "SCHEMA_LOAD_FAILED"
     ],
     "duplicate-schema-in-merge-group": [
         "SCHEMA_LOAD_FAILED",
