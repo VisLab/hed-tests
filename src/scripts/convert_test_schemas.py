@@ -166,8 +166,7 @@ def existing_vendored_commits() -> dict[str, str]:
     with open(MANIFEST_PATH, encoding="utf-8") as f:
         manifest = json.load(f)
     return {
-        entry["file"].split("/")[-1]: entry.get("source_commit", "")
-        for entry in manifest.get("vendored_standard_schemas", [])
+        entry["file"].split("/")[-1]: entry.get("source_commit", "") for entry in manifest.get("vendored_standard_schemas", [])
     }
 
 
