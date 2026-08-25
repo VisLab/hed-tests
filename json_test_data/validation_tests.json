@@ -5675,23 +5675,23 @@
         "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
         "name": "extra-standard-schemas-in-same-merge-group",
-        "description": "A standard schema in a merge group is ignored when it matches the group partner.",
+        "description": "A standard schema in a merge group is allowed when it matches the group partner and adds nothing to the merged result.",
         "warning": false,
         "schema": [
             "8.5.0",
             "testconflict_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. testconflict_2.0.0 is partnered with standard schema 8.5.0, and the listed standard schema 8.5.0 matches the group partner, so it is redundant and ignored during the merge.",
+        "explanation": "This combination loads. testconflict_2.0.0 is partnered with standard schema 8.5.0, and the listed standard schema 8.5.0 matches the group partner, so it is allowed and adds nothing to the merged result.",
         "common_causes": [
             "Believing that listing the standard schema alongside its partnered library is an error"
         ],
-        "correction_strategy": "No correction needed; a standard schema matching the group partner is allowed and ignored, though it can simply be omitted.",
+        "correction_strategy": "No correction needed; a standard schema matching the group partner is allowed and adds nothing to the merged result, though it can simply be omitted.",
         "correction_examples": [
             {
                 "wrong": "[\"8.4.0\", \"testconflict_2.0.0\"]",
                 "correct": "[\"8.5.0\", \"testconflict_2.0.0\"]",
-                "explanation": "A standard schema listed with a partnered library must match the library's withStandard partner (8.5.0); it is then ignored during the merge."
+                "explanation": "A standard schema listed with a partnered library must match the library's withStandard partner (8.5.0); it then adds nothing to the merged result."
             }
         ],
         "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -5707,6 +5707,90 @@
                     "Red, Object-one",
                     "Blue"
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "standard-schema-after-library-loads",
+        "description": "A standard schema matching the group partner may appear anywhere in the list; schemas in a merge group can be combined in any order.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "8.5.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Schemas in a merge group can be combined in any order, so this is the same merge group as extra-standard-schemas-in-same-merge-group with the standard schema listed after the library instead of before it. The standard schema 8.5.0 matches the partner of testconflict_2.0.0, so it is allowed and adds nothing to the merged result.",
+        "common_causes": [
+            "Believing that the standard schema must be listed before its partnered library schemas"
+        ],
+        "correction_strategy": "No correction needed; the position of a standard schema in the list does not affect whether the merge group loads.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"8.4.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"8.5.0\"]",
+                "explanation": "Order is irrelevant; what matters is that the listed standard schema matches the library's withStandard partner (8.5.0)."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red, Object-one",
+                    "Blue"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "standard-schema-after-library-mismatch",
+        "description": "A standard schema that differs from the group partner fails wherever it appears in the list; schemas in a merge group can be combined in any order.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "8.4.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas in a merge group can be combined in any order, so this is the same merge group as different-standard-schemas-in-same-merge-group with the standard schema listed after the library instead of before it. testconflict_2.0.0 is partnered with 8.5.0, and the listed standard schema 8.4.0 differs from the group partner, so the load fails regardless of order.",
+        "common_causes": [
+            "Expecting a later standard schema in the list to be overridden by an earlier library schema's partner",
+            "Listing an outdated standard schema version after upgrading a partnered library"
+        ],
+        "correction_strategy": "Change the standard schema version to match the library's withStandard partner, remove it, or give it its own namespace prefix. Reordering the list does not help.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"8.4.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"8.5.0\"]",
+                "explanation": "The standard schema now matches the partner of testconflict_2.0.0."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"8.4.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"st:8.4.0\"]",
+                "explanation": "Under a namespace prefix the standard schema 8.4.0 forms its own merge group and no longer conflicts."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
             }
         }
     },
@@ -5858,6 +5942,46 @@
                 "wrong": "[\"testconflict_2.1.0\", \"testclash_1.0.0\", \"testminimal_2.0.0\"]",
                 "correct": "[\"testconflict_2.1.0\", \"testclash_1.0.0\", \"testminimal_2.1.0\"]",
                 "explanation": "testminimal_2.0.0 is partnered with 8.4.0 and would break the group; testminimal_2.1.0 shares the 8.5.0 partner with the other two libraries."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Red, Object-one, Clash-one, Mini-one",
+                    "Measure-tag/5"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "merge-order-independent-loads",
+        "description": "Reordering the schemas of a loadable merge group does not change the result; schemas in a merge group can be combined in any order.",
+        "warning": false,
+        "schema": [
+            "testminimal_2.1.0",
+            "testclash_1.0.0",
+            "testconflict_2.1.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. It lists the same three libraries as multiple-libraries-with-same-partner in reverse order. Schemas in a merge group can be combined in any order, so the merged vocabulary is the same: all three are partnered with 8.5.0 and their elements are either disjoint or identical.",
+        "common_causes": [
+            "Believing that library schemas must be listed in a particular order to merge"
+        ],
+        "correction_strategy": "No correction needed; the order in which the schemas of a merge group are listed does not affect the merged result.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testminimal_2.0.0\", \"testclash_1.0.0\", \"testconflict_2.1.0\"]",
+                "correct": "[\"testminimal_2.1.0\", \"testclash_1.0.0\", \"testconflict_2.1.0\"]",
+                "explanation": "testminimal_2.0.0 is partnered with 8.4.0 and would fail in any position; testminimal_2.1.0 shares the 8.5.0 partner."
             }
         ],
         "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -6247,6 +6371,51 @@
             {
                 "wrong": "[\"testconflict_2.0.0\", \"testclash_2.0.0\"]",
                 "correct": "[\"testconflict_2.0.0\", \"cl:testclash_2.0.0\"]",
+                "explanation": "In separate namespaces the two Attribute-item declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.2. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "element-conflict-order-independent",
+        "description": "An element conflict between two libraries fails the merge whichever library is listed first; schemas in a merge group can be combined in any order.",
+        "warning": false,
+        "schema": [
+            "testclash_2.0.0",
+            "testconflict_2.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Schemas in a merge group can be combined in any order, so this is the same merge group as element-conflict-attribute-value with the two libraries swapped. Both declare the top-level tag Attribute-item with different suggestedTag values (Clash-one versus Object-one). The conflict exists regardless of which library is listed first, so the load fails. Which element a validator reports first may depend on the order, but whether the load fails does not.",
+        "common_causes": [
+            "Expecting the first-listed library to take precedence over a later one for a shared element",
+            "Reordering a version list in an attempt to resolve an element conflict"
+        ],
+        "correction_strategy": "Make the shared element identical in every library, rename one of the elements, or load the libraries in separate namespaces. Reordering the list does not help.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testclash_2.0.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"testclash_1.0.0\", \"testconflict_2.0.0\"]",
+                "explanation": "testclash_1.0.0's only shared element (Shared-item) is an identical copy of testconflict's, so the libraries merge in either order."
+            },
+            {
+                "wrong": "[\"testclash_2.0.0\", \"testconflict_2.0.0\"]",
+                "correct": "[\"cl:testclash_2.0.0\", \"testconflict_2.0.0\"]",
                 "explanation": "In separate namespaces the two Attribute-item declarations never meet, so no compatibility check applies."
             }
         ],
@@ -16405,8 +16574,7 @@
         ],
         "specification_reference": "3.2.8.3. Delayed temporal tag pairing",
         "related_errors": [
-            "TEMPORAL_TAG_ERROR",
-            "TEMPORAL_TAG_ERROR_DELAY"
+            "TEMPORAL_TAG_ERROR"
         ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",

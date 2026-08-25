@@ -131,6 +131,12 @@
     "extra-standard-schemas-in-same-merge-group": [
         "SCHEMA_LOAD_FAILED"
     ],
+    "standard-schema-after-library-loads": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "standard-schema-after-library-mismatch": [
+        "SCHEMA_LOAD_FAILED"
+    ],
     "same-library-two-compatible-versions": [
         "SCHEMA_LOAD_FAILED"
     ],
@@ -141,6 +147,9 @@
         "SCHEMA_LOAD_FAILED"
     ],
     "multiple-libraries-with-same-partner": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "merge-order-independent-loads": [
         "SCHEMA_LOAD_FAILED"
     ],
     "partnered-library-alone-loads-with-partner": [
@@ -169,6 +178,9 @@
         "SCHEMA_LIBRARY_INVALID"
     ],
     "element-conflict-attribute-value": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "element-conflict-order-independent": [
         "SCHEMA_LOAD_FAILED"
     ],
     "element-conflict-description": [

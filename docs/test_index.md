@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 161 test cases in the HED test suite.
+Complete index of 165 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,7 +19,7 @@ Complete index of 161 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (8 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (27 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (31 tests)
 - [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
@@ -955,6 +955,16 @@ Complete index of 161 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
+### element-conflict-order-independent (AI metadata) (examples)
+
+**Description**: An element conflict between two libraries fails the merge whichever library is listed first; schemas in a merge group can be combined in any order.
+
+**Schema**: testclash_2.0.0, testconflict_2.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
 ### element-conflict-placeholder-child (AI metadata) (examples)
 
 **Description**: A shared element must have a placeholder (#) child in all schemas that declare it or in none.
@@ -987,7 +997,7 @@ Complete index of 161 test cases in the HED test suite.
 
 ### extra-standard-schemas-in-same-merge-group (AI metadata) (examples)
 
-**Description**: A standard schema in a merge group is ignored when it matches the group partner.
+**Description**: A standard schema in a merge group is allowed when it matches the group partner and adds nothing to the merged result.
 
 **Schema**: 8.5.0, testconflict_2.0.0 **Category**: schema
 
@@ -1004,6 +1014,16 @@ Complete index of 161 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 2 fail, 0 pass
+
+### merge-order-independent-loads (AI metadata) (examples)
+
+**Description**: Reordering the schemas of a loadable merge group does not change the result; schemas in a merge group can be combined in any order.
+
+**Schema**: testminimal_2.1.0, testclash_1.0.0, testconflict_2.1.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
 
 ### multiple-libraries-with-same-partner (AI metadata) (examples)
 
@@ -1124,6 +1144,26 @@ Complete index of 161 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 0 fail, 2 pass
+
+### standard-schema-after-library-loads (AI metadata) (examples)
+
+**Description**: A standard schema matching the group partner may appear anywhere in the list; schemas in a merge group can be combined in any order.
+
+**Schema**: testconflict_2.0.0, 8.5.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### standard-schema-after-library-mismatch (AI metadata) (examples)
+
+**Description**: A standard schema that differs from the group partner fails wherever it appears in the list; schemas in a merge group can be combined in any order.
+
+**Schema**: testconflict_2.0.0, 8.4.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
 
 ### two-standard-versions-in-same-merge-group (AI metadata) (examples)
 
