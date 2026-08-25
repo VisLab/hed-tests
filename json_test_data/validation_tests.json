@@ -16574,8 +16574,7 @@
         ],
         "specification_reference": "3.2.8.3. Delayed temporal tag pairing",
         "related_errors": [
-            "TEMPORAL_TAG_ERROR",
-            "TEMPORAL_TAG_ERROR_DELAY"
+            "TEMPORAL_TAG_ERROR"
         ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
