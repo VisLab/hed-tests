@@ -18,7 +18,7 @@ The **HED test suite** (`hed-tests` repository) is the official collection of JS
 
 - **Comprehensive test coverage**: 137 test cases covering 34 error codes
 - **Multiple test types**: String, sidecar, event, and combo tests
-- **AI-friendly metadata**: Explanations, common causes, and correction strategies
+- **Correction guidance**: Explanations, common causes, and correction strategies that validators can pass on to annotators
 - **Cross-platform consistency**: Single source of truth for all validators
 - **Machine-readable specification**: Tests document expected validation behavior
 
@@ -28,7 +28,7 @@ The test suite serves three primary purposes:
 
 1. **Validator validation**: Ensure Python, JavaScript, and future implementations produce consistent results
 2. **Specification documentation**: Provide executable examples of HED validation rules
-3. **AI training**: Enable AI systems to understand HED validation through structured examples
+3. **Correction guidance**: Give HED validators structured explanations and corrections to suggest to annotators
 
 ### Related tools and resources
 
@@ -168,7 +168,7 @@ validators consuming outdated tests.
 
 ### Check test coverage
 
-`check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
+`check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the correction guidance fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
 
 ```bash
 # Print the coverage report to the console
@@ -231,7 +231,7 @@ Each file contains an array of test case objects.
         "schema": "8.4.0",
         "error_category": "semantic",
         "common_causes": ["List of common causes"],
-        "explanation": "Detailed explanation for AI/developers",
+        "explanation": "Detailed explanation a validator can use to suggest a correction",
         "correction_strategy": "How to fix the issue",
         "correction_examples": [
             {
@@ -326,7 +326,7 @@ Semantic category of the error. One of:
 
 **Type**: `array[string]`
 
-List of common reasons this error occurs. Used by AI systems to understand typical mistakes.
+List of common reasons this error occurs. Used by validators to point annotators at typical mistakes.
 
 **Example**:
 
@@ -342,7 +342,7 @@ List of common reasons this error occurs. Used by AI systems to understand typic
 
 **Type**: `string`
 
-Detailed explanation of the error for AI systems and developers.
+Detailed explanation of the error, written so that a HED annotation validator can use it to suggest corrections to annotators.
 
 **Example**: `"Tags must exist in the active HED schema. Extensions are allowed but the base tag must be valid."`
 
@@ -517,9 +517,9 @@ Combines a sidecar definition with event data that uses categorical values from 
 - **Test names**: `error-code-specific-scenario` (lowercase, hyphens)
 - **Error codes**: Match official HED specification
 
-#### AI metadata
+#### Correction guidance
 
-For AI training and code generation, include:
+Required for every validation test (`json_test_data/validation_test_data/`), optional for schema tests (`json_test_data/schema_test_data/`). These fields exist so that HED annotation validators can suggest corrections to annotators; write them for that audience:
 
 - `explanation`: Why this error occurs
 - `common_causes`: Typical mistakes
@@ -1180,7 +1180,7 @@ Add tests for:
 
 Enhance tests by:
 
-- Adding AI-friendly metadata (`explanation`, `common_causes`, `correction_examples`)
+- Adding correction guidance (`explanation`, `common_causes`, `correction_examples`)
 - Including additional test types (sidecar, event, combo tests)
 - Expanding failing/passing cases
 - Clarifying descriptions
@@ -1238,7 +1238,7 @@ Follow this template:
         "First common cause",
         "Second common cause"
     ],
-    "explanation": "Detailed explanation for AI and developers",
+    "explanation": "Detailed explanation a validator can use to suggest a correction",
     "correction_strategy": "How to fix this error",
     "correction_examples": [
         {
@@ -1266,12 +1266,12 @@ Whenever possible, include multiple test types. See [Test types](#test-types) fo
 - **Event tests**: Tabular event data
 - **Combo tests**: Combined sidecar + event (most realistic scenarios)
 
-#### Step 5: Add AI-friendly metadata
+#### Step 5: Add correction guidance
 
-Always include these fields for AI training:
+Validation tests must include these fields; they let HED annotation validators suggest corrections to annotators. Schema tests may omit them:
 
 - `explanation`: Detailed explanation of why this error occurs
-- `common_causes`: List of typical reasons developers encounter this error
+- `common_causes`: List of typical reasons annotators encounter this error
 - `correction_strategy`: General approach to fixing the error
 - `correction_examples`: Concrete before/after examples
 
@@ -1294,7 +1294,7 @@ Before submitting a PR, ensure:
 - [ ] **Valid JSON**: No syntax errors
 - [ ] **Passes schema validation**: Validated with `validate_test_structure.py`
 - [ ] **Both fails and passes**: Each test type includes both
-- [ ] **AI metadata included**: Explanation, causes, corrections
+- [ ] **Correction guidance included** (validation tests): explanation, causes, corrections
 - [ ] **Clear descriptions**: Self-explanatory test names
 - [ ] **Correct schema version**: Matches the schema you tested against
 - [ ] **Realistic examples**: Uses practical HED strings
@@ -1360,7 +1360,7 @@ Closes #123
 - Start with `string_tests`, add more test types for coverage
 - Test edge cases and common real-world mistakes
 - Include both obvious and subtle scenarios
-- Write explanations that help AI systems understand the error
+- Write explanations that help a validator suggest a correction to the annotator
 
 **Organization**:
 
@@ -1415,7 +1415,7 @@ Closes #123
 }
 ```
 
-Problems: non-descriptive name, vague description, no AI metadata, unclear test strings.
+Problems: non-descriptive name, vague description, no correction guidance, unclear test strings.
 
 ### Code of conduct
 

@@ -22,7 +22,7 @@ implementations. he tests are designed to:
 
 * **Validate validators**: Ensure Python, JavaScript, and future implementations produce consistent results
 * **Specify behavior**: Provide machine-readable examples of HED validation rules  
-* **Enable AI training**: Include structured explanations and correction examples for AI systems
+* **Provide correction guidance**: Include structured explanations and correction examples that validators can suggest to annotators
 * **Prevent regressions**: Catch validation changes across versions
 
 Key Features
@@ -30,7 +30,7 @@ Key Features
 
 * **Comprehensive coverage**: 136 test cases covering 33 error codes
 * **Multiple test types**: String, sidecar, event, and combo tests
-* **AI-friendly**: The tests include explanations and correction strategies
+* **Correction guidance**: The tests include explanations and correction strategies
 * **Cross-platform**: Single source of truth for all validator implementations
 * **Automated validation**: JSON schema validation ensures test quality
 

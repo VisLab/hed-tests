@@ -92,7 +92,7 @@
       },
       "common_causes": {
         "type": "array",
-        "description": "List of common reasons this error occurs (AI-friendly)",
+        "description": "List of common reasons this error occurs (correction guidance)",
         "items": {
           "type": "string",
           "minLength": 5
@@ -101,7 +101,7 @@
       },
       "explanation": {
         "type": "string",
-        "description": "Detailed explanation of why this error occurs (AI-friendly)",
+        "description": "Detailed explanation of why this error occurs (correction guidance)",
         "minLength": 20
       },
       "correction_strategy": {
@@ -111,7 +111,7 @@
       },
       "correction_examples": {
         "type": "array",
-        "description": "Examples showing wrong vs correct code (AI-friendly)",
+        "description": "Examples showing wrong vs correct code (correction guidance)",
         "items": {
           "type": "object",
           "required": ["wrong", "correct", "explanation"],

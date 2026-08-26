@@ -121,6 +121,9 @@
     "library-invalid-rooted-in-duplicate-other": [
         "SCHEMA_LIBRARY_INVALID"
     ],
+    "library-invalid-duplicate-standard-tag": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
     "schema-missing-extra-value": [
         "SCHEMA_MISSING_EXTRA_VALUE"
     ],

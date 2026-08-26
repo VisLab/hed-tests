@@ -5,7 +5,7 @@ This script analyzes the test suite to report:
 - Which error codes have tests
 - Number of test cases per error code
 - Test types available (string/sidecar/event/combo)
-- AI metadata completeness
+- Correction guidance completeness (explanation, common_causes, correction_strategy)
 - Coverage gaps
 
 Usage:
@@ -35,7 +35,7 @@ class CoverageAnalyzer:
                 "test_cases": 0,
                 "files": [],
                 "test_types": set(),
-                "has_ai_metadata": False,
+                "has_correction_guidance": False,
                 "schema_versions": set(),
                 "warning_count": 0,
                 "error_count": 0,
@@ -104,9 +104,9 @@ class CoverageAnalyzer:
         for test_type in tests.keys():
             data["test_types"].add(test_type)
 
-        # Check AI metadata
+        # Check correction guidance fields
         if all(key in test_case for key in ["common_causes", "explanation", "correction_strategy"]):
-            data["has_ai_metadata"] = True
+            data["has_correction_guidance"] = True
 
         # Track schema versions
         schema = test_case.get("schema", "")
@@ -130,7 +130,7 @@ class CoverageAnalyzer:
         """
         total_codes = len(self.coverage_data)
         total_test_cases = sum(data["test_cases"] for data in self.coverage_data.values())
-        codes_with_ai = sum(1 for data in self.coverage_data.values() if data["has_ai_metadata"])
+        codes_with_ai = sum(1 for data in self.coverage_data.values() if data["has_correction_guidance"])
 
         test_type_counts = defaultdict(int)
         for data in self.coverage_data.values():
@@ -140,9 +140,9 @@ class CoverageAnalyzer:
         return {
             "total_error_codes": total_codes,
             "total_test_cases": total_test_cases,
-            "codes_with_ai_metadata": codes_with_ai,
+            "codes_with_correction_guidance": codes_with_ai,
             "test_type_coverage": dict(test_type_counts),
-            "ai_metadata_percentage": (codes_with_ai / total_codes * 100) if total_codes > 0 else 0,
+            "correction_guidance_percentage": (codes_with_ai / total_codes * 100) if total_codes > 0 else 0,
         }
 
     def print_report(self):
@@ -158,7 +158,7 @@ class CoverageAnalyzer:
         print(f"  Total error codes covered: {summary['total_error_codes']}")
         print(f"  Total test cases: {summary['total_test_cases']}")
         print(
-            f"  Error codes with AI metadata: {summary['codes_with_ai_metadata']} ({summary['ai_metadata_percentage']:.1f}%)"
+            f"  Error codes with correction guidance: {summary['codes_with_correction_guidance']} ({summary['correction_guidance_percentage']:.1f}%)"
         )
 
         # Test type coverage
@@ -174,7 +174,7 @@ class CoverageAnalyzer:
         for error_code in sorted(self.coverage_data.keys()):
             data = self.coverage_data[error_code]
             test_types_str = ", ".join(sorted(data["test_types"]))[:20]
-            ai_marker = "+" if data["has_ai_metadata"] else "-"
+            ai_marker = "+" if data["has_correction_guidance"] else "-"
 
             print(f"{error_code:<35} {data['test_cases']:<8} {test_types_str:<25} {ai_marker:<5}")
 
@@ -198,8 +198,8 @@ class CoverageAnalyzer:
             "",
             f"- **Total error codes covered**: {summary['total_error_codes']}",
             f"- **Total test cases**: {summary['total_test_cases']}",
-            f"- **Error codes with AI metadata**: {summary['codes_with_ai_metadata']} "
-            f"({summary['ai_metadata_percentage']:.1f}%)",
+            f"- **Error codes with correction guidance**: {summary['codes_with_correction_guidance']} "
+            f"({summary['correction_guidance_percentage']:.1f}%)",
             "",
             "## Test type coverage",
             "",
@@ -213,15 +213,15 @@ class CoverageAnalyzer:
                 "",
                 "## Coverage by error code",
                 "",
-                "| Error code | Test cases | Test types | AI metadata | Schema versions |",
-                "|------------|------------|------------|-------------|-----------------|",
+                "| Error code | Test cases | Test types | Correction guidance | Schema versions |",
+                "|------------|------------|------------|---------------------|-----------------|",
             ]
         )
 
         for error_code in sorted(self.coverage_data.keys()):
             data = self.coverage_data[error_code]
             test_types_str = ", ".join(sorted(data["test_types"]))
-            ai_marker = "yes" if data["has_ai_metadata"] else "no"
+            ai_marker = "yes" if data["has_correction_guidance"] else "no"
             schemas = ", ".join(sorted(data["schema_versions"]))[:30]
 
             lines.append(f"| {error_code} | {data['test_cases']} | {test_types_str} | {ai_marker} | {schemas} |")
