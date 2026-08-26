@@ -40,7 +40,7 @@ CI (`.github/workflows/ci.yaml`) runs the structure validators, coverage, `gener
 ## Rules that are easy to get wrong
 
 - After editing any file under `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/`, run `consolidate_tests.py` and commit the regenerated consolidated files and dictionaries with the edit - CI runs the script but does not fail when the committed copies are stale.
-- Every test entry needs the AI metadata fields: `explanation`, `common_causes`, `correction_strategy`, `correction_examples`.
+- Every entry in `json_test_data/validation_test_data/` needs the correction-guidance fields `explanation`, `common_causes`, `correction_strategy`, and `correction_examples`. They exist so that HED annotation validators can suggest corrections to annotators; write them for that audience. Entries in `json_test_data/schema_test_data/` (schema-development errors) do not require them.
 - Keep each test data file focused on its single error code; do not duplicate test cases across files.
 - `docs/test_index.md` and `docs/test_coverage.md` are generated (by `generate_test_index.py` and `check_coverage.py --markdown`); regenerate and run mdformat on them rather than hand-editing.
 - CHANGELOG.md tracks differences between formal GitHub releases and is used when making releases. Keep it; never fold it into notes or restructure it.
