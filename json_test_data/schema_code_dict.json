@@ -55,7 +55,8 @@
         "library-invalid-rooted-not-top-level",
         "library-invalid-rooted-not-in-base",
         "library-invalid-rooted-in-library-present",
-        "library-invalid-rooted-in-duplicate-other"
+        "library-invalid-rooted-in-duplicate-other",
+        "library-invalid-duplicate-standard-tag"
     ],
     "SCHEMA_MISSING_EXTRA_VALUE": [
         "schema-missing-extra-value"

@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 165 test cases in the HED test suite.
+Complete index of 166 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -18,7 +18,7 @@ Complete index of 165 test cases in the HED test suite.
 - [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
-- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (8 tests)
+- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (9 tests)
 - [SCHEMA_LOAD_FAILED](#schema-load-failed) (31 tests)
 - [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
@@ -824,6 +824,16 @@ Complete index of 165 test cases in the HED test suite.
 ### library-invalid-bad_with-standard-version (warning)
 
 **Description**: A schema library issue, indicating it references a version of the standard that can't be found.
+
+**Schema**: any
+
+**Tests**:
+
+- `schema_tests`: 2 fail, 1 pass
+
+### library-invalid-duplicate-standard-tag (warning)
+
+**Description**: An unmerged library schema declares a tag whose name already exists in its standard schema partner.
 
 **Schema**: any
 

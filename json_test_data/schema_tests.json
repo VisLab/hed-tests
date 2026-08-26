@@ -3445,6 +3445,66 @@
         }
     },
     {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-duplicate-standard-tag",
+        "warning": true,
+        "description": "An unmerged library schema declares a tag whose name already exists in its standard schema partner.",
+        "schema": "",
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Sensory-event'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "* Red",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "* ExtendedEvent",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
         "error_code": "SCHEMA_MISSING_EXTRA_VALUE",
         "name": "schema-missing-extra-value",
         "warning": true,
