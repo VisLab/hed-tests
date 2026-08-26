@@ -1211,7 +1211,7 @@ Complete index of 166 test cases in the HED test suite.
 
 ### schema-missing-extra-value (warning) (AI metadata) (examples)
 
-**Description**: An extras section (Sources, Prefixes, or ExternalAnnotations) has an empty value in a required column.
+**Description**: An extras section (Sources, Prefixes, or External annotations) has a row with an empty column value.
 
 **Schema**: any **Category**: schema_development
 
