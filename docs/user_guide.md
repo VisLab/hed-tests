@@ -18,7 +18,7 @@ The **HED test suite** (`hed-tests` repository) is the official collection of JS
 
 - **Comprehensive test coverage**: 137 test cases covering 34 error codes
 - **Multiple test types**: String, sidecar, event, and combo tests
-- **AI-friendly metadata**: Explanations, common causes, and correction strategies
+- **Correction guidance**: Explanations, common causes, and correction strategies that validators can pass on to annotators
 - **Cross-platform consistency**: Single source of truth for all validators
 - **Machine-readable specification**: Tests document expected validation behavior
 
@@ -28,7 +28,7 @@ The test suite serves three primary purposes:
 
 1. **Validator validation**: Ensure Python, JavaScript, and future implementations produce consistent results
 2. **Specification documentation**: Provide executable examples of HED validation rules
-3. **AI training**: Enable AI systems to understand HED validation through structured examples
+3. **Correction guidance**: Give HED validators structured explanations and corrections to suggest to annotators
 
 ### Related tools and resources
 
@@ -168,7 +168,7 @@ validators consuming outdated tests.
 
 ### Check test coverage
 
-`check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
+`check_coverage.py` reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the correction guidance fields are complete. Use it to find coverage gaps before adding tests, and run it for current statistics rather than trusting any count written in documentation:
 
 ```bash
 # Print the coverage report to the console
@@ -1180,7 +1180,7 @@ Add tests for:
 
 Enhance tests by:
 
-- Adding AI-friendly metadata (`explanation`, `common_causes`, `correction_examples`)
+- Adding correction guidance (`explanation`, `common_causes`, `correction_examples`)
 - Including additional test types (sidecar, event, combo tests)
 - Expanding failing/passing cases
 - Clarifying descriptions
@@ -1415,7 +1415,7 @@ Closes #123
 }
 ```
 
-Problems: non-descriptive name, vague description, no AI metadata, unclear test strings.
+Problems: non-descriptive name, vague description, no correction guidance, unclear test strings.
 
 ### Code of conduct
 

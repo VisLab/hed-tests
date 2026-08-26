@@ -88,7 +88,7 @@ python src/scripts/consolidate_tests.py --dry-run
 
 ### check_coverage.py
 
-Reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the AI metadata fields are complete. Use it to find coverage gaps before adding tests:
+Reports which error codes have tests, how many test cases each has, which test types (string/sidecar/event/combo) are covered, and whether the correction guidance fields are complete. Use it to find coverage gaps before adding tests:
 
 ```bash
 # Print the coverage report to the console

@@ -4,7 +4,7 @@ The test data for the HED validation test suite. Two kinds of content live here:
 
 ## Source: the per-error-code test files
 
-- `validation_test_data/` - one JSON file per HED validation error code (e.g. `TAG_INVALID.json`). Each file holds an array of test case objects for that error code: failing and passing examples as raw HED strings, BIDS sidecars, event tables, and sidecar+event combinations, plus the AI metadata fields (`explanation`, `common_causes`, `correction_strategy`, `correction_examples`).
+- `validation_test_data/` - one JSON file per HED validation error code (e.g. `TAG_INVALID.json`). Each file holds an array of test case objects for that error code: failing and passing examples as raw HED strings, BIDS sidecars, event tables, and sidecar+event combinations, plus the correction guidance fields (`explanation`, `common_causes`, `correction_strategy`, `correction_examples`).
 - `schema_test_data/` - the same structure, one file per schema-level error code (e.g. `SCHEMA_ATTRIBUTE_INVALID.json`), for errors found when loading and checking HED schemas themselves.
 
 Every test file must conform to the JSON schema in `src/schemas/test_schema.json`; check with `python src/scripts/validate_test_structure.py` (no arguments validates both test directories).

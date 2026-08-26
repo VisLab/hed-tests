@@ -80,7 +80,7 @@ class TestSummarizeTestData(unittest.TestCase):
             out_list.append(f"{indent}Schema: {info['schema']}")
             out_list.append(f"{indent}Warning: {info.get('warning', False)}")
 
-            # Show AI-friendly metadata if present
+            # Show correction guidance fields if present
             if "error_category" in info:
                 out_list.append(f"{indent}Category: {info['error_category']}")
             if "common_causes" in info:

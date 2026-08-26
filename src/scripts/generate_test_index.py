@@ -94,7 +94,7 @@ class TestIndexGenerator:
             "file": test_file.name,
             "test_counts": test_counts,
             "error_category": test_case.get("error_category", ""),
-            "has_ai_metadata": all(k in test_case for k in ["common_causes", "explanation", "correction_strategy"]),
+            "has_correction_guidance": all(k in test_case for k in ["common_causes", "explanation", "correction_strategy"]),
             "has_correction_examples": "correction_examples" in test_case,
         }
 
@@ -144,12 +144,12 @@ class TestIndexGenerator:
 
             # Test case entry
             warning_badge = " (warning)" if entry["warning"] else ""
-            ai_badge = " (AI metadata)" if entry["has_ai_metadata"] else ""
+            guidance_badge = " (correction guidance)" if entry["has_correction_guidance"] else ""
             examples_badge = " (examples)" if entry["has_correction_examples"] else ""
 
             lines.extend(
                 [
-                    f"### {entry['name']}{warning_badge}{ai_badge}{examples_badge}",
+                    f"### {entry['name']}{warning_badge}{guidance_badge}{examples_badge}",
                     "",
                     f"**Description**: {entry['description']}",
                     "",

@@ -43,7 +43,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/CHARACTER_INVALID.json`
 
-### character-invalid-non-printing-appears (AI metadata) (examples)
+### character-invalid-non-printing-appears (correction guidance) (examples)
 
 **Description**: The HED string contains a UTF-8 character.
 
@@ -56,7 +56,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### curly-braces-not-in-sidecar (AI metadata) (examples)
+### curly-braces-not-in-sidecar (correction guidance) (examples)
 
 **Description**: The curly brace notation is used outside a sidecar.
 
@@ -68,7 +68,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 0 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 
-### invalid-character-name-value-class (AI metadata) (examples)
+### invalid-character-name-value-class (correction guidance) (examples)
 
 **Description**: An invalid character was used in an 8.3.0 or greater style name value class.
 
@@ -81,7 +81,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 3 fail, 1 pass
 - `combo_tests`: 1 fail, 0 pass
 
-### invalid-character-name-value-class-early-schema (AI metadata) (examples)
+### invalid-character-name-value-class-early-schema (correction guidance) (examples)
 
 **Description**: An invalid character was as a value in a placeholder or as a tag extension.
 
@@ -97,7 +97,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/COMMA_MISSING.json`
 
-### comma-missing-tag-and-group (AI metadata) (examples)
+### comma-missing-tag-and-group (correction guidance) (examples)
 
 **Description**: A tag and a tag group are not separated by commas: A(B,D).
 
@@ -110,7 +110,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### comma-missing-tag-groups (AI metadata) (examples)
+### comma-missing-tag-groups (correction guidance) (examples)
 
 **Description**: Two tag groups are not separated by commas: (A, B)(C, D).
 
@@ -127,7 +127,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/DEFINITION_INVALID.json`
 
-### definition-invalid-bad-number-of-placeholders (AI metadata) (examples)
+### definition-invalid-bad-number-of-placeholders (correction guidance) (examples)
 
 **Description**: A definition that includes a placeholder (`#`) does not have exactly two `#` characters.
 
@@ -138,7 +138,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-content-has-top-level-tag (AI metadata) (examples)
+### definition-invalid-content-has-top-level-tag (correction guidance) (examples)
 
 **Description**: A tag with a required or unique attribute appears in a definition.
 
@@ -149,7 +149,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-empty-inner-group (AI metadata) (examples)
+### definition-invalid-empty-inner-group (correction guidance) (examples)
 
 **Description**: A definition's enclosing tag group has an empty inner group (i.e., the definition's contents).
 
@@ -160,7 +160,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-inner-group-defs (AI metadata) (examples)
+### definition-invalid-inner-group-defs (correction guidance) (examples)
 
 **Description**: A definition's inner tag group contains `Definition`, `Def` or `Def-expand` tags.
 
@@ -172,7 +172,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 0 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-multiple-definition-tags (AI metadata) (examples)
+### definition-invalid-multiple-definition-tags (correction guidance) (examples)
 
 **Description**: A definition's enclosing tag group contains more than a `Definition` tag and an inner group.
 
@@ -183,7 +183,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-multiple-definitions (AI metadata) (examples)
+### definition-invalid-multiple-definitions (correction guidance) (examples)
 
 **Description**: Multiple `Definition` tags with same name are encountered.
 
@@ -194,7 +194,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-placeholder-conflict (AI metadata) (examples)
+### definition-invalid-placeholder-conflict (correction guidance) (examples)
 
 **Description**: Definitions of the same name appear with and without a `#`.
 
@@ -205,7 +205,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-placeholder-incorrect-of-positions (AI metadata) (examples)
+### definition-invalid-placeholder-incorrect-of-positions (correction guidance) (examples)
 
 **Description**: A definition has placeholders (`#`) in incorrect positions.
 
@@ -216,7 +216,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-tag-group (AI metadata) (examples)
+### definition-invalid-tag-group (correction guidance) (examples)
 
 **Description**: A Definition tag does not appear in a tag group at the top level in an annotation.
 
@@ -228,7 +228,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-not-allowed-here (AI metadata) (examples)
+### definition-not-allowed-here (correction guidance) (examples)
 
 **Description**: A definition appears in an unexpected place such as an events file or sidecar.
 
@@ -245,7 +245,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/DEF_EXPAND_INVALID.json`
 
-### def-expand-has-extras (AI metadata) (examples)
+### def-expand-has-extras (correction guidance) (examples)
 
 **Description**: A Def-expand has extra tags or groups.
 
@@ -258,7 +258,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-expand-invalid-bad-placeholder-value-or-units (AI metadata) (examples)
+### def-expand-invalid-bad-placeholder-value-or-units (correction guidance) (examples)
 
 **Description**: A `Def-expand` has an incorrect type of placeholder value.
 
@@ -271,7 +271,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-expand-invalid-missing-placeholder (AI metadata) (examples)
+### def-expand-invalid-missing-placeholder (correction guidance) (examples)
 
 **Description**: A `Def-expand` is missing an expected placeholder value or has an unexpected placeholder value.
 
@@ -284,7 +284,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-expand-invalid-name-not-definition (AI metadata) (examples)
+### def-expand-invalid-name-not-definition (correction guidance) (examples)
 
 **Description**: A `Def-expand` tag's name does not correspond to a definition.
 
@@ -297,7 +297,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-expand-invalid-tags-not-in-definition (AI metadata) (examples)
+### def-expand-invalid-tags-not-in-definition (correction guidance) (examples)
 
 **Description**: The tags within a Def-expand do not match the corresponding definition.
 
@@ -310,7 +310,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-expand-missing-inner-group (AI metadata) (examples)
+### def-expand-missing-inner-group (correction guidance) (examples)
 
 **Description**: A Def-expand is missing its inner group containing the definition.
 
@@ -327,7 +327,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/DEF_INVALID.json`
 
-### def-invalid-bad-placeholder-value (AI metadata) (examples)
+### def-invalid-bad-placeholder-value (correction guidance) (examples)
 
 **Description**: A `Def` has a placeholder value of incorrect format or units for definition.
 
@@ -340,7 +340,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-invalid-missing-placeholder (AI metadata) (examples)
+### def-invalid-missing-placeholder (correction guidance) (examples)
 
 **Description**: A `Def` tag is missing an expected placeholder value or has an unexpected placeholder value.
 
@@ -353,7 +353,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### def-invalid-name (AI metadata) (examples)
+### def-invalid-name (correction guidance) (examples)
 
 **Description**: A `Def` tag's name does not correspond to a definition.
 
@@ -370,7 +370,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/ELEMENT_DEPRECATED.json`
 
-### tag-deprecated (warning) (AI metadata) (examples)
+### tag-deprecated (warning) (correction guidance) (examples)
 
 **Description**: A tag is deprecated
 
@@ -387,7 +387,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/PARENTHESES_MISMATCH.json`
 
-### parentheses-mismatch-incorrect-nesting (AI metadata) (examples)
+### parentheses-mismatch-incorrect-nesting (correction guidance) (examples)
 
 **Description**: The open and closed parentheses are not correctly nested in the HED string.
 
@@ -400,7 +400,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### parentheses-mismatch-unmatched-parentheses (AI metadata) (examples)
+### parentheses-mismatch-unmatched-parentheses (correction guidance) (examples)
 
 **Description**: A HED string does not have the same number of open and closed parentheses.
 
@@ -417,7 +417,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/PLACEHOLDER_INVALID.json`
 
-### placeholder-invalid-#-in-categorical-column (AI metadata) (examples)
+### placeholder-invalid-#-in-categorical-column (correction guidance) (examples)
 
 **Description**: A JSON sidecar has a placeholder (`#`) in the HED dictionary for a categorical column.
 
@@ -428,7 +428,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### placeholder-invalid-json-#-misplaced (AI metadata) (examples)
+### placeholder-invalid-json-#-misplaced (correction guidance) (examples)
 
 **Description**: A placeholder (`#`) is used in JSON sidecar or definition, but its parent in the schema does not have a placeholder child.
 
@@ -439,7 +439,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### placeholder-invalid-json-value-column (AI metadata) (examples)
+### placeholder-invalid-json-value-column (correction guidance) (examples)
 
 **Description**: A JSON sidecar does not have exactly one placeholder (`#`) in each HED string representing a value column.
 
@@ -450,7 +450,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### placeholder-invalid-misplaced (AI metadata) (examples)
+### placeholder-invalid-misplaced (correction guidance) (examples)
 
 **Description**: A `#` appears in a place that it should not (such as in the `HED` column of an event file outside a definition).
 
@@ -467,7 +467,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_INVALID.json`
 
-### attribute-invalid-unknown (warning) (AI metadata) (examples)
+### attribute-invalid-unknown (warning) (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is an unknown one.
 
@@ -481,7 +481,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
-### attribute-conversion-factor-invalid (warning) (AI metadata) (examples)
+### attribute-conversion-factor-invalid (warning) (correction guidance) (examples)
 
 **Description**: A schema unit has an invalid conversion factor
 
@@ -491,7 +491,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 4 fail, 1 pass
 
-### attribute-default-unit-invalid (warning) (AI metadata) (examples)
+### attribute-default-unit-invalid (warning) (correction guidance) (examples)
 
 **Description**: A schema unit class has an invalid default value
 
@@ -501,7 +501,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-allowed-character (warning) (AI metadata) (examples)
+### attribute-invalid-allowed-character (warning) (correction guidance) (examples)
 
 **Description**: A schema value class has an invalid allowedCharacter attribute value
 
@@ -511,7 +511,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 2 pass
 
-### attribute-invalid-hed-id-changed (warning) (AI metadata) (examples)
+### attribute-invalid-hed-id-changed (warning) (correction guidance) (examples)
 
 **Description**: A schema element has a hedId that changed from its previously assigned value.
 
@@ -521,7 +521,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-hed-id-invalid (warning) (AI metadata) (examples)
+### attribute-invalid-hed-id-invalid (warning) (correction guidance) (examples)
 
 **Description**: A schema element has a hedId with an invalid format (non-numeric or malformed).
 
@@ -531,7 +531,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-hed-id-out-range (warning) (AI metadata) (examples)
+### attribute-invalid-hed-id-out-range (warning) (correction guidance) (examples)
 
 **Description**: A schema element has a hedId that is outside the valid allocated range for its section.
 
@@ -541,7 +541,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-in-library (warning) (AI metadata) (examples)
+### attribute-invalid-in-library (warning) (correction guidance) (examples)
 
 **Description**: A schema element has an invalid inLibrary attribute (most other library errors are SCHEMA_LIBRARY_INVALID)
 
@@ -551,7 +551,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-unit-class (warning) (AI metadata) (examples)
+### attribute-invalid-unit-class (warning) (correction guidance) (examples)
 
 **Description**: A schema unit class issue, saying there is an unknown one.
 
@@ -561,7 +561,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-value-class (warning) (AI metadata) (examples)
+### attribute-invalid-value-class (warning) (correction guidance) (examples)
 
 **Description**: A schema value class issue, saying there is an unknown one.
 
@@ -571,7 +571,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-on-nonplaceholder-invalid (warning) (AI metadata) (examples)
+### attribute-on-nonplaceholder-invalid (warning) (correction guidance) (examples)
 
 **Description**: A non placeholder tag has takes value, unit class, or value class
 
@@ -581,7 +581,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 3 fail, 1 pass
 
-### attribute-relatedTag-invalid (warning) (AI metadata) (examples)
+### attribute-relatedTag-invalid (warning) (correction guidance) (examples)
 
 **Description**: A related tag points to an unknown tag
 
@@ -591,7 +591,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 2 pass
 
-### attribute-suggestedTag-invalid (warning) (AI metadata) (examples)
+### attribute-suggestedTag-invalid (warning) (correction guidance) (examples)
 
 **Description**: A suggested tag points to an unknown tag
 
@@ -635,7 +635,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `schema_tests`: 6 fail, 1 pass
 
-### schema-character-invalid-prologue (warning) (AI metadata) (examples)
+### schema-character-invalid-prologue (warning) (correction guidance) (examples)
 
 **Description**: Invalid character in prologue or epilogue.
 
@@ -669,7 +669,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_DEPRECATION_ERROR.json`
 
-### schema-deprecated-attribute-invalid (warning) (AI metadata) (examples)
+### schema-deprecated-attribute-invalid (warning) (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is an unhandled deprecated attribute.
 
@@ -753,7 +753,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_DUPLICATE_NODE.json`
 
-### attribute-duplicate-node (warning) (AI metadata) (examples)
+### attribute-duplicate-node (warning) (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is a duplicate node.
 
@@ -777,7 +777,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_HEADER_INVALID.json`
 
-### schema-header-malformed-attribute (warning) (AI metadata) (examples)
+### schema-header-malformed-attribute (warning) (correction guidance) (examples)
 
 **Description**: A schema header contains a malformed or unknown attribute.
 
@@ -801,7 +801,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_LIBRARY_INVALID.json`
 
-### library-invalid-bad-name (warning) (AI metadata) (examples)
+### library-invalid-bad-name (warning) (correction guidance) (examples)
 
 **Description**: A schema library issue, indicating the name is invalid.
 
@@ -895,7 +895,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`
 
-### different-standard-schemas-in-same-merge-group (AI metadata) (examples)
+### different-standard-schemas-in-same-merge-group (correction guidance) (examples)
 
 **Description**: A standard schema version in a merge group must match the withStandard partner of the group's library schemas.
 
@@ -905,7 +905,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### duplicate-schema-in-merge-group (AI metadata) (examples)
+### duplicate-schema-in-merge-group (correction guidance) (examples)
 
 **Description**: The same schema (same name and version) cannot appear twice in one merge group.
 
@@ -915,7 +915,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-ancestor-path (AI metadata) (examples)
+### element-conflict-ancestor-path (correction guidance) (examples)
 
 **Description**: Library schemas sharing an element must place it at the same position in the hierarchy.
 
@@ -925,7 +925,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-attribute-value (AI metadata) (examples)
+### element-conflict-attribute-value (correction guidance) (examples)
 
 **Description**: Library schemas sharing an element must give it identical attribute values.
 
@@ -935,7 +935,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-description (AI metadata) (examples)
+### element-conflict-description (correction guidance) (examples)
 
 **Description**: Library schemas sharing an element must give it the same description.
 
@@ -945,7 +945,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-in-shared-child (AI metadata) (examples)
+### element-conflict-in-shared-child (correction guidance) (examples)
 
 **Description**: A changed shared child makes libraries incompatible even when their non-shared siblings would be allowed.
 
@@ -955,7 +955,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-in-shared-grandchild (AI metadata) (examples)
+### element-conflict-in-shared-grandchild (correction guidance) (examples)
 
 **Description**: The element compatibility rules recurse into every depth of a shared hierarchy.
 
@@ -965,7 +965,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-order-independent (AI metadata) (examples)
+### element-conflict-order-independent (correction guidance) (examples)
 
 **Description**: An element conflict between two libraries fails the merge whichever library is listed first; schemas in a merge group can be combined in any order.
 
@@ -975,7 +975,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-placeholder-child (AI metadata) (examples)
+### element-conflict-placeholder-child (correction guidance) (examples)
 
 **Description**: A shared element must have a placeholder (#) child in all schemas that declare it or in none.
 
@@ -985,7 +985,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-rooted-different-anchors (AI metadata) (examples)
+### element-conflict-rooted-different-anchors (correction guidance) (examples)
 
 **Description**: A shared rooted tag must be rooted at the same standard schema node in every library.
 
@@ -995,7 +995,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### element-conflict-rooted-vs-top-level (AI metadata) (examples)
+### element-conflict-rooted-vs-top-level (correction guidance) (examples)
 
 **Description**: A tag rooted in the standard schema in one library cannot merge with an unrooted top-level tag of the same name in another.
 
@@ -1005,7 +1005,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### extra-standard-schemas-in-same-merge-group (AI metadata) (examples)
+### extra-standard-schemas-in-same-merge-group (correction guidance) (examples)
 
 **Description**: A standard schema in a merge group is allowed when it matches the group partner and adds nothing to the merged result.
 
@@ -1015,7 +1015,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### incompatible-merge-schemas (AI metadata) (examples)
+### incompatible-merge-schemas (correction guidance) (examples)
 
 **Description**: Library schemas in a merge group must all have the same standard schema partner.
 
@@ -1025,7 +1025,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### merge-order-independent-loads (AI metadata) (examples)
+### merge-order-independent-loads (correction guidance) (examples)
 
 **Description**: Reordering the schemas of a loadable merge group does not change the result; schemas in a merge group can be combined in any order.
 
@@ -1035,7 +1035,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### multiple-libraries-with-same-partner (AI metadata) (examples)
+### multiple-libraries-with-same-partner (correction guidance) (examples)
 
 **Description**: Several library schemas with the same standard schema partner merge into one namespace.
 
@@ -1045,7 +1045,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### namespaced-groups-load-independently (AI metadata) (examples)
+### namespaced-groups-load-independently (correction guidance) (examples)
 
 **Description**: Schemas with different namespace prefixes form independent merge groups whose partners need not match.
 
@@ -1055,7 +1055,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### nonexistent-schema-version-in-group (AI metadata) (examples)
+### nonexistent-schema-version-in-group (correction guidance) (examples)
 
 **Description**: A schema version that does not exist cannot be loaded.
 
@@ -1065,7 +1065,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### partnered-library-alone-loads-with-partner (AI metadata) (examples)
+### partnered-library-alone-loads-with-partner (correction guidance) (examples)
 
 **Description**: A partnered library schema listed alone automatically includes its standard schema partner.
 
@@ -1075,7 +1075,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### prefixed-group-with-mismatched-partners (AI metadata) (examples)
+### prefixed-group-with-mismatched-partners (correction guidance) (examples)
 
 **Description**: The partnered-combination rules apply inside each prefixed merge group, not only to unprefixed schemas.
 
@@ -1085,7 +1085,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### prefixed-standard-schema-forms-own-group (AI metadata) (examples)
+### prefixed-standard-schema-forms-own-group (correction guidance) (examples)
 
 **Description**: A standard schema under a namespace prefix forms its own merge group independent of the unprefixed group.
 
@@ -1095,7 +1095,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### same-library-two-compatible-versions (AI metadata) (examples)
+### same-library-two-compatible-versions (correction guidance) (examples)
 
 **Description**: Two versions of the same library schema with the same partner and no conflicting elements merge.
 
@@ -1105,7 +1105,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### same-library-two-incompatible-versions (AI metadata) (examples)
+### same-library-two-incompatible-versions (correction guidance) (examples)
 
 **Description**: Two versions of the same library must still be element-compatible to merge.
 
@@ -1115,7 +1115,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### shared-element-compatible-across-libraries (AI metadata) (examples)
+### shared-element-compatible-across-libraries (correction guidance) (examples)
 
 **Description**: Two libraries may declare the same element when the declarations are identical.
 
@@ -1125,7 +1125,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### shared-hierarchy-diverges-at-grandchild (AI metadata) (examples)
+### shared-hierarchy-diverges-at-grandchild (correction guidance) (examples)
 
 **Description**: Libraries sharing an identical chain of elements may diverge below it.
 
@@ -1135,7 +1135,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### shared-rooted-hierarchy-different-children (AI metadata) (examples)
+### shared-rooted-hierarchy-different-children (correction guidance) (examples)
 
 **Description**: A shared element may have different non-placeholder children in different libraries.
 
@@ -1145,7 +1145,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### shared-rooted-tag-disjoint-children (AI metadata) (examples)
+### shared-rooted-tag-disjoint-children (correction guidance) (examples)
 
 **Description**: A shared element's children may be entirely disjoint between libraries.
 
@@ -1155,7 +1155,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### standard-schema-after-library-loads (AI metadata) (examples)
+### standard-schema-after-library-loads (correction guidance) (examples)
 
 **Description**: A standard schema matching the group partner may appear anywhere in the list; schemas in a merge group can be combined in any order.
 
@@ -1165,7 +1165,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### standard-schema-after-library-mismatch (AI metadata) (examples)
+### standard-schema-after-library-mismatch (correction guidance) (examples)
 
 **Description**: A standard schema that differs from the group partner fails wherever it appears in the list; schemas in a merge group can be combined in any order.
 
@@ -1175,7 +1175,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### two-standard-versions-in-same-merge-group (AI metadata) (examples)
+### two-standard-versions-in-same-merge-group (correction guidance) (examples)
 
 **Description**: Two different standard schema versions cannot appear in the same merge group.
 
@@ -1185,7 +1185,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### two-unpartnered-libraries-in-same-namespace (AI metadata) (examples)
+### two-unpartnered-libraries-in-same-namespace (correction guidance) (examples)
 
 **Description**: Two unpartnered library schemas cannot share one namespace prefix.
 
@@ -1195,7 +1195,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-### unpartnered-library-in-shared-namespace (AI metadata) (examples)
+### unpartnered-library-in-shared-namespace (correction guidance) (examples)
 
 **Description**: An unpartnered library schema cannot share a namespace with other schemas.
 
@@ -1209,7 +1209,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_MISSING_EXTRA_VALUE.json`
 
-### schema-missing-extra-value (warning) (AI metadata) (examples)
+### schema-missing-extra-value (warning) (correction guidance) (examples)
 
 **Description**: An extras section (Sources, Prefixes, or External annotations) has a row with an empty column value.
 
@@ -1217,13 +1217,13 @@ Complete index of 166 test cases in the HED test suite.
 
 **Tests**:
 
-- `schema_tests`: 3 fail, 1 pass
+- `schema_tests`: 8 fail, 1 pass
 
 ## SCHEMA_SECTION_MISSING
 
 **File**: `json_test_data/schema_test_data/SCHEMA_SECTION_MISSING.json`
 
-### schema-section-missing (warning) (AI metadata) (examples)
+### schema-section-missing (warning) (correction guidance) (examples)
 
 **Description**: A required schema section is missing from the schema file.
 
@@ -1237,7 +1237,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/SIDECAR_BRACES_INVALID.json`
 
-### sidecar-braces-appear-as-value-rather-than-tag (AI metadata) (examples)
+### sidecar-braces-appear-as-value-rather-than-tag (correction guidance) (examples)
 
 **Description**: The curly braces are in a value rather than as a separate tag substitute.
 
@@ -1248,7 +1248,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### sidecar-braces-circular-reference (AI metadata) (examples)
+### sidecar-braces-circular-reference (correction guidance) (examples)
 
 **Description**: The item in curly braces has a HED annotation that contains curly braces.
 
@@ -1259,7 +1259,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 2 pass
 - `combo_tests`: 0 fail, 1 pass
 
-### sidecar-braces-contents-invalid (AI metadata) (examples)
+### sidecar-braces-contents-invalid (correction guidance) (examples)
 
 **Description**: The item in curly braces is not the word HED or a column name with HED annotations in the sidecar.
 
@@ -1270,7 +1270,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 2 pass
 - `combo_tests`: 0 fail, 1 pass
 
-### sidecar-braces-invalid-spot (AI metadata) (examples)
+### sidecar-braces-invalid-spot (correction guidance) (examples)
 
 **Description**: A curly brace reference must only appear where a tag could.
 
@@ -1280,7 +1280,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `sidecar_tests`: 1 fail, 1 pass
 
-### sidecar-braces-self-reference (AI metadata) (examples)
+### sidecar-braces-self-reference (correction guidance) (examples)
 
 **Description**: The item in curly braces has a HED annotation that contains itself.
 
@@ -1295,7 +1295,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/SIDECAR_INVALID.json`
 
-### sidecar-invalid-key-at-wrong-level (AI metadata) (examples)
+### sidecar-invalid-key-at-wrong-level (correction guidance) (examples)
 
 **Description**: The HED key is not a second-level dictionary key.
 
@@ -1306,7 +1306,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
 
-### sidecar-invalid-na-annotated (AI metadata) (examples)
+### sidecar-invalid-na-annotated (correction guidance) (examples)
 
 **Description**: An annotation entry is provided for `n/a`.
 
@@ -1321,7 +1321,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/SIDECAR_KEY_MISSING.json`
 
-### sidecar-key-missing (warning) (AI metadata) (examples)
+### sidecar-key-missing (warning) (correction guidance) (examples)
 
 **Description**: A value in a categorical column does not have an expected entry in a sidecar.
 
@@ -1331,7 +1331,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `combo_tests`: 1 fail, 1 pass
 
-### sidecar-refers-to-missing-tsv-hed-column (warning) (AI metadata) (examples)
+### sidecar-refers-to-missing-tsv-hed-column (warning) (correction guidance) (examples)
 
 **Description**: (Warning) A sidecar uses a \{HED} column which does not appear in the corresponding tsv file.
 
@@ -1346,7 +1346,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_EMPTY.json`
 
-### tag-empty-begin-end-comma (AI metadata) (examples)
+### tag-empty-begin-end-comma (correction guidance) (examples)
 
 **Description**: A HED string begins or ends with a comma (ignoring white space).
 
@@ -1359,7 +1359,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-empty-empty-parentheses (AI metadata) (examples)
+### tag-empty-empty-parentheses (correction guidance) (examples)
 
 **Description**: A tag group is empty (i.e., empty parentheses are not allowed).
 
@@ -1372,7 +1372,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-empty-extra-commas-or-parentheses (AI metadata) (examples)
+### tag-empty-extra-commas-or-parentheses (correction guidance) (examples)
 
 **Description**: A HED string has extra commas or parentheses separated by only white space.
 
@@ -1389,7 +1389,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_EXPRESSION_REPEATED.json`
 
-### tag-expression-repeated-same-level (AI metadata) (examples)
+### tag-expression-repeated-same-level (correction guidance) (examples)
 
 **Description**: A tag is repeated in the same tag group or level.
 
@@ -1402,7 +1402,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tags-duplicated-across-multiple-rows (AI metadata) (examples)
+### tags-duplicated-across-multiple-rows (correction guidance) (examples)
 
 **Description**: Tags are repeated because two rows have the same onset value.
 
@@ -1413,7 +1413,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tags-with-duplicated-onsets-across-multiple-rows (AI metadata) (examples)
+### tags-with-duplicated-onsets-across-multiple-rows (correction guidance) (examples)
 
 **Description**: Tags are repeated because two rows have the same onset value.
 
@@ -1428,7 +1428,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_EXTENDED.json`
 
-### tag-extended-extension (warning) (AI metadata) (examples)
+### tag-extended-extension (warning) (correction guidance) (examples)
 
 **Description**: A tag represents an extension from the schema.
 
@@ -1445,7 +1445,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_EXTENSION_INVALID.json`
 
-### tag-extension-invalid-bad-node-name (AI metadata) (examples)
+### tag-extension-invalid-bad-node-name (correction guidance) (examples)
 
 **Description**: A tag extension term does not comply with rules for schema nodes.
 
@@ -1458,7 +1458,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-extension-invalid-duplicate (AI metadata) (examples)
+### tag-extension-invalid-duplicate (correction guidance) (examples)
 
 **Description**: A tag extension term is already in the schema.
 
@@ -1475,7 +1475,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_GROUP_ERROR.json`
 
-### multiple-top-level-tags-in-same-group (AI metadata) (examples)
+### multiple-top-level-tags-in-same-group (correction guidance) (examples)
 
 **Description**: Multiple tags with the topLevelTagGroup attribute appear in the same top-level tag group. (Delay and Duration are allowed to be in the same topLevelTagGroup).
 
@@ -1488,7 +1488,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-group-error-deferred-in-splice (AI metadata) (examples)
+### tag-group-error-deferred-in-splice (correction guidance) (examples)
 
 **Description**: A tag with the topLevelTagGroup does not appear at a HED tag group at the top level in an assembled HED annotation.
 
@@ -1500,7 +1500,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-group-error-missing (AI metadata) (examples)
+### tag-group-error-missing (correction guidance) (examples)
 
 **Description**: A tag has tagGroup or topLevelTagGroup attribute, but is not enclosed in parentheses.
 
@@ -1513,7 +1513,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-group-error-not-top-level (AI metadata) (examples)
+### tag-group-error-not-top-level (correction guidance) (examples)
 
 **Description**: A tag with the topLevelTagGroup does not appear at a HED tag group at the top level in an assembled HED annotation.
 
@@ -1528,7 +1528,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_INVALID.json`
 
-### tag-has-extra-whitespace (AI metadata) (examples)
+### tag-has-extra-whitespace (correction guidance) (examples)
 
 **Description**: A HED tag has extra internal whitespace, including directly before or after slashes.
 
@@ -1541,7 +1541,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-has-leading-trailing-or-consecutive-slashes (AI metadata) (examples)
+### tag-has-leading-trailing-or-consecutive-slashes (correction guidance) (examples)
 
 **Description**: A HED tag has leading, trailing or consecutive slashes.
 
@@ -1554,7 +1554,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-invalid-in-schema (AI metadata) (examples)
+### tag-invalid-in-schema (correction guidance) (examples)
 
 **Description**: The tag is not valid in the schema it is associated with.
 
@@ -1571,7 +1571,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_NAMESPACE_PREFIX_INVALID.json`
 
-### tag-namespace_prefix-invalid-characters (AI metadata) (examples)
+### tag-namespace_prefix-invalid-characters (correction guidance) (examples)
 
 **Description**: A tag prefix has invalid characters.
 
@@ -1584,7 +1584,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-namespace_prefix-with-colon-values (AI metadata) (examples)
+### tag-namespace_prefix-with-colon-values (correction guidance) (examples)
 
 **Description**: A tag prefix has invalid characters.
 
@@ -1597,7 +1597,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### tag-with-namespace-has-no-schema (AI metadata) (examples)
+### tag-with-namespace-has-no-schema (correction guidance) (examples)
 
 **Description**: A tag starting with name: does not have an associated schema.
 
@@ -1614,7 +1614,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_NOT_UNIQUE.json`
 
-### tag-not-unique (AI metadata) (examples)
+### tag-not-unique (correction guidance) (examples)
 
 **Description**: A tag with unique attribute appears more than once in an event-level HED string.
 
@@ -1631,7 +1631,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_REQUIRES_CHILD.json`
 
-### tag-requires-child-missing (AI metadata) (examples)
+### tag-requires-child-missing (correction guidance) (examples)
 
 **Description**: A tag has the requireChild schema attribute but does not have a child.
 
@@ -1648,7 +1648,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TEMPORAL_TAG_ERROR.json`
 
-### na-in-onset column (AI metadata) (examples)
+### na-in-onset column (correction guidance) (examples)
 
 **Description**: n/a is in the onset column.
 
@@ -1658,7 +1658,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `combo_tests`: 2 fail, 2 pass
 
-### temporal-tag-error-duplicated-onset-or-offset (AI metadata) (examples)
+### temporal-tag-error-duplicated-onset-or-offset (correction guidance) (examples)
 
 **Description**: An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.
 
@@ -1668,7 +1668,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `combo_tests`: 3 fail, 1 pass
 
-### temporal-tag-error-duplicated-onset-or-offset-delay (AI metadata) (examples)
+### temporal-tag-error-duplicated-onset-or-offset-delay (correction guidance) (examples)
 
 **Description**: An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.
 
@@ -1678,7 +1678,7 @@ Complete index of 166 test cases in the HED test suite.
 
 - `combo_tests`: 3 fail, 1 pass
 
-### temporal-tag-error-duration-group (AI metadata) (examples)
+### temporal-tag-error-duration-group (correction guidance) (examples)
 
 **Description**: A Duration or Delay has extra tags or groups.
 
@@ -1690,7 +1690,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 0 fail, 1 pass
 
-### temporal-tag-error-extra tags (AI metadata) (examples)
+### temporal-tag-error-extra tags (correction guidance) (examples)
 
 **Description**: An Onset tag group with has tags besides the anchor Def or Def-expand that are not in a tag group.
 
@@ -1703,7 +1703,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-extra tags-delay (AI metadata) (examples)
+### temporal-tag-error-extra tags-delay (correction guidance) (examples)
 
 **Description**: An Onset tag group with has tags besides the anchor Def or Def-expand that are not in a tag group.
 
@@ -1716,7 +1716,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-inset-group-has-extras (AI metadata) (examples)
+### temporal-tag-error-inset-group-has-extras (correction guidance) (examples)
 
 **Description**: An Inset group has tags or groups in addition to its defining Def or Def-expand.
 
@@ -1727,7 +1727,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-inset-group-has-extras-delay (AI metadata) (examples)
+### temporal-tag-error-inset-group-has-extras-delay (correction guidance) (examples)
 
 **Description**: An Inset group has tags or groups in addition to its defining Def or Def-expand.
 
@@ -1738,7 +1738,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-inset-outside-its-event (AI metadata) (examples)
+### temporal-tag-error-inset-outside-its-event (correction guidance) (examples)
 
 **Description**: An Inset tag is not grouped with a Def or Def-expand of an ongoing Onset.
 
@@ -1749,7 +1749,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-inset-outside-its-event-delay (AI metadata) (examples)
+### temporal-tag-error-inset-outside-its-event-delay (correction guidance) (examples)
 
 **Description**: An Inset tag is not grouped with a Def or Def-expand of an ongoing Onset.
 
@@ -1760,7 +1760,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-mismatch-delay (AI metadata) (examples)
+### temporal-tag-error-mismatch-delay (correction guidance) (examples)
 
 **Description**: An Offset tag associated with a given definition appears after a previous Offset tag without the appearance of an intervening Onset of the same name.
 
@@ -1771,7 +1771,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-nested-group (AI metadata) (examples)
+### temporal-tag-error-nested-group (correction guidance) (examples)
 
 **Description**: An Onset or Offset tag appears in a nested tag group (not a top-level tag group).
 
@@ -1784,7 +1784,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-nested-group-delay (AI metadata) (examples)
+### temporal-tag-error-nested-group-delay (correction guidance) (examples)
 
 **Description**: A delay appears in a group not in the top level.
 
@@ -1797,7 +1797,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-not-tag-group (AI metadata) (examples)
+### temporal-tag-error-not-tag-group (correction guidance) (examples)
 
 **Description**: An Onset or Offset tag does not appear in a tag group.
 
@@ -1810,7 +1810,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-not-tag-group-delay (AI metadata) (examples)
+### temporal-tag-error-not-tag-group-delay (correction guidance) (examples)
 
 **Description**: A Delay is not in the tag group.
 
@@ -1823,7 +1823,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-offset-has-groups (AI metadata) (examples)
+### temporal-tag-error-offset-has-groups (correction guidance) (examples)
 
 **Description**: An Offset appears with one or more tags or additional tag groups.
 
@@ -1835,7 +1835,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-offset-has-groups-delay (AI metadata) (examples)
+### temporal-tag-error-offset-has-groups-delay (correction guidance) (examples)
 
 **Description**: An Offset appears with one or more tags or additional tag groups.
 
@@ -1847,7 +1847,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
 
-### temporal-tag-error-offset-with-no-onset (AI metadata) (examples)
+### temporal-tag-error-offset-with-no-onset (correction guidance) (examples)
 
 **Description**: An Offset tag associated with a given definition appears after a previous Offset tag without the appearance of an intervening Onset of the same name.
 
@@ -1858,7 +1858,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-onset-has-more-groups (AI metadata) (examples)
+### temporal-tag-error-onset-has-more-groups (correction guidance) (examples)
 
 **Description**: An Onset group has more than one additional tag group.
 
@@ -1871,7 +1871,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-onset-has-more-groups-delay (AI metadata) (examples)
+### temporal-tag-error-onset-has-more-groups-delay (correction guidance) (examples)
 
 **Description**: An Onset group has more than one additional tag group.
 
@@ -1884,7 +1884,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 3 fail, 1 pass
 
-### temporal-tag-error-tag-appears-where-not-allowed (AI metadata) (examples)
+### temporal-tag-error-tag-appears-where-not-allowed (correction guidance) (examples)
 
 **Description**: A temporal tag appears appears in a tsv with no onset column
 
@@ -1895,7 +1895,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
 
-### temporal-tag-error-tag-appears-where-not-allowed-delay (AI metadata) (examples)
+### temporal-tag-error-tag-appears-where-not-allowed-delay (correction guidance) (examples)
 
 **Description**: An Inset, Offset, or Onset tag appears in a tsv with no onset column
 
@@ -1906,7 +1906,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
 
-### temporal-tag-error-wrong-number-of-defs (AI metadata) (examples)
+### temporal-tag-error-wrong-number-of-defs (correction guidance) (examples)
 
 **Description**: An Onset or Offset tag is not grouped with exactly one Def-expand tag group or a Def tag.
 
@@ -1919,7 +1919,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### temporal-tag-error-wrong-number-of-defs-delay (AI metadata) (examples)
+### temporal-tag-error-wrong-number-of-defs-delay (correction guidance) (examples)
 
 **Description**: An Onset or Offset tag is not grouped with exactly one Def-expand tag group or a Def tag.
 
@@ -1936,7 +1936,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/UNITS_INVALID.json`
 
-### units-invalid-for-unit-class (AI metadata) (examples)
+### units-invalid-for-unit-class (correction guidance) (examples)
 
 **Description**: A tag has a value with units that are invalid or not of the correct unit class for the tag.
 
@@ -1949,7 +1949,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### units-invalid-si-units (AI metadata) (examples)
+### units-invalid-si-units (correction guidance) (examples)
 
 **Description**: A unit modifier is applied to units that are not SI units.
 
@@ -1966,7 +1966,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/VALUE_INVALID.json`
 
-### invalid-character-numeric-class (AI metadata) (examples)
+### invalid-character-numeric-class (correction guidance) (examples)
 
 **Description**: An invalid character was used in an 8.3.0 or greater style numeric value class.
 
@@ -1977,7 +1977,7 @@ Complete index of 166 test cases in the HED test suite.
 - `string_tests`: 8 fail, 10 pass
 - `sidecar_tests`: 1 fail, 1 pass
 
-### value-invalid-#-substitution (AI metadata) (examples)
+### value-invalid-#-substitution (correction guidance) (examples)
 
 **Description**: The value substituted for a placeholder (`#`) is not valid.
 
@@ -1988,7 +1988,7 @@ Complete index of 166 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### value-invalid-blank-missing-before-units (AI metadata) (examples)
+### value-invalid-blank-missing-before-units (correction guidance) (examples)
 
 **Description**: The units are not separated from the value by a single blank.
 
@@ -2001,7 +2001,7 @@ Complete index of 166 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### value-invalid-incompatible-value-class (AI metadata) (examples)
+### value-invalid-incompatible-value-class (correction guidance) (examples)
 
 **Description**: A tag placeholder value is incompatible with the specified value class.
 
@@ -2018,7 +2018,7 @@ Complete index of 166 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
-### attribute-conversion-format (warning) (AI metadata) (examples)
+### attribute-conversion-format (warning) (correction guidance) (examples)
 
 **Description**: A schema unit has an invalid conversion factor due to bad formatting
 
