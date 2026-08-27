@@ -174,8 +174,7 @@
         "SCHEMA_LOAD_FAILED"
     ],
     "duplicate-schema-in-merge-group": [
-        "SCHEMA_LOAD_FAILED",
-        "SCHEMA_LIBRARY_INVALID"
+        "SCHEMA_LOAD_FAILED"
     ],
     "element-conflict-attribute-value": [
         "SCHEMA_LOAD_FAILED"

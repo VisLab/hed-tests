@@ -907,13 +907,13 @@ Complete index of 166 test cases in the HED test suite.
 
 ### duplicate-schema-in-merge-group (correction guidance) (examples)
 
-**Description**: The same schema (same name and version) cannot appear twice in one merge group.
+**Description**: The same schema (same name and version) listed twice in one merge group loads; the duplicate is ignored.
 
 **Schema**: testconflict_2.0.0, testconflict_2.0.0 **Category**: schema
 
 **Tests**:
 
-- `string_tests`: 2 fail, 0 pass
+- `string_tests`: 0 fail, 2 pass
 
 ### element-conflict-ancestor-path (correction guidance) (examples)
 
