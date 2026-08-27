@@ -141,7 +141,9 @@ def combine_tests(
     stats = TestStatistics()
 
     # Get all JSON files in the directory
-    test_files = sorted(test_dir.glob("*.json"))
+    # Sort by name string: Path ordering is case-insensitive on Windows, so it
+    # differs from Linux when an underscore follows a shared prefix.
+    test_files = sorted(test_dir.glob("*.json"), key=lambda p: p.name)
 
     # Filter out excluded files
     filtered_files = [f for f in test_files if not any(f.name.startswith(prefix) for prefix in exclude_prefixes)]

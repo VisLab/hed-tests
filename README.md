@@ -84,7 +84,7 @@ python src/scripts/consolidate_tests.py
 python src/scripts/consolidate_tests.py --dry-run
 ```
 
-**Run this after every test edit and commit the regenerated files together with the edit.** CI runs the script but does not fail when the committed copies are stale, so an uncommitted regeneration leaves validators consuming outdated tests.
+**Run this after every test edit and commit the regenerated files together with the edit.** The pre-commit hook and the CI step `python src/scripts/regenerate.py --check` both fail when the committed copies are stale, so a forgotten regeneration is caught before it reaches validators.
 
 ### check_coverage.py
 
@@ -122,9 +122,11 @@ python src/scripts/generate_test_index.py --format json --output test_index.json
 
 1. Edit or add a test file in `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/` (one error code per file).
 2. Validate: `python src/scripts/validate_test_structure.py` (or narrow it to the directory you edited).
-3. Regenerate: `python src/scripts/consolidate_tests.py`.
-4. Check the result: `python src/scripts/check_coverage.py` and `python -m unittest discover tests`.
-5. Commit the edited file **and** the regenerated consolidated files together.
+3. Regenerate every derived file: `python src/scripts/regenerate.py` (runs the consolidation, index, coverage, and schema-conversion scripts, then mdformat).
+4. Check the result: `python -m unittest discover tests`.
+5. Commit the edited file **and** the regenerated files together.
+
+A pre-commit hook enforces step 3. Install it once per clone with `pre-commit install` (after `pip install -e ".[dev]"`); it regenerates the derived files, blocks the commit if any of them differs from what is staged, and runs the structure validators, the unit tests, ruff, and the markdown format check. CI runs the same `regenerate.py --check`, so a stale generated file fails the build even without the hook.
 
 ## Related repositories
 

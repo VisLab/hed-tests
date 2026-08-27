@@ -61,16 +61,7 @@
         "comma-missing-tag-groups",
         "comma-missing-tag-and-group"
     ],
-    "DEF_EXPAND_INVALID": [
-        "def-expand-invalid-name-not-definition",
-        "def-expand-invalid-missing-placeholder",
-        "def-expand-invalid-bad-placeholder-value-or-units",
-        "def-expand-invalid-tags-not-in-definition",
-        "def-expand-missing-inner-group",
-        "def-expand-has-extras"
-    ],
     "DEFINITION_INVALID": [
-        "def-expand-has-extras",
         "definition-invalid-tag-group",
         "definition-invalid-empty-inner-group",
         "definition-invalid-multiple-definition-tags",
@@ -81,13 +72,8 @@
         "definition-invalid-multiple-definitions",
         "definition-invalid-content-has-top-level-tag",
         "definition-not-allowed-here",
+        "def-expand-has-extras",
         "tag-group-error-missing"
-    ],
-    "DEF_INVALID": [
-        "def-invalid-name",
-        "def-invalid-missing-placeholder",
-        "def-invalid-bad-placeholder-value",
-        "sidecar-braces-invalid-spot"
     ],
     "TAG_GROUP_ERROR": [
         "definition-invalid-tag-group",
@@ -135,6 +121,20 @@
         "placeholder-invalid-json-#-misplaced",
         "tag-extension-invalid-bad-node-name",
         "tag-invalid-in-schema"
+    ],
+    "DEF_EXPAND_INVALID": [
+        "def-expand-invalid-name-not-definition",
+        "def-expand-invalid-missing-placeholder",
+        "def-expand-invalid-bad-placeholder-value-or-units",
+        "def-expand-invalid-tags-not-in-definition",
+        "def-expand-missing-inner-group",
+        "def-expand-has-extras"
+    ],
+    "DEF_INVALID": [
+        "def-invalid-name",
+        "def-invalid-missing-placeholder",
+        "def-invalid-bad-placeholder-value",
+        "sidecar-braces-invalid-spot"
     ],
     "ELEMENT_DEPRECATED": [
         "tag-deprecated"

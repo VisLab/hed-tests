@@ -62,7 +62,7 @@ class CoverageAnalyzer:
             directory (Path): Directory to analyze
             category (str): Category name ("validation" or "schema")
         """
-        for test_file in sorted(directory.glob("*.json")):
+        for test_file in sorted(directory.glob("*.json"), key=lambda p: p.name):
             try:
                 with open(test_file, encoding="utf-8") as f:
                     test_data = json.load(f)

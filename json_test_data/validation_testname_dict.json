@@ -27,39 +27,6 @@
     "comma-missing-tag-and-group": [
         "COMMA_MISSING"
     ],
-    "def-expand-invalid-name-not-definition": [
-        "DEF_EXPAND_INVALID"
-    ],
-    "def-expand-invalid-missing-placeholder": [
-        "DEF_EXPAND_INVALID",
-        "VALUE_INVALID"
-    ],
-    "def-expand-invalid-bad-placeholder-value-or-units": [
-        "DEF_EXPAND_INVALID",
-        "VALUE_INVALID",
-        "UNITS_INVALID"
-    ],
-    "def-expand-invalid-tags-not-in-definition": [
-        "DEF_EXPAND_INVALID"
-    ],
-    "def-expand-missing-inner-group": [
-        "DEF_EXPAND_INVALID"
-    ],
-    "def-expand-has-extras": [
-        "DEF_EXPAND_INVALID",
-        "DEFINITION_INVALID"
-    ],
-    "def-invalid-name": [
-        "DEF_INVALID"
-    ],
-    "def-invalid-missing-placeholder": [
-        "DEF_INVALID"
-    ],
-    "def-invalid-bad-placeholder-value": [
-        "DEF_INVALID",
-        "VALUE_INVALID",
-        "UNITS_INVALID"
-    ],
     "definition-invalid-tag-group": [
         "DEFINITION_INVALID",
         "TAG_GROUP_ERROR",
@@ -100,6 +67,39 @@
     "definition-not-allowed-here": [
         "DEFINITION_INVALID",
         "TAG_INVALID"
+    ],
+    "def-expand-invalid-name-not-definition": [
+        "DEF_EXPAND_INVALID"
+    ],
+    "def-expand-invalid-missing-placeholder": [
+        "DEF_EXPAND_INVALID",
+        "VALUE_INVALID"
+    ],
+    "def-expand-invalid-bad-placeholder-value-or-units": [
+        "DEF_EXPAND_INVALID",
+        "VALUE_INVALID",
+        "UNITS_INVALID"
+    ],
+    "def-expand-invalid-tags-not-in-definition": [
+        "DEF_EXPAND_INVALID"
+    ],
+    "def-expand-missing-inner-group": [
+        "DEF_EXPAND_INVALID"
+    ],
+    "def-expand-has-extras": [
+        "DEF_EXPAND_INVALID",
+        "DEFINITION_INVALID"
+    ],
+    "def-invalid-name": [
+        "DEF_INVALID"
+    ],
+    "def-invalid-missing-placeholder": [
+        "DEF_INVALID"
+    ],
+    "def-invalid-bad-placeholder-value": [
+        "DEF_INVALID",
+        "VALUE_INVALID",
+        "UNITS_INVALID"
     ],
     "tag-deprecated": [
         "ELEMENT_DEPRECATED"

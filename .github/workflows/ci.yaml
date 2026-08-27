@@ -48,17 +48,9 @@ jobs:
         run: |
           python src/scripts/validate_test_structure.py json_test_data/schema_test_data
 
-      - name: Check test coverage
+      - name: Check that committed generated files are current
         run: |
-          python src/scripts/check_coverage.py
-
-      - name: Generate test index
-        run: |
-          python src/scripts/generate_test_index.py
-
-      - name: Run consolidation script
-        run: |
-          python src/scripts/consolidate_tests.py
+          python src/scripts/regenerate.py --check
 
       - name: Run test utilities
         run: |

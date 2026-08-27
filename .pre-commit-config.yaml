@@ -1,0 +1,43 @@
+# Pre-commit hooks for hed-tests. Install once per clone with `pre-commit install`
+# (with the virtual environment active). Every hook uses the interpreter on PATH
+# (language: system) so hedtools resolves to the venv copy, not a pre-commit
+# managed environment. Run everything by hand with `pre-commit run --all-files`.
+repos:
+  - repo: local
+    hooks:
+      - id: regenerate
+        name: regenerate derived files and check they are staged
+        entry: python src/scripts/regenerate.py --check
+        language: system
+        pass_filenames: false
+        files: ^(json_test_data/.*|src/scripts/.*|docs/.*\.md|README\.md)$
+      - id: validate-structure
+        name: validate test structure
+        entry: python src/scripts/validate_test_structure.py
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: unittest
+        name: unittest
+        entry: python -m unittest discover tests
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: ruff
+        name: ruff check
+        entry: python -m ruff check .
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: ruff-format
+        name: ruff format check
+        entry: python -m ruff format --check .
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: mdformat-check
+        name: mdformat check
+        entry: python -m mdformat --check --wrap no --number docs/ README.md AGENTS.md CHANGELOG.md
+        language: system
+        pass_filenames: false
+        always_run: true
