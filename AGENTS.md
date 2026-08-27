@@ -19,7 +19,7 @@ Run from the repo root with the virtual environment active (see `.status/local-e
 - Regenerate every derived file: `python src/scripts/regenerate.py` (`--check` also fails if any differs from the git index)
 - Install the pre-commit hook once per clone: `pre-commit install`; run it by hand with `pre-commit run --all-files`
 
-CI (`.github/workflows/ci.yaml`) runs the structure validators, coverage, `generate_test_index.py`, consolidation, and the unittest suite, on Linux.
+CI (`.github/workflows/ci.yaml`) runs the structure validators, `regenerate.py --check` (which covers consolidation, the test index, and coverage), and the unittest suite, on Linux.
 
 ## Layout
 

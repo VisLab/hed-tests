@@ -80,7 +80,7 @@ Then install the pre-commit hook once per clone:
 pre-commit install
 ```
 
-The hook runs before every commit: it regenerates the derived files (`src/scripts/regenerate.py --check`), blocks the commit if any of them differs from what is staged, and runs the structure validators, the unit tests, ruff, and the markdown format check. Run the same set by hand with `pre-commit run --all-files`.
+The hook runs on every commit. Whenever the staged files include test data, scripts, or markdown docs, it regenerates the derived files (`src/scripts/regenerate.py --check`) and blocks the commit if any of them differs from what is staged; on every commit it also runs the structure validators, the unit tests, ruff (lint and format check), and the markdown format check. Run the same set by hand with `pre-commit run --all-files`.
 
 ### Repository structure
 
