@@ -181,9 +181,6 @@
         "shared-hierarchy-diverges-at-grandchild",
         "element-conflict-in-shared-grandchild"
     ],
-    "SCHEMA_LIBRARY_INVALID": [
-        "duplicate-schema-in-merge-group"
-    ],
     "SIDECAR_BRACES_INVALID": [
         "sidecar-braces-contents-invalid",
         "sidecar-braces-invalid-spot",
