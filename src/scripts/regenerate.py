@@ -73,9 +73,7 @@ def tracked_root_markdown(repo_root: Path) -> list[str]:
     Returns:
         list[str]: Relative paths, sorted.
     """
-    result = subprocess.run(
-        ["git", "ls-files", "--", "*.md"], cwd=repo_root, capture_output=True, text=True, check=True
-    )
+    result = subprocess.run(["git", "ls-files", "--", "*.md"], cwd=repo_root, capture_output=True, text=True, check=True)
     return sorted(line for line in result.stdout.splitlines() if line and "/" not in line)
 
 

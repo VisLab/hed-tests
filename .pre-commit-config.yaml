@@ -29,6 +29,12 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      - id: ruff-format
+        name: ruff format check
+        entry: python -m ruff format --check .
+        language: system
+        pass_filenames: false
+        always_run: true
       - id: mdformat-check
         name: mdformat check
         entry: python -m mdformat --check --wrap no --number docs/ README.md AGENTS.md CHANGELOG.md
