@@ -50,7 +50,7 @@ jobs:
 
       - name: Check test coverage
         run: |
-          python src/scripts/check_coverage.py
+          python src/scripts/check_coverage.py --markdown docs/test_coverage.md
 
       - name: Generate test index
         run: |
@@ -59,6 +59,10 @@ jobs:
       - name: Run consolidation script
         run: |
           python src/scripts/consolidate_tests.py
+
+      - name: Check that committed generated files are current
+        run: |
+          python src/scripts/regenerate.py --check
 
       - name: Run test utilities
         run: |

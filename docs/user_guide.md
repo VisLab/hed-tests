@@ -74,6 +74,14 @@ pip install -e ".[dev,docs]"
 
 Activate the environment before running any commands in this guide.
 
+Then install the pre-commit hook once per clone:
+
+```bash
+pre-commit install
+```
+
+The hook runs before every commit: it regenerates the derived files (`src/scripts/regenerate.py --check`), blocks the commit if any of them differs from what is staged, and runs the structure validators, the unit tests, ruff, and the markdown format check. Run the same set by hand with `pre-commit run --all-files`.
+
 ### Repository structure
 
 ```
@@ -111,13 +119,13 @@ Each test has a `alt_codes` key that gives acceptable alternative error codes.
 
 ### Maintenance scripts
 
-Four scripts in `src/scripts/` maintain the test suite. All run from the repository root, and CI runs all four on every push. The typical workflow when adding or editing a test:
+The scripts in `src/scripts/` maintain the test suite. All run from the repository root, and CI runs them on every push. The typical workflow when adding or editing a test:
 
 1. Edit or add a test file in `json_test_data/validation_test_data/` or `json_test_data/schema_test_data/` (one error code per file).
 2. Validate the structure with `validate_test_structure.py`.
-3. Regenerate the consolidated files with `consolidate_tests.py`.
-4. Check the result with `check_coverage.py` and `python -m unittest discover tests`.
-5. Commit the edited file **and** the regenerated consolidated files together.
+3. Regenerate every derived file with `regenerate.py` (it runs `consolidate_tests.py`, `generate_test_index.py`, `check_coverage.py --markdown docs/test_coverage.md`, and `convert_test_schemas.py`, then mdformat).
+4. Check the result with `python -m unittest discover tests`.
+5. Commit the edited file **and** the regenerated files together. The pre-commit hook refuses the commit if a generated file is stale.
 
 ### Validating the tests
 
@@ -160,10 +168,11 @@ Options: `--dry-run` previews the consolidation without writing files; `--verbos
 ---
 class: warning
 ---
-Run `consolidate_tests.py` after every test edit and commit the regenerated
-files together with the edit. CI runs the script but does not fail when the
-committed copies are stale, so a forgotten regeneration silently leaves
-validators consuming outdated tests.
+Run `regenerate.py` (or at least `consolidate_tests.py`) after every test edit
+and commit the regenerated files together with the edit. The pre-commit hook
+and the CI step `regenerate.py --check` both fail when the committed copies
+are stale, so a forgotten regeneration is caught before validators consume
+outdated tests.
 ```
 
 ### Check test coverage
@@ -174,8 +183,9 @@ validators consuming outdated tests.
 # Print the coverage report to the console
 python src/scripts/check_coverage.py
 
-# Write the coverage report to a markdown file instead
-python src/scripts/check_coverage.py --markdown report.md
+# Write the committed coverage report (run mdformat on it afterwards,
+# or use regenerate.py, which does both)
+python src/scripts/check_coverage.py --markdown docs/test_coverage.md
 ```
 
 ### Generate test index
@@ -1283,9 +1293,11 @@ Before committing, validate the test structure and regenerate the consolidated f
 # Validate the file you edited against the test schema
 python src/scripts/validate_test_structure.py --file json_test_data/validation_test_data/YOUR_FILE.json
 
-# Regenerate the consolidated files
-python src/scripts/consolidate_tests.py
+# Regenerate every derived file (consolidated tests, index, coverage report)
+python src/scripts/regenerate.py
 ```
+
+If the pre-commit hook is installed (`pre-commit install`), it repeats this check at commit time and refuses the commit while any generated file is stale.
 
 ### Quality checklist
 
@@ -1298,7 +1310,7 @@ Before submitting a PR, ensure:
 - [ ] **Clear descriptions**: Self-explanatory test names
 - [ ] **Correct schema version**: Matches the schema you tested against
 - [ ] **Realistic examples**: Uses practical HED strings
-- [ ] **Consolidated files updated**: Run `consolidate_tests.py` after all edits
+- [ ] **Generated files updated**: Run `regenerate.py` after all edits (the pre-commit hook checks this)
 
 ### Testing against validators
 
@@ -1366,7 +1378,7 @@ Closes #123
 
 - One error code per file
 - Use descriptive, consistent test names
-- Run `consolidate_tests.py` after every edit
+- Run `regenerate.py` after every edit
 
 ### Test case examples
 

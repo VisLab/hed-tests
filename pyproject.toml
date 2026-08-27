@@ -50,6 +50,7 @@ dev = [
     "mdformat>=0.7.0",
     "mdformat-myst>=0.1.5",
     "hedtools>=1.2.0",
+    "pre-commit>=3.0.0",
 ]
 docs = [
     "sphinx>=7.1.0,<10.0",
