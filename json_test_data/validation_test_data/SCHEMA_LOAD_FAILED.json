@@ -612,7 +612,7 @@
     },
     {
         "error_code": "SCHEMA_LOAD_FAILED",
-        "alt_codes": [],
+        "alt_codes": ["FILE_NOT_FOUND"],
         "name": "nonexistent-schema-version-in-group",
         "description": "A schema version that does not exist cannot be loaded.",
         "warning": false,
@@ -621,7 +621,7 @@
             "testconflict_99.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Every entry in the schema specification must name a schema version that the tools can retrieve. testconflict_99.0.0 is a syntactically valid version of a real library, but no such version exists, so the schema cannot be found and the load fails.",
+        "explanation": "Every entry in the schema specification must name a schema version that the tools can retrieve. testconflict_99.0.0 is a syntactically valid version of a real library, but no such version exists, so the schema cannot be found and the load fails. Because the file was never obtained, no combination rule is being judged: as Appendix B notes, a validator may report this through a file error (FILE_NOT_FOUND in the Python tools) rather than as SCHEMA_LOAD_FAILED.",
         "common_causes": [
             "Typo in the version number or library name",
             "Referencing a prerelease or unreleased schema version",
