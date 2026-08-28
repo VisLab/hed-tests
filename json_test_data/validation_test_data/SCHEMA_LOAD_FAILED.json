@@ -184,7 +184,7 @@
             "testconflict_2.1.0"
         ],
         "error_category": "schema",
-        "explanation": "Different versions of the same schema cannot appear in the same merge group. testconflict_2.0.0 and testconflict_2.1.0 are both partnered with standard schema 8.5.0 and 2.1.0 is 2.0.0 plus one added tag (Object-four), so their elements would not conflict, but the load fails on the version rule alone: the two versions are never compared element by element.",
+        "explanation": "Different versions of the same schema cannot appear in the same merge group. testconflict_2.0.0 and testconflict_2.1.0 are both partnered with standard schema 8.5.0 and 2.1.0 is 2.0.0 plus one added tag (Object-four), so no element conflict is involved; the load fails because two versions of one library are listed in the same merge group.",
         "common_causes": [
             "Believing that two versions of one library merge when their elements do not conflict",
             "Concatenating version lists that name different versions of the same library"
