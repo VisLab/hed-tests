@@ -1,7 +1,7 @@
 [
     {
-        "error_code": "SCHEMA_MISSING_EXTRA_VALUE",
-        "name": "schema-missing-extra-value",
+        "error_code": "SCHEMA_MISSING_EXTRA",
+        "name": "schema-missing-extra",
         "warning": true,
         "description": "An extras section (Sources, Prefixes, or External annotations) has a row with an empty column value.",
         "schema": "",
@@ -36,7 +36,7 @@
                 "explanation": "The 'link' column of a Sources row was empty; every column of an extras row must have a value, not only the key column"
             }
         ],
-        "specification_reference": "3.1.4.10. Sources, prefixes, and external annotations; Appendix B SCHEMA_MISSING_EXTRA_VALUE",
+        "specification_reference": "3.1.4.10. Optional extra sections; Appendix B SCHEMA_MISSING_EXTRA",
         "definitions": [],
         "tests": {
             "schema_tests": {

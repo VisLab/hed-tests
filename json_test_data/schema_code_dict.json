@@ -58,8 +58,8 @@
         "library-invalid-rooted-in-duplicate-other",
         "library-invalid-duplicate-standard-tag"
     ],
-    "SCHEMA_MISSING_EXTRA_VALUE": [
-        "schema-missing-extra-value"
+    "SCHEMA_MISSING_EXTRA": [
+        "schema-missing-extra"
     ],
     "SCHEMA_SECTION_MISSING": [
         "schema-section-missing"

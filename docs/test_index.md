@@ -20,7 +20,7 @@ Complete index of 166 test cases in the HED test suite.
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (9 tests)
 - [SCHEMA_LOAD_FAILED](#schema-load-failed) (31 tests)
-- [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
+- [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
 - [SIDECAR_INVALID](#sidecar-invalid) (2 tests)
@@ -1095,21 +1095,21 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### same-library-two-compatible-versions (correction guidance) (examples)
-
-**Description**: Two versions of the same library schema with the same partner and no conflicting elements merge.
-
-**Schema**: testconflict_2.0.0, testconflict_2.1.0 **Category**: schema
-
-**Tests**:
-
-- `string_tests`: 0 fail, 2 pass
-
 ### same-library-two-incompatible-versions (correction guidance) (examples)
 
 **Description**: Two versions of the same library must still be element-compatible to merge.
 
 **Schema**: testconflict_2.1.0, testconflict_2.1.1 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### same-library-two-versions-in-group (correction guidance) (examples)
+
+**Description**: Two different versions of the same library schema cannot appear in the same merge group.
+
+**Schema**: testconflict_2.0.0, testconflict_2.1.0 **Category**: schema
 
 **Tests**:
 
@@ -1205,11 +1205,11 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-## SCHEMA_MISSING_EXTRA_VALUE
+## SCHEMA_MISSING_EXTRA
 
-**File**: `json_test_data/schema_test_data/SCHEMA_MISSING_EXTRA_VALUE.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_MISSING_EXTRA.json`
 
-### schema-missing-extra-value (warning) (correction guidance) (examples)
+### schema-missing-extra (warning) (correction guidance) (examples)
 
 **Description**: An extras section (Sources, Prefixes, or External annotations) has a row with an empty column value.
 

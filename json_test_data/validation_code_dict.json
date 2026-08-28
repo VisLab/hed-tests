@@ -153,7 +153,7 @@
         "extra-standard-schemas-in-same-merge-group",
         "standard-schema-after-library-loads",
         "standard-schema-after-library-mismatch",
-        "same-library-two-compatible-versions",
+        "same-library-two-versions-in-group",
         "prefixed-standard-schema-forms-own-group",
         "incompatible-merge-schemas",
         "multiple-libraries-with-same-partner",

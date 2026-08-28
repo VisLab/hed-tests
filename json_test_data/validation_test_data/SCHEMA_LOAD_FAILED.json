@@ -176,24 +176,30 @@
     {
         "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
-        "name": "same-library-two-compatible-versions",
-        "description": "Two versions of the same library schema with the same partner and no conflicting elements merge.",
+        "name": "same-library-two-versions-in-group",
+        "description": "Two different versions of the same library schema cannot appear in the same merge group.",
         "warning": false,
         "schema": [
             "testconflict_2.0.0",
             "testconflict_2.1.0"
         ],
         "error_category": "schema",
-        "explanation": "This combination loads. testconflict_2.0.0 and testconflict_2.1.0 are both partnered with standard schema 8.5.0, and 2.1.0 is 2.0.0 plus one added tag (Object-four), so every shared element is identical and the two versions merge into the unprefixed group like any other compatible library pair.",
+        "explanation": "Different versions of the same schema cannot appear in the same merge group. testconflict_2.0.0 and testconflict_2.1.0 are both partnered with standard schema 8.5.0 and 2.1.0 is 2.0.0 plus one added tag (Object-four), so no element conflict is involved; the load fails because two versions of one library are listed in the same merge group.",
         "common_causes": [
-            "Believing that two versions of the same library can never be combined"
+            "Believing that two versions of one library merge when their elements do not conflict",
+            "Concatenating version lists that name different versions of the same library"
         ],
-        "correction_strategy": "No correction needed; versions of one library merge when they share a partner and have no conflicting elements, though using a single version is usually clearer.",
+        "correction_strategy": "Use a single version of the library, or give the second version its own namespace so the two versions are in different merge groups.",
         "correction_examples": [
             {
-                "wrong": "[\"testconflict_1.1.0\", \"testconflict_2.1.0\"]",
-                "correct": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
-                "explanation": "testconflict_1.1.0 is unpartnered and cannot merge; both listed versions must be partnered with the same standard schema."
+                "wrong": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
+                "correct": "[\"testconflict_2.1.0\"]",
+                "explanation": "testconflict_2.1.0 contains everything in testconflict_2.0.0, so one version suffices."
+            },
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"v2:testconflict_2.1.0\"]",
+                "explanation": "With its own namespace the second version is in a separate merge group, so the version rule does not apply."
             }
         ],
         "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
@@ -201,11 +207,11 @@
         "definitions": [],
         "tests": {
             "string_tests": {
-                "fails": [],
-                "passes": [
+                "fails": [
                     "Red, Object-four",
                     "Shared-item"
-                ]
+                ],
+                "passes": []
             }
         }
     },
@@ -653,7 +659,7 @@
             "testconflict_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Listing testconflict_2.0.0 twice in the unprefixed merge group is not an error. A merge group should not contain multiple copies of the same schema (the same name and version), but duplicates are ignored on loading, so the result is the same as listing testconflict_2.0.0 once. Different versions of the same library may also appear together if they satisfy the other combination rules.",
+        "explanation": "Listing testconflict_2.0.0 twice in the unprefixed merge group is not an error: duplicate schemas (the same name and version) in a merge group are ignored on loading, so the result is the same as listing testconflict_2.0.0 once. Different versions of the same schema, by contrast, cannot appear in the same merge group.",
         "common_causes": [
             "Copy-paste duplication in the version specification",
             "Concatenating version lists that share a schema"
@@ -951,8 +957,8 @@
             },
             {
                 "wrong": "[\"testconflict_2.1.0\", \"testconflict_2.1.1\"]",
-                "correct": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
-                "explanation": "testconflict_2.1.0 is testconflict_2.0.0 plus one added tag, so every shared element is identical and the versions merge."
+                "correct": "[\"testconflict_2.1.0\", \"v2:testconflict_2.1.1\"]",
+                "explanation": "With its own namespace the patch release is in a separate merge group, so its changed description is never compared with 2.1.0."
             }
         ],
         "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
