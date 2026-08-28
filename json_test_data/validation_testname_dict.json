@@ -137,7 +137,7 @@
     "standard-schema-after-library-mismatch": [
         "SCHEMA_LOAD_FAILED"
     ],
-    "same-library-two-compatible-versions": [
+    "same-library-two-versions-in-group": [
         "SCHEMA_LOAD_FAILED"
     ],
     "prefixed-standard-schema-forms-own-group": [

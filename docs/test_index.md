@@ -1095,21 +1095,21 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
-### same-library-two-compatible-versions (correction guidance) (examples)
-
-**Description**: Two versions of the same library schema with the same partner and no conflicting elements merge.
-
-**Schema**: testconflict_2.0.0, testconflict_2.1.0 **Category**: schema
-
-**Tests**:
-
-- `string_tests`: 0 fail, 2 pass
-
 ### same-library-two-incompatible-versions (correction guidance) (examples)
 
 **Description**: Two versions of the same library must still be element-compatible to merge.
 
 **Schema**: testconflict_2.1.0, testconflict_2.1.1 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### same-library-two-versions-in-group (correction guidance) (examples)
+
+**Description**: Two different versions of the same library schema cannot appear in the same merge group.
+
+**Schema**: testconflict_2.0.0, testconflict_2.1.0 **Category**: schema
 
 **Tests**:
 
