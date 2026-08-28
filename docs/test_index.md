@@ -20,7 +20,7 @@ Complete index of 166 test cases in the HED test suite.
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (2 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (9 tests)
 - [SCHEMA_LOAD_FAILED](#schema-load-failed) (31 tests)
-- [SCHEMA_MISSING_EXTRA_VALUE](#schema-missing-extra-value) (1 test)
+- [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
 - [SIDECAR_INVALID](#sidecar-invalid) (2 tests)
@@ -1205,11 +1205,11 @@ Complete index of 166 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
-## SCHEMA_MISSING_EXTRA_VALUE
+## SCHEMA_MISSING_EXTRA
 
-**File**: `json_test_data/schema_test_data/SCHEMA_MISSING_EXTRA_VALUE.json`
+**File**: `json_test_data/schema_test_data/SCHEMA_MISSING_EXTRA.json`
 
-### schema-missing-extra-value (warning) (correction guidance) (examples)
+### schema-missing-extra (warning) (correction guidance) (examples)
 
 **Description**: An extras section (Sources, Prefixes, or External annotations) has a row with an empty column value.
 
