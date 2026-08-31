@@ -73,6 +73,20 @@
             "'''Properties'''",
             "'''Epilogue'''",
             "!# end hed"
+          ],
+          [
+            "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+            "'''Prologue'''",
+            "!# start schema",
+            "'''New-item''' {suggestedTag=Not-a-real-tag}",
+            "!# end schema",
+            "'''Unit classes'''",
+            "'''Unit modifiers'''",
+            "'''Value classes'''",
+            "'''Schema attributes'''",
+            "'''Properties'''",
+            "'''Epilogue'''",
+            "!# end hed"
           ]
         ],
         "passes": [

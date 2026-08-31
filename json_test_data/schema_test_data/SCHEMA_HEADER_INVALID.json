@@ -130,5 +130,96 @@
         ]
       }
     }
+  },
+  {
+    "error_code": "SCHEMA_HEADER_INVALID",
+    "name": "schema-header-unmerged-value-variants",
+    "warning": true,
+    "description": "The unmerged header attribute value is case-insensitive, and unmerged=\"false\" is equivalent to omitting the attribute (the schema is merged).",
+    "schema": "",
+    "error_category": "schema_development",
+    "common_causes": [
+      "Assuming the unmerged attribute value is case-sensitive",
+      "Rejecting unmerged=\"false\" instead of treating the schema as merged"
+    ],
+    "explanation": "The value of the unmerged header attribute is case-insensitive: unmerged=\"True\" and unmerged=\"TRUE\" mean the same as unmerged=\"true\". A schema with unmerged=\"false\" is a merged schema, exactly as if the attribute were omitted.",
+    "correction_strategy": "Treat the unmerged value case-insensitively and treat false as merged",
+    "correction_examples": [
+      {
+        "wrong": "Rejecting HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"TRUE\"",
+        "correct": "Accept it; the value is case-insensitive",
+        "explanation": "true, True, and TRUE are equivalent values"
+      },
+      {
+        "wrong": "Treating unmerged=\"false\" as an unmerged schema",
+        "correct": "Treat unmerged=\"false\" as a merged schema",
+        "explanation": "If the value is false the attribute should be omitted, but its presence still means merged"
+      }
+    ],
+    "correction_patterns": [
+      "Compare the unmerged value case-insensitively",
+      "Interpret a false value as merged"
+    ],
+    "fix_instructions": [
+      "1. Parse the unmerged attribute value case-insensitively",
+      "2. Treat a false value exactly like an absent attribute",
+      "3. Load the standard schema partner only for unmerged schemas"
+    ],
+    "validation_hints": [
+      "Check header parsing against 3.1.2.2. Merged vs unmerged"
+    ],
+    "specification_reference": "3.1.2.2. Merged vs unmerged",
+    "related_errors": [
+      "SCHEMA_LIBRARY_INVALID"
+    ],
+    "definitions": [],
+    "tests": {
+      "schema_tests": {
+        "fails": [],
+        "passes": [
+          [
+            "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+            "'''Prologue'''",
+            "!# start schema",
+            "'''NewTag''' {rooted=Event}",
+            "!# end schema",
+            "'''Unit classes'''",
+            "'''Unit modifiers'''",
+            "'''Value classes'''",
+            "'''Schema attributes'''",
+            "'''Properties'''",
+            "'''Epilogue'''",
+            "!# end hed"
+          ],
+          [
+            "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"TRUE\"",
+            "'''Prologue'''",
+            "!# start schema",
+            "'''NewTag''' {rooted=Event}",
+            "!# end schema",
+            "'''Unit classes'''",
+            "'''Unit modifiers'''",
+            "'''Value classes'''",
+            "'''Schema attributes'''",
+            "'''Properties'''",
+            "'''Epilogue'''",
+            "!# end hed"
+          ],
+          [
+            "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"false\"",
+            "'''Prologue'''",
+            "!# start schema",
+            "!# end schema",
+            "'''Unit classes'''",
+            "'''Unit modifiers'''",
+            "'''Value classes'''",
+            "'''Schema attributes'''",
+            "'''Properties'''",
+            "'''Epilogue'''",
+            "!# end hed"
+          ]
+        ]
+      }
+    }
   }
 ]

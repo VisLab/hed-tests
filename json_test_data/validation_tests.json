@@ -5655,7 +5655,7 @@
             "A partnered library loads its standard partner automatically",
             "Schema loading happens before any annotation is validated"
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5694,7 +5694,7 @@
                 "explanation": "A standard schema listed with a partnered library must match the library's withStandard partner (8.5.0); it then adds nothing to the merged result."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5733,7 +5733,7 @@
                 "explanation": "Order is irrelevant; what matters is that the listed standard schema matches the library's withStandard partner (8.5.0)."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5778,7 +5778,7 @@
                 "explanation": "Under a namespace prefix the standard schema 8.4.0 forms its own merge group and no longer conflicts."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5823,7 +5823,7 @@
                 "explanation": "With its own namespace the second version is in a separate merge group, so the version rule does not apply."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5909,7 +5909,7 @@
                 "explanation": "Giving testminimal_2.0.0 its own namespace prefix removes it from the unprefixed merge group, so the partners no longer need to match."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5950,7 +5950,7 @@
                 "explanation": "testminimal_2.0.0 is partnered with 8.4.0 and would break the group; testminimal_2.1.0 shares the 8.5.0 partner with the other two libraries."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -5990,7 +5990,7 @@
                 "explanation": "testminimal_2.0.0 is partnered with 8.4.0 and would fail in any position; testminimal_2.1.0 shares the 8.5.0 partner."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -6029,7 +6029,7 @@
                 "explanation": "Listing a non-matching standard schema (8.4.0) with testconflict_2.0.0 (partnered with 8.5.0) fails; the library alone already includes its partner."
             }
         ],
-        "specification_reference": "3.1.2.1. Partnered versus unpartnered; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.1. Partnered vs unpartnered; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -6115,7 +6115,7 @@
                 "explanation": "If both versions are needed, put the second in its own namespace and prefix its tags with old: in annotations."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_VERSION_INVALID"
         ],
@@ -6160,7 +6160,7 @@
                 "explanation": "The prefix gives the unpartnered library its own namespace; its tags are then written with the tc: prefix."
             }
         ],
-        "specification_reference": "3.1.2.1. Partnered versus unpartnered",
+        "specification_reference": "3.1.2.1. Partnered vs unpartnered",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "TAG_NAMESPACE_PREFIX_INVALID"
@@ -6200,7 +6200,7 @@
                 "explanation": "Distinct prefixes put each unpartnered library in its own namespace, which is required for unpartnered schemas."
             }
         ],
-        "specification_reference": "3.1.2.1. Partnered versus unpartnered; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.1. Partnered vs unpartnered; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "TAG_NAMESPACE_PREFIX_INVALID"
@@ -6246,7 +6246,7 @@
                 "explanation": "Splitting the libraries into different prefixes makes each its own merge group, so the partners no longer need to match."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "TAG_NAMESPACE_PREFIX_INVALID"
@@ -6329,7 +6329,7 @@
                 "explanation": "Both lists load the same vocabulary; the single entry is preferred because the duplicate adds nothing."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination",
+        "specification_reference": "3.1.2.4. Partnered combinations",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_VERSION_INVALID"
@@ -6375,7 +6375,7 @@
                 "explanation": "In separate namespaces the two Attribute-item declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6420,7 +6420,7 @@
                 "explanation": "In separate namespaces the two Attribute-item declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6465,7 +6465,7 @@
                 "explanation": "In separate namespaces the two Description-item declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6510,7 +6510,7 @@
                 "explanation": "In separate namespaces the two Nested-item declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6555,7 +6555,7 @@
                 "explanation": "In separate namespaces the two Placeholder-item declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6594,7 +6594,7 @@
                 "explanation": "testclash_3.0.0's shared element differs in description and cannot merge; testclash_1.0.0's shared element is an identical copy and can."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6639,7 +6639,7 @@
                 "explanation": "With its own namespace the patch release is in a separate merge group, so its changed description is never compared with 2.1.0."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6684,7 +6684,7 @@
                 "explanation": "In separate namespaces the two Rooted-tag declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6729,7 +6729,7 @@
                 "explanation": "In separate namespaces the two Rooted-tag declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6768,7 +6768,7 @@
                 "explanation": "testclash_9.0.0 changes the shared child Rooted-one's description and cannot merge; testclash_8.0.0 keeps the shared elements identical and adds only its own child."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6813,7 +6813,7 @@
                 "explanation": "In separate namespaces the two Rooted-one declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6852,7 +6852,7 @@
                 "explanation": "testclash_6.0.0's Rooted-tag is unrooted and conflicts; testclash_10.0.0's Rooted-tag matches testconflict's and only its children differ, which is allowed."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6891,7 +6891,7 @@
                 "explanation": "testclash_12.0.0 changes the shared grandchild Deep-one's description and cannot merge; testclash_11.0.0 adds its own grandchild Deep-two instead, which is allowed."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
@@ -6936,7 +6936,7 @@
                 "explanation": "In separate namespaces the two Deep-one declarations never meet, so no compatibility check applies."
             }
         ],
-        "specification_reference": "3.1.2.4. Rules for partnered combination; 7.3.6. Lazy partnering",
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
         "related_errors": [
             "SCHEMA_LIBRARY_INVALID",
             "SCHEMA_DUPLICATE_NODE"
