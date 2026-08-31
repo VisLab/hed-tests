@@ -97,6 +97,9 @@
     "schema-header-unknown-attribute": [
         "SCHEMA_HEADER_INVALID"
     ],
+    "schema-header-unmerged-value-variants": [
+        "SCHEMA_HEADER_INVALID"
+    ],
     "library-invalid-bad-name": [
         "SCHEMA_LIBRARY_INVALID"
     ],

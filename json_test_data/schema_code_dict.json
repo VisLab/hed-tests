@@ -45,7 +45,8 @@
     ],
     "SCHEMA_HEADER_INVALID": [
         "schema-header-malformed-attribute",
-        "schema-header-unknown-attribute"
+        "schema-header-unknown-attribute",
+        "schema-header-unmerged-value-variants"
     ],
     "SCHEMA_LIBRARY_INVALID": [
         "library-invalid-bad-name",
