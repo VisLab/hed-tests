@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <HED version="18.0.0" library="testclash" withStandard="8.5.0">
-   <prologue>testclash 18.0.0 partners with standard schema 8.5.0. Change from 17.0.0: the auxAttribute probe now carries boolProperty but a different description (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the description of the schema attribute auxAttribute.</prologue>
+   <prologue>testclash 18.0.0 partners with standard schema 8.5.0. Change from 17.0.0: the auxAttribute probe now carries boolRange but a different description (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the description of the schema attribute auxAttribute.</prologue>
    <schema>
       <node>
          <name>Clash-tag</name>
@@ -13353,7 +13353,7 @@
          <name>auxAttribute</name>
          <description>The auxiliary schema attribute shared across libraries in the aux merge cases. This is the testclash wording.</description>
          <property>
-            <name>boolProperty</name>
+            <name>boolRange</name>
          </property>
          <property>
             <name>inLibrary</name>

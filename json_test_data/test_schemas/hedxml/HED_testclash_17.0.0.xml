@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <HED version="17.0.0" library="testclash" withStandard="8.5.0">
-   <prologue>testclash 17.0.0 partners with standard schema 8.5.0. Change from 16.0.0: deletes the auxClass probe and adds the auxAttribute probe without its property (major bump: value class deleted). Probe difference vs testaux 1.0.0: auxAttribute has no boolProperty here (the properties of a schema attribute are compared as its attribute values).</prologue>
+   <prologue>testclash 17.0.0 partners with standard schema 8.5.0. Change from 16.0.0: deletes the auxClass probe and adds the auxAttribute probe without its property (major bump: value class deleted). Probe difference vs testaux 1.0.0: auxAttribute has no boolRange here (the properties of a schema attribute are compared as its attribute values).</prologue>
    <schema>
       <node>
          <name>Clash-tag</name>

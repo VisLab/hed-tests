@@ -1,7 +1,7 @@
 HED version="18.0.0" library="testclash" withStandard="8.5.0" unmerged="True"
 
 '''Prologue'''
-testclash 18.0.0 partners with standard schema 8.5.0. Change from 17.0.0: the auxAttribute probe now carries boolProperty but a different description (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the description of the schema attribute auxAttribute.
+testclash 18.0.0 partners with standard schema 8.5.0. Change from 17.0.0: the auxAttribute probe now carries boolRange but a different description (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the description of the schema attribute auxAttribute.
 
 !# start schema
 
@@ -18,7 +18,7 @@ testclash 18.0.0 partners with standard schema 8.5.0. Change from 17.0.0: the au
 '''Value classes'''
 
 '''Schema attributes'''
-* auxAttribute <nowiki>{boolProperty}[The auxiliary schema attribute shared across libraries in the aux merge cases. This is the testclash wording.]</nowiki>
+* auxAttribute <nowiki>{boolRange}[The auxiliary schema attribute shared across libraries in the aux merge cases. This is the testclash wording.]</nowiki>
 
 '''Properties'''
 
