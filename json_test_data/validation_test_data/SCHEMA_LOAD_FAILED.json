@@ -1455,7 +1455,7 @@
             "testclash_17.0.0"
         ],
         "error_category": "schema",
-        "explanation": "For schema attribute elements, the properties are the attribute values that are compared: two schema attributes with the same name must have the same properties. testaux declares auxAttribute with boolProperty while testclash_17.0.0 declares auxAttribute with no properties at all (a string-valued attribute). The properties differ, so the elements are incompatible and the load fails.",
+        "explanation": "For schema attribute elements, the properties are the attribute values that are compared: two schema attributes with the same name must have the same properties. testaux declares auxAttribute with boolRange while testclash_17.0.0 declares auxAttribute with no properties at all (a string-valued attribute). The properties differ, so the elements are incompatible and the load fails.",
         "common_causes": [
             "Dropping or adding a property of a shared schema attribute in one library only",
             "Two libraries disagreeing on whether an attribute is boolean or takes a value"
@@ -1465,7 +1465,7 @@
             {
                 "wrong": "[\"testaux_1.0.0\", \"testclash_17.0.0\"]",
                 "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
-                "explanation": "testclash_13.0.0 declares auxAttribute with the same boolProperty as testaux, so the shared schema attribute is compatible."
+                "explanation": "testclash_13.0.0 declares auxAttribute with the same boolRange as testaux, so the shared schema attribute is compatible."
             },
             {
                 "wrong": "[\"testaux_1.0.0\", \"testclash_17.0.0\"]",
@@ -1497,7 +1497,7 @@
             "testclash_18.0.0"
         ],
         "error_category": "schema",
-        "explanation": "The element compatibility rules include the description text, for auxiliary elements as for tags. Both libraries declare the schema attribute auxAttribute with the same boolProperty, but the description texts differ. The shared element is therefore incompatible and the load fails.",
+        "explanation": "The element compatibility rules include the description text, for auxiliary elements as for tags. Both libraries declare the schema attribute auxAttribute with the same boolRange, but the description texts differ. The shared element is therefore incompatible and the load fails.",
         "common_causes": [
             "Rewording a shared schema attribute's description in one library only",
             "Two libraries independently defining the same attribute name with different meanings"

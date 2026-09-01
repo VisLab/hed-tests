@@ -25,7 +25,7 @@ testaux 1.0.0 is the auxiliary-items library of the hed-tests test schema set, p
 * auxClass <nowiki>{allowedCharacter=letters}[The auxiliary value class shared across libraries in the aux merge cases.]</nowiki>
 
 '''Schema attributes'''
-* auxAttribute <nowiki>{boolProperty}[The auxiliary schema attribute shared across libraries in the aux merge cases.]</nowiki>
+* auxAttribute <nowiki>{boolRange}[The auxiliary schema attribute shared across libraries in the aux merge cases.]</nowiki>
 
 '''Properties'''
 

@@ -87,7 +87,7 @@
          <name>auxAttribute</name>
          <description>The auxiliary schema attribute shared across libraries in the aux merge cases.</description>
          <property>
-            <name>boolProperty</name>
+            <name>boolRange</name>
          </property>
       </schemaAttributeDefinition>
    </schemaAttributeDefinitions>
