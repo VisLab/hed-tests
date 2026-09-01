@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 182 test cases in the HED test suite.
+Complete index of 186 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -18,7 +18,7 @@ Complete index of 182 test cases in the HED test suite.
 - [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
-- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (14 tests)
+- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (18 tests)
 - [SCHEMA_LOAD_FAILED](#schema-load-failed) (41 tests)
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
@@ -896,6 +896,46 @@ Complete index of 182 test cases in the HED test suite.
 **Description**: A schema library issue, indicating the InLibrary attribute appears when it shouldn't.
 
 **Schema**: any
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-merged-properties-mismatch (correction guidance) (examples)
+
+**Description**: A merged partnered library schema's Properties section must be identical to that of its standard schema partner.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-merged-rooted-not-under-anchor (correction guidance) (examples)
+
+**Description**: In a merged library schema, a node with rooted=XXX must be a direct child of XXX.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-properties-in-unmerged (correction guidance) (examples)
+
+**Description**: An unmerged partnered library schema has a non-empty Properties section.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-reserved-in-unmerged (correction guidance) (examples)
+
+**Description**: The reserved attribute cannot be used in an unmerged partnered library schema.
+
+**Schema**: any **Category**: schema_development
 
 **Tests**:
 

@@ -142,6 +142,18 @@
     "library-invalid-unpartnered-properties-allowed": [
         "SCHEMA_LIBRARY_INVALID"
     ],
+    "library-invalid-properties-in-unmerged": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-merged-rooted-not-under-anchor": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-merged-properties-mismatch": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-reserved-in-unmerged": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
     "schema-missing-extra": [
         "SCHEMA_MISSING_EXTRA"
     ],
