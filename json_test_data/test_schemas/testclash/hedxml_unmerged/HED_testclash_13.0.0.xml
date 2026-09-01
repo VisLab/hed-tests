@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<HED version="13.0.0" library="testclash" withStandard="8.5.0" unmerged="True">
+   <prologue>testclash 13.0.0 partners with standard schema 8.5.0. Change from 12.0.0: deletes the Rooted-tag probe and adds identical copies of every testaux 1.0.0 auxiliary element - unit class auxUnits with units auxunit and bigauxunit, unit modifier auxMod, value class auxClass, and schema attribute auxAttribute (major bump: tag deleted). Probe difference vs testaux 1.0.0: none (identical auxiliary elements are compatible).</prologue>
+   <schema>
+      <node>
+         <name>Clash-tag</name>
+         <description>The constant testclash scaffold tag.</description>
+         <node>
+            <name>Clash-one</name>
+            <description>The first scaffold child of Clash-tag.</description>
+         </node>
+         <node>
+            <name>Clash-two</name>
+            <description>The second scaffold child of Clash-tag.</description>
+         </node>
+      </node>
+   </schema>
+   <unitClassDefinitions>
+      <unitClassDefinition>
+         <name>auxUnits</name>
+         <description>The auxiliary unit class shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>auxunit</value>
+         </attribute>
+         <unit>
+            <name>auxunit</name>
+            <description>The base unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>bigauxunit</name>
+            <description>A larger unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000.0</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+   </unitClassDefinitions>
+   <unitModifierDefinitions>
+      <unitModifierDefinition>
+         <name>auxMod</name>
+         <description>The auxiliary unit modifier shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>SIUnitModifier</name>
+         </attribute>
+         <attribute>
+            <name>conversionFactor</name>
+            <value>100.0</value>
+         </attribute>
+      </unitModifierDefinition>
+   </unitModifierDefinitions>
+   <valueClassDefinitions>
+      <valueClassDefinition>
+         <name>auxClass</name>
+         <description>The auxiliary value class shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>allowedCharacter</name>
+            <value>letters</value>
+         </attribute>
+      </valueClassDefinition>
+   </valueClassDefinitions>
+   <schemaAttributeDefinitions>
+      <schemaAttributeDefinition>
+         <name>auxAttribute</name>
+         <description>The auxiliary schema attribute shared across libraries in the aux merge cases.</description>
+         <property>
+            <name>boolProperty</name>
+         </property>
+      </schemaAttributeDefinition>
+   </schemaAttributeDefinitions>
+   <propertyDefinitions/>
+   <epilogue>Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.</epilogue>
+</HED>

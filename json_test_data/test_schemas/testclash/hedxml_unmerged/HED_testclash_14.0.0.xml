@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<HED version="14.0.0" library="testclash" withStandard="8.5.0" unmerged="True">
+   <prologue>testclash 14.0.0 partners with standard schema 8.5.0. Change from 13.0.0: deletes the auxMod, auxClass, and auxAttribute probes and changes the conversionFactor of the unit auxunit (major bump: elements deleted). Probe difference vs testaux 1.0.0: the conversionFactor of the unit auxunit (2.0 here, 1.0 there).</prologue>
+   <schema>
+      <node>
+         <name>Clash-tag</name>
+         <description>The constant testclash scaffold tag.</description>
+         <node>
+            <name>Clash-one</name>
+            <description>The first scaffold child of Clash-tag.</description>
+         </node>
+         <node>
+            <name>Clash-two</name>
+            <description>The second scaffold child of Clash-tag.</description>
+         </node>
+      </node>
+   </schema>
+   <unitClassDefinitions>
+      <unitClassDefinition>
+         <name>auxUnits</name>
+         <description>The auxiliary unit class shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>auxunit</value>
+         </attribute>
+         <unit>
+            <name>auxunit</name>
+            <description>The base unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>2.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>bigauxunit</name>
+            <description>A larger unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000.0</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+   </unitClassDefinitions>
+   <unitModifierDefinitions/>
+   <valueClassDefinitions/>
+   <schemaAttributeDefinitions/>
+   <propertyDefinitions/>
+   <epilogue>Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.</epilogue>
+</HED>

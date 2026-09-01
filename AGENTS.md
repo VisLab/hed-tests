@@ -12,7 +12,7 @@ Run from the repo root with the virtual environment active (see `.status/local-e
 - Run tests: `python -m unittest discover tests`
 - Single test module: `python -m unittest tests.test_summarize_testdata`
 - Lint: `python -m ruff check .`
-- Markdown format check: `python -m mdformat --check README.md docs`
+- Markdown format check: `python -m mdformat --check --wrap no --number docs/ README.md AGENTS.md CHANGELOG.md` (the same flags the pre-commit hook, CI, and `regenerate.py` use; without them the check flags correctly formatted files)
 - Validate test data: `python src/scripts/validate_test_structure.py` (all test directories; pass a directory or `--file <path>` to narrow)
 - Consolidate tests: `python src/scripts/consolidate_tests.py`
 - Coverage report: `python src/scripts/check_coverage.py` (add `--markdown docs/test_coverage.md` to write the committed report)

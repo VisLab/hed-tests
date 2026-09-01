@@ -3,7 +3,7 @@
     "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
     "alt_codes": ["SCHEMA_ATTRIBUTE_INVALID"],
     "name": "attribute-relatedTag-invalid",
-    "warning": true,
+    "warning": false,
     "description": "A related tag points to an unknown tag",
     "schema": "",
     "error_category": "schema_development",

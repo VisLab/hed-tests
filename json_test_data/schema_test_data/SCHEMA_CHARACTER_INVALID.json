@@ -2,7 +2,7 @@
   {
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-invalid-prologue",
-    "warning": true,
+    "warning": false,
     "description": "Invalid character in prologue or epilogue.",
     "schema": "",
     "error_category": "schema_development",
@@ -110,7 +110,7 @@
   {
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-invalid-tag",
-    "warning": true,
+    "warning": false,
     "description": "Invalid character in a tag term.",
     "schema": "",
     "definitions": [],
@@ -171,7 +171,7 @@
   {
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-invalid-other-term",
-    "warning": true,
+    "warning": false,
     "description": "Invalid character in a non-tag schema element name (unit, unit class, modifier, value class, attribute, or property).",
     "schema": "",
     "definitions": [],
@@ -299,7 +299,7 @@
     {
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-invalid-utf8-other-term",
-    "warning": true,
+    "warning": false,
     "description": "UTF8 characters (valid) in term.",
     "schema": "",
     "definitions": [],
@@ -360,7 +360,7 @@
   {
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-allowed-character-unit",
-    "warning": true,
+    "warning": false,
     "description": "Allowed character properly works on units.",
     "schema": "",
     "definitions": [],
@@ -433,7 +433,7 @@
   {
     "error_code": "SCHEMA_CHARACTER_INVALID",
     "name": "schema-character-invalid-description",
-    "warning": true,
+    "warning": false,
     "description": "Description does not contain banned characters.",
     "schema": "",
     "definitions": [],

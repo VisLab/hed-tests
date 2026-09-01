@@ -219,6 +219,36 @@
     "element-conflict-in-shared-grandchild": [
         "SCHEMA_LOAD_FAILED"
     ],
+    "aux-new-unit-class-merges-directly": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-identical-elements-compatible": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-unit-attribute-conflict": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-new-units-under-shared-class": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-value-class-conflict": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-schema-attribute-property-conflict": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-schema-attribute-description-conflict": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "aux-unit-modifier-conflict": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "conflicting-libraries-in-separate-namespaces": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "same-library-two-versions-in-separate-namespaces": [
+        "SCHEMA_LOAD_FAILED"
+    ],
     "sidecar-braces-contents-invalid": [
         "SIDECAR_BRACES_INVALID",
         "CHARACTER_INVALID",

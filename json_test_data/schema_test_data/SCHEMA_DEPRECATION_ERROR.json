@@ -2,7 +2,7 @@
   {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-attribute-invalid",
-    "warning": true,
+    "warning": false,
     "description": "A schema attribute issue, saying there is an unhandled deprecated attribute.",
     "schema": "",
     "error_category": "schema_development",
@@ -106,7 +106,7 @@
   {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-invalid-child",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, saying there is an invalid child of a deprecated node",
     "schema": "",
     "definitions": [],
@@ -169,7 +169,7 @@
     {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-default-unit",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, deprecated default units",
     "schema": "",
     "definitions": [],
@@ -238,7 +238,7 @@
   {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-unit-class",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, deprecated value or unit class",
     "schema": "",
     "definitions": [],
@@ -290,7 +290,7 @@
     {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-value-class",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, deprecated value or unit class",
     "schema": "",
     "definitions": [],
@@ -340,7 +340,7 @@
   {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-invalid-suggested-related-tag",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, saying a related or suggested tag points to a deprecated tag",
     "schema": "",
     "definitions": [],
@@ -458,7 +458,7 @@
   {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-deprecated-attribute",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, an attribute of an element is deprecated",
     "schema": "",
     "definitions": [],
@@ -636,7 +636,7 @@
   {
     "error_code": "SCHEMA_DEPRECATION_ERROR",
     "name": "schema-deprecated-deprecated-property",
-    "warning": true,
+    "warning": false,
     "description": "A schema deprecation issue, a property of an attribute is is deprecated",
     "schema": "",
     "definitions": [],

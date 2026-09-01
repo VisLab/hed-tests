@@ -118,13 +118,28 @@
     "library-invalid-rooted-not-in-base": [
         "SCHEMA_LIBRARY_INVALID"
     ],
-    "library-invalid-rooted-in-library-present": [
+    "library-invalid-inlibrary-in-unmerged": [
         "SCHEMA_LIBRARY_INVALID"
     ],
-    "library-invalid-rooted-in-duplicate-other": [
+    "library-invalid-duplicate-unit": [
         "SCHEMA_LIBRARY_INVALID"
     ],
     "library-invalid-duplicate-standard-tag": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-duplicate-value-class": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-duplicate-schema-attribute": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-duplicate-unit-modifier": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-rooted-in-unpartnered": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-unpartnered-properties-allowed": [
         "SCHEMA_LIBRARY_INVALID"
     ],
     "schema-missing-extra": [

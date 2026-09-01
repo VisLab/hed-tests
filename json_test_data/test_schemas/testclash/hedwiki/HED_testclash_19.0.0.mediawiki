@@ -1,0 +1,28 @@
+HED version="19.0.0" library="testclash" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testclash 19.0.0 partners with standard schema 8.5.0. Change from 18.0.0: deletes the auxAttribute probe and adds the auxMod probe (major bump: schema attribute deleted). Probe difference vs testaux 1.0.0: the conversionFactor of the unit modifier auxMod (10.0 here, 100.0 there).
+
+!# start schema
+
+'''Clash-tag''' <nowiki>[The constant testclash scaffold tag.]</nowiki>
+* Clash-one <nowiki>[The first scaffold child of Clash-tag.]</nowiki>
+* Clash-two <nowiki>[The second scaffold child of Clash-tag.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+
+'''Unit modifiers'''
+* auxMod <nowiki>{SIUnitModifier, conversionFactor=10.0}[The auxiliary unit modifier shared across libraries in the aux merge cases.]</nowiki>
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

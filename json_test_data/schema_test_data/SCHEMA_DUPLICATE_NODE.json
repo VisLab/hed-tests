@@ -2,7 +2,7 @@
   {
     "error_code": "SCHEMA_DUPLICATE_NODE",
     "name": "attribute-duplicate-node",
-    "warning": true,
+    "warning": false,
     "description": "A schema attribute issue, saying there is a duplicate node.",
     "schema": "",
     "error_category": "schema_development",
@@ -184,7 +184,7 @@
     {
     "error_code": "SCHEMA_DUPLICATE_NODE",
     "name": "attribute-duplicate-node-unit",
-    "warning": true,
+    "warning": false,
     "description": "A schema has duplicate unit entries with case-insensitive name collision.",
     "schema": "",
     "definitions": [],

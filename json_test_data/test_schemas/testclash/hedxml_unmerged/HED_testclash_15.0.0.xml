@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<HED version="15.0.0" library="testclash" withStandard="8.5.0" unmerged="True">
+   <prologue>testclash 15.0.0 partners with standard schema 8.5.0. Change from 14.0.0: restores the testaux value of the unit auxunit and adds the new unit smallauxunit under auxUnits (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the extra unit smallauxunit under the shared unit class auxUnits (new units under an existing unit class merge if there are no conflicts).</prologue>
+   <schema>
+      <node>
+         <name>Clash-tag</name>
+         <description>The constant testclash scaffold tag.</description>
+         <node>
+            <name>Clash-one</name>
+            <description>The first scaffold child of Clash-tag.</description>
+         </node>
+         <node>
+            <name>Clash-two</name>
+            <description>The second scaffold child of Clash-tag.</description>
+         </node>
+      </node>
+   </schema>
+   <unitClassDefinitions>
+      <unitClassDefinition>
+         <name>auxUnits</name>
+         <description>The auxiliary unit class shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>auxunit</value>
+         </attribute>
+         <unit>
+            <name>auxunit</name>
+            <description>The base unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>bigauxunit</name>
+            <description>A larger unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>smallauxunit</name>
+            <description>A smaller unit of the auxUnits unit class, specific to testclash.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>0.001</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+   </unitClassDefinitions>
+   <unitModifierDefinitions/>
+   <valueClassDefinitions/>
+   <schemaAttributeDefinitions/>
+   <propertyDefinitions/>
+   <epilogue>Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.</epilogue>
+</HED>

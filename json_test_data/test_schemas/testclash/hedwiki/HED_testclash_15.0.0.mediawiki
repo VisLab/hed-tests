@@ -1,0 +1,31 @@
+HED version="15.0.0" library="testclash" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testclash 15.0.0 partners with standard schema 8.5.0. Change from 14.0.0: restores the testaux value of the unit auxunit and adds the new unit smallauxunit under auxUnits (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the extra unit smallauxunit under the shared unit class auxUnits (new units under an existing unit class merge if there are no conflicts).
+
+!# start schema
+
+'''Clash-tag''' <nowiki>[The constant testclash scaffold tag.]</nowiki>
+* Clash-one <nowiki>[The first scaffold child of Clash-tag.]</nowiki>
+* Clash-two <nowiki>[The second scaffold child of Clash-tag.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+* auxUnits <nowiki>{defaultUnits=auxunit}[The auxiliary unit class shared across libraries in the aux merge cases.]</nowiki>
+** auxunit <nowiki>{conversionFactor=1.0}[The base unit of the auxUnits unit class.]</nowiki>
+** bigauxunit <nowiki>{conversionFactor=1000.0}[A larger unit of the auxUnits unit class.]</nowiki>
+** smallauxunit <nowiki>{conversionFactor=0.001}[A smaller unit of the auxUnits unit class, specific to testclash.]</nowiki>
+
+'''Unit modifiers'''
+
+'''Value classes'''
+
+'''Schema attributes'''
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed
