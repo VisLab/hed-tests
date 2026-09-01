@@ -2,7 +2,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_INVALID",
         "name": "attribute-invalid-unknown",
-        "warning": true,
+        "warning": false,
         "description": "A schema attribute issue, saying there is an unknown one.",
         "schema": "",
         "error_category": "schema_development",

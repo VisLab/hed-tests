@@ -55,9 +55,18 @@
         "library-invalid-rooted-present",
         "library-invalid-rooted-not-top-level",
         "library-invalid-rooted-not-in-base",
-        "library-invalid-rooted-in-library-present",
-        "library-invalid-rooted-in-duplicate-other",
-        "library-invalid-duplicate-standard-tag"
+        "library-invalid-inlibrary-in-unmerged",
+        "library-invalid-duplicate-unit",
+        "library-invalid-duplicate-standard-tag",
+        "library-invalid-duplicate-value-class",
+        "library-invalid-duplicate-schema-attribute",
+        "library-invalid-duplicate-unit-modifier",
+        "library-invalid-rooted-in-unpartnered",
+        "library-invalid-unpartnered-properties-allowed",
+        "library-invalid-properties-in-unmerged",
+        "library-invalid-merged-rooted-not-under-anchor",
+        "library-invalid-merged-properties-mismatch",
+        "library-invalid-reserved-in-unmerged"
     ],
     "SCHEMA_MISSING_EXTRA": [
         "schema-missing-extra"

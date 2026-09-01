@@ -2,7 +2,7 @@
   {
     "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
     "name": "attribute-default-unit-invalid",
-    "warning": true,
+    "warning": false,
     "description": "A schema unit class has an invalid default value",
     "schema": "",
     "error_category": "schema_development",

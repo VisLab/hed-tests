@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 167 test cases in the HED test suite.
+Complete index of 186 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -18,8 +18,8 @@ Complete index of 167 test cases in the HED test suite.
 - [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (2 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
-- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (9 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (31 tests)
+- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (18 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (41 tests)
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
@@ -467,7 +467,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_INVALID.json`
 
-### attribute-invalid-unknown (warning) (correction guidance) (examples)
+### attribute-invalid-unknown (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is an unknown one.
 
@@ -481,7 +481,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
-### attribute-conversion-factor-invalid (warning) (correction guidance) (examples)
+### attribute-conversion-factor-invalid (correction guidance) (examples)
 
 **Description**: A schema unit has an invalid conversion factor
 
@@ -491,7 +491,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 4 fail, 1 pass
 
-### attribute-default-unit-invalid (warning) (correction guidance) (examples)
+### attribute-default-unit-invalid (correction guidance) (examples)
 
 **Description**: A schema unit class has an invalid default value
 
@@ -501,7 +501,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-allowed-character (warning) (correction guidance) (examples)
+### attribute-invalid-allowed-character (correction guidance) (examples)
 
 **Description**: A schema value class has an invalid allowedCharacter attribute value
 
@@ -511,7 +511,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 2 pass
 
-### attribute-invalid-hed-id-changed (warning) (correction guidance) (examples)
+### attribute-invalid-hed-id-changed (correction guidance) (examples)
 
 **Description**: A schema element has a hedId that changed from its previously assigned value.
 
@@ -521,7 +521,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-hed-id-invalid (warning) (correction guidance) (examples)
+### attribute-invalid-hed-id-invalid (correction guidance) (examples)
 
 **Description**: A schema element has a hedId with an invalid format (non-numeric or malformed).
 
@@ -531,7 +531,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-hed-id-out-range (warning) (correction guidance) (examples)
+### attribute-invalid-hed-id-out-range (correction guidance) (examples)
 
 **Description**: A schema element has a hedId that is outside the valid allocated range for its section.
 
@@ -541,7 +541,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-in-library (warning) (correction guidance) (examples)
+### attribute-invalid-in-library (correction guidance) (examples)
 
 **Description**: A schema element has an invalid inLibrary attribute (most other library errors are SCHEMA_LIBRARY_INVALID)
 
@@ -551,7 +551,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-unit-class (warning) (correction guidance) (examples)
+### attribute-invalid-unit-class (correction guidance) (examples)
 
 **Description**: A schema unit class issue, saying there is an unknown one.
 
@@ -561,7 +561,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-invalid-value-class (warning) (correction guidance) (examples)
+### attribute-invalid-value-class (correction guidance) (examples)
 
 **Description**: A schema value class issue, saying there is an unknown one.
 
@@ -571,7 +571,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### attribute-on-nonplaceholder-invalid (warning) (correction guidance) (examples)
+### attribute-on-nonplaceholder-invalid (correction guidance) (examples)
 
 **Description**: A non placeholder tag has takes value, unit class, or value class
 
@@ -581,7 +581,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 3 fail, 1 pass
 
-### attribute-relatedTag-invalid (warning) (correction guidance) (examples)
+### attribute-relatedTag-invalid (correction guidance) (examples)
 
 **Description**: A related tag points to an unknown tag
 
@@ -591,7 +591,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 2 pass
 
-### attribute-suggestedTag-invalid (warning) (correction guidance) (examples)
+### attribute-suggestedTag-invalid (correction guidance) (examples)
 
 **Description**: A suggested tag points to an unknown tag
 
@@ -605,7 +605,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_CHARACTER_INVALID.json`
 
-### schema-character-allowed-character-unit (warning)
+### schema-character-allowed-character-unit
 
 **Description**: Allowed character properly works on units.
 
@@ -615,7 +615,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 2 pass
 
-### schema-character-invalid-description (warning)
+### schema-character-invalid-description
 
 **Description**: Description does not contain banned characters.
 
@@ -625,7 +625,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### schema-character-invalid-other-term (warning)
+### schema-character-invalid-other-term
 
 **Description**: Invalid character in a non-tag schema element name (unit, unit class, modifier, value class, attribute, or property).
 
@@ -635,7 +635,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 6 fail, 1 pass
 
-### schema-character-invalid-prologue (warning) (correction guidance) (examples)
+### schema-character-invalid-prologue (correction guidance) (examples)
 
 **Description**: Invalid character in prologue or epilogue.
 
@@ -645,7 +645,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### schema-character-invalid-tag (warning)
+### schema-character-invalid-tag
 
 **Description**: Invalid character in a tag term.
 
@@ -655,7 +655,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### schema-character-invalid-utf8-other-term (warning)
+### schema-character-invalid-utf8-other-term
 
 **Description**: UTF8 characters (valid) in term.
 
@@ -669,7 +669,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_DEPRECATION_ERROR.json`
 
-### schema-deprecated-attribute-invalid (warning) (correction guidance) (examples)
+### schema-deprecated-attribute-invalid (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is an unhandled deprecated attribute.
 
@@ -679,7 +679,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### schema-deprecated-default-unit (warning)
+### schema-deprecated-default-unit
 
 **Description**: A schema deprecation issue, deprecated default units
 
@@ -689,7 +689,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 2 pass
 
-### schema-deprecated-deprecated-attribute (warning)
+### schema-deprecated-deprecated-attribute
 
 **Description**: A schema deprecation issue, an attribute of an element is deprecated
 
@@ -699,7 +699,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 5 fail, 5 pass
 
-### schema-deprecated-deprecated-property (warning)
+### schema-deprecated-deprecated-property
 
 **Description**: A schema deprecation issue, a property of an attribute is is deprecated
 
@@ -709,7 +709,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### schema-deprecated-invalid-child (warning)
+### schema-deprecated-invalid-child
 
 **Description**: A schema deprecation issue, saying there is an invalid child of a deprecated node
 
@@ -719,7 +719,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### schema-deprecated-invalid-suggested-related-tag (warning)
+### schema-deprecated-invalid-suggested-related-tag
 
 **Description**: A schema deprecation issue, saying a related or suggested tag points to a deprecated tag
 
@@ -729,7 +729,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 4 pass
 
-### schema-deprecated-unit-class (warning)
+### schema-deprecated-unit-class
 
 **Description**: A schema deprecation issue, deprecated value or unit class
 
@@ -739,7 +739,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### schema-deprecated-value-class (warning)
+### schema-deprecated-value-class
 
 **Description**: A schema deprecation issue, deprecated value or unit class
 
@@ -753,7 +753,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_DUPLICATE_NODE.json`
 
-### attribute-duplicate-node (warning) (correction guidance) (examples)
+### attribute-duplicate-node (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is a duplicate node.
 
@@ -763,7 +763,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 6 fail, 1 pass
 
-### attribute-duplicate-node-unit (warning)
+### attribute-duplicate-node-unit
 
 **Description**: A schema has duplicate unit entries with case-insensitive name collision.
 
@@ -777,7 +777,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_HEADER_INVALID.json`
 
-### schema-header-malformed-attribute (warning) (correction guidance) (examples)
+### schema-header-malformed-attribute (correction guidance) (examples)
 
 **Description**: A schema header contains a malformed or unknown attribute.
 
@@ -787,7 +787,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### schema-header-unknown-attribute (warning)
+### schema-header-unknown-attribute
 
 **Description**: An unknown attribute was found in the schema header.
 
@@ -797,7 +797,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### schema-header-unmerged-value-variants (warning) (correction guidance) (examples)
+### schema-header-unmerged-value-variants (correction guidance) (examples)
 
 **Description**: The unmerged header attribute value is case-insensitive, and unmerged="false" is equivalent to omitting the attribute (the schema is merged).
 
@@ -811,7 +811,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_LIBRARY_INVALID.json`
 
-### library-invalid-bad-name (warning) (correction guidance) (examples)
+### library-invalid-bad-name (correction guidance) (examples)
 
 **Description**: A schema library issue, indicating the name is invalid.
 
@@ -821,7 +821,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 3 fail, 1 pass
 
-### library-invalid-bad_with-standard (warning)
+### library-invalid-bad_with-standard
 
 **Description**: A schema library issue, the with-standard attribute is present without the library attribute.
 
@@ -831,7 +831,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### library-invalid-bad_with-standard-version (warning)
+### library-invalid-bad_with-standard-version
 
 **Description**: A schema library issue, indicating it references a version of the standard that can't be found.
 
@@ -841,7 +841,17 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### library-invalid-duplicate-standard-tag (warning)
+### library-invalid-duplicate-schema-attribute (correction guidance) (examples)
+
+**Description**: An unmerged partnered library schema declares a schema attribute whose name already exists in its standard schema partner.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-duplicate-standard-tag
 
 **Description**: An unmerged library schema declares a tag whose name already exists in its standard schema partner.
 
@@ -851,7 +861,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### library-invalid-rooted-in-duplicate-other (warning)
+### library-invalid-duplicate-unit
 
 **Description**: A library schema defines elements that duplicate entries already in the base standard schema.
 
@@ -861,7 +871,27 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### library-invalid-rooted-in-library-present (warning)
+### library-invalid-duplicate-unit-modifier (correction guidance) (examples)
+
+**Description**: An unmerged partnered library schema declares a unit modifier whose name already exists in its standard schema partner.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-duplicate-value-class (correction guidance) (examples)
+
+**Description**: An unmerged partnered library schema declares a value class whose name already exists in its standard schema partner.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-inlibrary-in-unmerged
 
 **Description**: A schema library issue, indicating the InLibrary attribute appears when it shouldn't.
 
@@ -871,7 +901,57 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### library-invalid-rooted-not-in-base (warning)
+### library-invalid-merged-properties-mismatch (correction guidance) (examples)
+
+**Description**: A merged partnered library schema's Properties section must be identical to that of its standard schema partner.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-merged-rooted-not-under-anchor (correction guidance) (examples)
+
+**Description**: In a merged library schema, a node with rooted=XXX must be a direct child of XXX.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-properties-in-unmerged (correction guidance) (examples)
+
+**Description**: An unmerged partnered library schema has a non-empty Properties section.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-reserved-in-unmerged (correction guidance) (examples)
+
+**Description**: The reserved attribute cannot be used in an unmerged partnered library schema.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-rooted-in-unpartnered (correction guidance) (examples)
+
+**Description**: The rooted attribute appears in an unpartnered library schema, whose header has no withStandard attribute.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-rooted-not-in-base
 
 **Description**: A schema library issue, rooted tag does not exist.
 
@@ -881,7 +961,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
-### library-invalid-rooted-not-top-level (warning)
+### library-invalid-rooted-not-top-level
 
 **Description**: A schema library issue, indicating a node is being rooted that is not a top level node.
 
@@ -891,7 +971,7 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
-### library-invalid-rooted-present (warning)
+### library-invalid-rooted-present
 
 **Description**: A schema library issue, indicating the rooted property appears in a file it shouldn't.
 
@@ -901,9 +981,109 @@ Complete index of 167 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
+### library-invalid-unpartnered-properties-allowed (correction guidance) (examples)
+
+**Description**: An unpartnered library schema may declare its own schema attributes and a non-empty Properties section.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 0 fail, 1 pass
+
 ## SCHEMA_LOAD_FAILED
 
 **File**: `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`
+
+### aux-identical-elements-compatible (correction guidance) (examples)
+
+**Description**: Two libraries may declare the same auxiliary elements when the declarations are identical.
+
+**Schema**: testaux_1.0.0, testclash_13.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### aux-new-unit-class-merges-directly (correction guidance) (examples)
+
+**Description**: New library schema auxiliary elements (unit classes with their units, unit modifiers, value classes, and schema attributes) are merged directly into the group vocabulary.
+
+**Schema**: testconflict_2.0.0, testaux_1.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 3 pass
+
+### aux-new-units-under-shared-class (correction guidance) (examples)
+
+**Description**: A library may add new units under a shared unit class when the shared units themselves are identical.
+
+**Schema**: testaux_1.0.0, testclash_15.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
+
+### aux-schema-attribute-description-conflict (correction guidance) (examples)
+
+**Description**: Library schemas sharing a schema attribute must give it the same description.
+
+**Schema**: testaux_1.0.0, testclash_18.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### aux-schema-attribute-property-conflict (correction guidance) (examples)
+
+**Description**: Library schemas sharing a schema attribute must give it the same properties.
+
+**Schema**: testaux_1.0.0, testclash_17.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### aux-unit-attribute-conflict (correction guidance) (examples)
+
+**Description**: Library schemas sharing a unit must give it identical attribute values.
+
+**Schema**: testaux_1.0.0, testclash_14.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### aux-unit-modifier-conflict (correction guidance) (examples)
+
+**Description**: Library schemas sharing a unit modifier must give it identical attribute values.
+
+**Schema**: testaux_1.0.0, testclash_19.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### aux-value-class-conflict (correction guidance) (examples)
+
+**Description**: Library schemas sharing a value class must give it identical attribute values.
+
+**Schema**: testaux_1.0.0, testclash_16.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
+### conflicting-libraries-in-separate-namespaces (correction guidance) (examples)
+
+**Description**: A library pair that fails to merge loads once one member is given its own namespace prefix.
+
+**Schema**: testconflict_2.0.0, cl:testclash_2.0.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
 
 ### different-standard-schemas-in-same-merge-group (correction guidance) (examples)
 
@@ -1107,7 +1287,7 @@ Complete index of 167 test cases in the HED test suite.
 
 ### same-library-two-incompatible-versions (correction guidance) (examples)
 
-**Description**: Two versions of the same library must still be element-compatible to merge.
+**Description**: Two versions of the same library cannot appear in one merge group, even when they differ only by a patch-level change such as a revised element description.
 
 **Schema**: testconflict_2.1.0, testconflict_2.1.1 **Category**: schema
 
@@ -1124,6 +1304,16 @@ Complete index of 167 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 2 fail, 0 pass
+
+### same-library-two-versions-in-separate-namespaces (correction guidance) (examples)
+
+**Description**: Two versions of one library load together when each version has its own namespace.
+
+**Schema**: testconflict_2.1.0, alt:testconflict_2.1.1 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 0 fail, 2 pass
 
 ### shared-element-compatible-across-libraries (correction guidance) (examples)
 
@@ -1233,7 +1423,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_SECTION_MISSING.json`
 
-### schema-section-missing (warning) (correction guidance) (examples)
+### schema-section-missing (correction guidance) (examples)
 
 **Description**: A required schema section is missing from the schema file.
 
@@ -2028,7 +2218,7 @@ Complete index of 167 test cases in the HED test suite.
 
 **File**: `json_test_data/schema_test_data/SCHEMA_ATTRIBUTE_VALUE_INVALID_CONVERSION_FACTOR.json`
 
-### attribute-conversion-format (warning) (correction guidance) (examples)
+### attribute-conversion-format (correction guidance) (examples)
 
 **Description**: A schema unit has an invalid conversion factor due to bad formatting
 

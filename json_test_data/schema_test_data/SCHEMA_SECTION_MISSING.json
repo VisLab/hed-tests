@@ -2,7 +2,7 @@
     {
         "error_code": "SCHEMA_SECTION_MISSING",
         "name": "schema-section-missing",
-        "warning": true,
+        "warning": false,
         "description": "A required schema section is missing from the schema file.",
         "schema": "",
         "error_category": "schema_development",

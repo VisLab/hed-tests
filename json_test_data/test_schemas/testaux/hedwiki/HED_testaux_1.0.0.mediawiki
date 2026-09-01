@@ -1,0 +1,35 @@
+HED version="1.0.0" library="testaux" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testaux 1.0.0 is the auxiliary-items library of the hed-tests test schema set, partnered with standard schema 8.5.0. It declares one auxiliary element of each type - unit class auxUnits with units auxunit and bigauxunit, unit modifier auxMod, value class auxClass, and schema attribute auxAttribute - plus the tags Aux-measure and Aux-value that use them, so the auxiliary-section merge rules have fully controlled probes. testclash 13.0.0 and later carry probe copies of these elements, identical except for at most one controlled difference. It has no predecessor.
+
+!# start schema
+
+'''Aux-measure''' <nowiki>[A tag that takes a value with units of the auxUnits unit class.]</nowiki>
+* <nowiki># {takesValue, unitClass=auxUnits}[Value of Aux-measure.]</nowiki>
+
+'''Aux-value''' <nowiki>[A tag that takes a value of the auxClass value class.]</nowiki>
+* <nowiki># {takesValue, valueClass=auxClass}[Value of Aux-value.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+* auxUnits <nowiki>{defaultUnits=auxunit}[The auxiliary unit class shared across libraries in the aux merge cases.]</nowiki>
+** auxunit <nowiki>{conversionFactor=1.0}[The base unit of the auxUnits unit class.]</nowiki>
+** bigauxunit <nowiki>{conversionFactor=1000.0}[A larger unit of the auxUnits unit class.]</nowiki>
+
+'''Unit modifiers'''
+* auxMod <nowiki>{SIUnitModifier, conversionFactor=100.0}[The auxiliary unit modifier shared across libraries in the aux merge cases.]</nowiki>
+
+'''Value classes'''
+* auxClass <nowiki>{allowedCharacter=letters}[The auxiliary value class shared across libraries in the aux merge cases.]</nowiki>
+
+'''Schema attributes'''
+* auxAttribute <nowiki>{boolProperty}[The auxiliary schema attribute shared across libraries in the aux merge cases.]</nowiki>
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

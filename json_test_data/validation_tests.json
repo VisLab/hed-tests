@@ -5819,7 +5819,7 @@
             },
             {
                 "wrong": "[\"testconflict_2.0.0\", \"testconflict_2.1.0\"]",
-                "correct": "[\"testconflict_2.0.0\", \"v2:testconflict_2.1.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"alt:testconflict_2.1.0\"]",
                 "explanation": "With its own namespace the second version is in a separate merge group, so the version rule does not apply."
             }
         ],
@@ -6614,29 +6614,29 @@
         "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
         "name": "same-library-two-incompatible-versions",
-        "description": "Two versions of the same library must still be element-compatible to merge.",
+        "description": "Two versions of the same library cannot appear in one merge group, even when they differ only by a patch-level change such as a revised element description.",
         "warning": false,
         "schema": [
             "testconflict_2.1.0",
             "testconflict_2.1.1"
         ],
         "error_category": "schema",
-        "explanation": "Versions of one library merge only when their shared elements are identical, exactly like different libraries. testconflict_2.1.1 differs from 2.1.0 only in the description of Measure-tag (a patch-level revision), but even that one changed description makes the shared element incompatible, so the two versions cannot merge and the load fails.",
+        "explanation": "Different versions of the same schema cannot appear in the same merge group, and two versions of one library are never compared element by element. testconflict_2.1.1 is testconflict_2.1.0 with one revised tag description, so the two versions differ only by a patch-level change - yet the load still fails, because the version rule alone bars them. A validator must not merge two versions of one library just because their differences are minor; how similar the versions are is irrelevant.",
         "common_causes": [
             "Assuming any two versions of one library can be combined",
-            "Combining a version with its own patch release, which by definition changed some description or similar detail"
+            "Expecting a patch release to merge with its predecessor because almost nothing changed"
         ],
-        "correction_strategy": "Use a single version of the library, or two versions whose shared elements are identical.",
+        "correction_strategy": "Use a single version of the library, or give the second version its own namespace so each version is in its own merge group.",
         "correction_examples": [
             {
                 "wrong": "[\"testconflict_2.1.0\", \"testconflict_2.1.1\"]",
                 "correct": "[\"testconflict_2.1.1\"]",
-                "explanation": "Using one version avoids the element comparison entirely."
+                "explanation": "Using one version avoids the version rule entirely."
             },
             {
                 "wrong": "[\"testconflict_2.1.0\", \"testconflict_2.1.1\"]",
-                "correct": "[\"testconflict_2.1.0\", \"v2:testconflict_2.1.1\"]",
-                "explanation": "With its own namespace the patch release is in a separate merge group, so its changed description is never compared with 2.1.0."
+                "correct": "[\"testconflict_2.1.0\", \"alt:testconflict_2.1.1\"]",
+                "explanation": "With its own namespace the patch release is in a separate merge group, and the version rule applies only within a merge group."
             }
         ],
         "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
@@ -6949,6 +6949,430 @@
                     "Blue"
                 ],
                 "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-new-unit-class-merges-directly",
+        "description": "New library schema auxiliary elements (unit classes with their units, unit modifiers, value classes, and schema attributes) are merged directly into the group vocabulary.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "testaux_1.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. testconflict_2.0.0 and testaux_1.0.0 are both partnered with standard schema 8.5.0, and no auxiliary element of testaux appears in testconflict or in the standard partner: the unit class auxUnits (with its units auxunit and bigauxunit), the unit modifier auxMod, the value class auxClass, and the schema attribute auxAttribute are all new. New library schema unit classes and their accompanying units are merged directly, as are new value classes, unit modifiers, and schema attributes, so the merged vocabulary validates Aux-measure values with auxUnits units and Aux-value values against auxClass.",
+        "common_causes": [
+            "Believing library schemas cannot add unit classes, value classes, unit modifiers, or schema attributes to a merge group",
+            "Believing auxiliary sections must be identical across the schemas of a merge group"
+        ],
+        "correction_strategy": "No correction needed; an auxiliary element that appears in only one schema of a merge group is merged directly.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.4.0\", \"testaux_1.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"testaux_1.0.0\"]",
+                "explanation": "testaux_1.0.0 is partnered with 8.5.0, so it cannot share a merge group with standard schema 8.4.0; with testconflict_2.0.0 (also partnered with 8.5.0) the libraries merge and testaux's auxiliary elements are added directly."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Aux-measure/3 auxunit",
+                    "Aux-value/abc",
+                    "Red"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-identical-elements-compatible",
+        "description": "Two libraries may declare the same auxiliary elements when the declarations are identical.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_13.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. testclash_13.0.0 declares identical copies of every testaux_1.0.0 auxiliary element: the unit class auxUnits with its units auxunit and bigauxunit, the unit modifier auxMod, the value class auxClass, and the schema attribute auxAttribute, each with the same attribute values, properties, and description. The element compatibility rules apply to auxiliary elements exactly as to tags, so the identical shared elements merge into single copies and the load succeeds.",
+        "common_causes": [
+            "Believing that any overlap in the auxiliary sections of two libraries prevents merging"
+        ],
+        "correction_strategy": "No correction needed; libraries may share auxiliary elements as long as the shared declarations are identical.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_14.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
+                "explanation": "testclash_14.0.0 changes the conversionFactor of the shared unit auxunit and cannot merge; testclash_13.0.0's auxiliary elements are identical copies and can."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Aux-measure/2 bigauxunit, Clash-one",
+                    "Aux-value/xyz"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-unit-attribute-conflict",
+        "description": "Library schemas sharing a unit must give it identical attribute values.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_14.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "The element compatibility rules apply to units as they do to tags. Both libraries declare the unit class auxUnits with the units auxunit and bigauxunit, but testaux gives auxunit conversionFactor=1.0 while testclash_14.0.0 gives it conversionFactor=2.0. The attribute values of the shared unit differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Correcting a unit's conversion factor in one library but not in its counterpart",
+            "Two libraries reusing a unit name with different meanings"
+        ],
+        "correction_strategy": "Make the shared unit identical in every library (attribute values included), rename one of the units, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_14.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
+                "explanation": "testclash_13.0.0 declares auxunit with the same conversionFactor as testaux, so the shared unit is compatible."
+            },
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_14.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"cl:testclash_14.0.0\"]",
+                "explanation": "In separate namespaces the two auxunit declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-new-units-under-shared-class",
+        "description": "A library may add new units under a shared unit class when the shared units themselves are identical.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_15.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Both libraries declare the unit class auxUnits identically, with identical copies of the units auxunit and bigauxunit. testclash_15.0.0 additionally declares the unit smallauxunit, which testaux does not have. New library schema units under an existing unit class are merged if there are no conflicts, so the merged auxUnits carries all three units and Aux-measure values can use any of them.",
+        "common_causes": [
+            "Believing a shared unit class must have exactly the same units in every library that declares it"
+        ],
+        "correction_strategy": "No correction needed; a library may add its own units under a shared unit class as long as the units the libraries share are identical.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_14.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_15.0.0\"]",
+                "explanation": "testclash_14.0.0 changes a shared unit's conversionFactor and cannot merge; testclash_15.0.0 keeps the shared units identical and only adds its own unit smallauxunit, which is allowed."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Aux-measure/2 smallauxunit",
+                    "Aux-measure/5 auxunit"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-value-class-conflict",
+        "description": "Library schemas sharing a value class must give it identical attribute values.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_16.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "The element compatibility rules apply to value classes as they do to tags. Both libraries declare the value class auxClass, but testaux gives it allowedCharacter=letters while testclash_16.0.0 gives it allowedCharacter=digits. The attribute values of the shared value class differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Changing the allowed characters of a shared value class in one library only",
+            "Two libraries reusing a value class name for different value formats"
+        ],
+        "correction_strategy": "Make the shared value class identical in every library, rename one of the value classes, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_16.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
+                "explanation": "testclash_13.0.0 declares auxClass with the same allowedCharacter value as testaux, so the shared value class is compatible."
+            },
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_16.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"cl:testclash_16.0.0\"]",
+                "explanation": "In separate namespaces the two auxClass declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-schema-attribute-property-conflict",
+        "description": "Library schemas sharing a schema attribute must give it the same properties.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_17.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "For schema attribute elements, the properties are the attribute values that are compared: two schema attributes with the same name must have the same properties. testaux declares auxAttribute with boolProperty while testclash_17.0.0 declares auxAttribute with no properties at all (a string-valued attribute). The properties differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Dropping or adding a property of a shared schema attribute in one library only",
+            "Two libraries disagreeing on whether an attribute is boolean or takes a value"
+        ],
+        "correction_strategy": "Give the shared schema attribute the same properties in every library, rename one of the attributes, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_17.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
+                "explanation": "testclash_13.0.0 declares auxAttribute with the same boolProperty as testaux, so the shared schema attribute is compatible."
+            },
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_17.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"cl:testclash_17.0.0\"]",
+                "explanation": "In separate namespaces the two auxAttribute declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-schema-attribute-description-conflict",
+        "description": "Library schemas sharing a schema attribute must give it the same description.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_18.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "The element compatibility rules include the description text, for auxiliary elements as for tags. Both libraries declare the schema attribute auxAttribute with the same boolProperty, but the description texts differ. The shared element is therefore incompatible and the load fails.",
+        "common_causes": [
+            "Rewording a shared schema attribute's description in one library only",
+            "Two libraries independently defining the same attribute name with different meanings"
+        ],
+        "correction_strategy": "Make the shared schema attribute's description identical in every library, rename one of the attributes, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_18.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
+                "explanation": "testclash_13.0.0's auxAttribute is an identical copy, description included, so the libraries merge."
+            },
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_18.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"cl:testclash_18.0.0\"]",
+                "explanation": "In separate namespaces the two auxAttribute declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "aux-unit-modifier-conflict",
+        "description": "Library schemas sharing a unit modifier must give it identical attribute values.",
+        "warning": false,
+        "schema": [
+            "testaux_1.0.0",
+            "testclash_19.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "The element compatibility rules apply to unit modifiers as they do to tags. Both libraries declare the unit modifier auxMod with SIUnitModifier, but testaux gives it conversionFactor=100.0 while testclash_19.0.0 gives it conversionFactor=10.0. The attribute values of the shared unit modifier differ, so the elements are incompatible and the load fails.",
+        "common_causes": [
+            "Correcting a unit modifier's conversion factor in one library but not in its counterpart",
+            "Two libraries reusing a unit modifier name with different scale factors"
+        ],
+        "correction_strategy": "Make the shared unit modifier identical in every library, rename one of the modifiers, or load the libraries in separate namespaces.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_19.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"testclash_13.0.0\"]",
+                "explanation": "testclash_13.0.0 declares auxMod with the same conversionFactor as testaux, so the shared unit modifier is compatible."
+            },
+            {
+                "wrong": "[\"testaux_1.0.0\", \"testclash_19.0.0\"]",
+                "correct": "[\"testaux_1.0.0\", \"cl:testclash_19.0.0\"]",
+                "explanation": "In separate namespaces the two auxMod declarations never meet, so no compatibility check applies."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "conflicting-libraries-in-separate-namespaces",
+        "description": "A library pair that fails to merge loads once one member is given its own namespace prefix.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.0.0",
+            "cl:testclash_2.0.0"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Unprefixed, testconflict_2.0.0 and testclash_2.0.0 fail to merge because both declare the tag Attribute-item with different suggestedTag values (see element-conflict-attribute-value). With the cl: prefix, testclash_2.0.0 forms its own merge group, each group resolves independently with its own copy of the 8.5.0 partner, and the two Attribute-item declarations never meet. Both tags are then usable: Attribute-item refers to the testconflict tag and cl:Attribute-item to the testclash tag.",
+        "common_causes": [
+            "Believing two libraries with conflicting elements can never be used together",
+            "Omitting the namespace prefix that keeps incompatible libraries apart"
+        ],
+        "correction_strategy": "No correction needed; put one member of an incompatible library pair in its own namespace and prefix its tags in annotations.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.0.0\", \"testclash_2.0.0\"]",
+                "correct": "[\"testconflict_2.0.0\", \"cl:testclash_2.0.0\"]",
+                "explanation": "Unprefixed, the conflicting Attribute-item declarations share one merge group and fail; the prefix puts testclash_2.0.0 in its own merge group."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Attribute-item, cl:Attribute-item",
+                    "Red, cl:Clash-one"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "same-library-two-versions-in-separate-namespaces",
+        "description": "Two versions of one library load together when each version has its own namespace.",
+        "warning": false,
+        "schema": [
+            "testconflict_2.1.0",
+            "alt:testconflict_2.1.1"
+        ],
+        "error_category": "schema",
+        "explanation": "This combination loads. Two versions of one library cannot share a merge group (see same-library-two-versions-in-group), but with the alt: prefix testconflict_2.1.1 forms its own merge group. Each group resolves independently with its own copy of the 8.5.0 partner, so neither the version rule nor the element comparison ever applies across the groups, and both versions' tags are usable with the appropriate prefix.",
+        "common_causes": [
+            "Believing two versions of one library can never appear in the same version specification",
+            "Omitting the namespace prefix the second version requires"
+        ],
+        "correction_strategy": "No correction needed; give the second version of the library its own namespace prefix and prefix its tags in annotations.",
+        "correction_examples": [
+            {
+                "wrong": "[\"testconflict_2.1.0\", \"testconflict_2.1.1\"]",
+                "correct": "[\"testconflict_2.1.0\", \"alt:testconflict_2.1.1\"]",
+                "explanation": "Unprefixed, two versions of one library share a merge group and fail; the prefix puts the second version in its own merge group."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_LIBRARY_INVALID",
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "Object-four, alt:Object-four",
+                    "Measure-tag/5, alt:Measure-tag/5"
+                ]
             }
         }
     },

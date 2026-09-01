@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<HED version="18.0.0" library="testclash" withStandard="8.5.0" unmerged="True">
+   <prologue>testclash 18.0.0 partners with standard schema 8.5.0. Change from 17.0.0: the auxAttribute probe now carries boolProperty but a different description (major bump: previous probe deleted). Probe difference vs testaux 1.0.0: the description of the schema attribute auxAttribute.</prologue>
+   <schema>
+      <node>
+         <name>Clash-tag</name>
+         <description>The constant testclash scaffold tag.</description>
+         <node>
+            <name>Clash-one</name>
+            <description>The first scaffold child of Clash-tag.</description>
+         </node>
+         <node>
+            <name>Clash-two</name>
+            <description>The second scaffold child of Clash-tag.</description>
+         </node>
+      </node>
+   </schema>
+   <unitClassDefinitions/>
+   <unitModifierDefinitions/>
+   <valueClassDefinitions/>
+   <schemaAttributeDefinitions>
+      <schemaAttributeDefinition>
+         <name>auxAttribute</name>
+         <description>The auxiliary schema attribute shared across libraries in the aux merge cases. This is the testclash wording.</description>
+         <property>
+            <name>boolProperty</name>
+         </property>
+      </schemaAttributeDefinition>
+   </schemaAttributeDefinitions>
+   <propertyDefinitions/>
+   <epilogue>Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.</epilogue>
+</HED>

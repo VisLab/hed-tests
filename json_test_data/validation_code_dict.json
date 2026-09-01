@@ -179,7 +179,17 @@
         "element-conflict-in-shared-child",
         "shared-rooted-tag-disjoint-children",
         "shared-hierarchy-diverges-at-grandchild",
-        "element-conflict-in-shared-grandchild"
+        "element-conflict-in-shared-grandchild",
+        "aux-new-unit-class-merges-directly",
+        "aux-identical-elements-compatible",
+        "aux-unit-attribute-conflict",
+        "aux-new-units-under-shared-class",
+        "aux-value-class-conflict",
+        "aux-schema-attribute-property-conflict",
+        "aux-schema-attribute-description-conflict",
+        "aux-unit-modifier-conflict",
+        "conflicting-libraries-in-separate-namespaces",
+        "same-library-two-versions-in-separate-namespaces"
     ],
     "FILE_NOT_FOUND": [
         "nonexistent-schema-version-in-group"

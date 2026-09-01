@@ -50,14 +50,24 @@ this folder by cache-convention file name.
   specification (section 3.1.3). Unpartnered 1.x versions and 2.x versions
   partnered with standard schema 8.5.0.
 - **testclash** - the conflict companion: each version carries the constant
-  `Clash-tag` scaffold plus at most one probe element shared with
-  testconflict 2.x, identical except for one controlled difference
-  (attribute value, description, ancestor path, placeholder child, rooted
-  anchor, or a shared-hierarchy variation). One conflict per version, so
-  each load test isolates a single rule.
+  `Clash-tag` scaffold plus at most one probe element shared with another
+  library, identical except for one controlled difference. Versions 1.0.0
+  through 12.0.0 probe tag elements shared with testconflict 2.x (attribute
+  value, description, ancestor path, placeholder child, rooted anchor, or a
+  shared-hierarchy variation); versions 13.0.0 and later probe auxiliary
+  elements shared with testaux 1.0.0 (unit class, unit, unit modifier, value
+  class, or schema attribute). One conflict per version, so each load test
+  isolates a single rule.
 - **testminimal** - a third library name with an unchanging vocabulary:
   unpartnered 1.0.0, 2.0.0 partnered with 8.4.0, and 2.1.0 partnered with
   8.5.0, for the mismatched-partner and multi-library cases.
+- **testaux** - the auxiliary-items library: a single version 1.0.0
+  partnered with 8.5.0 that declares one auxiliary element of each type
+  (unit class `auxUnits` with units `auxunit` and `bigauxunit`, unit
+  modifier `auxMod`, value class `auxClass`, schema attribute
+  `auxAttribute`) plus the tags `Aux-measure` and `Aux-value` that use
+  them, so the auxiliary-section merge rules have controlled probes. The
+  testclash 13.0.0+ versions carry probe copies of these elements.
 
 Each version's prologue states its role and the semver level of its change
 from the predecessor.

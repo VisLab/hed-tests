@@ -2,7 +2,7 @@
   {
     "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
     "name": "attribute-conversion-factor-invalid",
-    "warning": true,
+    "warning": false,
     "description": "A schema unit has an invalid conversion factor",
     "schema": "",
     "error_category": "schema_development",
@@ -145,7 +145,7 @@
   {
     "error_code": "WIKI_DELIMITERS_INVALID",
     "name": "attribute-conversion-format",
-    "warning": true,
+    "warning": false,
     "description": "A schema unit has an invalid conversion factor due to bad formatting",
     "schema": "",
     "error_category": "schema_development",

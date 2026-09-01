@@ -2,7 +2,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_INVALID",
         "name": "attribute-invalid-unknown",
-        "warning": true,
+        "warning": false,
         "description": "A schema attribute issue, saying there is an unknown one.",
         "schema": "",
         "error_category": "schema_development",
@@ -126,7 +126,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-allowed-character",
-        "warning": true,
+        "warning": false,
         "description": "A schema value class has an invalid allowedCharacter attribute value",
         "schema": "",
         "error_category": "schema_development",
@@ -222,7 +222,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-conversion-factor-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A schema unit has an invalid conversion factor",
         "schema": "",
         "error_category": "schema_development",
@@ -369,7 +369,7 @@
     {
         "error_code": "WIKI_DELIMITERS_INVALID",
         "name": "attribute-conversion-format",
-        "warning": true,
+        "warning": false,
         "description": "A schema unit has an invalid conversion factor due to bad formatting",
         "schema": "",
         "error_category": "schema_development",
@@ -445,7 +445,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-default-unit-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A schema unit class has an invalid default value",
         "schema": "",
         "error_category": "schema_development",
@@ -533,7 +533,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-hed-id-changed",
-        "warning": true,
+        "warning": false,
         "description": "A schema element has a hedId that changed from its previously assigned value.",
         "schema": "",
         "error_category": "schema_development",
@@ -619,7 +619,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-hed-id-out-range",
-        "warning": true,
+        "warning": false,
         "description": "A schema element has a hedId that is outside the valid allocated range for its section.",
         "schema": "",
         "error_category": "schema_development",
@@ -704,7 +704,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-hed-id-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A schema element has a hedId with an invalid format (non-numeric or malformed).",
         "schema": "",
         "error_category": "schema_development",
@@ -794,7 +794,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-in-library",
-        "warning": true,
+        "warning": false,
         "description": "A schema element has an invalid inLibrary attribute (most other library errors are SCHEMA_LIBRARY_INVALID)",
         "schema": "",
         "error_category": "schema_development",
@@ -880,7 +880,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-on-nonplaceholder-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A non placeholder tag has takes value, unit class, or value class",
         "schema": "",
         "error_category": "schema_development",
@@ -1000,7 +1000,7 @@
             "SCHEMA_ATTRIBUTE_INVALID"
         ],
         "name": "attribute-relatedTag-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A related tag points to an unknown tag",
         "schema": "",
         "error_category": "schema_development",
@@ -1115,7 +1115,7 @@
             "SCHEMA_ATTRIBUTE_INVALID"
         ],
         "name": "attribute-suggestedTag-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A suggested tag points to an unknown tag",
         "schema": "",
         "error_category": "schema_development",
@@ -1241,7 +1241,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-unit-class",
-        "warning": true,
+        "warning": false,
         "description": "A schema unit class issue, saying there is an unknown one.",
         "schema": "",
         "error_category": "schema_development",
@@ -1326,7 +1326,7 @@
     {
         "error_code": "SCHEMA_ATTRIBUTE_VALUE_INVALID",
         "name": "attribute-invalid-value-class",
-        "warning": true,
+        "warning": false,
         "description": "A schema value class issue, saying there is an unknown one.",
         "schema": "",
         "error_category": "schema_development",
@@ -1411,7 +1411,7 @@
     {
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-invalid-prologue",
-        "warning": true,
+        "warning": false,
         "description": "Invalid character in prologue or epilogue.",
         "schema": "",
         "error_category": "schema_development",
@@ -1522,7 +1522,7 @@
     {
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-invalid-tag",
-        "warning": true,
+        "warning": false,
         "description": "Invalid character in a tag term.",
         "schema": "",
         "definitions": [],
@@ -1583,7 +1583,7 @@
     {
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-invalid-other-term",
-        "warning": true,
+        "warning": false,
         "description": "Invalid character in a non-tag schema element name (unit, unit class, modifier, value class, attribute, or property).",
         "schema": "",
         "definitions": [],
@@ -1711,7 +1711,7 @@
     {
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-invalid-utf8-other-term",
-        "warning": true,
+        "warning": false,
         "description": "UTF8 characters (valid) in term.",
         "schema": "",
         "definitions": [],
@@ -1772,7 +1772,7 @@
     {
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-allowed-character-unit",
-        "warning": true,
+        "warning": false,
         "description": "Allowed character properly works on units.",
         "schema": "",
         "definitions": [],
@@ -1845,7 +1845,7 @@
     {
         "error_code": "SCHEMA_CHARACTER_INVALID",
         "name": "schema-character-invalid-description",
-        "warning": true,
+        "warning": false,
         "description": "Description does not contain banned characters.",
         "schema": "",
         "definitions": [],
@@ -1909,7 +1909,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-attribute-invalid",
-        "warning": true,
+        "warning": false,
         "description": "A schema attribute issue, saying there is an unhandled deprecated attribute.",
         "schema": "",
         "error_category": "schema_development",
@@ -2016,7 +2016,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-invalid-child",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, saying there is an invalid child of a deprecated node",
         "schema": "",
         "definitions": [],
@@ -2079,7 +2079,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-default-unit",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, deprecated default units",
         "schema": "",
         "definitions": [],
@@ -2148,7 +2148,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-unit-class",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, deprecated value or unit class",
         "schema": "",
         "definitions": [],
@@ -2200,7 +2200,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-value-class",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, deprecated value or unit class",
         "schema": "",
         "definitions": [],
@@ -2250,7 +2250,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-invalid-suggested-related-tag",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, saying a related or suggested tag points to a deprecated tag",
         "schema": "",
         "definitions": [],
@@ -2368,7 +2368,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-deprecated-attribute",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, an attribute of an element is deprecated",
         "schema": "",
         "definitions": [],
@@ -2546,7 +2546,7 @@
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
         "name": "schema-deprecated-deprecated-property",
-        "warning": true,
+        "warning": false,
         "description": "A schema deprecation issue, a property of an attribute is is deprecated",
         "schema": "",
         "definitions": [],
@@ -2594,7 +2594,7 @@
     {
         "error_code": "SCHEMA_DUPLICATE_NODE",
         "name": "attribute-duplicate-node",
-        "warning": true,
+        "warning": false,
         "description": "A schema attribute issue, saying there is a duplicate node.",
         "schema": "",
         "error_category": "schema_development",
@@ -2779,7 +2779,7 @@
     {
         "error_code": "SCHEMA_DUPLICATE_NODE",
         "name": "attribute-duplicate-node-unit",
-        "warning": true,
+        "warning": false,
         "description": "A schema has duplicate unit entries with case-insensitive name collision.",
         "schema": "",
         "definitions": [],
@@ -2835,7 +2835,7 @@
     {
         "error_code": "SCHEMA_HEADER_INVALID",
         "name": "schema-header-malformed-attribute",
-        "warning": true,
+        "warning": false,
         "description": "A schema header contains a malformed or unknown attribute.",
         "schema": "",
         "error_category": "schema_development",
@@ -2926,7 +2926,7 @@
     {
         "error_code": "SCHEMA_HEADER_INVALID",
         "name": "schema-header-unknown-attribute",
-        "warning": true,
+        "warning": false,
         "description": "An unknown attribute was found in the schema header.",
         "schema": "",
         "definitions": [],
@@ -2970,7 +2970,7 @@
     {
         "error_code": "SCHEMA_HEADER_INVALID",
         "name": "schema-header-unmerged-value-variants",
-        "warning": true,
+        "warning": false,
         "description": "The unmerged header attribute value is case-insensitive, and unmerged=\"false\" is equivalent to omitting the attribute (the schema is merged).",
         "schema": "",
         "error_category": "schema_development",
@@ -3061,7 +3061,7 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-bad-name",
-        "warning": true,
+        "warning": false,
         "description": "A schema library issue, indicating the name is invalid.",
         "schema": "",
         "error_category": "schema_development",
@@ -3112,7 +3112,7 @@
             "Ensure rooted elements match standard schema",
             "Validate library-specific attribute usage"
         ],
-        "specification_reference": "7. Library schemas",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (a); 7.4.1. General design rules",
         "related_errors": [
             "SCHEMA_HEADER_INVALID",
             "SCHEMA_ATTRIBUTE_INVALID"
@@ -3182,9 +3182,10 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-bad_with-standard",
-        "warning": true,
+        "warning": false,
         "description": "A schema library issue, the with-standard attribute is present without the library attribute.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (b); 3.1.2.1. Partnered vs unpartnered",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3237,9 +3238,10 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-bad_with-standard-version",
-        "warning": true,
+        "warning": false,
         "description": "A schema library issue, indicating it references a version of the standard that can't be found.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (c); 3.1.2.1. Partnered vs unpartnered",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3292,9 +3294,10 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-rooted-present",
-        "warning": true,
+        "warning": false,
         "description": "A schema library issue, indicating the rooted property appears in a file it shouldn't.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (d); 7.3.4. Partnered attributes",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3352,9 +3355,10 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-rooted-not-top-level",
-        "warning": true,
+        "warning": false,
         "description": "A schema library issue, indicating a node is being rooted that is not a top level node.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (e); 7.3.4. Partnered attributes",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3397,9 +3401,10 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-rooted-not-in-base",
-        "warning": true,
+        "warning": false,
         "description": "A schema library issue, rooted tag does not exist.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (f); 7.3.4. Partnered attributes",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3455,10 +3460,11 @@
     },
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
-        "name": "library-invalid-rooted-in-library-present",
-        "warning": true,
+        "name": "library-invalid-inlibrary-in-unmerged",
+        "warning": false,
         "description": "A schema library issue, indicating the InLibrary attribute appears when it shouldn't.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (g); 3.1.2.2. Merged vs unmerged",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3501,10 +3507,11 @@
     },
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
-        "name": "library-invalid-rooted-in-duplicate-other",
-        "warning": true,
+        "name": "library-invalid-duplicate-unit",
+        "warning": false,
         "description": "A library schema defines elements that duplicate entries already in the base standard schema.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (i); 7.4.3. Partnered design rules",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3552,9 +3559,10 @@
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-duplicate-standard-tag",
-        "warning": true,
+        "warning": false,
         "description": "An unmerged library schema declares a tag whose name already exists in its standard schema partner.",
         "schema": "",
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (i); 7.4.3. Partnered design rules",
         "definitions": [],
         "tests": {
             "schema_tests": {
@@ -3602,6 +3610,626 @@
                         "'''Value classes'''",
                         "'''Schema attributes'''",
                         "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-duplicate-value-class",
+        "warning": false,
+        "description": "An unmerged partnered library schema declares a value class whose name already exists in its standard schema partner.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Copying a value class from the standard schema into the library instead of relying on the partner",
+            "Reusing a standard value class name for a library-specific value format"
+        ],
+        "explanation": "An unmerged partnered library schema may not declare a schema element (tag, unit, unit class, unit modifier, value class, or schema attribute) with the same name as an element of its standard schema partner. The value class nameClass already exists in the standard schema, so declaring it in the library is a duplication. The standard schema's value classes are available to the library automatically through the partnering.",
+        "correction_strategy": "Remove the duplicated value class from the library, or give the library's value class a new name if it is genuinely different.",
+        "correction_examples": [
+            {
+                "wrong": "* nameClass",
+                "correct": "* auxClass <nowiki>{allowedCharacter=letters}</nowiki>",
+                "explanation": "nameClass duplicates a standard schema value class; a new name that does not exist in the partner is merged directly."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (i); 7.4.3. Partnered design rules",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "* nameClass",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "* auxClass <nowiki>{allowedCharacter=letters}</nowiki>",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-duplicate-schema-attribute",
+        "warning": false,
+        "description": "An unmerged partnered library schema declares a schema attribute whose name already exists in its standard schema partner.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Copying a schema attribute from the standard schema into the library instead of relying on the partner",
+            "Reusing a standard schema attribute name for a library-specific attribute"
+        ],
+        "explanation": "An unmerged partnered library schema may not declare a schema element (tag, unit, unit class, unit modifier, value class, or schema attribute) with the same name as an element of its standard schema partner. The schema attribute suggestedTag already exists in the standard schema, so declaring it in the library is a duplication. The standard schema's attributes are available to the library automatically through the partnering.",
+        "correction_strategy": "Remove the duplicated schema attribute from the library, or give the library's attribute a new name if it is genuinely different.",
+        "correction_examples": [
+            {
+                "wrong": "* suggestedTag",
+                "correct": "* auxAttribute <nowiki>{boolProperty}</nowiki>",
+                "explanation": "suggestedTag duplicates a standard schema attribute; a new attribute name that does not exist in the partner is merged directly."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (i); 7.4.3. Partnered design rules",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* suggestedTag",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* auxAttribute <nowiki>{boolProperty}</nowiki>",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-duplicate-unit-modifier",
+        "warning": false,
+        "description": "An unmerged partnered library schema declares a unit modifier whose name already exists in its standard schema partner.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Copying a unit modifier from the standard schema into the library instead of relying on the partner",
+            "Reusing a standard unit modifier name for a library-specific scale factor"
+        ],
+        "explanation": "An unmerged partnered library schema may not declare a schema element (tag, unit, unit class, unit modifier, value class, or schema attribute) with the same name as an element of its standard schema partner. The unit modifier deca already exists in the standard schema, so declaring it in the library is a duplication. The standard schema's unit modifiers are available to the library automatically through the partnering.",
+        "correction_strategy": "Remove the duplicated unit modifier from the library, or give the library's unit modifier a new name if it is genuinely different.",
+        "correction_examples": [
+            {
+                "wrong": "* deca",
+                "correct": "* auxMod <nowiki>{SIUnitModifier, conversionFactor=100.0}</nowiki>",
+                "explanation": "deca duplicates a standard schema unit modifier; a new modifier name that does not exist in the partner is merged directly."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (i); 7.4.3. Partnered design rules",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "* deca",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "* auxMod <nowiki>{SIUnitModifier, conversionFactor=100.0}</nowiki>",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-rooted-in-unpartnered",
+        "warning": false,
+        "description": "The rooted attribute appears in an unpartnered library schema, whose header has no withStandard attribute.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Using the rooted attribute in a library that is not partnered with a standard schema",
+            "Forgetting the withStandard header attribute when designing a partnered library"
+        ],
+        "explanation": "The rooted attribute anchors a library node under a node of the standard schema partner, so it is only meaningful in a schema whose header has both the library and withStandard attributes. This library schema has the library attribute but no withStandard attribute (it is unpartnered), so there is no partner to root into and the rooted attribute is invalid.",
+        "correction_strategy": "Either partner the library by adding withStandard to the header, or remove the rooted attribute from the node.",
+        "correction_examples": [
+            {
+                "wrong": "HED version=\"1.0.0\" library=\"testconflict\" with '''NewTag''' {rooted=Event}",
+                "correct": "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\" with '''NewTag''' {rooted=Event}",
+                "explanation": "With a withStandard partner in the header the rooted attribute has a standard schema to anchor into."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (d); 7.3.4. Partnered attributes",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-unpartnered-properties-allowed",
+        "warning": false,
+        "description": "An unpartnered library schema may declare its own schema attributes and a non-empty Properties section.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Applying the empty-Properties rule for unmerged partnered libraries to unpartnered libraries as well"
+        ],
+        "explanation": "The rule that a Properties section must be empty applies only to unmerged partnered library schemas, which get their properties from the standard schema partner. An unpartnered library schema is self-contained: it must declare the schema attributes its tags use and the properties that describe those attributes, so a non-empty Properties section is valid and required here.",
+        "correction_strategy": "No correction needed; validators must accept schema attributes and properties declared in an unpartnered library schema.",
+        "correction_examples": [
+            {
+                "wrong": "Rejecting a Properties section in an unpartnered library schema",
+                "correct": "Reject a non-empty Properties section only in an unmerged partnered library schema",
+                "explanation": "Only partnered libraries inherit properties from a standard schema partner; unpartnered libraries must define their own."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (j); 7.4.2. Unpartnered design rules",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag'''",
+                        "* <nowiki># {takesValue}</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* suggestedTag",
+                        "* takesValue <nowiki>{boolProperty}</nowiki>",
+                        "'''Properties'''",
+                        "* boolProperty",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-properties-in-unmerged",
+        "warning": false,
+        "description": "An unmerged partnered library schema has a non-empty Properties section.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Copying the standard schema's Properties section into an unmerged partnered library",
+            "Confusing the unmerged partnered form with the self-contained unpartnered form, which must declare its own properties"
+        ],
+        "explanation": "An unmerged partnered library schema never defines schema properties: its Properties section must be empty, because the properties come from the standard schema partner when the schema is loaded. Declaring any property in the unmerged form - even one copied verbatim from the partner - is invalid. (An unpartnered library, by contrast, must declare its own properties; see library-invalid-unpartnered-properties-allowed.)",
+        "correction_strategy": "Empty the Properties section of the unmerged partnered library; the standard schema partner supplies the properties.",
+        "correction_examples": [
+            {
+                "wrong": "'''Properties''' section containing * boolProperty",
+                "correct": "'''Properties''' section with no content",
+                "explanation": "The unmerged partnered form leaves the section empty; the properties come from the standard schema partner."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (j); 7.4.3. Partnered design rules",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "* boolProperty",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-merged-rooted-not-under-anchor",
+        "warning": false,
+        "description": "In a merged library schema, a node with rooted=XXX must be a direct child of XXX.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Editing a merged schema by hand and moving a rooted subtree to the top level",
+            "Saving a schema with a merged header (no unmerged attribute) without applying the rooted anchoring"
+        ],
+        "explanation": "The rooted attribute records where a library subtree is anchored in the standard schema. In unmerged form the rooted node must be at the top level; in merged form the anchoring has been applied, so a node with rooted=Event must appear as a direct child of Event. Here Rooted-tag carries rooted=Event but sits at the top level of a merged schema, so its placement contradicts the attribute. The passing schema places the same node directly under Event. (A merged schema carries its partner's Properties section verbatim; these fixtures include the 8.4.0 properties for that reason.)",
+        "correction_strategy": "Place the rooted node directly under its anchor node in the merged form, or save the schema in unmerged form (unmerged=\"True\") with the rooted node at the top level.",
+        "correction_examples": [
+            {
+                "wrong": "Top-level '''Rooted-tag''' {rooted=Event, inLibrary=testconflict} in a merged schema",
+                "correct": "'''Event''' with child * Rooted-tag {rooted=Event, inLibrary=testconflict}",
+                "explanation": "In merged form the rooted node has already been moved under its anchor, so it must appear as a direct child of Event."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (e); 7.3.4. Partnered attributes",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Rooted-tag''' <nowiki>{rooted=Event, inLibrary=testconflict}[A library subtree rooted under Event.]</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[The value is not inherited by child nodes.]</nowiki>",
+                        "* boolRange <nowiki>[This schema attribute's value can be true or false. This property was formerly named boolProperty.]</nowiki>",
+                        "* elementDomain <nowiki>[This schema attribute can apply to any type of element class (i.e., tag, unit, unit class, unit modifier, or value class). This property was formerly named elementProperty.]</nowiki>",
+                        "* tagDomain <nowiki>[This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.]</nowiki>",
+                        "* tagRange <nowiki>[This schema attribute's value can be a node. This property was formerly named nodeProperty.]</nowiki>",
+                        "* numericRange <nowiki>[This schema attribute's value can be numeric.]</nowiki>",
+                        "* stringRange <nowiki>[This schema attribute's value can be a string.]</nowiki>",
+                        "* unitClassDomain <nowiki>[This schema attribute can apply to unit classes. This property was formerly named unitClassProperty.]</nowiki>",
+                        "* unitClassRange <nowiki>[This schema attribute's value can be a unit class.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[This schema attribute can apply to unit modifiers. This property was formerly named unitModifierProperty.]</nowiki>",
+                        "* unitDomain <nowiki>[This schema attribute can apply to units. This property was formerly named unitProperty.]</nowiki>",
+                        "* unitRange <nowiki>[This schema attribute's value can be units.]</nowiki>",
+                        "* valueClassDomain <nowiki>[This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>",
+                        "* valueClassRange <nowiki>[This schema attribute's value can be a value class.]</nowiki>",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Event''' <nowiki>[Something that happens at a given place and time.]</nowiki>",
+                        "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict}[A library subtree rooted under Event.]</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[The value is not inherited by child nodes.]</nowiki>",
+                        "* boolRange <nowiki>[This schema attribute's value can be true or false. This property was formerly named boolProperty.]</nowiki>",
+                        "* elementDomain <nowiki>[This schema attribute can apply to any type of element class (i.e., tag, unit, unit class, unit modifier, or value class). This property was formerly named elementProperty.]</nowiki>",
+                        "* tagDomain <nowiki>[This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.]</nowiki>",
+                        "* tagRange <nowiki>[This schema attribute's value can be a node. This property was formerly named nodeProperty.]</nowiki>",
+                        "* numericRange <nowiki>[This schema attribute's value can be numeric.]</nowiki>",
+                        "* stringRange <nowiki>[This schema attribute's value can be a string.]</nowiki>",
+                        "* unitClassDomain <nowiki>[This schema attribute can apply to unit classes. This property was formerly named unitClassProperty.]</nowiki>",
+                        "* unitClassRange <nowiki>[This schema attribute's value can be a unit class.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[This schema attribute can apply to unit modifiers. This property was formerly named unitModifierProperty.]</nowiki>",
+                        "* unitDomain <nowiki>[This schema attribute can apply to units. This property was formerly named unitProperty.]</nowiki>",
+                        "* unitRange <nowiki>[This schema attribute's value can be units.]</nowiki>",
+                        "* valueClassDomain <nowiki>[This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>",
+                        "* valueClassRange <nowiki>[This schema attribute's value can be a value class.]</nowiki>",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-merged-properties-mismatch",
+        "warning": false,
+        "description": "A merged partnered library schema's Properties section must be identical to that of its standard schema partner.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Editing a property description by hand in the merged file",
+            "Merging against a different standard schema version than the withStandard partner"
+        ],
+        "explanation": "Library schemas never define schema properties, so the Properties section of a merged partnered library schema is exactly the Properties section of its standard schema partner. Here the description of the boolRange property differs from the 8.4.0 partner's text (the sentence about its former name is missing), so the Properties section differs from the partner and the schema is invalid. The passing schema carries the partner's Properties verbatim.",
+        "correction_strategy": "Regenerate the merged form from the unmerged source with schema tools instead of editing it by hand; the Properties section must be the partner's, unchanged.",
+        "correction_examples": [
+            {
+                "wrong": "* boolRange <nowiki>[This schema attribute's value can be true or false.]</nowiki>",
+                "correct": "* boolRange <nowiki>[This schema attribute's value can be true or false. This property was formerly named boolProperty.]</nowiki>",
+                "explanation": "The merged form must reproduce the partner's property descriptions exactly."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (k); 7.3.3. Merged vs unmerged",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Event''' <nowiki>[Something that happens at a given place and time.]</nowiki>",
+                        "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict}[A library subtree rooted under Event.]</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[The value is not inherited by child nodes.]</nowiki>",
+                        "* boolRange <nowiki>[This schema attribute's value can be true or false.]</nowiki>",
+                        "* elementDomain <nowiki>[This schema attribute can apply to any type of element class (i.e., tag, unit, unit class, unit modifier, or value class). This property was formerly named elementProperty.]</nowiki>",
+                        "* tagDomain <nowiki>[This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.]</nowiki>",
+                        "* tagRange <nowiki>[This schema attribute's value can be a node. This property was formerly named nodeProperty.]</nowiki>",
+                        "* numericRange <nowiki>[This schema attribute's value can be numeric.]</nowiki>",
+                        "* stringRange <nowiki>[This schema attribute's value can be a string.]</nowiki>",
+                        "* unitClassDomain <nowiki>[This schema attribute can apply to unit classes. This property was formerly named unitClassProperty.]</nowiki>",
+                        "* unitClassRange <nowiki>[This schema attribute's value can be a unit class.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[This schema attribute can apply to unit modifiers. This property was formerly named unitModifierProperty.]</nowiki>",
+                        "* unitDomain <nowiki>[This schema attribute can apply to units. This property was formerly named unitProperty.]</nowiki>",
+                        "* unitRange <nowiki>[This schema attribute's value can be units.]</nowiki>",
+                        "* valueClassDomain <nowiki>[This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>",
+                        "* valueClassRange <nowiki>[This schema attribute's value can be a value class.]</nowiki>",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Event''' <nowiki>[Something that happens at a given place and time.]</nowiki>",
+                        "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict}[A library subtree rooted under Event.]</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[The value is not inherited by child nodes.]</nowiki>",
+                        "* boolRange <nowiki>[This schema attribute's value can be true or false. This property was formerly named boolProperty.]</nowiki>",
+                        "* elementDomain <nowiki>[This schema attribute can apply to any type of element class (i.e., tag, unit, unit class, unit modifier, or value class). This property was formerly named elementProperty.]</nowiki>",
+                        "* tagDomain <nowiki>[This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.]</nowiki>",
+                        "* tagRange <nowiki>[This schema attribute's value can be a node. This property was formerly named nodeProperty.]</nowiki>",
+                        "* numericRange <nowiki>[This schema attribute's value can be numeric.]</nowiki>",
+                        "* stringRange <nowiki>[This schema attribute's value can be a string.]</nowiki>",
+                        "* unitClassDomain <nowiki>[This schema attribute can apply to unit classes. This property was formerly named unitClassProperty.]</nowiki>",
+                        "* unitClassRange <nowiki>[This schema attribute's value can be a unit class.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[This schema attribute can apply to unit modifiers. This property was formerly named unitModifierProperty.]</nowiki>",
+                        "* unitDomain <nowiki>[This schema attribute can apply to units. This property was formerly named unitProperty.]</nowiki>",
+                        "* unitRange <nowiki>[This schema attribute's value can be units.]</nowiki>",
+                        "* valueClassDomain <nowiki>[This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>",
+                        "* valueClassRange <nowiki>[This schema attribute's value can be a value class.]</nowiki>",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-reserved-in-unmerged",
+        "warning": false,
+        "description": "The reserved attribute cannot be used in an unmerged partnered library schema.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Marking a partnered library node reserved instead of proposing the reserved tag for the standard schema",
+            "Copying a reserved node from the standard schema into a library"
+        ],
+        "explanation": "The reserved attribute marks nodes with special meaning or function and can appear only in standard schemas or unpartnered library schemas. An unmerged partnered library schema may not use it. The passing companion is an unpartnered library, which is self-contained and may declare the reserved schema attribute and use it on its own nodes.",
+        "correction_strategy": "Remove the reserved attribute from the partnered library node; reserved tags belong to the standard schema or to a self-contained unpartnered library.",
+        "correction_examples": [
+            {
+                "wrong": "'''NewTag''' <nowiki>{reserved}</nowiki> in an unmerged partnered library",
+                "correct": "'''NewTag'''",
+                "explanation": "A partnered library node cannot be reserved; drop the attribute or move the tag to the standard schema."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (l); 7.3.4. Partnered attributes",
+        "related_errors": [
+            "SCHEMA_LOAD_FAILED",
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' <nowiki>{reserved}</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' <nowiki>{reserved}</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* reserved <nowiki>{boolProperty}</nowiki>",
+                        "'''Properties'''",
+                        "* boolProperty",
                         "'''Epilogue'''",
                         "!# end hed"
                     ]
@@ -4236,7 +4864,7 @@
     {
         "error_code": "SCHEMA_SECTION_MISSING",
         "name": "schema-section-missing",
-        "warning": true,
+        "warning": false,
         "description": "A required schema section is missing from the schema file.",
         "schema": "",
         "error_category": "schema_development",
