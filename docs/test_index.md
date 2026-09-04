@@ -2151,7 +2151,7 @@ Complete index of 189 test cases in the HED test suite.
 
 ### units-invalid-compound-units (correction guidance) (examples)
 
-**Description**: A compound unit such as m-per-s takes an SI modifier on each of its components; a modifier applied to the whole string, or a misspelled or mis-cased component, is invalid.
+**Description**: A compound unit such as m-per-s takes an SI modifier on each of its components; a modifier applied to the whole string, or a misspelled or wrongly cased component, is invalid.
 
 **Schema**: 8.4.0 **Category**: validation
 

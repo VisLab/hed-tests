@@ -795,7 +795,7 @@
         "error_code": "UNITS_INVALID",
         "alt_codes": [],
         "name": "units-invalid-compound-units",
-        "description": "A compound unit such as m-per-s takes an SI modifier on each of its components; a modifier applied to the whole string, or a misspelled or mis-cased component, is invalid.",
+        "description": "A compound unit such as m-per-s takes an SI modifier on each of its components; a modifier applied to the whole string, or a misspelled or wrongly cased component, is invalid.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "validation",
