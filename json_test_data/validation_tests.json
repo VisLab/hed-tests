@@ -15414,6 +15414,214 @@
     },
     {
         "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [],
+        "name": "temporal-tag-error-delay-not-convertible",
+        "description": "A Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be computed. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Using a calendar unit such as month or year for a Delay",
+            "Assuming every unit in a unit class converts to the default unit",
+            "Not noticing that a unit lacks a conversionFactor in the schema"
+        ],
+        "explanation": "A Delay is added to the row's onset to place its inner group in time. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
+        "correction_strategy": "Express the Delay in a unit that has a conversionFactor (s, ms, minute, hour, day)",
+        "correction_examples": [
+            {
+                "wrong": "(Delay/3 month, (Red))",
+                "correct": "(Delay/90 day, (Red))",
+                "explanation": "Replaced month, which has no conversionFactor, with day, which converts to seconds"
+            },
+            {
+                "wrong": "(Delay/1 year, (Green))",
+                "correct": "(Delay/365 day, (Green))",
+                "explanation": "Replaced year with an equivalent count of days"
+            }
+        ],
+        "correction_patterns": [
+            "Use only units with a conversionFactor in Delay values",
+            "Check the schema unit class listing when an unusual unit is needed",
+            "Prefer s or ms for delays in event files"
+        ],
+        "fix_instructions": [
+            "1. Find the Delay tag reported on the row",
+            "2. Look up its unit in the schema and confirm it has no conversionFactor",
+            "3. Rewrite the value in a unit that has one (s, ms, minute, hour, day)",
+            "4. Revalidate the events file"
+        ],
+        "validation_hints": [
+            "Only applies to files with an onset column, where the delayed onset is computed",
+            "Report on the row that holds the Delay; validate the rest of the file normally",
+            "The unit itself is valid, so UNITS_INVALID is not the right code"
+        ],
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.3 Duration and Delay",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 month, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Blue"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Blue"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Delay/1 year, (Green))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Delay/300 ms, (Green))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2 minutes, (Blue))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/1 day, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Delay/2 hours, (Green))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Delay/3 month, (Red))",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Delay/3 s, (Red))",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [
             "TAG_GROUP_ERROR"
         ],
