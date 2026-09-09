@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 190 test cases in the HED test suite.
+Complete index of 191 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -34,7 +34,7 @@ Complete index of 190 test cases in the HED test suite.
 - [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (3 tests)
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (1 test)
-- [TEMPORAL_TAG_ERROR](#temporal-tag-error) (25 tests)
+- [TEMPORAL_TAG_ERROR](#temporal-tag-error) (26 tests)
 - [UNITS_INVALID](#units-invalid) (5 tests)
 - [VALUE_INVALID](#value-invalid) (4 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
@@ -1860,7 +1860,7 @@ Complete index of 190 test cases in the HED test suite.
 
 ### temporal-tag-error-delay-not-convertible (correction guidance) (examples)
 
-**Description**: A Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be computed. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.
+**Description**: In a timeline file (a tabular file with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a non-timeline file (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.
 
 **Schema**: 8.4.0 **Category**: temporal
 
@@ -1900,6 +1900,17 @@ Complete index of 190 test cases in the HED test suite.
 - `string_tests`: 3 fail, 3 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 0 fail, 1 pass
+
+### temporal-tag-error-duration-not-convertible (correction guidance) (examples)
+
+**Description**: In a timeline file (a tabular file with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a non-timeline file such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.
+
+**Schema**: 8.4.0 **Category**: temporal
+
+**Tests**:
+
+- `event_tests`: 3 fail, 2 pass
+- `combo_tests`: 1 fail, 2 pass
 
 ### temporal-tag-error-extra tags (correction guidance) (examples)
 
