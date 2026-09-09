@@ -10,6 +10,7 @@
 - Re-described same-library-two-incompatible-versions: the pair fails on the version rule alone, never on element comparison (spec 7.3.6.5)
 - Added SCHEMA_LIBRARY_INVALID cases for the remaining reasons: non-empty Properties in an unmerged partnered library (j), merged-form rooted node not under its anchor (e), merged-form Properties mismatch with the partner (k), and reserved in an unmerged partnered library (l)
 - Fixture fixes: partnered fixtures and the testaux/testclash schemas now use the real 8.4.0/8.5.0 property name boolRange instead of boolProperty, and the merged-form fixtures define the rooted and inLibrary attributes they use (unpartnered self-contained fixtures keep their own boolProperty declarations)
+- Refreshed the vendored 8.5.0 prerelease snapshot (test_schemas/hedxml/HED8.5.0.xml) from hed-schemas and regenerated the 24 merged 8.5.0-partnered test libraries; the old snapshot still listed uV beside V, which 8.5.0 forbids
 
 # Initial repository creation January 23, 2026
 
