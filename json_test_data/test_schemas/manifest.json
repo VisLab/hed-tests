@@ -110,7 +110,7 @@
             "file": "hedxml/HED8.5.0.xml",
             "source_repository": "https://github.com/hed-standard/hed-schemas",
             "source_path": "standard_schema/prerelease/HED8.5.0.xml",
-            "source_commit": "5cd07c3d81620ddb41e243dab0efe59fb9891114",
+            "source_commit": "99b2ef08fa0942d349dfeb2497303885518415bc",
             "released": false
         },
         {

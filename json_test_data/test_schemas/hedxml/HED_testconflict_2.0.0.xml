@@ -1370,6 +1370,10 @@
                </attribute>
             </node>
             <node>
+               <name>Consume</name>
+               <description>Take a substance into the body by eating or drinking.</description>
+            </node>
+            <node>
                <name>Halt</name>
                <description>Bring or come to an abrupt stop.</description>
                <attribute>
@@ -7489,7 +7493,7 @@
             </node>
             <node>
                <name>ID</name>
-               <description>An alphanumeric name that identifies either a unique object or a unique class of objects. Here the object or class may be an idea, physical countable object (or class), or physical uncountable substance (or class).</description>
+               <description>A text string that identifies either a unique object or a unique class of objects. Here the object or class may be an idea, physical countable object (or class), or physical uncountable substance (or class).</description>
                <attribute>
                   <name>hedId</name>
                   <value>HED_0012758</value>
@@ -10334,6 +10338,14 @@
                   </attribute>
                </node>
                <node>
+                  <name>Cued</name>
+                  <description>An action performed in response to an explicit external signal indicating that the action should occur or when it should occur.</description>
+                  <attribute>
+                     <name>relatedTag</name>
+                     <value>Uncued</value>
+                  </attribute>
+               </node>
+               <node>
                   <name>Done-indication</name>
                   <description>An action that indicates that the participant has completed this step in the task.</description>
                   <attribute>
@@ -10435,6 +10447,14 @@
                   <attribute>
                      <name>hedId</name>
                      <value>HED_0013075</value>
+                  </attribute>
+               </node>
+               <node>
+                  <name>Uncued</name>
+                  <description>An action initiated by the agent without an explicit external signal indicating that the action should occur or when it should occur.</description>
+                  <attribute>
+                     <name>relatedTag</name>
+                     <value>Cued</value>
                   </attribute>
                </node>
             </node>
@@ -11593,6 +11613,7 @@
    <unitClassDefinitions>
       <unitClassDefinition>
          <name>accelerationUnits</name>
+         <description>Units of acceleration, for example the acceleration of a limb or head measured by an accelerometer.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>m-per-s^2</value>
@@ -11625,6 +11646,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>angleUnits</name>
+         <description>Units of plane angle, for example visual angle or joint rotation.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>radian</value>
@@ -11678,6 +11700,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>areaUnits</name>
+         <description>Units of area, for example the size of a stimulus region or a surface on a display.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>m^2</value>
@@ -11709,11 +11732,74 @@
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
+         <name>chargeUnits</name>
+         <description>Units of electric charge, for example the charge per phase delivered by electrical stimulation.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>C</value>
+         </attribute>
+         <unit>
+            <name>coulomb</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>C</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
+         <name>concentrationUnits</name>
+         <description>Units of molar concentration (amount of substance per unit volume).</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>mol-per-L</value>
+         </attribute>
+         <unit>
+            <name>molar</name>
+            <description>One mole per liter.</description>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>mol-per-L</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
          <name>currencyUnits</name>
          <description>Units indicating the worth of something.</description>
          <attribute>
             <name>defaultUnits</name>
-            <value>$</value>
+            <value>dollar</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -11732,6 +11818,11 @@
          </unit>
          <unit>
             <name>$</name>
+            <description>Prefix units are no longer supported. Use dollar.</description>
+            <attribute>
+               <name>deprecatedFrom</name>
+               <value>8.4.0</value>
+            </attribute>
             <attribute>
                <name>unitPrefix</name>
             </attribute>
@@ -11769,7 +11860,39 @@
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
+         <name>currentUnits</name>
+         <description>Units of electric current, for example the current delivered by electrical stimulation.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>mA</value>
+         </attribute>
+         <unit>
+            <name>ampere</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>A</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
          <name>electricPotentialUnits</name>
+         <description>Units of electric potential, for example EEG and other electrophysiological signal amplitudes.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>uV</value>
@@ -11788,23 +11911,11 @@
             </attribute>
             <attribute>
                <name>conversionFactor</name>
-               <value>0.000001</value>
+               <value>1000000</value>
             </attribute>
             <attribute>
                <name>hedId</name>
                <value>HED_0011609</value>
-            </attribute>
-         </unit>
-         <unit>
-            <name>uV</name>
-            <description>Added as a direct unit because it is the default unit.</description>
-            <attribute>
-               <name>conversionFactor</name>
-               <value>1.0</value>
-            </attribute>
-            <attribute>
-               <name>hedId</name>
-               <value>HED_0011644</value>
             </attribute>
          </unit>
          <unit>
@@ -11814,7 +11925,7 @@
             </attribute>
             <attribute>
                <name>conversionFactor</name>
-               <value>0.000001</value>
+               <value>1000000</value>
             </attribute>
             <attribute>
                <name>hedId</name>
@@ -11823,7 +11934,81 @@
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
+         <name>energyUnits</name>
+         <description>Units of energy, for example the energy of a stimulation pulse or metabolic energy.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>J</value>
+         </attribute>
+         <unit>
+            <name>joule</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>J</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>calorie</name>
+            <description>Thermochemical calorie. Use the kilo modifier for dietary kilocalories.</description>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>4.184</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
+         <name>forceUnits</name>
+         <description>Units of force, for example grip force or the reading of a force plate.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>N</value>
+         </attribute>
+         <unit>
+            <name>newton</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>N</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
          <name>frequencyUnits</name>
+         <description>Units of frequency, for example sampling rates, flicker rates, and tone frequencies.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>Hz</value>
@@ -11866,6 +12051,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>intensityUnits</name>
+         <description>Units of intensity expressed as a ratio to a reference level, for example sound pressure level in dB, together with candela for luminous intensity.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>dB</value>
@@ -11917,6 +12103,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>jerkUnits</name>
+         <description>Units of jerk, the rate of change of acceleration, for example in measures of movement smoothness.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>m-per-s^3</value>
@@ -11927,6 +12114,9 @@
          </attribute>
          <unit>
             <name>m-per-s^3</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
             <attribute>
                <name>unitSymbol</name>
             </attribute>
@@ -11946,6 +12136,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>magneticFieldUnits</name>
+         <description>Units of magnetic flux density, for example MEG signal amplitudes and MRI field strength.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>T</value>
@@ -11961,7 +12152,7 @@
             </attribute>
             <attribute>
                <name>conversionFactor</name>
-               <value>10e-15</value>
+               <value>1.0</value>
             </attribute>
             <attribute>
                <name>hedId</name>
@@ -11978,7 +12169,7 @@
             </attribute>
             <attribute>
                <name>conversionFactor</name>
-               <value>10e-15</value>
+               <value>1.0</value>
             </attribute>
             <attribute>
                <name>hedId</name>
@@ -11988,6 +12179,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>memorySizeUnits</name>
+         <description>Units of digital storage size, for example the size of a data file. Byte is treated as an SI unit for prefix purposes although it is not part of the SI.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>B</value>
@@ -12030,6 +12222,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>physicalLengthUnits</name>
+         <description>Units of length, for example distances, positions, and sizes of objects or stimuli.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>m</value>
@@ -12118,7 +12311,113 @@
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
+         <name>powerUnits</name>
+         <description>Units of power, for example the output of an optogenetic light source or ultrasound transducer.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>mW</value>
+         </attribute>
+         <unit>
+            <name>watt</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>W</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
+         <name>pressureUnits</name>
+         <description>Units of pressure, for example blood pressure or the pressure of a tactile or pneumatic stimulus.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>Pa</value>
+         </attribute>
+         <unit>
+            <name>pascal</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>Pa</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>mmHg</name>
+            <description>Millimeters of mercury, the conventional unit for blood pressure and intracranial pressure.</description>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>133.322</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
+         <name>resistanceUnits</name>
+         <description>Units of electrical resistance or impedance, for example electrode impedance.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>kOhm</value>
+         </attribute>
+         <unit>
+            <name>ohm</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>0.001</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>Ohm</name>
+            <description>ASCII spelling of the ohm symbol.</description>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>0.001</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+      <unitClassDefinition>
          <name>speedUnits</name>
+         <description>Units of speed, for example the speed of a moving stimulus or of a participant.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>m-per-s</value>
@@ -12175,6 +12474,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>temperatureUnits</name>
+         <description>Units of temperature, for example ambient or skin temperature.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>degree-Celsius</value>
@@ -12236,6 +12536,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>timeUnits</name>
+         <description>Units of time, for example durations, delays, and intervals between events.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>s</value>
@@ -12287,6 +12588,13 @@
             </attribute>
          </unit>
          <unit>
+            <name>week</name>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>604800</value>
+            </attribute>
+         </unit>
+         <unit>
             <name>month</name>
             <attribute>
                <name>hedId</name>
@@ -12327,6 +12635,7 @@
       </unitClassDefinition>
       <unitClassDefinition>
          <name>volumeUnits</name>
+         <description>Units of volume, for example the amount of liquid reward delivered or the volume of an infusion.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>m^3</value>
@@ -12356,9 +12665,43 @@
                <value>HED_0011639</value>
             </attribute>
          </unit>
+         <unit>
+            <name>liter</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>0.001</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>litre</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>0.001</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>L</name>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>unitSymbol</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>0.001</value>
+            </attribute>
+         </unit>
       </unitClassDefinition>
       <unitClassDefinition>
          <name>weightUnits</name>
+         <description>Units of mass, for example body weight or the mass of a delivered substance.</description>
          <attribute>
             <name>defaultUnits</name>
             <value>g</value>
@@ -12425,7 +12768,7 @@
    <unitModifierDefinitions>
       <unitModifierDefinition>
          <name>deca</name>
-         <description>SI unit multiple representing 10e1.</description>
+         <description>SI unit multiple representing 10^1.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
@@ -12440,7 +12783,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>da</name>
-         <description>SI unit multiple representing 10e1.</description>
+         <description>SI unit multiple representing 10^1.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
@@ -12455,7 +12798,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>hecto</name>
-         <description>SI unit multiple representing 10e2.</description>
+         <description>SI unit multiple representing 10^2.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
@@ -12470,7 +12813,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>h</name>
-         <description>SI unit multiple representing 10e2.</description>
+         <description>SI unit multiple representing 10^2.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
@@ -12485,7 +12828,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>kilo</name>
-         <description>SI unit multiple representing 10e3.</description>
+         <description>SI unit multiple representing 10^3.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
@@ -12500,7 +12843,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>k</name>
-         <description>SI unit multiple representing 10e3.</description>
+         <description>SI unit multiple representing 10^3.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
@@ -12515,13 +12858,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>mega</name>
-         <description>SI unit multiple representing 10e6.</description>
+         <description>SI unit multiple representing 10^6.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e6</value>
+            <value>1e6</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12530,13 +12873,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>M</name>
-         <description>SI unit multiple representing 10e6.</description>
+         <description>SI unit multiple representing 10^6.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e6</value>
+            <value>1e6</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12545,13 +12888,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>giga</name>
-         <description>SI unit multiple representing 10e9.</description>
+         <description>SI unit multiple representing 10^9.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e9</value>
+            <value>1e9</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12560,13 +12903,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>G</name>
-         <description>SI unit multiple representing 10e9.</description>
+         <description>SI unit multiple representing 10^9.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e9</value>
+            <value>1e9</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12575,13 +12918,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>tera</name>
-         <description>SI unit multiple representing 10e12.</description>
+         <description>SI unit multiple representing 10^12.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e12</value>
+            <value>1e12</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12590,13 +12933,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>T</name>
-         <description>SI unit multiple representing 10e12.</description>
+         <description>SI unit multiple representing 10^12.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e12</value>
+            <value>1e12</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12605,13 +12948,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>peta</name>
-         <description>SI unit multiple representing 10e15.</description>
+         <description>SI unit multiple representing 10^15.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e15</value>
+            <value>1e15</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12620,13 +12963,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>P</name>
-         <description>SI unit multiple representing 10e15.</description>
+         <description>SI unit multiple representing 10^15.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e15</value>
+            <value>1e15</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12635,13 +12978,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>exa</name>
-         <description>SI unit multiple representing 10e18.</description>
+         <description>SI unit multiple representing 10^18.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e18</value>
+            <value>1e18</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12650,13 +12993,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>E</name>
-         <description>SI unit multiple representing 10e18.</description>
+         <description>SI unit multiple representing 10^18.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e18</value>
+            <value>1e18</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12665,13 +13008,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>zetta</name>
-         <description>SI unit multiple representing 10e21.</description>
+         <description>SI unit multiple representing 10^21.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e21</value>
+            <value>1e21</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12680,13 +13023,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>Z</name>
-         <description>SI unit multiple representing 10e21.</description>
+         <description>SI unit multiple representing 10^21.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e21</value>
+            <value>1e21</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12695,13 +13038,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>yotta</name>
-         <description>SI unit multiple representing 10e24.</description>
+         <description>SI unit multiple representing 10^24.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e24</value>
+            <value>1e24</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12710,13 +13053,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>Y</name>
-         <description>SI unit multiple representing 10e24.</description>
+         <description>SI unit multiple representing 10^24.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e24</value>
+            <value>1e24</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12725,7 +13068,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>deci</name>
-         <description>SI unit submultiple representing 10e-1.</description>
+         <description>SI unit submultiple representing 10^-1.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
@@ -12740,7 +13083,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>d</name>
-         <description>SI unit submultiple representing 10e-1.</description>
+         <description>SI unit submultiple representing 10^-1.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
@@ -12755,7 +13098,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>centi</name>
-         <description>SI unit submultiple representing 10e-2.</description>
+         <description>SI unit submultiple representing 10^-2.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
@@ -12770,7 +13113,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>c</name>
-         <description>SI unit submultiple representing 10e-2.</description>
+         <description>SI unit submultiple representing 10^-2.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
@@ -12785,7 +13128,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>milli</name>
-         <description>SI unit submultiple representing 10e-3.</description>
+         <description>SI unit submultiple representing 10^-3.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
@@ -12800,7 +13143,7 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>m</name>
-         <description>SI unit submultiple representing 10e-3.</description>
+         <description>SI unit submultiple representing 10^-3.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
@@ -12815,13 +13158,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>micro</name>
-         <description>SI unit submultiple representing 10e-6.</description>
+         <description>SI unit submultiple representing 10^-6.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-6</value>
+            <value>1e-6</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12830,13 +13173,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>u</name>
-         <description>SI unit submultiple representing 10e-6.</description>
+         <description>SI unit submultiple representing 10^-6.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-6</value>
+            <value>1e-6</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12845,13 +13188,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>nano</name>
-         <description>SI unit submultiple representing 10e-9.</description>
+         <description>SI unit submultiple representing 10^-9.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-9</value>
+            <value>1e-9</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12860,13 +13203,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>n</name>
-         <description>SI unit submultiple representing 10e-9.</description>
+         <description>SI unit submultiple representing 10^-9.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-9</value>
+            <value>1e-9</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12875,13 +13218,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>pico</name>
-         <description>SI unit submultiple representing 10e-12.</description>
+         <description>SI unit submultiple representing 10^-12.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-12</value>
+            <value>1e-12</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12890,13 +13233,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>p</name>
-         <description>SI unit submultiple representing 10e-12.</description>
+         <description>SI unit submultiple representing 10^-12.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-12</value>
+            <value>1e-12</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12905,13 +13248,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>femto</name>
-         <description>SI unit submultiple representing 10e-15.</description>
+         <description>SI unit submultiple representing 10^-15.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-15</value>
+            <value>1e-15</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12920,13 +13263,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>f</name>
-         <description>SI unit submultiple representing 10e-15.</description>
+         <description>SI unit submultiple representing 10^-15.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-15</value>
+            <value>1e-15</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12935,13 +13278,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>atto</name>
-         <description>SI unit submultiple representing 10e-18.</description>
+         <description>SI unit submultiple representing 10^-18.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-18</value>
+            <value>1e-18</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12950,13 +13293,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>a</name>
-         <description>SI unit submultiple representing 10e-18.</description>
+         <description>SI unit submultiple representing 10^-18.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-18</value>
+            <value>1e-18</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12965,13 +13308,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>zepto</name>
-         <description>SI unit submultiple representing 10e-21.</description>
+         <description>SI unit submultiple representing 10^-21.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-21</value>
+            <value>1e-21</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12980,13 +13323,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>z</name>
-         <description>SI unit submultiple representing 10e-21.</description>
+         <description>SI unit submultiple representing 10^-21.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-21</value>
+            <value>1e-21</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -12995,13 +13338,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>yocto</name>
-         <description>SI unit submultiple representing 10e-24.</description>
+         <description>SI unit submultiple representing 10^-24.</description>
          <attribute>
             <name>SIUnitModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-24</value>
+            <value>1e-24</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -13010,13 +13353,13 @@
       </unitModifierDefinition>
       <unitModifierDefinition>
          <name>y</name>
-         <description>SI unit submultiple representing 10e-24.</description>
+         <description>SI unit submultiple representing 10^-24.</description>
          <attribute>
             <name>SIUnitSymbolModifier</name>
          </attribute>
          <attribute>
             <name>conversionFactor</name>
-            <value>10e-24</value>
+            <value>1e-24</value>
          </attribute>
          <attribute>
             <name>hedId</name>
@@ -13449,7 +13792,11 @@
       </schemaAttributeDefinition>
       <schemaAttributeDefinition>
          <name>unitPrefix</name>
-         <description>This unit is a prefix unit (e.g., dollar sign in the currency units).</description>
+         <description>This unit is a prefix unit (e.g., dollar sign in the currency units). Prefix units are no longer supported.</description>
+         <property>
+            <name>deprecatedFrom</name>
+            <value>8.4.0</value>
+         </property>
          <property>
             <name>unitDomain</name>
          </property>
@@ -13657,7 +14004,7 @@
       <schemaPrefix>
          <name>xml:</name>
          <namespace>http://www.w3.org/XML/1998/namespace</namespace>
-         <description>XLM Namespace [XML]</description>
+         <description>XML Namespace [XML]</description>
       </schemaPrefix>
       <schemaPrefix>
          <name>xsd:</name>
