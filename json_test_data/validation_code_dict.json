@@ -238,6 +238,7 @@
         "temporal-tag-error-inset-group-has-extras",
         "temporal-tag-error-duration-group",
         "temporal-tag-error-delay-not-convertible",
+        "temporal-tag-error-duration-not-convertible",
         "temporal-tag-error-tag-appears-where-not-allowed",
         "na-in-onset column",
         "temporal-tag-error-not-tag-group-delay",

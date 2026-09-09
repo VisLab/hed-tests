@@ -15416,7 +15416,7 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-delay-not-convertible",
-        "description": "A Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be computed. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
+        "description": "In a timeline file (a tabular file with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a non-timeline file (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
@@ -15425,7 +15425,7 @@
             "Assuming every unit in a unit class converts to the default unit",
             "Not noticing that a unit lacks a conversionFactor in the schema"
         ],
-        "explanation": "A Delay is added to the row's onset to place its inner group in time. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
+        "explanation": "In a timeline file a Delay is added to the row's onset to place its inner group on the file's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
         "correction_strategy": "Express the Delay in a unit that has a conversionFactor (s, ms, minute, hour, day)",
         "correction_examples": [
             {
@@ -15451,11 +15451,11 @@
             "4. Revalidate the events file"
         ],
         "validation_hints": [
-            "Only applies to files with an onset column, where the delayed onset is computed",
+            "Only applies to timeline files (with an onset column), where the delayed onset is computed; Delay is banned outright from non-timeline files",
             "Report on the row that holds the Delay; validate the rest of the file normally",
             "The unit itself is valid, so UNITS_INVALID is not the right code"
         ],
-        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.3 Duration and Delay",
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay; 3.3.5.3 Duration and Delay",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"
@@ -15611,6 +15611,258 @@
                             [
                                 5.0,
                                 0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [],
+        "name": "temporal-tag-error-duration-not-convertible",
+        "description": "In a timeline file (a tabular file with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a non-timeline file such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Using a calendar unit such as month or year for a Duration in an events file",
+            "Assuming every unit in a unit class converts to the default unit",
+            "Copying a Duration that is fine in participants.tsv into a timeline file"
+        ],
+        "explanation": "In a timeline file a Duration is added to the row's onset to give the end time of its group on the file's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the end time cannot be computed and the annotation is an error. In a non-timeline file nothing is placed on a timeline, so Duration may use any valid unit of its unit class there.",
+        "correction_strategy": "In a timeline file, express the Duration in a unit that has a conversionFactor (s, ms, minute, hour, day); leave a Duration in a non-timeline file as it is",
+        "correction_examples": [
+            {
+                "wrong": "(Duration/3 year, (Red))",
+                "correct": "(Duration/1095 day, (Red))",
+                "explanation": "In an events file, replaced year, which has no conversionFactor, with an equivalent count of days"
+            },
+            {
+                "wrong": "(Delay/2 s, Duration/1 month, (Green))",
+                "correct": "(Delay/2 s, Duration/30 day, (Green))",
+                "explanation": "The Delay was already convertible; the paired Duration must be too"
+            }
+        ],
+        "correction_patterns": [
+            "Use only units with a conversionFactor in Duration values in timeline files",
+            "Check the schema unit class listing when an unusual unit is needed",
+            "Prefer s or ms for durations in event files"
+        ],
+        "fix_instructions": [
+            "1. Confirm the file has an onset column; if not, the Duration is valid and nothing needs to change",
+            "2. Find the Duration tag reported on the row",
+            "3. Look up its unit in the schema and confirm it has no conversionFactor",
+            "4. Rewrite the value in a unit that has one (s, ms, minute, hour, day)",
+            "5. Revalidate the events file"
+        ],
+        "validation_hints": [
+            "Only applies to timeline files (with an onset column), where the end time is computed",
+            "A Duration with any valid unit passes in a file without an onset column",
+            "Report on the row that holds the Duration; validate the rest of the file normally",
+            "The unit itself is valid, so UNITS_INVALID is not the right code",
+            "A group pairing a convertible Delay with a non-convertible Duration is still an error"
+        ],
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay; 3.3.5.3 Duration and Delay",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 year, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Blue"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Blue"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/2 month, (Blue))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2 s, Duration/1 month, (Green))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Blue"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 day, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/1500 ms, (Blue))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2 s, Duration/4 hours, (Green))"
+                        ]
+                    ],
+                    [
+                        [
+                            "participant_id",
+                            "HED"
+                        ],
+                        [
+                            "sub-01",
+                            "(Duration/3 year, (Red))"
+                        ],
+                        [
+                            "sub-02",
+                            "(Duration/6 month, (Blue))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 year, (Red))",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 day, (Red))",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 year, (Red))",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "participant_id",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                "sub-01",
+                                "face",
+                                "Def/MyColor"
+                            ],
+                            [
+                                "sub-02",
                                 "ball",
                                 "Green"
                             ]

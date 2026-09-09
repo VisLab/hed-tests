@@ -401,6 +401,9 @@
     "temporal-tag-error-delay-not-convertible": [
         "TEMPORAL_TAG_ERROR"
     ],
+    "temporal-tag-error-duration-not-convertible": [
+        "TEMPORAL_TAG_ERROR"
+    ],
     "temporal-tag-error-tag-appears-where-not-allowed": [
         "TEMPORAL_TAG_ERROR",
         "TAG_GROUP_ERROR"
