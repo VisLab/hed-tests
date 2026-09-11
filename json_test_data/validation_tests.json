@@ -19599,7 +19599,7 @@
         "error_code": "UNITS_INVALID",
         "alt_codes": [],
         "name": "units-invalid-any-units",
-        "description": "A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a unit from any unit class of the schema; the unit must still be a valid unit of some class.",
+        "description": "A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a value with or without a unit; when a unit is given it must be a valid unit of some unit class of the schema.",
         "warning": false,
         "schema": "8.5.0",
         "error_category": "validation",
@@ -19608,7 +19608,7 @@
             "Changing the case of a unit symbol (MS for ms)",
             "Stacking two SI modifiers on one component (kmm-per-s)"
         ],
-        "explanation": "The pseudo unit class anyUnits stands for every unit class of the schema. A value on such a placeholder may carry any listed unit or derived form (SI modifier, plural) of any class, and converts to the default unit of the class that unit belongs to. When a string is listed in one class and derived in another, the listed unit wins: dB is the decibel of intensityUnits, not d + B of memorySizeUnits. A string that no class accepts is UNITS_INVALID as usual.",
+        "explanation": "The pseudo unit class anyUnits stands for every unit class of the schema. A value on such a placeholder may be a bare number (Quantity/7 is valid; unlike Delay and Duration nothing requires a unit) or a number followed by any listed unit or derived form (SI modifier, plural) of any class. With a unit, the value converts to the default unit of the class that unit belongs to when that unit has a conversionFactor; without a unit there is no default unit and no conversion, and the value is used as written. When a string is listed in one class and derived in another, the listed unit wins: dB is the decibel of intensityUnits, not d + B of memorySizeUnits. A unit that no class accepts is UNITS_INVALID as usual.",
         "correction_strategy": "Use a unit that some unit class of the schema lists or derives, spelled and cased as in the schema",
         "correction_examples": [
             {
@@ -19623,7 +19623,8 @@
             }
         ],
         "correction_patterns": [
-            "Any unit of any class, but only real units",
+            "Any unit of any class, or no unit at all",
+            "Only real units, spelled and cased as listed",
             "Listed unit beats derived form"
         ],
         "fix_instructions": [
@@ -19631,6 +19632,7 @@
             "2. Keep the case and spelling exactly as listed"
         ],
         "validation_hints": [
+            "A bare number is valid on an anyUnits placeholder; only a present unit is checked",
             "Resolve the unit against every unit class when the placeholder's class is anyUnits",
             "Prefer a listed unit over a derived form when two classes match"
         ],

@@ -2200,7 +2200,7 @@ Complete index of 196 test cases in the HED test suite.
 
 ### units-invalid-any-units (correction guidance) (examples)
 
-**Description**: A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a unit from any unit class of the schema; the unit must still be a valid unit of some class.
+**Description**: A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a value with or without a unit; when a unit is given it must be a valid unit of some unit class of the schema.
 
 **Schema**: 8.5.0 **Category**: validation
 

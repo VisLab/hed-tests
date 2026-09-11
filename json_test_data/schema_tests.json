@@ -134,11 +134,11 @@
             "Adding units under anyUnits as if it were an ordinary unit class",
             "Giving anyUnits a defaultUnits attribute"
         ],
-        "explanation": "anyUnits (specification 4.0.0, section 3.1.4.4) is a pseudo unit class: a placeholder with unitClass=anyUnits accepts a unit from every unit class of the schema. The class itself must list no units and must have no defaultUnits, since a value without a unit on such a placeholder has no default.",
+        "explanation": "anyUnits (specification 4.0.0, section 3.1.4.4) is a pseudo unit class: a placeholder with unitClass=anyUnits accepts a value with or without a unit, and any unit of any unit class of the schema. The class itself must list no units and must have no defaultUnits: a value without a unit on such a placeholder is valid but has no default unit and no conversion.",
         "correction_strategy": "Keep anyUnits empty; put real units in their own unit classes",
         "correction_examples": [
             {
-                "wrong": "* anyUnits\\n** foo {conversionFactor=1.0}",
+                "wrong": "* anyUnits\n** foo {conversionFactor=1.0}",
                 "correct": "* anyUnits",
                 "explanation": "anyUnits lists no units"
             },

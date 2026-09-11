@@ -1,1108 +1,1110 @@
 [
-  {
-    "error_code": "UNITS_INVALID",
-    "alt_codes": [],
-    "name": "units-invalid-for-unit-class",
-    "description": "A tag has a value with units that are invalid or not of the correct unit class for the tag.",
-    "warning": false,
-    "schema": "8.4.0",
-    "error_category": "validation",
-    "common_causes": [
-      "Using units not defined in schema",
-      "Wrong unit class for the tag",
-      "Incorrect unit abbreviations",
-      "Missing space between value and unit",
-      "Applying unit modifiers to non-SI units"
-    ],
-    "explanation": "HED tags requiring units must use valid units from the appropriate unit class. Units must be spelled correctly, properly spaced from values, and compatible with the tag's requirements.",
-    "correction_strategy": "Use valid units from correct unit classes",
-    "correction_examples": [
-      {
-        "wrong": "Acceleration/3 s",
-        "correct": "Acceleration/3 m-per-s^2",
-        "explanation": "Used correct acceleration unit instead of time unit"
-      },
-      {
-        "wrong": "Weight/3 ms",
-        "correct": "Weight/3 kg",
-        "explanation": "Used correct weight unit instead of time unit"
-      },
-      {
-        "wrong": "Frequency/50Hz",
-        "correct": "Frequency/50 Hz",
-        "explanation": "Added required space between value and unit"
-      }
-    ],
-    "correction_patterns": [
-      "Check schema for valid units in tag's unit class",
-      "Ensure proper spacing (value + space + unit)",
-      "Use standard SI units when possible",
-      "Apply unit modifiers only to SI units",
-      "Match unit class to tag requirements"
-    ],
-    "fix_instructions": [
-      "1. Identify the tag's required unit class from schema",
-      "2. Check if current unit exists in that unit class",
-      "3. Replace with valid unit if needed",
-      "4. Ensure proper spacing between value and unit",
-      "5. Verify unit modifiers are used correctly"
-    ],
-    "validation_hints": [
-      "Consult schema unit classes for valid units",
-      "Check spacing between numbers and units",
-      "Verify unit class matches tag requirements",
-      "Ensure unit modifiers only with SI units"
-    ],
-    "specification_reference": "3.2.4. Tags that take values",
-    "related_errors": [
-      "VALUE_INVALID",
-      "TAG_INVALID"
-    ],
-    "definitions": [
-      "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-      "(Definition/MyColor, (Label/Pie))"
-    ],
-    "tests": {
-      "string_tests": {
-        "fails": [
-          "Acceleration/3 s",
-          "Weight/3 ms"
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-for-unit-class",
+        "description": "A tag has a value with units that are invalid or not of the correct unit class for the tag.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Using units not defined in schema",
+            "Wrong unit class for the tag",
+            "Incorrect unit abbreviations",
+            "Missing space between value and unit",
+            "Applying unit modifiers to non-SI units"
         ],
-        "passes": [
-          "Distance/4 km"
-        ]
-      },
-      "sidecar_tests": {
-        "fails": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Acceleration/3 s",
-                "ball": "Weight/3 ms"
-              }
-            }
-          }
-        ],
-        "passes": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Distance/4 km",
-                "ball": "Angle/4 degrees"
-              }
-            }
-          }
-        ]
-      },
-      "event_tests": {
-        "fails": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Acceleration/3 s"
-            ],
-            [
-              5.5,
-              0,
-              "Weight/3 ms"
-            ]
-          ]
-        ],
-        "passes": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Distance/4 km"
-            ],
-            [
-              5.0,
-              0,
-              "Angle/4 degrees"
-            ]
-          ]
-        ]
-      },
-      "combo_tests": {
-        "fails": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Acceleration/3 s",
-                  "ball": "Weight/3 ms"
-                }
-              }
+        "explanation": "HED tags requiring units must use valid units from the appropriate unit class. Units must be spelled correctly, properly spaced from values, and compatible with the tag's requirements.",
+        "correction_strategy": "Use valid units from correct unit classes",
+        "correction_examples": [
+            {
+                "wrong": "Acceleration/3 s",
+                "correct": "Acceleration/3 m-per-s^2",
+                "explanation": "Used correct acceleration unit instead of time unit"
             },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Red, Def/MyColor"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green"
-              ]
-            ]
-          }
-        ],
-        "passes": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Acceleration/5 m-per-s^2",
-                  "ball": "Def/Acc/7, Blue"
-                }
-              }
+            {
+                "wrong": "Weight/3 ms",
+                "correct": "Weight/3 kg",
+                "explanation": "Used correct weight unit instead of time unit"
             },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Blue"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green, Def/MyColor"
-              ]
-            ]
-          }
-        ]
-      }
+            {
+                "wrong": "Frequency/50Hz",
+                "correct": "Frequency/50 Hz",
+                "explanation": "Added required space between value and unit"
+            }
+        ],
+        "correction_patterns": [
+            "Check schema for valid units in tag's unit class",
+            "Ensure proper spacing (value + space + unit)",
+            "Use standard SI units when possible",
+            "Apply unit modifiers only to SI units",
+            "Match unit class to tag requirements"
+        ],
+        "fix_instructions": [
+            "1. Identify the tag's required unit class from schema",
+            "2. Check if current unit exists in that unit class",
+            "3. Replace with valid unit if needed",
+            "4. Ensure proper spacing between value and unit",
+            "5. Verify unit modifiers are used correctly"
+        ],
+        "validation_hints": [
+            "Consult schema unit classes for valid units",
+            "Check spacing between numbers and units",
+            "Verify unit class matches tag requirements",
+            "Ensure unit modifiers only with SI units"
+        ],
+        "specification_reference": "3.2.4. Tags that take values",
+        "related_errors": [
+            "VALUE_INVALID",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Acceleration/3 s",
+                    "Weight/3 ms"
+                ],
+                "passes": [
+                    "Distance/4 km"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Acceleration/3 s",
+                                "ball": "Weight/3 ms"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Distance/4 km",
+                                "ball": "Angle/4 degrees"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Acceleration/3 s"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Weight/3 ms"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Distance/4 km"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Angle/4 degrees"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Acceleration/3 s",
+                                    "ball": "Weight/3 ms"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Acceleration/5 m-per-s^2",
+                                    "ball": "Def/Acc/7, Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-si-units",
+        "description": "A unit modifier is applied to units that are not SI units.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Applying SI prefixes (k, m, etc.) to non-SI units",
+            "Using modifiers like 'kilo' with imperial units",
+            "Confusion about which units support SI prefixes",
+            "Attempting to modify units that don't allow modification"
+        ],
+        "explanation": "SI unit modifiers (like kilo-, milli-, micro-) can only be applied to SI base units. Applying them to non-SI units like feet creates invalid unit combinations.",
+        "correction_strategy": "Use SI units with modifiers or remove modifiers from non-SI units",
+        "correction_examples": [
+            {
+                "wrong": "Distance/3 kfeet",
+                "correct": "Distance/3 km",
+                "explanation": "Changed to SI unit (kilometer) instead of modifying non-SI unit"
+            },
+            {
+                "wrong": "Weight/5 kpounds",
+                "correct": "Weight/2.27 kg",
+                "explanation": "Converted to proper SI unit with conversion"
+            },
+            {
+                "wrong": "Distance/3 kmeters",
+                "correct": "Distance/3 km",
+                "explanation": "Used proper SI abbreviation for kilometers"
+            }
+        ],
+        "correction_patterns": [
+            "Convert to proper SI units with modifiers",
+            "Remove invalid modifiers from non-SI units",
+            "Use standard SI prefix abbreviations"
+        ],
+        "fix_instructions": [
+            "1. Identify units with invalid modifiers",
+            "2. Check if unit is SI-compatible",
+            "3. Either convert to SI unit or remove modifier",
+            "4. Use standard prefix abbreviations (k, m, μ, etc.)"
+        ],
+        "validation_hints": [
+            "Check if unit accepts SI prefixes",
+            "Verify modifier applies to SI base unit",
+            "Ensure proper prefix abbreviation format"
+        ],
+        "specification_reference": "3.1.2.2. SI units and modifiers",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Distance/3 kfeet",
+                    "Distance/3 kmeters"
+                ],
+                "passes": [
+                    "Distance/3 kilometres"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Distance/3 kfeet",
+                                "ball": "Distance/3 kmeters"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Distance/3 kilometres"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Distance/3 kfeet"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Distance/3 kmeters"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Distance/3 kilometres"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Distance/3 kfeet",
+                                    "ball": "Distance/3 kmeters"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Acceleration/5 m-per-s^2",
+                                    "ball": "Def/Acc/7, Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-case",
+        "description": "Units are case-sensitive: a unit name, unit symbol, or SI modifier written in a case other than the one listed in the schema is invalid.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Capitalizing a unit name at the start of a value (Seconds, Feet)",
+            "Capitalizing an SI modifier (Milliseconds instead of milliseconds)",
+            "Writing a unit symbol in the wrong case (MS for ms, hz for Hz)",
+            "Assuming units follow the case-insensitive rule that applies to tags"
+        ],
+        "explanation": "HED tags are case-insensitive, but units are not. Every unit string - the unit name, the unit symbol, and any SI modifier - must match the schema exactly. This is what keeps m (milli) distinct from M (mega) and mV distinct from MV.",
+        "correction_strategy": "Write the unit exactly as it appears in the schema, including any SI modifier",
+        "correction_examples": [
+            {
+                "wrong": "Time-value/5 Milliseconds",
+                "correct": "Time-value/5 milliseconds",
+                "explanation": "The modifier milli is lowercase"
+            },
+            {
+                "wrong": "Length/3 Feet",
+                "correct": "Length/3 feet",
+                "explanation": "Unit names are written as listed in the schema"
+            },
+            {
+                "wrong": "Time-value/5 MS",
+                "correct": "Time-value/5 ms",
+                "explanation": "The symbol for millisecond is ms; MS is not a unit"
+            },
+            {
+                "wrong": "Frequency/3 hz",
+                "correct": "Frequency/3 Hz",
+                "explanation": "The hertz symbol is Hz"
+            }
+        ],
+        "correction_patterns": [
+            "Lowercase unit names and modifiers",
+            "Match symbol case exactly (Hz, ms, uV, km)",
+            "Do not capitalize a unit because it starts the value"
+        ],
+        "fix_instructions": [
+            "1. Find the unit in the schema unit class listing",
+            "2. Copy its spelling and case exactly",
+            "3. If an SI modifier is used, write it as listed (milli, k, u), never capitalized"
+        ],
+        "validation_hints": [
+            "Compare the unit string to the schema with case preserved",
+            "Check the modifier prefix separately from the base unit",
+            "Symbols and names are both case-sensitive"
+        ],
+        "specification_reference": "3.1.4.4. Unit classes and units",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Time-value/5 Milliseconds",
+                    "Time-value/5 Seconds",
+                    "Length/3 Feet",
+                    "Time-value/5 MS",
+                    "Frequency/3 hz"
+                ],
+                "passes": [
+                    "Time-value/5 milliseconds",
+                    "Time-value/5 seconds",
+                    "Length/3 feet",
+                    "Time-value/5 ms",
+                    "Frequency/3 Hz"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Time-value/5 Milliseconds",
+                                "ball": "Time-value/5 Seconds"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Time-value/5 milliseconds"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Time-value/5 Milliseconds"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Time-value/5 Seconds"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Time-value/5 milliseconds"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Time-value/5 Milliseconds",
+                                    "ball": "Time-value/5 Seconds"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Time-value/5 milliseconds",
+                                    "ball": "Def/Acc/7, Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-symbol-plural",
+        "description": "A unit symbol cannot be pluralized, and a unit name accepts only its standard English plural.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Adding s to a unit symbol (mss, Hzs)",
+            "Adding s to a unit whose plural is itself (hertzs)",
+            "Using an irregular plural incorrectly (foots instead of feet)"
+        ],
+        "explanation": "Unit names such as second or foot may be written in the plural (seconds, feet) because tools apply a standard pluralizer. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
+        "correction_strategy": "Use the singular symbol, or the standard plural of the unit name",
+        "correction_examples": [
+            {
+                "wrong": "Frequency/3 hertzs",
+                "correct": "Frequency/3 hertz",
+                "explanation": "Hertz is both singular and plural"
+            },
+            {
+                "wrong": "Time-value/5 mss",
+                "correct": "Time-value/5 ms",
+                "explanation": "Symbols are never pluralized"
+            },
+            {
+                "wrong": "Frequency/3 Hzs",
+                "correct": "Frequency/3 Hz",
+                "explanation": "Symbols are never pluralized"
+            }
+        ],
+        "correction_patterns": [
+            "Never pluralize a symbol",
+            "Use the dictionary plural of a unit name",
+            "When unsure, use the singular form"
+        ],
+        "fix_instructions": [
+            "1. Check whether the unit is a symbol (short abbreviation such as ms, Hz, km) or a name (second, foot, hertz)",
+            "2. For a symbol, remove any trailing s",
+            "3. For a name, use its standard English plural or the singular"
+        ],
+        "validation_hints": [
+            "Symbols match only their exact string",
+            "Names match their singular and pluralizer plural",
+            "hertz is uncountable"
+        ],
+        "specification_reference": "3.1.4.4. Unit classes and units",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Frequency/3 hertzs",
+                    "Time-value/5 mss",
+                    "Frequency/3 Hzs"
+                ],
+                "passes": [
+                    "Frequency/3 hertz",
+                    "Time-value/5 seconds",
+                    "Length/3 inches",
+                    "Length/3 feet"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Frequency/3 hertzs",
+                                "ball": "Time-value/5 mss"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Frequency/3 hertz"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Frequency/3 hertzs"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Time-value/5 mss"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Frequency/3 hertz"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Frequency/3 hertzs",
+                                    "ball": "Time-value/5 mss"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Frequency/3 hertz",
+                                    "ball": "Def/Acc/7, Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-compound-units",
+        "description": "A compound unit such as m-per-s takes an SI modifier on each of its components; a modifier applied to the whole string, or a misspelled or wrongly cased component, is invalid.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Stacking a modifier in front of an already modified component (kmm-per-s)",
+            "Spelling a component differently from its symbol (m-per-sec)",
+            "Changing the case of a component (m-per-S)",
+            "Expecting the modifier to apply to the whole compound unit rather than to one component"
+        ],
+        "explanation": "Compound units are built from unit symbols joined by -per- and optional ^ exponents (m-per-s, m-per-s^2, m^3). Each component may carry one SI symbol modifier, so cm-per-us and mm^3 are valid, and each component must otherwise match the schema symbol exactly.",
+        "correction_strategy": "Apply one SI modifier to each component that needs one and keep every component spelled as its schema symbol",
+        "correction_examples": [
+            {
+                "wrong": "Speed/3 kmm-per-s",
+                "correct": "Speed/3 km-per-s",
+                "explanation": "Only one modifier per component"
+            },
+            {
+                "wrong": "Speed/3 m-per-sec",
+                "correct": "Speed/3 m-per-s",
+                "explanation": "Components are unit symbols; the symbol for second is s"
+            },
+            {
+                "wrong": "Speed/3 m-per-S",
+                "correct": "Speed/3 m-per-s",
+                "explanation": "Components are case-sensitive"
+            }
+        ],
+        "correction_patterns": [
+            "One modifier per component",
+            "Components are schema symbols",
+            "Exponents stay attached to their component (mm^3, s^2)"
+        ],
+        "fix_instructions": [
+            "1. Split the unit on -per- into its components",
+            "2. Check each component is a schema unit symbol with at most one SI modifier in front",
+            "3. Keep any ^ exponent attached to its component"
+        ],
+        "validation_hints": [
+            "Match compound units component by component",
+            "A modifier belongs to a component, not to the string",
+            "cm-per-us is centimeters per microsecond"
+        ],
+        "specification_reference": "3.1.4.5. Unit modifiers",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Speed/3 kmm-per-s",
+                    "Speed/3 m-per-S",
+                    "Speed/3 m-per-sec"
+                ],
+                "passes": [
+                    "Speed/3 cm-per-us",
+                    "Speed/3 km-per-s",
+                    "Acceleration/2 mm-per-s^2",
+                    "Volume/2 mm^3"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Speed/3 kmm-per-s",
+                                "ball": "Speed/3 m-per-S"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Speed/3 cm-per-us"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Speed/3 kmm-per-s"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Speed/3 m-per-S"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Speed/3 cm-per-us"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Speed/3 kmm-per-s",
+                                    "ball": "Speed/3 m-per-S"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Speed/3 cm-per-us",
+                                    "ball": "Def/Acc/7, Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-any-units",
+        "description": "A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a value with or without a unit; when a unit is given it must be a valid unit of some unit class of the schema.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Using a unit that no unit class of the schema lists or derives",
+            "Changing the case of a unit symbol (MS for ms)",
+            "Stacking two SI modifiers on one component (kmm-per-s)"
+        ],
+        "explanation": "The pseudo unit class anyUnits stands for every unit class of the schema. A value on such a placeholder may be a bare number (Quantity/7 is valid; unlike Delay and Duration nothing requires a unit) or a number followed by any listed unit or derived form (SI modifier, plural) of any class. With a unit, the value converts to the default unit of the class that unit belongs to when that unit has a conversionFactor; without a unit there is no default unit and no conversion, and the value is used as written. When a string is listed in one class and derived in another, the listed unit wins: dB is the decibel of intensityUnits, not d + B of memorySizeUnits. A unit that no class accepts is UNITS_INVALID as usual.",
+        "correction_strategy": "Use a unit that some unit class of the schema lists or derives, spelled and cased as in the schema",
+        "correction_examples": [
+            {
+                "wrong": "Quantity/3 foo",
+                "correct": "Quantity/3 ms",
+                "explanation": "foo is not a unit of any class"
+            },
+            {
+                "wrong": "Quantity/3 MS",
+                "correct": "Quantity/3 ms",
+                "explanation": "Unit symbols are case-sensitive"
+            }
+        ],
+        "correction_patterns": [
+            "Any unit of any class, or no unit at all",
+            "Only real units, spelled and cased as listed",
+            "Listed unit beats derived form"
+        ],
+        "fix_instructions": [
+            "1. Check that the unit is a listed unit or a derived form in some unit class of the schema",
+            "2. Keep the case and spelling exactly as listed"
+        ],
+        "validation_hints": [
+            "A bare number is valid on an anyUnits placeholder; only a present unit is checked",
+            "Resolve the unit against every unit class when the placeholder's class is anyUnits",
+            "Prefer a listed unit over a derived form when two classes match"
+        ],
+        "specification_reference": "3.1.4.4. Unit classes and units",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Quantity/3 foo",
+                    "Quantity/3 MS",
+                    "Quantity/3 kmm-per-s",
+                    "Quantity/3 Feet"
+                ],
+                "passes": [
+                    "Quantity/3 ms",
+                    "Quantity/3 cm-per-us",
+                    "Quantity/3 dB",
+                    "Quantity/2 kOhm",
+                    "Quantity/5 dollars",
+                    "Quantity/7",
+                    "(Parameter-label/ISI, Quantity/500 ms)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Quantity/3 foo"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Quantity/3 ms"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Quantity/3 MS"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Quantity/3 dB"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
     }
-  },
-  {
-    "error_code": "UNITS_INVALID",
-    "alt_codes": [],
-    "name": "units-invalid-si-units",
-    "description": "A unit modifier is applied to units that are not SI units.",
-    "warning": false,
-    "schema": "8.4.0",
-    "error_category": "validation",
-    "common_causes": [
-      "Applying SI prefixes (k, m, etc.) to non-SI units",
-      "Using modifiers like 'kilo' with imperial units",
-      "Confusion about which units support SI prefixes",
-      "Attempting to modify units that don't allow modification"
-    ],
-    "explanation": "SI unit modifiers (like kilo-, milli-, micro-) can only be applied to SI base units. Applying them to non-SI units like feet creates invalid unit combinations.",
-    "correction_strategy": "Use SI units with modifiers or remove modifiers from non-SI units",
-    "correction_examples": [
-      {
-        "wrong": "Distance/3 kfeet",
-        "correct": "Distance/3 km",
-        "explanation": "Changed to SI unit (kilometer) instead of modifying non-SI unit"
-      },
-      {
-        "wrong": "Weight/5 kpounds",
-        "correct": "Weight/2.27 kg",
-        "explanation": "Converted to proper SI unit with conversion"
-      },
-      {
-        "wrong": "Distance/3 kmeters",
-        "correct": "Distance/3 km",
-        "explanation": "Used proper SI abbreviation for kilometers"
-      }
-    ],
-    "correction_patterns": [
-      "Convert to proper SI units with modifiers",
-      "Remove invalid modifiers from non-SI units",
-      "Use standard SI prefix abbreviations"
-    ],
-    "fix_instructions": [
-      "1. Identify units with invalid modifiers",
-      "2. Check if unit is SI-compatible",
-      "3. Either convert to SI unit or remove modifier",
-      "4. Use standard prefix abbreviations (k, m, μ, etc.)"
-    ],
-    "validation_hints": [
-      "Check if unit accepts SI prefixes",
-      "Verify modifier applies to SI base unit",
-      "Ensure proper prefix abbreviation format"
-    ],
-    "specification_reference": "3.1.2.2. SI units and modifiers",
-    "related_errors": [
-      "VALUE_INVALID",
-      "UNITS_INVALID"
-    ],
-    "definitions": [
-      "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-      "(Definition/MyColor, (Label/Pie))"
-    ],
-    "tests": {
-      "string_tests": {
-        "fails": [
-          "Distance/3 kfeet",
-          "Distance/3 kmeters"
-        ],
-        "passes": [
-          "Distance/3 kilometres"
-        ]
-      },
-      "sidecar_tests": {
-        "fails": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Distance/3 kfeet",
-                "ball": "Distance/3 kmeters"
-              }
-            }
-          }
-        ],
-        "passes": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Distance/3 kilometres"
-              }
-            }
-          }
-        ]
-      },
-      "event_tests": {
-        "fails": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Distance/3 kfeet"
-            ],
-            [
-              5.0,
-              0,
-              "Distance/3 kmeters"
-            ]
-          ]
-        ],
-        "passes": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Distance/3 kilometres"
-            ]
-          ]
-        ]
-      },
-      "combo_tests": {
-        "fails": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Distance/3 kfeet",
-                  "ball": "Distance/3 kmeters"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Red, Def/MyColor"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green"
-              ]
-            ]
-          }
-        ],
-        "passes": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Acceleration/5 m-per-s^2",
-                  "ball": "Def/Acc/7, Blue"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Blue"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green, Def/MyColor"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  },
-  {
-    "error_code": "UNITS_INVALID",
-    "alt_codes": [],
-    "name": "units-invalid-case",
-    "description": "Units are case-sensitive: a unit name, unit symbol, or SI modifier written in a case other than the one listed in the schema is invalid.",
-    "warning": false,
-    "schema": "8.4.0",
-    "error_category": "validation",
-    "common_causes": [
-      "Capitalizing a unit name at the start of a value (Seconds, Feet)",
-      "Capitalizing an SI modifier (Milliseconds instead of milliseconds)",
-      "Writing a unit symbol in the wrong case (MS for ms, hz for Hz)",
-      "Assuming units follow the case-insensitive rule that applies to tags"
-    ],
-    "explanation": "HED tags are case-insensitive, but units are not. Every unit string - the unit name, the unit symbol, and any SI modifier - must match the schema exactly. This is what keeps m (milli) distinct from M (mega) and mV distinct from MV.",
-    "correction_strategy": "Write the unit exactly as it appears in the schema, including any SI modifier",
-    "correction_examples": [
-      {
-        "wrong": "Time-value/5 Milliseconds",
-        "correct": "Time-value/5 milliseconds",
-        "explanation": "The modifier milli is lowercase"
-      },
-      {
-        "wrong": "Length/3 Feet",
-        "correct": "Length/3 feet",
-        "explanation": "Unit names are written as listed in the schema"
-      },
-      {
-        "wrong": "Time-value/5 MS",
-        "correct": "Time-value/5 ms",
-        "explanation": "The symbol for millisecond is ms; MS is not a unit"
-      },
-      {
-        "wrong": "Frequency/3 hz",
-        "correct": "Frequency/3 Hz",
-        "explanation": "The hertz symbol is Hz"
-      }
-    ],
-    "correction_patterns": [
-      "Lowercase unit names and modifiers",
-      "Match symbol case exactly (Hz, ms, uV, km)",
-      "Do not capitalize a unit because it starts the value"
-    ],
-    "fix_instructions": [
-      "1. Find the unit in the schema unit class listing",
-      "2. Copy its spelling and case exactly",
-      "3. If an SI modifier is used, write it as listed (milli, k, u), never capitalized"
-    ],
-    "validation_hints": [
-      "Compare the unit string to the schema with case preserved",
-      "Check the modifier prefix separately from the base unit",
-      "Symbols and names are both case-sensitive"
-    ],
-    "specification_reference": "3.1.4.4. Unit classes and units",
-    "related_errors": [
-      "VALUE_INVALID",
-      "UNITS_INVALID"
-    ],
-    "definitions": [
-      "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-      "(Definition/MyColor, (Label/Pie))"
-    ],
-    "tests": {
-      "string_tests": {
-        "fails": [
-          "Time-value/5 Milliseconds",
-          "Time-value/5 Seconds",
-          "Length/3 Feet",
-          "Time-value/5 MS",
-          "Frequency/3 hz"
-        ],
-        "passes": [
-          "Time-value/5 milliseconds",
-          "Time-value/5 seconds",
-          "Length/3 feet",
-          "Time-value/5 ms",
-          "Frequency/3 Hz"
-        ]
-      },
-      "sidecar_tests": {
-        "fails": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Time-value/5 Milliseconds",
-                "ball": "Time-value/5 Seconds"
-              }
-            }
-          }
-        ],
-        "passes": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Time-value/5 milliseconds"
-              }
-            }
-          }
-        ]
-      },
-      "event_tests": {
-        "fails": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Time-value/5 Milliseconds"
-            ],
-            [
-              5.0,
-              0,
-              "Time-value/5 Seconds"
-            ]
-          ]
-        ],
-        "passes": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Time-value/5 milliseconds"
-            ]
-          ]
-        ]
-      },
-      "combo_tests": {
-        "fails": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Time-value/5 Milliseconds",
-                  "ball": "Time-value/5 Seconds"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Red, Def/MyColor"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green"
-              ]
-            ]
-          }
-        ],
-        "passes": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Time-value/5 milliseconds",
-                  "ball": "Def/Acc/7, Blue"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Blue"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green, Def/MyColor"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  },
-  {
-    "error_code": "UNITS_INVALID",
-    "alt_codes": [],
-    "name": "units-invalid-symbol-plural",
-    "description": "A unit symbol cannot be pluralized, and a unit name accepts only its standard English plural.",
-    "warning": false,
-    "schema": "8.4.0",
-    "error_category": "validation",
-    "common_causes": [
-      "Adding s to a unit symbol (mss, Hzs)",
-      "Adding s to a unit whose plural is itself (hertzs)",
-      "Using an irregular plural incorrectly (foots instead of feet)"
-    ],
-    "explanation": "Unit names such as second or foot may be written in the plural (seconds, feet) because tools apply a standard pluralizer. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
-    "correction_strategy": "Use the singular symbol, or the standard plural of the unit name",
-    "correction_examples": [
-      {
-        "wrong": "Frequency/3 hertzs",
-        "correct": "Frequency/3 hertz",
-        "explanation": "Hertz is both singular and plural"
-      },
-      {
-        "wrong": "Time-value/5 mss",
-        "correct": "Time-value/5 ms",
-        "explanation": "Symbols are never pluralized"
-      },
-      {
-        "wrong": "Frequency/3 Hzs",
-        "correct": "Frequency/3 Hz",
-        "explanation": "Symbols are never pluralized"
-      }
-    ],
-    "correction_patterns": [
-      "Never pluralize a symbol",
-      "Use the dictionary plural of a unit name",
-      "When unsure, use the singular form"
-    ],
-    "fix_instructions": [
-      "1. Check whether the unit is a symbol (short abbreviation such as ms, Hz, km) or a name (second, foot, hertz)",
-      "2. For a symbol, remove any trailing s",
-      "3. For a name, use its standard English plural or the singular"
-    ],
-    "validation_hints": [
-      "Symbols match only their exact string",
-      "Names match their singular and pluralizer plural",
-      "hertz is uncountable"
-    ],
-    "specification_reference": "3.1.4.4. Unit classes and units",
-    "related_errors": [
-      "VALUE_INVALID",
-      "UNITS_INVALID"
-    ],
-    "definitions": [
-      "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-      "(Definition/MyColor, (Label/Pie))"
-    ],
-    "tests": {
-      "string_tests": {
-        "fails": [
-          "Frequency/3 hertzs",
-          "Time-value/5 mss",
-          "Frequency/3 Hzs"
-        ],
-        "passes": [
-          "Frequency/3 hertz",
-          "Time-value/5 seconds",
-          "Length/3 inches",
-          "Length/3 feet"
-        ]
-      },
-      "sidecar_tests": {
-        "fails": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Frequency/3 hertzs",
-                "ball": "Time-value/5 mss"
-              }
-            }
-          }
-        ],
-        "passes": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Frequency/3 hertz"
-              }
-            }
-          }
-        ]
-      },
-      "event_tests": {
-        "fails": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Frequency/3 hertzs"
-            ],
-            [
-              5.0,
-              0,
-              "Time-value/5 mss"
-            ]
-          ]
-        ],
-        "passes": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Frequency/3 hertz"
-            ]
-          ]
-        ]
-      },
-      "combo_tests": {
-        "fails": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Frequency/3 hertzs",
-                  "ball": "Time-value/5 mss"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Red, Def/MyColor"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green"
-              ]
-            ]
-          }
-        ],
-        "passes": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Frequency/3 hertz",
-                  "ball": "Def/Acc/7, Blue"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Blue"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green, Def/MyColor"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  },
-  {
-    "error_code": "UNITS_INVALID",
-    "alt_codes": [],
-    "name": "units-invalid-compound-units",
-    "description": "A compound unit such as m-per-s takes an SI modifier on each of its components; a modifier applied to the whole string, or a misspelled or wrongly cased component, is invalid.",
-    "warning": false,
-    "schema": "8.4.0",
-    "error_category": "validation",
-    "common_causes": [
-      "Stacking a modifier in front of an already modified component (kmm-per-s)",
-      "Spelling a component differently from its symbol (m-per-sec)",
-      "Changing the case of a component (m-per-S)",
-      "Expecting the modifier to apply to the whole compound unit rather than to one component"
-    ],
-    "explanation": "Compound units are built from unit symbols joined by -per- and optional ^ exponents (m-per-s, m-per-s^2, m^3). Each component may carry one SI symbol modifier, so cm-per-us and mm^3 are valid, and each component must otherwise match the schema symbol exactly.",
-    "correction_strategy": "Apply one SI modifier to each component that needs one and keep every component spelled as its schema symbol",
-    "correction_examples": [
-      {
-        "wrong": "Speed/3 kmm-per-s",
-        "correct": "Speed/3 km-per-s",
-        "explanation": "Only one modifier per component"
-      },
-      {
-        "wrong": "Speed/3 m-per-sec",
-        "correct": "Speed/3 m-per-s",
-        "explanation": "Components are unit symbols; the symbol for second is s"
-      },
-      {
-        "wrong": "Speed/3 m-per-S",
-        "correct": "Speed/3 m-per-s",
-        "explanation": "Components are case-sensitive"
-      }
-    ],
-    "correction_patterns": [
-      "One modifier per component",
-      "Components are schema symbols",
-      "Exponents stay attached to their component (mm^3, s^2)"
-    ],
-    "fix_instructions": [
-      "1. Split the unit on -per- into its components",
-      "2. Check each component is a schema unit symbol with at most one SI modifier in front",
-      "3. Keep any ^ exponent attached to its component"
-    ],
-    "validation_hints": [
-      "Match compound units component by component",
-      "A modifier belongs to a component, not to the string",
-      "cm-per-us is centimeters per microsecond"
-    ],
-    "specification_reference": "3.1.4.5. Unit modifiers",
-    "related_errors": [
-      "VALUE_INVALID",
-      "UNITS_INVALID"
-    ],
-    "definitions": [
-      "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-      "(Definition/MyColor, (Label/Pie))"
-    ],
-    "tests": {
-      "string_tests": {
-        "fails": [
-          "Speed/3 kmm-per-s",
-          "Speed/3 m-per-S",
-          "Speed/3 m-per-sec"
-        ],
-        "passes": [
-          "Speed/3 cm-per-us",
-          "Speed/3 km-per-s",
-          "Acceleration/2 mm-per-s^2",
-          "Volume/2 mm^3"
-        ]
-      },
-      "sidecar_tests": {
-        "fails": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Speed/3 kmm-per-s",
-                "ball": "Speed/3 m-per-S"
-              }
-            }
-          }
-        ],
-        "passes": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Speed/3 cm-per-us"
-              }
-            }
-          }
-        ]
-      },
-      "event_tests": {
-        "fails": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Speed/3 kmm-per-s"
-            ],
-            [
-              5.0,
-              0,
-              "Speed/3 m-per-S"
-            ]
-          ]
-        ],
-        "passes": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Speed/3 cm-per-us"
-            ]
-          ]
-        ]
-      },
-      "combo_tests": {
-        "fails": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Speed/3 kmm-per-s",
-                  "ball": "Speed/3 m-per-S"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Red, Def/MyColor"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green"
-              ]
-            ]
-          }
-        ],
-        "passes": [
-          {
-            "sidecar": {
-              "event_code": {
-                "HED": {
-                  "face": "Speed/3 cm-per-us",
-                  "ball": "Def/Acc/7, Blue"
-                }
-              }
-            },
-            "events": [
-              [
-                "onset",
-                "duration",
-                "event_code",
-                "HED"
-              ],
-              [
-                4.5,
-                0,
-                "face",
-                "Blue"
-              ],
-              [
-                5.0,
-                0,
-                "ball",
-                "Green, Def/MyColor"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  },
-  {
-    "error_code": "UNITS_INVALID",
-    "alt_codes": [],
-    "name": "units-invalid-any-units",
-    "description": "A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a unit from any unit class of the schema; the unit must still be a valid unit of some class.",
-    "warning": false,
-    "schema": "8.5.0",
-    "error_category": "validation",
-    "common_causes": [
-      "Using a unit that no unit class of the schema lists or derives",
-      "Changing the case of a unit symbol (MS for ms)",
-      "Stacking two SI modifiers on one component (kmm-per-s)"
-    ],
-    "explanation": "The pseudo unit class anyUnits stands for every unit class of the schema. A value on such a placeholder may carry any listed unit or derived form (SI modifier, plural) of any class, and converts to the default unit of the class that unit belongs to. When a string is listed in one class and derived in another, the listed unit wins: dB is the decibel of intensityUnits, not d + B of memorySizeUnits. A string that no class accepts is UNITS_INVALID as usual.",
-    "correction_strategy": "Use a unit that some unit class of the schema lists or derives, spelled and cased as in the schema",
-    "correction_examples": [
-      {
-        "wrong": "Quantity/3 foo",
-        "correct": "Quantity/3 ms",
-        "explanation": "foo is not a unit of any class"
-      },
-      {
-        "wrong": "Quantity/3 MS",
-        "correct": "Quantity/3 ms",
-        "explanation": "Unit symbols are case-sensitive"
-      }
-    ],
-    "correction_patterns": [
-      "Any unit of any class, but only real units",
-      "Listed unit beats derived form"
-    ],
-    "fix_instructions": [
-      "1. Check that the unit is a listed unit or a derived form in some unit class of the schema",
-      "2. Keep the case and spelling exactly as listed"
-    ],
-    "validation_hints": [
-      "Resolve the unit against every unit class when the placeholder's class is anyUnits",
-      "Prefer a listed unit over a derived form when two classes match"
-    ],
-    "specification_reference": "3.1.4.4. Unit classes and units",
-    "related_errors": [
-      "VALUE_INVALID",
-      "UNITS_INVALID"
-    ],
-    "definitions": [],
-    "tests": {
-      "string_tests": {
-        "fails": [
-          "Quantity/3 foo",
-          "Quantity/3 MS",
-          "Quantity/3 kmm-per-s",
-          "Quantity/3 Feet"
-        ],
-        "passes": [
-          "Quantity/3 ms",
-          "Quantity/3 cm-per-us",
-          "Quantity/3 dB",
-          "Quantity/2 kOhm",
-          "Quantity/5 dollars",
-          "Quantity/7",
-          "(Parameter-label/ISI, Quantity/500 ms)"
-        ]
-      },
-      "sidecar_tests": {
-        "fails": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Quantity/3 foo"
-              }
-            }
-          }
-        ],
-        "passes": [
-          {
-            "event_code": {
-              "HED": {
-                "face": "Quantity/3 ms"
-              }
-            }
-          }
-        ]
-      },
-      "event_tests": {
-        "fails": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Quantity/3 MS"
-            ]
-          ]
-        ],
-        "passes": [
-          [
-            [
-              "onset",
-              "duration",
-              "HED"
-            ],
-            [
-              4.5,
-              0,
-              "Quantity/3 dB"
-            ]
-          ]
-        ]
-      },
-      "combo_tests": {
-        "fails": [],
-        "passes": []
-      }
-    }
-  }
 ]

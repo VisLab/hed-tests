@@ -124,7 +124,7 @@ Builds the test-only schema libraries under `json_test_data/test_schemas/` from 
 
 ### regenerate.py
 
-Runs, in order, `convert_test_schemas.py`, `consolidate_tests.py`, `generate_test_index.py`, `check_coverage.py`, and then mdformat on the markdown they write. `regenerate.py --check` does the same and then fails if any generated file differs from the git index; the pre-commit hook and CI both use that mode, so a stale generated file cannot be committed unnoticed.
+Runs, in order, `convert_test_schemas.py`, `consolidate_tests.py`, `generate_test_index.py`, `check_coverage.py`, and then mdformat on the markdown they write. `regenerate.py --check` does the same and then fails if any file the generators write (the merged and unmerged test-schema XML, `manifest.json`, the consolidated JSON and dictionaries, `docs/test_index.md`, `docs/test_coverage.md`) differs from the git index; the pre-commit hook and CI both use that mode, so a stale generated file cannot be committed unnoticed.
 
 ### Typical maintenance workflow
 

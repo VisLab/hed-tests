@@ -82,8 +82,9 @@ loading is fully hermetic; their source commits are recorded in
 ## Regeneration
 
 The `.mediawiki` sources are the editable source of truth. After editing
-one, regenerate and commit the XML (as with `consolidate_tests.py`, CI reruns
-the script but staleness of committed copies is on the committer):
+one, regenerate and commit the XML together with the edit; the pre-commit hook
+and CI run `regenerate.py --check`, which fails when a committed generated
+file is stale:
 
 ```bash
 python src/scripts/convert_test_schemas.py
