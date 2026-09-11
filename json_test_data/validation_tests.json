@@ -19596,6 +19596,125 @@
         }
     },
     {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-any-units",
+        "description": "A placeholder with unitClass=anyUnits (Quantity in HED 8.5.0) accepts a unit from any unit class of the schema; the unit must still be a valid unit of some class.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Using a unit that no unit class of the schema lists or derives",
+            "Changing the case of a unit symbol (MS for ms)",
+            "Stacking two SI modifiers on one component (kmm-per-s)"
+        ],
+        "explanation": "The pseudo unit class anyUnits stands for every unit class of the schema. A value on such a placeholder may carry any listed unit or derived form (SI modifier, plural) of any class, and converts to the default unit of the class that unit belongs to. When a string is listed in one class and derived in another, the listed unit wins: dB is the decibel of intensityUnits, not d + B of memorySizeUnits. A string that no class accepts is UNITS_INVALID as usual.",
+        "correction_strategy": "Use a unit that some unit class of the schema lists or derives, spelled and cased as in the schema",
+        "correction_examples": [
+            {
+                "wrong": "Quantity/3 foo",
+                "correct": "Quantity/3 ms",
+                "explanation": "foo is not a unit of any class"
+            },
+            {
+                "wrong": "Quantity/3 MS",
+                "correct": "Quantity/3 ms",
+                "explanation": "Unit symbols are case-sensitive"
+            }
+        ],
+        "correction_patterns": [
+            "Any unit of any class, but only real units",
+            "Listed unit beats derived form"
+        ],
+        "fix_instructions": [
+            "1. Check that the unit is a listed unit or a derived form in some unit class of the schema",
+            "2. Keep the case and spelling exactly as listed"
+        ],
+        "validation_hints": [
+            "Resolve the unit against every unit class when the placeholder's class is anyUnits",
+            "Prefer a listed unit over a derived form when two classes match"
+        ],
+        "specification_reference": "3.1.4.4. Unit classes and units",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Quantity/3 foo",
+                    "Quantity/3 MS",
+                    "Quantity/3 kmm-per-s",
+                    "Quantity/3 Feet"
+                ],
+                "passes": [
+                    "Quantity/3 ms",
+                    "Quantity/3 cm-per-us",
+                    "Quantity/3 dB",
+                    "Quantity/2 kOhm",
+                    "Quantity/5 dollars",
+                    "Quantity/7",
+                    "(Parameter-label/ISI, Quantity/500 ms)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Quantity/3 foo"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Quantity/3 ms"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Quantity/3 MS"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Quantity/3 dB"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
+    },
+    {
         "error_code": "VALUE_INVALID",
         "alt_codes": [
             "CHARACTER_INVALID",
