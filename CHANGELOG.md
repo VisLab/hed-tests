@@ -1,5 +1,6 @@
 # Unreleased
 
+- Fixed the combo passes case of na-in-onset column (TEMPORAL_TAG_ERROR): its first data row had three cells under a four-column header; added the missing duration value 0
 - Added UNITS_INVALID cases units-invalid-case (all unit strings are case-sensitive), units-invalid-symbol-plural (symbols take no plural), and units-invalid-compound-units (SI modifiers apply per component, so cm-per-us is valid and kmm-per-s is not)
 - Added the testaux test library (auxiliary items only, partnered with 8.5.0) and testclash probe versions 13.0.0-19.0.0
 - Added SCHEMA_LOAD_FAILED cases for auxiliary-section merging (unit classes, units, unit modifiers, value classes, schema attributes and their properties) and two passing namespaced combinations
