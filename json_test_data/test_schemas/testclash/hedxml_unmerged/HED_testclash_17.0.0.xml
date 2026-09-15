@@ -26,4 +26,7 @@
    </schemaAttributeDefinitions>
    <propertyDefinitions/>
    <epilogue>Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.</epilogue>
+   <schemaSources/>
+   <schemaPrefixes/>
+   <externalAnnotations/>
 </HED>
