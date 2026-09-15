@@ -61,6 +61,12 @@
         "value-invalid-blank-missing-before-units",
         "invalid-character-numeric-class"
     ],
+    "TAG_EXTENSION_INVALID": [
+        "invalid-character-name-value-class",
+        "placeholder-invalid-json-#-misplaced",
+        "tag-extension-invalid-duplicate",
+        "tag-extension-invalid-bad-node-name"
+    ],
     "COMMA_MISSING": [
         "comma-missing-tag-groups",
         "comma-missing-tag-and-group"
@@ -146,11 +152,6 @@
     "PARENTHESES_MISMATCH": [
         "parentheses-mismatch-unmatched-parentheses",
         "parentheses-mismatch-incorrect-nesting"
-    ],
-    "TAG_EXTENSION_INVALID": [
-        "placeholder-invalid-json-#-misplaced",
-        "tag-extension-invalid-duplicate",
-        "tag-extension-invalid-bad-node-name"
     ],
     "SCHEMA_LOAD_FAILED": [
         "different-standard-schemas-in-same-merge-group",

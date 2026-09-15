@@ -328,7 +328,8 @@
         "error_code": "CHARACTER_INVALID",
         "alt_codes": [
             "TAG_INVALID",
-            "VALUE_INVALID"
+            "VALUE_INVALID",
+            "TAG_EXTENSION_INVALID"
         ],
         "name": "invalid-character-name-value-class",
         "description": "An invalid character was used in an 8.3.0 or greater style name value class.",
