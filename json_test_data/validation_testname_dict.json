@@ -14,7 +14,8 @@
     "invalid-character-name-value-class": [
         "CHARACTER_INVALID",
         "TAG_INVALID",
-        "VALUE_INVALID"
+        "VALUE_INVALID",
+        "TAG_EXTENSION_INVALID"
     ],
     "invalid-character-name-value-class-early-schema": [
         "CHARACTER_INVALID",
