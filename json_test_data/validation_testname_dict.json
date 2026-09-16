@@ -266,9 +266,7 @@
         "SIDECAR_BRACES_INVALID"
     ],
     "sidecar-braces-self-reference": [
-        "SIDECAR_BRACES_INVALID",
-        "TAG_INVALID",
-        "VALUE_INVALID"
+        "SIDECAR_BRACES_INVALID"
     ],
     "sidecar-braces-appear-as-value-rather-than-tag": [
         "SIDECAR_BRACES_INVALID",
