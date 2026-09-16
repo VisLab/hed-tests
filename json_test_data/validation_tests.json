@@ -7859,7 +7859,10 @@
     },
     {
         "error_code": "SIDECAR_BRACES_INVALID",
-        "alt_codes": [],
+        "alt_codes": [
+            "TAG_INVALID",
+            "VALUE_INVALID"
+        ],
         "name": "sidecar-braces-self-reference",
         "description": "The item in curly braces has a HED annotation that contains itself.",
         "warning": false,
