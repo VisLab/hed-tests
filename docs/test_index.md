@@ -1529,7 +1529,7 @@ Complete index of 196 test cases in the HED test suite.
 **Tests**:
 
 - `sidecar_tests`: 1 fail, 3 pass
-- `combo_tests`: 2 fail, 2 pass
+- `combo_tests`: 1 fail, 2 pass
 
 ## SIDECAR_INVALID
 
