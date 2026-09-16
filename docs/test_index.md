@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 196 test cases in the HED test suite.
+Complete index of 197 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -12,6 +12,7 @@ Complete index of 196 test cases in the HED test suite.
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (2 tests)
 - [PLACEHOLDER_INVALID](#placeholder-invalid) (4 tests)
+- [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
 - [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
 - [SCHEMA_CHARACTER_INVALID](#schema-character-invalid) (6 tests)
@@ -462,6 +463,20 @@ Complete index of 196 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 0 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
+
+## SCHEMA_ANNOTATION_INVALID
+
+**File**: `json_test_data/schema_test_data/SCHEMA_ANNOTATION_INVALID.json`
+
+### schema-annotation-invalid (warning) (correction guidance) (examples)
+
+**Description**: An annotation attribute value does not follow the prefix:id value grammar or cites a source that has no row in the Sources section.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 7 fail, 6 pass
 
 ## SCHEMA_ATTRIBUTE_INVALID
 
