@@ -1,6 +1,6 @@
 # Unreleased
 
-- Added SCHEMA_ANNOTATION_INVALID schema test cases: seven failing annotation values (undefined prefix, unknown external property, bare external term, two dc:source citations naming no Sources row, and two SKOS mapping values whose term is not a defined prefix notation) and six passing ones, including a library partnered with 8.5.0 that cites the standard schema's extras rows
+- Added SCHEMA_ANNOTATION_INVALID schema test cases: eight failing annotation values (undefined prefix, unknown external property, bare external term, two dc:source citations naming no Sources row, and three skos:exactMatch/skos:closeMatch values whose term is not in prefix notation) and seven passing ones; every case is a library partnered with 8.5.0, since the rule is gated on a standard version of 8.5.0 or later
 - Fixed the combo passes case of na-in-onset column (TEMPORAL_TAG_ERROR): its first data row had three cells under a four-column header; added the missing duration value 0
 - Added UNITS_INVALID cases units-invalid-case (all unit strings are case-sensitive), units-invalid-symbol-plural (symbols take no plural), and units-invalid-compound-units (SI modifiers apply per component, so cm-per-us is valid and kmm-per-s is not)
 - Added the testaux test library (auxiliary items only, partnered with 8.5.0) and testclash probe versions 13.0.0-19.0.0

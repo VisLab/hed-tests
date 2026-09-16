@@ -476,7 +476,7 @@ Complete index of 197 test cases in the HED test suite.
 
 **Tests**:
 
-- `schema_tests`: 7 fail, 6 pass
+- `schema_tests`: 8 fail, 7 pass
 
 ## SCHEMA_ATTRIBUTE_INVALID
 
