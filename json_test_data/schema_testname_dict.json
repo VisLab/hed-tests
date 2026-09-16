@@ -1,4 +1,7 @@
 {
+    "schema-annotation-invalid": [
+        "SCHEMA_ANNOTATION_INVALID"
+    ],
     "attribute-invalid-unknown": [
         "SCHEMA_ATTRIBUTE_INVALID"
     ],
