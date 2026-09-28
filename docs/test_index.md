@@ -65,7 +65,7 @@ Complete index of 201 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 3 fail, 3 pass
+- `string_tests`: 4 fail, 3 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

@@ -720,6 +720,7 @@
                 "fails": [
                     "Description/Face shown (left side)",
                     "Description/Trial #3 of the block",
+                    "Description/Stimulus~response pairing",
                     "Description/Ends with a parenthesis)"
                 ],
                 "passes": [
