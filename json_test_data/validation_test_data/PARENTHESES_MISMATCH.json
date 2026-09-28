@@ -399,5 +399,129 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "PARENTHESES_MISMATCH",
+        "alt_codes": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "name": "parentheses-mismatch-in-value-column",
+        "description": "A value in a sidecar-annotated value column contains an unmatched parenthesis, so the HED string obtained by substituting the value for the # is unbalanced.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Free text in a value column that includes a parenthesis without its partner",
+            "A truncated parenthetical remark in a note or description column",
+            "Assuming a text value is checked only against its value class and not as part of the HED string"
+        ],
+        "explanation": "The cell of a value column is substituted for the # in the column annotation, and the result must be a valid HED string. A parenthesis in the value changes the grouping of the assembled annotation even when the value class allows the character, so validators check the substituted string column by column before rows are assembled.",
+        "correction_strategy": "Remove the unmatched parenthesis from the value or balance it",
+        "correction_examples": [
+            {
+                "wrong": "note column value a) with annotation Parameter-value/#",
+                "correct": "a",
+                "explanation": "The closing parenthesis had no opening one, so the substituted string Parameter-value/a) was unbalanced"
+            },
+            {
+                "wrong": "note column value (see trial 3 with annotation Parameter-value/#",
+                "correct": "see trial 3",
+                "explanation": "The opening parenthesis had no closing one"
+            }
+        ],
+        "correction_patterns": [
+            "Check every value of a value column, not only the rows a template uses",
+            "Count opening and closing parentheses in each value; they must be equal",
+            "Prefer values without parentheses in text columns that are substituted into HED strings"
+        ],
+        "fix_instructions": [
+            "1. Find the annotation of the value column and its # placeholder",
+            "2. Substitute the reported value for the # and count the parentheses",
+            "3. Remove or balance the parenthesis in the value",
+            "4. Check the other values of the column the same way"
+        ],
+        "validation_hints": [
+            "The same value in several rows is one defect; fix the value everywhere it appears",
+            "A value that passes its value class can still break the string it is substituted into"
+        ],
+        "specification_reference": "3.2.10.2. Tabular annotations",
+        "related_errors": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID",
+            "COMMA_MISSING"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "a)"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "A plain note."
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

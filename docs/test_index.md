@@ -1,17 +1,17 @@
 # HED test suite index
 
-Complete index of 197 test cases in the HED test suite.
+Complete index of 201 test cases in the HED test suite.
 
 ## Quick navigation
 
-- [CHARACTER_INVALID](#character-invalid) (4 tests)
+- [CHARACTER_INVALID](#character-invalid) (5 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
 - [DEFINITION_INVALID](#definition-invalid) (10 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (6 tests)
 - [DEF_INVALID](#def-invalid) (3 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
-- [PARENTHESES_MISMATCH](#parentheses-mismatch) (2 tests)
-- [PLACEHOLDER_INVALID](#placeholder-invalid) (4 tests)
+- [PARENTHESES_MISMATCH](#parentheses-mismatch) (3 tests)
+- [PLACEHOLDER_INVALID](#placeholder-invalid) (5 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
 - [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
@@ -37,7 +37,7 @@ Complete index of 197 test cases in the HED test suite.
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (1 test)
 - [TEMPORAL_TAG_ERROR](#temporal-tag-error) (26 tests)
 - [UNITS_INVALID](#units-invalid) (6 tests)
-- [VALUE_INVALID](#value-invalid) (4 tests)
+- [VALUE_INVALID](#value-invalid) (5 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
 
 ## CHARACTER_INVALID
@@ -55,6 +55,19 @@ Complete index of 197 test cases in the HED test suite.
 - `string_tests`: 2 fail, 2 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### character-invalid-structural-in-text-value (correction guidance) (examples)
+
+**Description**: From HED 8.5.0 a textClass value may not contain a parenthesis, the number sign, or the tilde, the characters that change the structure of the HED string the value is substituted into.
+
+**Schema**: 8.5.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 3 fail, 3 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### curly-braces-not-in-sidecar (correction guidance) (examples)
@@ -388,6 +401,16 @@ Complete index of 197 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/PARENTHESES_MISMATCH.json`
 
+### parentheses-mismatch-in-value-column (correction guidance) (examples)
+
+**Description**: A value in a sidecar-annotated value column contains an unmatched parenthesis, so the HED string obtained by substituting the value for the # is unbalanced.
+
+**Schema**: 8.4.0 **Category**: syntax
+
+**Tests**:
+
+- `combo_tests`: 1 fail, 1 pass
+
 ### parentheses-mismatch-incorrect-nesting (correction guidance) (examples)
 
 **Description**: The open and closed parentheses are not correctly nested in the HED string.
@@ -427,6 +450,16 @@ Complete index of 197 test cases in the HED test suite.
 **Tests**:
 
 - `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### placeholder-invalid-in-value-column (correction guidance) (examples)
+
+**Description**: A value in a sidecar-annotated value column contains a # character, so the HED string obtained by substituting the value for the # of the annotation still holds a placeholder.
+
+**Schema**: 8.4.0 **Category**: syntax
+
+**Tests**:
+
 - `combo_tests`: 1 fail, 1 pass
 
 ### placeholder-invalid-json-#-misplaced (correction guidance) (examples)
@@ -2293,6 +2326,16 @@ Complete index of 197 test cases in the HED test suite.
 ## VALUE_INVALID
 
 **File**: `json_test_data/validation_test_data/VALUE_INVALID.json`
+
+### bad-value-in-curly-column (correction guidance) (examples)
+
+**Description**: A column referenced in curly braces has an invalid value in a row whose selected template does not substitute it.
+
+**Schema**: 8.4.0 **Category**: validation
+
+**Tests**:
+
+- `combo_tests`: 1 fail, 1 pass
 
 ### invalid-character-numeric-class (correction guidance) (examples)
 

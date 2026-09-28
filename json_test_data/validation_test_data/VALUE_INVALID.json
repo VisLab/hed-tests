@@ -633,5 +633,183 @@
                 "passes": []
             }
         }
+    },
+    {
+        "error_code": "VALUE_INVALID",
+        "alt_codes": [
+            "TAG_INVALID",
+            "UNITS_INVALID"
+        ],
+        "name": "bad-value-in-curly-column",
+        "description": "A column referenced in curly braces has an invalid value in a row whose selected template does not substitute it.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Assuming a value column is only checked in the rows whose template substitutes it",
+            "Typing errors in a numeric column such as letters or a comma for a decimal point",
+            "Leaving a marker other than n/a in a numeric column for rows without a value"
+        ],
+        "explanation": "Every value in a HED-annotated column must be valid for that column's placeholder tag in every row, whether or not the row's assembled annotation uses it. Only n/a is exempt. Validators check each column's own values before assembling the row.",
+        "correction_strategy": "Fix the offending value or replace it with n/a",
+        "correction_examples": [
+            {
+                "wrong": "response_time column value abc with annotation Distance/# m",
+                "correct": "7.3",
+                "explanation": "A Distance placeholder needs a number"
+            },
+            {
+                "wrong": "response_time column value 7,3 with annotation Distance/# m",
+                "correct": "7.3",
+                "explanation": "A decimal point, not a comma; a comma also splits the HED string"
+            }
+        ],
+        "correction_patterns": [
+            "Check every value in a placeholder column against its value class, not only the rows a template uses",
+            "Use n/a for rows where the column has no value"
+        ],
+        "fix_instructions": [
+            "1. Find the column's annotation template and its placeholder tag",
+            "2. Look up the tag's unit class or value class in the schema",
+            "3. Check every value in the column that is not n/a against it",
+            "4. Correct the value or set it to n/a"
+        ],
+        "validation_hints": [
+            "A numeric placeholder needs a number and, when it has units, a valid unit after a space",
+            "A textClass value may not contain a comma, curly braces, or square brackets",
+            "The value is checked even when the row's event_code selects a template without the column in braces"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "UNITS_INVALID",
+            "CHARACTER_INVALID",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, Blue), (Green, (Yellow)), ({HED})",
+                                    "ball": "{response_time}, (Def/Acc/3.5)"
+                                }
+                            },
+                            "response_time": {
+                                "Description": "Has description with HED",
+                                "HED": "Distance/# m"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "response_time",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                3.4,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                6.8,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ],
+                            [
+                                5.2,
+                                0,
+                                "n/a",
+                                "face",
+                                ""
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "abc",
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, Blue), (Green, (Yellow)), ({HED})",
+                                    "ball": "{response_time}, (Def/Acc/3.5)"
+                                }
+                            },
+                            "response_time": {
+                                "Description": "Has description with HED",
+                                "HED": "Distance/# m"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "response_time",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                3.4,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                6.8,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ],
+                            [
+                                5.2,
+                                0,
+                                "n/a",
+                                "face",
+                                ""
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "7.3",
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

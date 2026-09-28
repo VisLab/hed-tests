@@ -468,5 +468,190 @@
                 "passes": []
             }
         }
+    },
+    {
+        "error_code": "CHARACTER_INVALID",
+        "alt_codes": [
+            "PARENTHESES_MISMATCH",
+            "PLACEHOLDER_INVALID",
+            "VALUE_INVALID",
+            "COMMA_MISSING",
+            "TAG_INVALID"
+        ],
+        "name": "character-invalid-structural-in-text-value",
+        "description": "From HED 8.5.0 a textClass value may not contain a parenthesis, the number sign, or the tilde, the characters that change the structure of the HED string the value is substituted into.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "A parenthetical remark in a Description or other free-text value",
+            "Using # as a number sign in a value",
+            "Copying a template with its # into a value cell",
+            "Assuming a text value may contain any printable character"
+        ],
+        "explanation": "The value substituted for a textClass placeholder becomes part of a HED string. From HED 8.5.0 the textClass character set is value-text, which excludes the parentheses that group tags, the # that marks a placeholder, and the tilde, in addition to the comma, square brackets, and curly braces excluded before. Under earlier schemas these characters are allowed by the value class, but the substituted string is still parsed as HED, so tools report the structural error instead.",
+        "correction_strategy": "Rephrase the value without the structural character",
+        "correction_examples": [
+            {
+                "wrong": "Description/Face shown (left side)",
+                "correct": "Description/Face shown on the left side",
+                "explanation": "The parentheses would group tags in the HED string"
+            },
+            {
+                "wrong": "Description/Trial #3 of the block",
+                "correct": "Description/Trial 3 of the block",
+                "explanation": "The # is the placeholder character of HED annotations"
+            },
+            {
+                "wrong": "Description/Stimulus~response pairing",
+                "correct": "Description/Stimulus-response pairing",
+                "explanation": "The tilde is a reserved character in HED strings"
+            }
+        ],
+        "correction_patterns": [
+            "Rephrase a parenthetical remark so the value needs no parentheses",
+            "Spell out a number as a word or drop the # before it",
+            "Use a hyphen where a tilde was meant as a connector",
+            "Single quotes, semicolons, percent signs, and non-ASCII characters remain allowed"
+        ],
+        "fix_instructions": [
+            "1. Find the # placeholder that the value is substituted into and confirm it is textClass",
+            "2. Look for (, ), #, or ~ in the value",
+            "3. Rephrase the value without them",
+            "4. Check the other values of the same column"
+        ],
+        "validation_hints": [
+            "Only standard schema 8.5.0 and later, and libraries partnered with them, reject these characters at the value-class level",
+            "A validator that parses the substituted string first may report PARENTHESES_MISMATCH or PLACEHOLDER_INVALID instead",
+            "The comma, square brackets, and curly braces were already excluded from text values"
+        ],
+        "specification_reference": "A.1.3. Value classes",
+        "related_errors": [
+            "PARENTHESES_MISMATCH",
+            "PLACEHOLDER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Description/Face shown (left side)",
+                    "Description/Trial #3 of the block",
+                    "Description/Ends with a parenthesis)"
+                ],
+                "passes": [
+                    "Description/It's 50% done; ok?",
+                    "Description/A plain note.",
+                    "Description/Caf\u00e9 au lait"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/Face shown (left side)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/It's 50% done; ok?"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/Trial #3 of the block"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/A plain note."
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Face shown (left side)"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "It's 50% done; ok?"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]
