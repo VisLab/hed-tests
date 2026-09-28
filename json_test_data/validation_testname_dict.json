@@ -22,6 +22,14 @@
         "TAG_INVALID",
         "VALUE_INVALID"
     ],
+    "character-invalid-structural-in-text-value": [
+        "CHARACTER_INVALID",
+        "PARENTHESES_MISMATCH",
+        "PLACEHOLDER_INVALID",
+        "VALUE_INVALID",
+        "COMMA_MISSING",
+        "TAG_INVALID"
+    ],
     "comma-missing-tag-groups": [
         "COMMA_MISSING"
     ],
@@ -111,6 +119,11 @@
     "parentheses-mismatch-incorrect-nesting": [
         "PARENTHESES_MISMATCH"
     ],
+    "parentheses-mismatch-in-value-column": [
+        "PARENTHESES_MISMATCH",
+        "CHARACTER_INVALID",
+        "VALUE_INVALID"
+    ],
     "placeholder-invalid-misplaced": [
         "PLACEHOLDER_INVALID",
         "VALUE_INVALID"
@@ -124,6 +137,11 @@
     "placeholder-invalid-json-#-misplaced": [
         "PLACEHOLDER_INVALID",
         "TAG_EXTENSION_INVALID",
+        "VALUE_INVALID"
+    ],
+    "placeholder-invalid-in-value-column": [
+        "PLACEHOLDER_INVALID",
+        "CHARACTER_INVALID",
         "VALUE_INVALID"
     ],
     "different-standard-schemas-in-same-merge-group": [
@@ -492,6 +510,11 @@
     ],
     "invalid-character-numeric-class": [
         "VALUE_INVALID",
+        "UNITS_INVALID"
+    ],
+    "bad-value-in-curly-column": [
+        "VALUE_INVALID",
+        "TAG_INVALID",
         "UNITS_INVALID"
     ]
 }

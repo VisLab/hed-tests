@@ -512,6 +512,8 @@ Combined sidecar + event tests (realistic BIDS scenarios).
 
 Combines a sidecar definition with event data that uses categorical values from the sidecar.
 
+A combo case carries exactly one defect, in the sidecar or in the events but not both, so that the expected code is unambiguous; a `passes` entry needs a valid sidecar and valid events.
+
 ### Validation rules
 
 #### Required structure

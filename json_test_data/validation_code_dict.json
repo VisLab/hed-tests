@@ -4,6 +4,9 @@
         "curly-braces-not-in-sidecar",
         "invalid-character-name-value-class",
         "invalid-character-name-value-class-early-schema",
+        "character-invalid-structural-in-text-value",
+        "parentheses-mismatch-in-value-column",
+        "placeholder-invalid-in-value-column",
         "sidecar-braces-contents-invalid",
         "sidecar-braces-invalid-spot",
         "sidecar-braces-appear-as-value-rather-than-tag",
@@ -17,6 +20,7 @@
         "curly-braces-not-in-sidecar",
         "invalid-character-name-value-class",
         "invalid-character-name-value-class-early-schema",
+        "character-invalid-structural-in-text-value",
         "definition-invalid-tag-group",
         "definition-invalid-placeholder-incorrect-of-positions",
         "definition-invalid-placeholder-conflict",
@@ -26,7 +30,8 @@
         "tag-has-extra-whitespace",
         "tag-has-leading-trailing-or-consecutive-slashes",
         "value-invalid-#-substitution",
-        "value-invalid-blank-missing-before-units"
+        "value-invalid-blank-missing-before-units",
+        "bad-value-in-curly-column"
     ],
     "UNITS_INVALID": [
         "character-invalid-non-printing-appears",
@@ -42,24 +47,29 @@
         "units-invalid-compound-units",
         "units-invalid-any-units",
         "value-invalid-blank-missing-before-units",
-        "invalid-character-numeric-class"
+        "invalid-character-numeric-class",
+        "bad-value-in-curly-column"
     ],
     "VALUE_INVALID": [
         "character-invalid-non-printing-appears",
         "curly-braces-not-in-sidecar",
         "invalid-character-name-value-class",
         "invalid-character-name-value-class-early-schema",
+        "character-invalid-structural-in-text-value",
         "def-expand-invalid-missing-placeholder",
         "def-expand-invalid-bad-placeholder-value-or-units",
         "def-invalid-bad-placeholder-value",
+        "parentheses-mismatch-in-value-column",
         "placeholder-invalid-misplaced",
         "placeholder-invalid-json-#-misplaced",
+        "placeholder-invalid-in-value-column",
         "sidecar-braces-invalid-spot",
         "sidecar-braces-appear-as-value-rather-than-tag",
         "value-invalid-#-substitution",
         "value-invalid-incompatible-value-class",
         "value-invalid-blank-missing-before-units",
-        "invalid-character-numeric-class"
+        "invalid-character-numeric-class",
+        "bad-value-in-curly-column"
     ],
     "TAG_EXTENSION_INVALID": [
         "invalid-character-name-value-class",
@@ -67,7 +77,26 @@
         "tag-extension-invalid-duplicate",
         "tag-extension-invalid-bad-node-name"
     ],
+    "PARENTHESES_MISMATCH": [
+        "character-invalid-structural-in-text-value",
+        "parentheses-mismatch-unmatched-parentheses",
+        "parentheses-mismatch-incorrect-nesting",
+        "parentheses-mismatch-in-value-column"
+    ],
+    "PLACEHOLDER_INVALID": [
+        "character-invalid-structural-in-text-value",
+        "definition-invalid-placeholder-incorrect-of-positions",
+        "definition-invalid-placeholder-conflict",
+        "placeholder-invalid-misplaced",
+        "placeholder-invalid-#-in-categorical-column",
+        "placeholder-invalid-json-value-column",
+        "placeholder-invalid-json-#-misplaced",
+        "placeholder-invalid-in-value-column",
+        "tag-extension-invalid-bad-node-name",
+        "tag-invalid-in-schema"
+    ],
     "COMMA_MISSING": [
+        "character-invalid-structural-in-text-value",
         "comma-missing-tag-groups",
         "comma-missing-tag-and-group"
     ],
@@ -122,16 +151,6 @@
         "tag-empty-begin-end-comma",
         "tag-empty-empty-parentheses"
     ],
-    "PLACEHOLDER_INVALID": [
-        "definition-invalid-placeholder-incorrect-of-positions",
-        "definition-invalid-placeholder-conflict",
-        "placeholder-invalid-misplaced",
-        "placeholder-invalid-#-in-categorical-column",
-        "placeholder-invalid-json-value-column",
-        "placeholder-invalid-json-#-misplaced",
-        "tag-extension-invalid-bad-node-name",
-        "tag-invalid-in-schema"
-    ],
     "DEF_EXPAND_INVALID": [
         "def-expand-invalid-name-not-definition",
         "def-expand-invalid-missing-placeholder",
@@ -148,10 +167,6 @@
     ],
     "ELEMENT_DEPRECATED": [
         "tag-deprecated"
-    ],
-    "PARENTHESES_MISMATCH": [
-        "parentheses-mismatch-unmatched-parentheses",
-        "parentheses-mismatch-incorrect-nesting"
     ],
     "SCHEMA_LOAD_FAILED": [
         "different-standard-schemas-in-same-merge-group",

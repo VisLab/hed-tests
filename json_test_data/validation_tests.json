@@ -650,6 +650,192 @@
         }
     },
     {
+        "error_code": "CHARACTER_INVALID",
+        "alt_codes": [
+            "PARENTHESES_MISMATCH",
+            "PLACEHOLDER_INVALID",
+            "VALUE_INVALID",
+            "COMMA_MISSING",
+            "TAG_INVALID"
+        ],
+        "name": "character-invalid-structural-in-text-value",
+        "description": "From HED 8.5.0 a textClass value may not contain a parenthesis, the number sign, or the tilde, the characters that change the structure of the HED string the value is substituted into.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "A parenthetical remark in a Description or other free-text value",
+            "Using # as a number sign in a value",
+            "Copying a template with its # into a value cell",
+            "Assuming a text value may contain any printable character"
+        ],
+        "explanation": "The value substituted for a textClass placeholder becomes part of a HED string. From HED 8.5.0 the textClass character set is value-text, which excludes the parentheses that group tags, the # that marks a placeholder, and the tilde, in addition to the comma, square brackets, and curly braces excluded before. Under earlier schemas these characters are allowed by the value class, but the substituted string is still parsed as HED, so tools report the structural error instead.",
+        "correction_strategy": "Rephrase the value without the structural character",
+        "correction_examples": [
+            {
+                "wrong": "Description/Face shown (left side)",
+                "correct": "Description/Face shown on the left side",
+                "explanation": "The parentheses would group tags in the HED string"
+            },
+            {
+                "wrong": "Description/Trial #3 of the block",
+                "correct": "Description/Trial 3 of the block",
+                "explanation": "The # is the placeholder character of HED annotations"
+            },
+            {
+                "wrong": "Description/Stimulus~response pairing",
+                "correct": "Description/Stimulus-response pairing",
+                "explanation": "The tilde is a reserved character in HED strings"
+            }
+        ],
+        "correction_patterns": [
+            "Rephrase a parenthetical remark so the value needs no parentheses",
+            "Spell out a number as a word or drop the # before it",
+            "Use a hyphen where a tilde was meant as a connector",
+            "Single quotes, semicolons, percent signs, and non-ASCII characters remain allowed"
+        ],
+        "fix_instructions": [
+            "1. Find the # placeholder that the value is substituted into and confirm it is textClass",
+            "2. Look for (, ), #, or ~ in the value",
+            "3. Rephrase the value without them",
+            "4. Check the other values of the same column"
+        ],
+        "validation_hints": [
+            "Only standard schema 8.5.0 and later, and libraries partnered with them, reject these characters at the value-class level",
+            "A validator that parses the substituted string first may report PARENTHESES_MISMATCH or PLACEHOLDER_INVALID instead",
+            "The comma, square brackets, and curly braces were already excluded from text values"
+        ],
+        "specification_reference": "A.1.3. Value classes",
+        "related_errors": [
+            "PARENTHESES_MISMATCH",
+            "PLACEHOLDER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Description/Face shown (left side)",
+                    "Description/Trial #3 of the block",
+                    "Description/Stimulus~response pairing",
+                    "Description/Ends with a parenthesis)"
+                ],
+                "passes": [
+                    "Description/It's 50% done; ok?",
+                    "Description/A plain note.",
+                    "Description/Caf\u00e9 au lait"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/Face shown (left side)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/It's 50% done; ok?"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/Trial #3 of the block"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/A plain note."
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Face shown (left side)"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "It's 50% done; ok?"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "COMMA_MISSING",
         "alt_codes": [],
         "name": "comma-missing-tag-groups",
@@ -4939,6 +5125,130 @@
         }
     },
     {
+        "error_code": "PARENTHESES_MISMATCH",
+        "alt_codes": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "name": "parentheses-mismatch-in-value-column",
+        "description": "A value in a sidecar-annotated value column contains an unmatched parenthesis, so the HED string obtained by substituting the value for the # is unbalanced.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Free text in a value column that includes a parenthesis without its partner",
+            "A truncated parenthetical remark in a note or description column",
+            "Assuming a text value is checked only against its value class and not as part of the HED string"
+        ],
+        "explanation": "The cell of a value column is substituted for the # in the column annotation, and the result must be a valid HED string. A parenthesis in the value changes the grouping of the assembled annotation even when the value class allows the character, so validators check the substituted string column by column before rows are assembled.",
+        "correction_strategy": "Remove the unmatched parenthesis from the value or balance it",
+        "correction_examples": [
+            {
+                "wrong": "note column value a) with annotation Parameter-value/#",
+                "correct": "a",
+                "explanation": "The closing parenthesis had no opening one, so the substituted string Parameter-value/a) was unbalanced"
+            },
+            {
+                "wrong": "note column value (see trial 3 with annotation Parameter-value/#",
+                "correct": "see trial 3",
+                "explanation": "The opening parenthesis had no closing one"
+            }
+        ],
+        "correction_patterns": [
+            "Check every value of a value column, not only the rows a template uses",
+            "Count opening and closing parentheses in each value; they must be equal",
+            "Prefer values without parentheses in text columns that are substituted into HED strings"
+        ],
+        "fix_instructions": [
+            "1. Find the annotation of the value column and its # placeholder",
+            "2. Substitute the reported value for the # and count the parentheses",
+            "3. Remove or balance the parenthesis in the value",
+            "4. Check the other values of the column the same way"
+        ],
+        "validation_hints": [
+            "The same value in several rows is one defect; fix the value everywhere it appears",
+            "A value that passes its value class can still break the string it is substituted into"
+        ],
+        "specification_reference": "3.2.10.2. Tabular annotations",
+        "related_errors": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID",
+            "COMMA_MISSING"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "a)"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "A plain note."
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "PLACEHOLDER_INVALID",
         "alt_codes": [
             "VALUE_INVALID"
@@ -5602,6 +5912,129 @@
                                 0,
                                 "2",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "PLACEHOLDER_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "name": "placeholder-invalid-in-value-column",
+        "description": "A value in a sidecar-annotated value column contains a # character, so the HED string obtained by substituting the value for the # of the annotation still holds a placeholder.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Free text in a value column that uses # as a number sign or a marker",
+            "Copying a template with its # into a data cell instead of a value",
+            "Assuming a text value is checked only against its value class and not as part of the HED string"
+        ],
+        "explanation": "The cell of a value column is substituted for the # in the column annotation, and the result must be a valid HED string with no placeholder left in it. A # inside the value survives the substitution and is reported as a misplaced placeholder, so validators check the substituted string column by column before rows are assembled.",
+        "correction_strategy": "Remove the # from the value or spell out what it stands for",
+        "correction_examples": [
+            {
+                "wrong": "note column value trial #3 with annotation Parameter-value/#",
+                "correct": "trial 3",
+                "explanation": "The # in the value was substituted into the annotation and left a placeholder in the assembled string"
+            },
+            {
+                "wrong": "note column value # with annotation Parameter-value/#",
+                "correct": "n/a",
+                "explanation": "A cell with no value is n/a, not a copy of the placeholder"
+            }
+        ],
+        "correction_patterns": [
+            "Check every value of a value column, not only the rows a template uses",
+            "Never put # in a data value; it is the placeholder character of HED annotations",
+            "Use n/a for rows where the column has no value"
+        ],
+        "fix_instructions": [
+            "1. Find the annotation of the value column and its # placeholder",
+            "2. Substitute the reported value for the # and look for a remaining #",
+            "3. Remove the # from the value or replace the value with n/a",
+            "4. Check the other values of the column the same way"
+        ],
+        "validation_hints": [
+            "The same value in several rows is one defect; fix the value everywhere it appears",
+            "A value that passes its value class can still break the string it is substituted into"
+        ],
+        "specification_reference": "3.2.10.2. Tabular annotations",
+        "related_errors": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "a#b"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ab"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
                             ]
                         ]
                     }
@@ -20361,6 +20794,184 @@
             "combo_tests": {
                 "fails": [],
                 "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "VALUE_INVALID",
+        "alt_codes": [
+            "TAG_INVALID",
+            "UNITS_INVALID"
+        ],
+        "name": "bad-value-in-curly-column",
+        "description": "A column referenced in curly braces has an invalid value in a row whose selected template does not substitute it.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Assuming a value column is only checked in the rows whose template substitutes it",
+            "Typing errors in a numeric column such as letters or a comma for a decimal point",
+            "Leaving a marker other than n/a in a numeric column for rows without a value"
+        ],
+        "explanation": "Every value in a HED-annotated column must be valid for that column's placeholder tag in every row, whether or not the row's assembled annotation uses it. Only n/a is exempt. Validators check each column's own values before assembling the row.",
+        "correction_strategy": "Fix the offending value or replace it with n/a",
+        "correction_examples": [
+            {
+                "wrong": "response_time column value abc with annotation Distance/# m",
+                "correct": "7.3",
+                "explanation": "A Distance placeholder needs a number"
+            },
+            {
+                "wrong": "response_time column value 7,3 with annotation Distance/# m",
+                "correct": "7.3",
+                "explanation": "A decimal point, not a comma; a comma also splits the HED string"
+            }
+        ],
+        "correction_patterns": [
+            "Check every value in a placeholder column against its value class, not only the rows a template uses",
+            "Use n/a for rows where the column has no value"
+        ],
+        "fix_instructions": [
+            "1. Find the column's annotation template and its placeholder tag",
+            "2. Look up the tag's unit class or value class in the schema",
+            "3. Check every value in the column that is not n/a against it",
+            "4. Correct the value or set it to n/a"
+        ],
+        "validation_hints": [
+            "A numeric placeholder needs a number and, when it has units, a valid unit after a space",
+            "A textClass value may not contain a comma, curly braces, or square brackets",
+            "The value is checked even when the row's event_code selects a template without the column in braces"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "UNITS_INVALID",
+            "CHARACTER_INVALID",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, Blue), (Green, (Yellow)), ({HED})",
+                                    "ball": "{response_time}, (Def/Acc/3.5)"
+                                }
+                            },
+                            "response_time": {
+                                "Description": "Has description with HED",
+                                "HED": "Distance/# m"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "response_time",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                3.4,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                6.8,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ],
+                            [
+                                5.2,
+                                0,
+                                "n/a",
+                                "face",
+                                ""
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "abc",
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, Blue), (Green, (Yellow)), ({HED})",
+                                    "ball": "{response_time}, (Def/Acc/3.5)"
+                                }
+                            },
+                            "response_time": {
+                                "Description": "Has description with HED",
+                                "HED": "Distance/# m"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "response_time",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                3.4,
+                                "face",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                6.8,
+                                "ball",
+                                "Green, Def/MyColor"
+                            ],
+                            [
+                                5.2,
+                                0,
+                                "n/a",
+                                "face",
+                                ""
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "7.3",
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
             }
         }
     }

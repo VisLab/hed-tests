@@ -669,5 +669,128 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "PLACEHOLDER_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "name": "placeholder-invalid-in-value-column",
+        "description": "A value in a sidecar-annotated value column contains a # character, so the HED string obtained by substituting the value for the # of the annotation still holds a placeholder.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Free text in a value column that uses # as a number sign or a marker",
+            "Copying a template with its # into a data cell instead of a value",
+            "Assuming a text value is checked only against its value class and not as part of the HED string"
+        ],
+        "explanation": "The cell of a value column is substituted for the # in the column annotation, and the result must be a valid HED string with no placeholder left in it. A # inside the value survives the substitution and is reported as a misplaced placeholder, so validators check the substituted string column by column before rows are assembled.",
+        "correction_strategy": "Remove the # from the value or spell out what it stands for",
+        "correction_examples": [
+            {
+                "wrong": "note column value trial #3 with annotation Parameter-value/#",
+                "correct": "trial 3",
+                "explanation": "The # in the value was substituted into the annotation and left a placeholder in the assembled string"
+            },
+            {
+                "wrong": "note column value # with annotation Parameter-value/#",
+                "correct": "n/a",
+                "explanation": "A cell with no value is n/a, not a copy of the placeholder"
+            }
+        ],
+        "correction_patterns": [
+            "Check every value of a value column, not only the rows a template uses",
+            "Never put # in a data value; it is the placeholder character of HED annotations",
+            "Use n/a for rows where the column has no value"
+        ],
+        "fix_instructions": [
+            "1. Find the annotation of the value column and its # placeholder",
+            "2. Substitute the reported value for the # and look for a remaining #",
+            "3. Remove the # from the value or replace the value with n/a",
+            "4. Check the other values of the column the same way"
+        ],
+        "validation_hints": [
+            "The same value in several rows is one defect; fix the value everywhere it appears",
+            "A value that passes its value class can still break the string it is substituted into"
+        ],
+        "specification_reference": "3.2.10.2. Tabular annotations",
+        "related_errors": [
+            "CHARACTER_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "a#b"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Parameter-value/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ab"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]
