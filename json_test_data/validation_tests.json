@@ -20974,5 +20974,292 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "VALUE_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID"
+        ],
+        "name": "value-invalid-date-time-format",
+        "description": "A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset).",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Giving a date without a time, or a time without seconds",
+            "Using an offset without a colon (+0200) or a lowercase t or z",
+            "An hour of 24, a month or day out of range, or more than six fractional digits"
+        ],
+        "explanation": "A dateTimeClass value is YYYY-MM-DDThh:mm:ss, an optional fraction of one to six digits, and an optional Z or +hh:mm or -hh:mm offset: the BIDS Datetime format, which NWB also accepts. The hour is 00-23, the minute 00-59, the second 00-60. A date that does not exist, such as 2026-02-31, passes the format check, as in BIDS.",
+        "correction_strategy": "Write the full date and time with a T separator and, if present, a Z or +hh:mm offset",
+        "correction_examples": [
+            {
+                "wrong": "Creation-date/2026-09-30",
+                "correct": "Creation-date/2026-09-30T00:00:00",
+                "explanation": "The time part is required"
+            },
+            {
+                "wrong": "Creation-date/2026-09-30T09:55:00+0200",
+                "correct": "Creation-date/2026-09-30T09:55:00+02:00",
+                "explanation": "An offset is +hh:mm with the colon"
+            },
+            {
+                "wrong": "Creation-date/2026-09-30T24:00:00",
+                "correct": "Creation-date/2026-10-01T00:00:00",
+                "explanation": "The hour is 00-23; midnight at the end of a day is 00:00:00 of the next"
+            }
+        ],
+        "correction_patterns": [
+            "Use YYYY-MM-DDThh:mm:ss with an uppercase T",
+            "Write fractional seconds with a period and at most six digits",
+            "Write the offset as Z, +hh:mm or -hh:mm"
+        ],
+        "fix_instructions": [
+            "1. Find the dateTimeClass placeholder (Creation-date/#, Modified-date/#) and its value",
+            "2. Check the value against YYYY-MM-DDThh:mm:ss[.ffffff][Z|+hh:mm|-hh:mm]",
+            "3. Correct the separator, the field ranges, the fraction length or the offset"
+        ],
+        "validation_hints": [
+            "Both validators apply one regular expression, the value_class_words.dateTimeClass entry of the specification's character_sets.json",
+            "Only the format is checked; whether the date exists is not"
+        ],
+        "specification_reference": "A.1.3. Value classes",
+        "related_errors": [
+            "CHARACTER_INVALID",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Creation-date/2026-09-30",
+                    "Creation-date/2026-09-30T09:55",
+                    "Creation-date/2026-09-30T09:55:00+0200",
+                    "Creation-date/2026-09-30T24:00:00",
+                    "Creation-date/2026-09-30T09:55:00.1234567",
+                    "Creation-date/2026-13-01T09:55:00",
+                    "Creation-date/2026-09-30T09:60:00"
+                ],
+                "passes": [
+                    "Creation-date/2026-09-30T09:55:00",
+                    "Creation-date/2026-09-30T09:55:00.5",
+                    "Creation-date/2026-09-30T09:55:00.123456Z",
+                    "Creation-date/2026-09-30T09:55:00+02:00",
+                    "Creation-date/2026-09-30T23:59:60"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30T09:55"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30T09:55:00+0200"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30T24:00:00"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30T09:55:00"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30T09:55:00.5"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Creation-date/2026-09-30T09:55:00.123456Z"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30T09:55"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30T09:55:00+0200"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30T24:00:00"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30T09:55:00"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30T09:55:00.5"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Creation-date/2026-09-30T09:55:00.123456Z"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Creation-date/2026-09-30"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Creation-date/2026-09-30T09:55:00"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red, Def/MyColor"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

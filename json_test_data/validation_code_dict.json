@@ -13,7 +13,8 @@
         "tag-extension-invalid-bad-node-name",
         "value-invalid-#-substitution",
         "value-invalid-incompatible-value-class",
-        "value-invalid-blank-missing-before-units"
+        "value-invalid-blank-missing-before-units",
+        "value-invalid-date-time-format"
     ],
     "TAG_INVALID": [
         "character-invalid-non-printing-appears",
@@ -69,7 +70,8 @@
         "value-invalid-incompatible-value-class",
         "value-invalid-blank-missing-before-units",
         "invalid-character-numeric-class",
-        "bad-value-in-curly-column"
+        "bad-value-in-curly-column",
+        "value-invalid-date-time-format"
     ],
     "TAG_EXTENSION_INVALID": [
         "invalid-character-name-value-class",

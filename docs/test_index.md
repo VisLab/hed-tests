@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 201 test cases in the HED test suite.
+Complete index of 202 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -37,7 +37,7 @@ Complete index of 201 test cases in the HED test suite.
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (1 test)
 - [TEMPORAL_TAG_ERROR](#temporal-tag-error) (26 tests)
 - [UNITS_INVALID](#units-invalid) (6 tests)
-- [VALUE_INVALID](#value-invalid) (5 tests)
+- [VALUE_INVALID](#value-invalid) (6 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
 
 ## CHARACTER_INVALID
@@ -2370,6 +2370,19 @@ Complete index of 201 test cases in the HED test suite.
 - `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### value-invalid-date-time-format (correction guidance) (examples)
+
+**Description**: A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset).
+
+**Schema**: 8.4.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 7 fail, 5 pass
+- `sidecar_tests`: 4 fail, 3 pass
+- `event_tests`: 4 fail, 3 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### value-invalid-incompatible-value-class (correction guidance) (examples)
