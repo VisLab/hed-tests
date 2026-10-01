@@ -516,5 +516,9 @@
         "VALUE_INVALID",
         "TAG_INVALID",
         "UNITS_INVALID"
+    ],
+    "value-invalid-date-time-format": [
+        "VALUE_INVALID",
+        "CHARACTER_INVALID"
     ]
 }
