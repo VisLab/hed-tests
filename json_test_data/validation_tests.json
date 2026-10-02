@@ -20981,16 +20981,17 @@
             "CHARACTER_INVALID"
         ],
         "name": "value-invalid-date-time-format",
-        "description": "A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset).",
+        "description": "A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset), or its date does not exist in the Gregorian calendar.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "validation",
         "common_causes": [
             "Giving a date without a time, or a time without seconds",
             "Using an offset without a colon (+0200) or a lowercase t or z",
-            "An hour of 24, a month or day out of range, or more than six fractional digits"
+            "An hour of 24, a month or day out of range, or more than six fractional digits",
+            "A day the month does not have, such as February 31 or February 29 of a non-leap year"
         ],
-        "explanation": "A dateTimeClass value is YYYY-MM-DDThh:mm:ss, an optional fraction of one to six digits, and an optional Z or +hh:mm or -hh:mm offset: the BIDS Datetime format, which NWB also accepts. The hour is 00-23, the minute 00-59, the second 00-60. A date that does not exist, such as 2026-02-31, passes the format check, as in BIDS.",
+        "explanation": "A dateTimeClass value is YYYY-MM-DDThh:mm:ss, an optional fraction of one to six digits, and an optional Z or +hh:mm or -hh:mm offset: the BIDS Datetime format, which NWB also accepts. The hour is 00-23, the minute 00-59, the second 00-60. The date must also exist in the Gregorian calendar: 2026-02-31 and 2027-02-29 are invalid, 2028-02-29 is valid. The BIDS specification says validators should reject non-existent dates; HED validators do.",
         "correction_strategy": "Write the full date and time with a T separator and, if present, a Z or +hh:mm offset",
         "correction_examples": [
             {
@@ -21007,6 +21008,11 @@
                 "wrong": "Creation-date/2026-09-30T24:00:00",
                 "correct": "Creation-date/2026-10-01T00:00:00",
                 "explanation": "The hour is 00-23; midnight at the end of a day is 00:00:00 of the next"
+            },
+            {
+                "wrong": "Creation-date/2026-02-31T09:55:00",
+                "correct": "Creation-date/2026-02-28T09:55:00",
+                "explanation": "February 2026 has 28 days"
             }
         ],
         "correction_patterns": [
@@ -21017,11 +21023,12 @@
         "fix_instructions": [
             "1. Find the dateTimeClass placeholder (Creation-date/#, Modified-date/#) and its value",
             "2. Check the value against YYYY-MM-DDThh:mm:ss[.ffffff][Z|+hh:mm|-hh:mm]",
-            "3. Correct the separator, the field ranges, the fraction length or the offset"
+            "3. Correct the separator, the field ranges, the fraction length or the offset",
+            "4. Check that the day exists in that month and year (leap years have February 29)"
         ],
         "validation_hints": [
             "Both validators apply one regular expression, the value_class_words.dateTimeClass entry of the specification's character_sets.json",
-            "Only the format is checked; whether the date exists is not"
+            "After the format check the date part is checked against the Gregorian calendar; the time part is not (a leap second :60 is allowed)"
         ],
         "specification_reference": "A.1.3. Value classes",
         "related_errors": [
@@ -21041,14 +21048,18 @@
                     "Creation-date/2026-09-30T24:00:00",
                     "Creation-date/2026-09-30T09:55:00.1234567",
                     "Creation-date/2026-13-01T09:55:00",
-                    "Creation-date/2026-09-30T09:60:00"
+                    "Creation-date/2026-09-30T09:60:00",
+                    "Creation-date/2026-02-31T09:55:00",
+                    "Creation-date/2026-04-31T09:55:00",
+                    "Creation-date/2027-02-29T09:55:00"
                 ],
                 "passes": [
                     "Creation-date/2026-09-30T09:55:00",
                     "Creation-date/2026-09-30T09:55:00.5",
                     "Creation-date/2026-09-30T09:55:00.123456Z",
                     "Creation-date/2026-09-30T09:55:00+02:00",
-                    "Creation-date/2026-09-30T23:59:60"
+                    "Creation-date/2026-09-30T23:59:60",
+                    "Creation-date/2028-02-29T09:55:00"
                 ]
             },
             "sidecar_tests": {

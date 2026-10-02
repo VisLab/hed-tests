@@ -2374,13 +2374,13 @@ Complete index of 202 test cases in the HED test suite.
 
 ### value-invalid-date-time-format (correction guidance) (examples)
 
-**Description**: A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset).
+**Description**: A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset), or its date does not exist in the Gregorian calendar.
 
 **Schema**: 8.4.0 **Category**: validation
 
 **Tests**:
 
-- `string_tests`: 7 fail, 5 pass
+- `string_tests`: 10 fail, 6 pass
 - `sidecar_tests`: 4 fail, 3 pass
 - `event_tests`: 4 fail, 3 pass
 - `combo_tests`: 1 fail, 1 pass

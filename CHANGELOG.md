@@ -1,5 +1,6 @@
 # Unreleased
 
+- value-invalid-date-time-format now also fails dates that do not exist in the Gregorian calendar (2026-02-31, 2026-04-31, 2027-02-29) and passes the leap day 2028-02-29; the explanation says validators check the calendar after the format, as the BIDS text requires
 - Added SCHEMA_ANNOTATION_INVALID schema test cases: eight failing annotation values (undefined prefix, unknown external property, bare external term, two dc:source citations naming no Sources row, and three skos:exactMatch/skos:closeMatch values whose term is not in prefix notation) and seven passing ones; every case is a library partnered with 8.5.0, since the rule is gated on a standard version of 8.5.0 or later
 - Fixed the combo passes case of na-in-onset column (TEMPORAL_TAG_ERROR): its first data row had three cells under a four-column header; added the missing duration value 0
 - Added UNITS_INVALID cases units-invalid-case (all unit strings are case-sensitive), units-invalid-symbol-plural (symbols take no plural), and units-invalid-compound-units (SI modifiers apply per component, so cm-per-us is valid and kmm-per-s is not)
