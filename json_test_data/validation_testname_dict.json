@@ -30,6 +30,15 @@
         "COMMA_MISSING",
         "TAG_INVALID"
     ],
+    "character-invalid-double-quote": [
+        "CHARACTER_INVALID"
+    ],
+    "character-invalid-nonascii-boundary": [
+        "CHARACTER_INVALID"
+    ],
+    "character-invalid-text-value-before-8-5-0": [
+        "CHARACTER_INVALID"
+    ],
     "comma-missing-tag-groups": [
         "COMMA_MISSING"
     ],

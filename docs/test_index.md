@@ -1,10 +1,10 @@
 # HED test suite index
 
-Complete index of 202 test cases in the HED test suite.
+Complete index of 205 test cases in the HED test suite.
 
 ## Quick navigation
 
-- [CHARACTER_INVALID](#character-invalid) (5 tests)
+- [CHARACTER_INVALID](#character-invalid) (8 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
 - [DEFINITION_INVALID](#definition-invalid) (10 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (6 tests)
@@ -44,6 +44,19 @@ Complete index of 202 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/CHARACTER_INVALID.json`
 
+### character-invalid-double-quote (correction guidance) (examples)
+
+**Description**: A HED string contains a double quote, which no HED string may contain whatever the value class.
+
+**Schema**: 8.4.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 3 fail, 3 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### character-invalid-non-printing-appears (correction guidance) (examples)
 
 **Description**: The HED string contains a UTF-8 character.
@@ -57,6 +70,19 @@ Complete index of 202 test cases in the HED test suite.
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### character-invalid-nonascii-boundary (correction guidance) (examples)
+
+**Description**: The nonascii character set starts at code 160 (U+00A0): the C1 control characters 128-159 are forbidden everywhere, and 160 and above are allowed wherever nonascii is.
+
+**Schema**: 8.5.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 3 fail, 3 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### character-invalid-structural-in-text-value (correction guidance) (examples)
 
 **Description**: From HED 8.5.0 a textClass value may not contain a parenthesis, the number sign, or the tilde, the characters that change the structure of the HED string the value is substituted into.
@@ -66,6 +92,19 @@ Complete index of 202 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 4 fail, 3 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### character-invalid-text-value-before-8-5-0 (correction guidance) (examples)
+
+**Description**: Under standard schemas before 8.5.0 a textClass value uses the text character set: printable or non-ASCII characters except comma, square brackets, and curly braces, with the double quote and tilde excluded from every HED string.
+
+**Schema**: 8.2.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 3 fail, 3 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

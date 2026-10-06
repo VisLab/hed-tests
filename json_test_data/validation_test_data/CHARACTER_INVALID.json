@@ -654,5 +654,507 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "CHARACTER_INVALID",
+        "alt_codes": [],
+        "name": "character-invalid-double-quote",
+        "description": "A HED string contains a double quote, which no HED string may contain whatever the value class.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Quoting a word or a title inside a Description value",
+            "Pasting text that uses straight double quotes",
+            "Assuming a text value may contain any printable character"
+        ],
+        "explanation": "The double quote is one of the characters no HED string may contain anywhere (Appendix B CHARACTER_INVALID a), together with square brackets, the tilde, and the control characters. It is excluded before any value class applies, so a Description value is rejected under every schema version even though textClass allows most punctuation. A single quote (apostrophe) is allowed.",
+        "correction_strategy": "Remove the double quotes or replace them with single quotes",
+        "correction_examples": [
+            {
+                "wrong": "Description/The \"go\" cue appeared",
+                "correct": "Description/The 'go' cue appeared",
+                "explanation": "Single quotes are allowed in a text value"
+            },
+            {
+                "wrong": "Label/cue\"1",
+                "correct": "Label/cue-1",
+                "explanation": "A nameClass value allows letters, digits, hyphen, underscore, and non-ASCII characters only"
+            }
+        ],
+        "correction_patterns": [
+            "Replace straight double quotes with single quotes in free-text values",
+            "Remove the quote from a name or label value"
+        ],
+        "fix_instructions": [
+            "1. Find the double quote the message points at",
+            "2. Remove it or replace it with a single quote",
+            "3. Check the other values of the same column for the same quoting"
+        ],
+        "validation_hints": [
+            "The double quote is in hed_string.forbidden of the specification's character_sets.json, so a validator reports it at the string level before the value class check",
+            "The check applies under every schema version, not only 8.3.0 and later"
+        ],
+        "specification_reference": "2.2. Character sets and restrictions",
+        "related_errors": [
+            "TAG_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Description/The \"go\" cue appeared",
+                    "Label/cue\"1",
+                    "Parameter-value/\""
+                ],
+                "passes": [
+                    "Description/The 'go' cue appeared",
+                    "Label/cue-1",
+                    "Parameter-value/it's"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/The \"go\" cue appeared"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/The 'go' cue appeared"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/The \"go\" cue appeared"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/The 'go' cue appeared"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "The \"go\" cue appeared"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "The 'go' cue appeared"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "CHARACTER_INVALID",
+        "alt_codes": [],
+        "name": "character-invalid-nonascii-boundary",
+        "description": "The nonascii character set starts at code 160 (U+00A0): the C1 control characters 128-159 are forbidden everywhere, and 160 and above are allowed wherever nonascii is.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Text copied from a Windows-1252 document, whose bytes 128-159 become C1 control characters when decoded as Latin-1",
+            "A validator that treats every character above 127 as non-ASCII and so admits the C1 controls",
+            "A validator that starts nonascii at 128 or rejects characters by a printable test instead of the code ranges"
+        ],
+        "explanation": "The specification's nonascii set is utf-8 codes 160 and above, and no HED string may contain the control characters 0-31 or 127-159 (Appendix B CHARACTER_INVALID a). The two ranges meet at U+009F and U+00A0: U+009F is a C1 control and is invalid in every value, while U+00A0 (no-break space) is the first nonascii character and is valid wherever nonascii is, including a nameClass value under standard schema 8.5.0, whose nameClass declaration lists nonascii.",
+        "correction_strategy": "Replace the control character with the intended character, or remove it",
+        "correction_examples": [
+            {
+                "wrong": "Label/caf\u009f",
+                "correct": "Label/caf\u00e9",
+                "explanation": "U+009F is a C1 control, usually a decoding artifact; the intended character is a letter"
+            }
+        ],
+        "correction_patterns": [
+            "Re-decode text that came from a Windows-1252 source so its bytes 128-159 become the intended characters",
+            "Remove C1 control characters from values"
+        ],
+        "fix_instructions": [
+            "1. Find the character the message points at and its code point",
+            "2. If it is in 128-159, it is a C1 control: replace it with the intended character or remove it",
+            "3. A character at 160 or above is allowed wherever the value class allows nonascii; no change is needed"
+        ],
+        "validation_hints": [
+            "Use the code ranges of hed_string.forbidden in character_sets.json, not a printable test: U+00A0 is not printable in some runtimes but is a valid nonascii character",
+            "The nonascii regex of character_sets.json is [^\\x00-\\x9F], so 128-159 are excluded by the set as well as by the forbidden ranges",
+            "Under 8.5.0 the nameClass declaration lists nonascii; under 8.3.0 and 8.4.0 validators apply nonascii from the specification's defaults"
+        ],
+        "specification_reference": "2.2. Character sets and restrictions",
+        "related_errors": [
+            "TAG_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Label/caf\u009f",
+                    "Description/a\u009fb",
+                    "Label/a\u0085b"
+                ],
+                "passes": [
+                    "Label/caf\u00e9",
+                    "Label/a\u00a0b",
+                    "Description/a\u00a0b"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Label/caf\u009f"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Label/caf\u00e9"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/caf\u009f"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/caf\u00e9"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "caf\u009f"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "caf\u00e9"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "CHARACTER_INVALID",
+        "alt_codes": [],
+        "name": "character-invalid-text-value-before-8-5-0",
+        "description": "Under standard schemas before 8.5.0 a textClass value uses the text character set: printable or non-ASCII characters except comma, square brackets, and curly braces, with the double quote and tilde excluded from every HED string.",
+        "warning": false,
+        "schema": "8.2.0",
+        "error_category": "validation",
+        "common_causes": [
+            "A square bracket or double quote in a Description value",
+            "Applying the 8.5.0 value-text restrictions to a dataset annotated with an earlier schema",
+            "Applying the character list the 8.0.0 to 8.2.0 schemas declare for textClass, which omits the underscore and the apostrophe"
+        ],
+        "explanation": "Before standard schema 8.5.0 a textClass value may contain any printable or non-ASCII character except the comma, square brackets, and curly braces (the text set of section 2.2), and the double quote and tilde that no HED string may contain; before 8.3.0 the non-ASCII characters are excluded from every HED string as well. Both validators have always applied the text set there, also under 8.0.0 to 8.2.0, whose schemas declare an explicit list without the underscore and the apostrophe; the specification's character_sets.json records text as the default for those versions, so file names and contractions remain valid. From 8.5.0 the value-text set also excludes parentheses, the number sign, and the tilde.",
+        "correction_strategy": "Remove the square bracket, curly brace, or double quote from the value, or rephrase",
+        "correction_examples": [
+            {
+                "wrong": "Description/Stimulus [left]",
+                "correct": "Description/Stimulus on the left",
+                "explanation": "Square brackets are excluded from every HED string"
+            },
+            {
+                "wrong": "ID/left_hand.png",
+                "correct": "ID/left_hand.png",
+                "explanation": "Already valid: the underscore is allowed in a text value under every schema version"
+            }
+        ],
+        "correction_patterns": [
+            "Rephrase a bracketed remark without the brackets",
+            "Keep underscores, apostrophes, percent signs, and semicolons: they are valid text characters"
+        ],
+        "fix_instructions": [
+            "1. Find the placeholder the value is substituted into and confirm it is textClass",
+            "2. Look for [, ], {, }, or a double quote in the value",
+            "3. Remove or rephrase",
+            "4. Do not change underscores or apostrophes; they are allowed"
+        ],
+        "validation_hints": [
+            "The text set is the value_class_defaults.textClass entry of character_sets.json for standard versions before 8.5.0",
+            "The 8.0.0 to 8.2.0 schemas declare an explicit character list for textClass; validators apply text instead, as the specification records",
+            "Parentheses, the number sign, and the tilde are structural characters: a validator may report PARENTHESES_MISMATCH or PLACEHOLDER_INVALID for them, and from 8.5.0 value-text excludes them"
+        ],
+        "specification_reference": "A.1.3. Value classes",
+        "related_errors": [
+            "TAG_INVALID",
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Description/Stimulus [left]",
+                    "Description/Trial {3}",
+                    "Description/The \"go\" cue"
+                ],
+                "passes": [
+                    "ID/left_hand.png",
+                    "Description/Don't press; 50% done? a=b <c> & d!",
+                    "Description/Response time 350 ms @ 60% - ok!"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Description/Stimulus [left]"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "ID/left_hand.png"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Description/Stimulus [left]"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "ID/left_hand.png"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Stimulus [left]"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "note": {
+                                "HED": "Description/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "note"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Don't press; 50% done"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]
