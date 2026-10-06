@@ -644,7 +644,7 @@
       "schema_tests": {
         "fails": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -654,15 +654,18 @@
             "'''Value classes'''",
             "'''Schema attributes'''",
             "* deprecatedAttribute {deprecatedProperty}",
+            "* deprecatedFrom {elementProperty, stringRange}",
             "'''Properties'''",
             "* deprecatedProperty {deprecatedFrom=1.0.0}",
+            "* elementProperty",
+            "* stringRange",
             "'''Epilogue'''",
             "!# end hed"
           ]
         ],
         "passes": [
           [
-            "HED version=\"1.1.0\" library=\"score\" withStandard=\"8.4.0\" unmerged=\"True\"",
+            "HED version=\"1.1.0\" library=\"score\"",
             "'''Prologue'''",
             "!# start schema",
             "'''BaseTag'''",
@@ -672,8 +675,11 @@
             "'''Value classes'''",
             "'''Schema attributes'''",
             "* deprecatedAttribute {deprecatedProperty, deprecatedFrom=1.0.0}",
+            "* deprecatedFrom {elementProperty, stringRange}",
             "'''Properties'''",
             "* deprecatedProperty {deprecatedFrom=1.0.0}",
+            "* elementProperty",
+            "* stringRange",
             "'''Epilogue'''",
             "!# end hed"
           ]
