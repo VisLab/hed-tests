@@ -98,7 +98,7 @@ Complete index of 205 test cases in the HED test suite.
 
 ### character-invalid-text-value-before-8-5-0 (correction guidance) (examples)
 
-**Description**: Under standard schemas before 8.5.0 a textClass value uses the text character set: printable or non-ASCII characters except comma, square brackets, and curly braces, with the double quote and tilde excluded from every HED string.
+**Description**: Under standard schemas 8.3.0 and 8.4.0 a textClass value uses the text character set: printable or non-ASCII characters except comma, square brackets, and curly braces, with the double quote and tilde excluded from every HED string. Under 8.0.0 to 8.2.0 the same applies without the non-ASCII characters, which those schemas exclude from every HED string.
 
 **Schema**: 8.2.0 **Category**: validation
 
