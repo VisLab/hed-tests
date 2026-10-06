@@ -668,8 +668,8 @@
             "Pasting text that uses straight double quotes",
             "Assuming a text value may contain any printable character"
         ],
-        "explanation": "The double quote is one of the characters no HED string may contain anywhere (Appendix B CHARACTER_INVALID a), together with square brackets, the tilde, and the control characters. It is excluded before any value class applies, so a Description value is rejected under every schema version even though textClass allows most punctuation. A single quote (apostrophe) is allowed.",
-        "correction_strategy": "Remove the double quotes or replace them with single quotes",
+        "explanation": "The double quote is one of the characters no HED string may contain anywhere (Appendix B CHARACTER_INVALID a), together with square brackets, the tilde, and the control characters. It is excluded before any value class applies, so a Description value is rejected under every schema version even though textClass allows most punctuation. The single quote (apostrophe) is not forbidden at the string level; whether a value may contain one is up to its value class: textClass allows it, nameClass does not.",
+        "correction_strategy": "Remove the double quotes; in a text value a single quote may replace them, in a name or label value no quote is allowed",
         "correction_examples": [
             {
                 "wrong": "Description/The \"go\" cue appeared",
@@ -991,7 +991,7 @@
         "error_code": "CHARACTER_INVALID",
         "alt_codes": [],
         "name": "character-invalid-text-value-before-8-5-0",
-        "description": "Under standard schemas before 8.5.0 a textClass value uses the text character set: printable or non-ASCII characters except comma, square brackets, and curly braces, with the double quote and tilde excluded from every HED string.",
+        "description": "Under standard schemas 8.3.0 and 8.4.0 a textClass value uses the text character set: printable or non-ASCII characters except comma, square brackets, and curly braces, with the double quote and tilde excluded from every HED string. Under 8.0.0 to 8.2.0 the same applies without the non-ASCII characters, which those schemas exclude from every HED string.",
         "warning": false,
         "schema": "8.2.0",
         "error_category": "validation",
@@ -1011,12 +1011,12 @@
             {
                 "wrong": "ID/left_hand.png",
                 "correct": "ID/left_hand.png",
-                "explanation": "Already valid: the underscore is allowed in a text value under every schema version"
+                "explanation": "Already valid: the underscore is allowed in a text value under every schema version (and in a nameClass value)"
             }
         ],
         "correction_patterns": [
             "Rephrase a bracketed remark without the brackets",
-            "Keep underscores, apostrophes, percent signs, and semicolons: they are valid text characters"
+            "Keep underscores, apostrophes, percent signs, and semicolons in a text value: they are valid text characters (a nameClass value such as Label allows the underscore only)"
         ],
         "fix_instructions": [
             "1. Find the placeholder the value is substituted into and confirm it is textClass",
