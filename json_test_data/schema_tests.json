@@ -3383,9 +3383,9 @@
     },
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
-        "name": "schema-deprecated-deprecated-attribute",
+        "name": "schema-deprecated-attribute-used-by-element",
         "warning": false,
-        "description": "A schema deprecation issue, an attribute of an element is deprecated",
+        "description": "A schema deprecation issue: an element uses a deprecated schema attribute",
         "schema": "",
         "definitions": [],
         "tests": {
@@ -3561,9 +3561,9 @@
     },
     {
         "error_code": "SCHEMA_DEPRECATION_ERROR",
-        "name": "schema-deprecated-deprecated-property",
+        "name": "schema-deprecated-property-used-by-attribute",
         "warning": false,
-        "description": "A schema deprecation issue, a property of an attribute is is deprecated",
+        "description": "A schema deprecation issue: a schema attribute uses a deprecated property",
         "schema": "",
         "definitions": [],
         "tests": {
