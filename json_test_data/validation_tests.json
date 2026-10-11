@@ -7245,24 +7245,24 @@
         "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
         "name": "duplicate-schema-in-merge-group",
-        "description": "The same schema (same name and version) listed twice in one merge group loads; the duplicate is ignored.",
+        "description": "The same schema (same name and version) listed twice in one merge group is an error; a schema name may appear only once in a merge group.",
         "warning": false,
         "schema": [
             "testconflict_2.0.0",
             "testconflict_2.0.0"
         ],
         "error_category": "schema",
-        "explanation": "Listing testconflict_2.0.0 twice in the unprefixed merge group is not an error: duplicate schemas (the same name and version) in a merge group are ignored on loading, so the result is the same as listing testconflict_2.0.0 once. Different versions of the same schema, by contrast, cannot appear in the same merge group.",
+        "explanation": "Listing testconflict_2.0.0 twice in the unprefixed merge group is an error: duplicate schemas (the same name, whatever the version) cannot appear in the same merge group. The rule is about the schema name, so an exact duplicate fails for the same reason as two different versions of one library (same-library-two-versions-in-group); identical versions do not make the listing valid.",
         "common_causes": [
             "Copy-paste duplication in the version specification",
             "Concatenating version lists that share a schema"
         ],
-        "correction_strategy": "No correction is required; the duplicate entry is ignored. Removing it keeps the version specification tidy.",
+        "correction_strategy": "List each schema once in a merge group; remove the duplicate entry.",
         "correction_examples": [
             {
                 "wrong": "[\"testconflict_2.0.0\", \"testconflict_2.0.0\"]",
                 "correct": "[\"testconflict_2.0.0\"]",
-                "explanation": "Both lists load the same vocabulary; the single entry is preferred because the duplicate adds nothing."
+                "explanation": "The single entry loads the vocabulary; the duplicate entry is the error."
             }
         ],
         "specification_reference": "3.1.2.4. Partnered combinations",
@@ -7273,11 +7273,11 @@
         "definitions": [],
         "tests": {
             "string_tests": {
-                "fails": [],
-                "passes": [
+                "fails": [
                     "Red, Object-one",
                     "Measure-tag/3"
-                ]
+                ],
+                "passes": []
             }
         }
     },
