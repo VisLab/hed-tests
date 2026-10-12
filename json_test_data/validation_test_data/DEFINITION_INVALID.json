@@ -198,7 +198,10 @@
             "Verify no missing content"
         ],
         "specification_reference": "3.2.8.1. Definition content requirements",
-        "related_errors": ["TAG_EMPTY", "PARENTHESES_MISMATCH"],
+        "related_errors": [
+            "TAG_EMPTY",
+            "PARENTHESES_MISMATCH"
+        ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
             "(Definition/MyColor, (Label/Pie))"
@@ -330,7 +333,10 @@
             "Check definition content distribution"
         ],
         "specification_reference": "3.2.8.1. Definition group structure",
-        "related_errors": ["TAG_GROUP_ERROR", "DEFINITION_INVALID"],
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "DEFINITION_INVALID"
+        ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
             "(Definition/MyColor, (Label/Pie))"
@@ -467,7 +473,10 @@
             "Verify no recursive definition structures"
         ],
         "specification_reference": "3.2.8.1. Definition content restrictions",
-        "related_errors": ["TAG_GROUP_ERROR", "DEFINITION_INVALID"],
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "DEFINITION_INVALID"
+        ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
             "(Definition/MyColor, (Label/Pie))"
@@ -1445,6 +1454,133 @@
                                 4.5,
                                 0,
                                 "Def/Blech/5, Def/Apple/4"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [],
+        "name": "definition-invalid-duplicate-definitions-differ",
+        "description": "A definition name may be defined more than once only when every definition of it is identical; the same name with different contents is an error.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "uniqueness",
+        "common_causes": [
+            "Copying a definition into several sidecar entries and editing one copy",
+            "Two sidecars in a dataset defining the same name differently"
+        ],
+        "explanation": "Identical definitions of one name (the same placeholder form and the same contents, without regard to case or order) are allowed and treated as one definition. Definitions of the same name whose contents differ are ambiguous and are an error.",
+        "correction_strategy": "Make every definition of a name identical, or rename one of them",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/Apple, (Red, Blue)) and (Definition/Apple, (Red, Green))",
+                "correct": "(Definition/Apple, (Red, Blue)) and (Definition/Apple, (Blue, Red))",
+                "explanation": "The two definitions now have the same contents; tag order does not matter"
+            }
+        ],
+        "correction_patterns": [
+            "Compare the contents of same-name definitions without regard to case or order",
+            "Rename a definition that is meant to differ"
+        ],
+        "fix_instructions": [
+            "1. Collect every definition with the repeated name",
+            "2. Compare their placeholder forms and contents ignoring tag order and case",
+            "3. Make them identical or give one a new name"
+        ],
+        "validation_hints": [
+            "Report only same-name definitions whose contents differ",
+            "Treat identical duplicates as one definition"
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "DEF_INVALID",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/Apple, (Red, Blue))",
+                                "def2": "(Definition/Apple, (Red, Green))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/Apple, (Red, Blue))",
+                                "def2": "(Definition/Apple, (Blue, Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/Apple, (Red, Blue))",
+                                    "def2": "(Definition/Apple, (Red, Green))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/Apple"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/Apple, (Red, Blue))",
+                                    "def2": "(Definition/Apple, (Blue, Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/Apple"
                             ]
                         ]
                     }

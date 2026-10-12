@@ -3040,5 +3040,205 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-delay-with-anchored-marker",
+        "description": "A `Delay` tag may appear in an `Onset`, `Offset`, or `Inset` group, delaying that marker; the marker tag must stay at the top level of the group, not inside the delayed inner group.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Nesting the Onset, Offset, or Inset inside the Delay's inner group",
+            "Assuming Delay may only be paired with Duration"
+        ],
+        "explanation": "A Delay in an Onset, Offset, or Inset group places that marker at the row's onset plus the delay. The Delay, the anchor, and the marker tag are all top-level members of the same group; wrapping the anchor and marker in an inner group nests a top-level tag and is an error.",
+        "correction_strategy": "Keep Delay, the Def anchor, and the Onset/Offset/Inset tag together at the top level of one group",
+        "correction_examples": [
+            {
+                "wrong": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                "correct": "(Delay/2.0 s, Def/MyColor, Onset)",
+                "explanation": "The Onset and its anchor belong beside the Delay, not in an inner group"
+            }
+        ],
+        "correction_patterns": [
+            "Unwrap (Def/x, Onset) when it sits inside a Delay group",
+            "Put Delay in the same group as the anchored marker"
+        ],
+        "fix_instructions": [
+            "1. Find Delay groups whose inner group contains Onset, Offset, or Inset",
+            "2. Move the anchor and the marker tag up beside the Delay",
+            "3. Keep at most one additional inner tag group for an Onset or Inset"
+        ],
+        "validation_hints": [
+            "Delay may accompany Duration, Onset, Offset, or Inset in one top-level group",
+            "A temporal tag inside a nested group is always an error"
+        ],
+        "specification_reference": "3.2.8.3. Onset, Offset, and Inset; 3.2.8.4. Duration and Delay",
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "PARENTHESES_MISMATCH"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Delay/2.0 s, (Def/MyColor, Onset))",
+                    "(Delay/2.0 s, (Def/MyColor, Offset))"
+                ],
+                "passes": [
+                    "(Delay/2.0 s, Def/MyColor, Onset)",
+                    "(Delay/2.0 s, Def/MyColor, Onset, (Red))",
+                    "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                    "(Delay/2.0 s, Def/MyColor, Offset)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                                "stop": "(Delay/2.0 s, (Def/MyColor, Offset))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Delay/2.0 s, Def/MyColor, Onset)",
+                                "mid": "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                                "stop": "(Delay/2.0 s, Def/MyColor, Offset)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Onset))"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Offset))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Offset)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "start": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                                    "stop": "(Delay/2.0 s, (Def/MyColor, Offset))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "start",
+                                "Red"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "stop",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "start": "(Delay/2.0 s, Def/MyColor, Onset)",
+                                    "mid": "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                                    "stop": "(Delay/2.0 s, Def/MyColor, Offset)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "start",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "mid",
+                                "Green"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "stop",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

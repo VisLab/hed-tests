@@ -1,12 +1,12 @@
 # HED test suite index
 
-Complete index of 206 test cases in the HED test suite.
+Complete index of 209 test cases in the HED test suite.
 
 ## Quick navigation
 
 - [CHARACTER_INVALID](#character-invalid) (8 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
-- [DEFINITION_INVALID](#definition-invalid) (10 tests)
+- [DEFINITION_INVALID](#definition-invalid) (11 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
 - [DEF_INVALID](#def-invalid) (3 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
@@ -30,12 +30,12 @@ Complete index of 206 test cases in the HED test suite.
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (2 tests)
-- [TAG_GROUP_ERROR](#tag-group-error) (4 tests)
+- [TAG_GROUP_ERROR](#tag-group-error) (5 tests)
 - [TAG_INVALID](#tag-invalid) (3 tests)
 - [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (3 tests)
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (1 test)
-- [TEMPORAL_TAG_ERROR](#temporal-tag-error) (26 tests)
+- [TEMPORAL_TAG_ERROR](#temporal-tag-error) (27 tests)
 - [UNITS_INVALID](#units-invalid) (6 tests)
 - [VALUE_INVALID](#value-invalid) (6 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
@@ -196,6 +196,17 @@ Complete index of 206 test cases in the HED test suite.
 **Description**: A tag with a required or unique attribute appears in a definition.
 
 **Schema**: 8.4.0 **Category**: content
+
+**Tests**:
+
+- `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### definition-invalid-duplicate-definitions-differ (correction guidance) (examples)
+
+**Description**: A definition name may be defined more than once only when every definition of it is identical; the same name with different contents is an error.
+
+**Schema**: 8.4.0 **Category**: uniqueness
 
 **Tests**:
 
@@ -1840,6 +1851,19 @@ Complete index of 206 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### tag-group-error-event-context-contents (correction guidance) (examples)
+
+**Description**: An `Event-context` group contains, besides the `Event-context` tag, only tag groups, one per ongoing event process.
+
+**Schema**: 8.4.0 **Category**: cardinality
+
+**Tests**:
+
+- `string_tests`: 2 fail, 3 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### tag-group-error-missing (correction guidance) (examples)
 
 **Description**: A tag has tagGroup or topLevelTagGroup attribute, but is not enclosed in parentheses.
@@ -2007,6 +2031,19 @@ Complete index of 206 test cases in the HED test suite.
 **Tests**:
 
 - `event_tests`: 2 fail, 2 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### temporal-tag-error-delay-with-anchored-marker (correction guidance) (examples)
+
+**Description**: A `Delay` tag may appear in an `Onset`, `Offset`, or `Inset` group, delaying that marker; the marker tag must stay at the top level of the group, not inside the delayed inner group.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `string_tests`: 2 fail, 4 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-duplicated-onset-or-offset (correction guidance) (examples)
