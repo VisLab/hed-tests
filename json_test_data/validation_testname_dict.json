@@ -108,6 +108,9 @@
         "DEF_EXPAND_INVALID",
         "DEFINITION_INVALID"
     ],
+    "def-expand-tags-in-any-order": [
+        "DEF_EXPAND_INVALID"
+    ],
     "def-invalid-name": [
         "DEF_INVALID"
     ],

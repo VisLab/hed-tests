@@ -4410,6 +4410,199 @@
         }
     },
     {
+        "error_code": "DEF_EXPAND_INVALID",
+        "alt_codes": [],
+        "name": "def-expand-tags-in-any-order",
+        "description": "The tags and groups within a Def-expand may appear in any order; only their content and nesting must match the definition.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "content",
+        "common_causes": [
+            "Validator comparing expansion and definition as ordered lists",
+            "Nested group flattened or tags moved between nesting levels",
+            "Wrong placeholder value propagation in a reordered expansion"
+        ],
+        "explanation": "A HED string is an unordered collection of tags and groups, so a Def-expand whose inner group lists the definition's tags in a different order is valid. The expansion is invalid only when a tag, a value, or the nesting of groups differs from the definition.",
+        "correction_strategy": "Compare the expansion to the definition by content and nesting, not by position",
+        "correction_examples": [
+            {
+                "wrong": "(Def-expand/Acc/4.5, (Red, Acceleration/6 m-per-s^2))",
+                "correct": "(Def-expand/Acc/4.5, (Red, Acceleration/4.5 m-per-s^2))",
+                "explanation": "The placeholder value must match; the order of Red and Acceleration does not matter"
+            },
+            {
+                "wrong": "(Def-expand/Nested, (Item, Label/Pie, Red))",
+                "correct": "(Def-expand/Nested, ((Red, Label/Pie), Item))",
+                "explanation": "Label/Pie and Red must stay in their own subgroup, in any order"
+            }
+        ],
+        "correction_patterns": [
+            "Match tags by content, ignoring their order",
+            "Keep every subgroup of the definition as a subgroup",
+            "Substitute the placeholder value consistently"
+        ],
+        "fix_instructions": [
+            "1. List the tags of the definition's content group and of the expansion",
+            "2. Check that the two lists contain the same tags, in any order",
+            "3. Check each subgroup the same way, recursively",
+            "4. Check that the placeholder value is substituted in the expansion"
+        ],
+        "validation_hints": [
+            "Sort or canonicalize both groups before comparing",
+            "Do not report a mismatch for order alone",
+            "Keep reporting a mismatch for a changed tag, value, or nesting"
+        ],
+        "specification_reference": "3.2.8.2. Def-expand content matching requirements",
+        "related_errors": [
+            "DEF_EXPAND_INVALID",
+            "DEFINITION_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/Nested, (Item, (Label/Pie, Red)))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Def-expand/Acc/4.5, (Red, Acceleration/6 m-per-s^2))",
+                    "(Def-expand/Nested, (Item, Label/Pie, Red))"
+                ],
+                "passes": [
+                    "(Def-expand/Acc/4.5, (Red, Acceleration/4.5 m-per-s^2))",
+                    "(Def-expand/Nested, ((Red, Label/Pie), Item))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Def-expand/Acc/4.5, (Red, Acceleration/6 m-per-s^2))",
+                                "ball": "(Def-expand/Nested, (Item, Label/Pie, Red))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Def-expand/Acc/4.5, (Red, Acceleration/4.5 m-per-s^2))",
+                                "ball": "(Def-expand/Nested, ((Red, Label/Pie), Item))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def-expand/Acc/4.5, (Red, Acceleration/6 m-per-s^2))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Def-expand/Nested, (Item, Label/Pie, Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def-expand/Acc/4.5, (Red, Acceleration/4.5 m-per-s^2))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Def-expand/Nested, ((Red, Label/Pie), Item))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Def-expand/Acc/4.5, (Red, Acceleration/6 m-per-s^2))",
+                                    "ball": "(Def-expand/Nested, (Item, Label/Pie, Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "(Def-expand/Acc/4.5, (Red, Acceleration/6 m-per-s^2))"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "ball",
+                                "(Def-expand/Nested, (Item, Label/Pie, Red))"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Def-expand/Acc/4.5, (Red, Acceleration/4.5 m-per-s^2))",
+                                    "ball": "(Def-expand/Nested, ((Red, Label/Pie), Item))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "(Def-expand/Acc/6.5, (Red, Acceleration/6.5 m-per-s^2))"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "ball",
+                                "(Def-expand/Acc/8.5, (Red, Acceleration/8.5 m-per-s^2))"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "DEF_INVALID",
         "alt_codes": [],
         "name": "def-invalid-name",

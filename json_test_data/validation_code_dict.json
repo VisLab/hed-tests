@@ -162,7 +162,8 @@
         "def-expand-invalid-bad-placeholder-value-or-units",
         "def-expand-invalid-tags-not-in-definition",
         "def-expand-missing-inner-group",
-        "def-expand-has-extras"
+        "def-expand-has-extras",
+        "def-expand-tags-in-any-order"
     ],
     "DEF_INVALID": [
         "def-invalid-name",

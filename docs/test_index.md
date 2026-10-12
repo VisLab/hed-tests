@@ -1,13 +1,13 @@
 # HED test suite index
 
-Complete index of 205 test cases in the HED test suite.
+Complete index of 206 test cases in the HED test suite.
 
 ## Quick navigation
 
 - [CHARACTER_INVALID](#character-invalid) (8 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
 - [DEFINITION_INVALID](#definition-invalid) (10 tests)
-- [DEF_EXPAND_INVALID](#def-expand-invalid) (6 tests)
+- [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
 - [DEF_INVALID](#def-invalid) (3 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (3 tests)
@@ -372,6 +372,19 @@ Complete index of 205 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### def-expand-tags-in-any-order (correction guidance) (examples)
+
+**Description**: The tags and groups within a Def-expand may appear in any order; only their content and nesting must match the definition.
+
+**Schema**: 8.4.0 **Category**: content
+
+**Tests**:
+
+- `string_tests`: 2 fail, 2 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

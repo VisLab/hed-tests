@@ -1,5 +1,6 @@
 # Unreleased
 
+- Added DEF_EXPAND_INVALID case def-expand-tags-in-any-order: a Def-expand whose inner group lists the definition's tags in a different order, or reorders a nested subgroup, passes; a changed placeholder value or a flattened subgroup still fails (hed-python issue #1455 compared the groups as ordered lists)
 - duplicate-schema-in-merge-group (SCHEMA_LOAD_FAILED) now fails: specification 3.1.2.4 (hed-specification PR #710) says duplicate schemas (same name regardless of version) cannot appear in the same merge group, so the exact duplicate is an error like two different versions of one library
 - Renamed schema-deprecated-deprecated-attribute to schema-deprecated-attribute-used-by-element and schema-deprecated-deprecated-property to schema-deprecated-property-used-by-attribute, and reworded their descriptions to say what uses what
 - schema-deprecated-property-used-by-attribute (was schema-deprecated-deprecated-property): both fixtures are now an unpartnered score library that declares deprecatedFrom and its two properties; as an unmerged partnered library they declared a property, which SCHEMA_LIBRARY_INVALID (j) forbids now that hed-python implements reasons j-l
