@@ -249,7 +249,7 @@ Complete index of 209 test cases in the HED test suite.
 
 ### definition-invalid-multiple-definitions (correction guidance) (examples)
 
-**Description**: Multiple `Definition` tags with same name are encountered.
+**Description**: Definitions with the same name have different contents.
 
 **Schema**: 8.4.0 **Category**: uniqueness
 
@@ -2041,7 +2041,7 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 4 pass
+- `string_tests`: 3 fail, 4 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -2117,7 +2117,7 @@ Complete index of 209 test cases in the HED test suite.
 
 ### temporal-tag-error-inset-group-has-extras (correction guidance) (examples)
 
-**Description**: An Inset group has tags or groups in addition to its defining Def or Def-expand.
+**Description**: An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.
 
 **Schema**: 8.4.0 **Category**: temporal
 
@@ -2128,7 +2128,7 @@ Complete index of 209 test cases in the HED test suite.
 
 ### temporal-tag-error-inset-group-has-extras-delay (correction guidance) (examples)
 
-**Description**: An Inset group has tags or groups in addition to its defining Def or Def-expand.
+**Description**: An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.
 
 **Schema**: 8.3.0 **Category**: temporal
 

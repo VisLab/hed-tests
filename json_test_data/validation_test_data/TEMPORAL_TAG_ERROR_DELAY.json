@@ -253,7 +253,10 @@
             "Verify proper separation of delay and content elements"
         ],
         "specification_reference": "3.2.8.3. Delay tag group structure",
-        "related_errors": ["TAG_GROUP_ERROR", "PARENTHESES_MISMATCH"],
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "PARENTHESES_MISMATCH"
+        ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
             "(Definition/MyColor, (Label/Pie))"
@@ -1170,7 +1173,9 @@
             "Ensure temporal logic consistency"
         ],
         "specification_reference": "3.2.8.3. Delayed temporal tag pairing",
-        "related_errors": ["TEMPORAL_TAG_ERROR"],
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR"
+        ],
         "definitions": [
             "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
             "(Definition/MyColor, (Label/Pie))"
@@ -1726,7 +1731,7 @@
         ],
         "correction_patterns": [
             "Establish Onset before using Inset with same definition",
-            "Ensure temporal sequence: Onset → Inset → Offset",
+            "Ensure temporal sequence: Onset \u2192 Inset \u2192 Offset",
             "Verify Inset has active temporal context",
             "Check delayed temporal boundary relationships"
         ],
@@ -1900,48 +1905,39 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-inset-group-has-extras-delay",
-        "description": "An Inset group has tags or groups in addition to its defining Def or Def-expand.",
+        "description": "An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.",
         "schema": "8.3.0",
         "error_category": "temporal",
         "common_causes": [
-            "Extra content tags added to delayed Inset groups",
-            "Misunderstanding that Inset should be minimal",
-            "Incorrect grouping of content with delayed Inset",
-            "Over-specification of Inset temporal boundaries",
-            "Adding unnecessary tags to Inset structure"
+            "Content tags placed directly in the Inset group instead of in its inner group",
+            "Misunderstanding that an Inset may carry only one additional tag group"
         ],
-        "explanation": "Inset tags in delayed contexts should only include their defining Def or Def-expand tag. Additional content violates the minimal boundary specification for Insets.",
-        "correction_strategy": "Remove extra content from Inset groups",
+        "explanation": "An Inset group contains its Def or Def-expand anchor, optionally a Delay, and at most one additional tag group with information about the marked point. Any other tag at the top level of the Inset group is an error.",
+        "correction_strategy": "Move extra tags into the Inset group's single inner tag group",
         "correction_examples": [
             {
                 "wrong": "(Delay/5.0 s, Def/MyColor, Blue, Inset)",
-                "correct": "(Delay/5.0 s, Def/MyColor, Inset)",
-                "explanation": "Removed extra content tag from Inset group"
+                "correct": "(Delay/5.0 s, Def/MyColor, (Blue), Inset)",
+                "explanation": "Wrapped the extra tag in the inner tag group"
             },
             {
-                "wrong": "(Delay/5.0 s, Def/MyColor, (Blue), Inset)",
-                "correct": "(Delay/5.0 s, Def/MyColor, Inset)",
-                "explanation": "Eliminated additional grouped content"
+                "wrong": "(Delay/5.0 s, Def/MyColor, Blue, (Green), Inset)",
+                "correct": "(Delay/5.0 s, Def/MyColor, (Blue, Green), Inset)",
+                "explanation": "Moved the bare tag into the existing inner tag group"
             }
         ],
         "correction_patterns": [
-            "Keep only definition with Inset tag",
-            "Remove all additional content from Inset groups",
-            "Maintain minimal Inset boundary specification",
-            "Follow delayed temporal minimalism requirements"
+            "Wrap bare content tags of an Inset group in parentheses",
+            "Keep one inner tag group per Inset"
         ],
         "fix_instructions": [
-            "1. Identify Inset groups with extra content",
-            "2. Remove all tags except definition and Inset",
-            "3. Ensure minimal Inset structure",
-            "4. Verify delayed temporal boundary requirements",
-            "5. Check Inset group minimalism rules"
+            "1. Identify Inset groups with tags beside the anchor, the Delay, and the Inset tag",
+            "2. Move those tags into the Inset group's inner tag group, creating it if needed",
+            "3. Check that the Inset group has at most one inner tag group"
         ],
         "validation_hints": [
-            "Inset should only have definition plus Inset tag",
-            "Remove any additional content from Inset groups",
-            "Check minimal delayed temporal boundary rules",
-            "Verify Inset group simplicity"
+            "An Inset group holds its anchor, an optional Delay, the Inset tag, and at most one inner group",
+            "A bare content tag in an Inset group is an error; the same tag inside the inner group is fine"
         ],
         "specification_reference": "3.2.8.3. Inset minimal boundary requirements",
         "related_errors": [
