@@ -86,6 +86,9 @@
         "DEFINITION_INVALID",
         "TAG_INVALID"
     ],
+    "definition-invalid-duplicate-definitions-differ": [
+        "DEFINITION_INVALID"
+    ],
     "def-expand-invalid-name-not-definition": [
         "DEF_EXPAND_INVALID"
     ],
@@ -363,6 +366,10 @@
         "TAG_GROUP_ERROR",
         "TEMPORAL_TAG_ERROR"
     ],
+    "tag-group-error-event-context-contents": [
+        "TAG_GROUP_ERROR",
+        "TEMPORAL_TAG_ERROR"
+    ],
     "tag-invalid-in-schema": [
         "TAG_INVALID",
         "PLACEHOLDER_INVALID"
@@ -440,6 +447,10 @@
         "TAG_GROUP_ERROR"
     ],
     "na-in-onset column": [
+        "TEMPORAL_TAG_ERROR",
+        "TAG_GROUP_ERROR"
+    ],
+    "temporal-tag-error-delay-with-anchored-marker": [
         "TEMPORAL_TAG_ERROR",
         "TAG_GROUP_ERROR"
     ],

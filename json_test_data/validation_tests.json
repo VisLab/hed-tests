@@ -2729,49 +2729,45 @@
         "error_code": "DEFINITION_INVALID",
         "alt_codes": [],
         "name": "definition-invalid-multiple-definitions",
-        "description": "Multiple `Definition` tags with same name are encountered.",
+        "description": "Definitions with the same name have different contents.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "uniqueness",
         "common_causes": [
-            "Duplicate definition names across different definition groups",
-            "Copy-paste errors creating multiple definitions with same name",
-            "Misunderstanding that definition names must be unique",
-            "Attempting to override or extend existing definitions",
-            "Inconsistent definition management across files"
+            "Copying a definition into several definition entries and editing one copy",
+            "Two sidecars in a dataset defining the same name with different contents",
+            "Attempting to override or extend an existing definition under its name",
+            "Defining a name once with a placeholder and once without"
         ],
-        "explanation": "Each definition name must be unique within the annotation context. Multiple definitions with the same name create ambiguity about which definition to use for expansion.",
-        "correction_strategy": "Ensure unique names for all definitions",
+        "explanation": "A definition name may be defined more than once only when every definition of it is identical (same placeholder form, same contents without regard to case or order). Definitions of the same name whose contents differ are ambiguous: tools cannot tell which to expand.",
+        "correction_strategy": "Rename a definition that is meant to differ, or make the repeated definitions identical",
         "correction_examples": [
             {
                 "wrong": "(Definition/Apple/#, (Label/#)) and (Definition/Apple/#, (Color/#))",
                 "correct": "(Definition/Apple/#, (Label/#)) and (Definition/AppleColor/#, (Color/#))",
-                "explanation": "Renamed second definition to make it unique"
+                "explanation": "Renamed the second definition because its contents differ"
             },
             {
-                "wrong": "Multiple Definition/Event with different content",
-                "correct": "Definition/Event1, Definition/Event2 with distinct names",
-                "explanation": "Used numbered or descriptive suffixes for uniqueness"
+                "wrong": "(Definition/MyColor, (Label/Pie)) and (Definition/MyColor, (Blue))",
+                "correct": "(Definition/MyColor, (Label/Pie)) and (Definition/MyColor, (Label/Pie))",
+                "explanation": "An identical repeat of a definition is allowed; only differing contents are an error"
             }
         ],
         "correction_patterns": [
-            "Rename duplicate definitions with descriptive suffixes",
-            "Use numbered variations (Event1, Event2)",
-            "Combine definitions if content is compatible",
-            "Remove truly duplicate definitions"
+            "Rename a same-name definition whose contents differ",
+            "Make repeated definitions identical when they mean the same thing",
+            "Use descriptive suffixes for related but different definitions"
         ],
         "fix_instructions": [
-            "1. Identify definitions with identical names",
-            "2. Examine content to determine if truly different",
-            "3. Rename definitions with descriptive unique names",
-            "4. Update all references to use new names",
-            "5. Verify definition name uniqueness"
+            "1. Collect every definition with the repeated name",
+            "2. Compare their placeholder forms and contents without regard to case or order",
+            "3. Rename the ones that differ, or make them identical",
+            "4. Update all Def and Def-expand references to a renamed definition"
         ],
         "validation_hints": [
-            "Scan for duplicate definition names",
-            "Ensure each definition has unique name",
-            "Check references match renamed definitions",
-            "Verify no name conflicts across files"
+            "Report only same-name definitions whose contents differ",
+            "Treat identical repeats as one definition",
+            "Compare contents across all definition sources of the dataset"
         ],
         "specification_reference": "3.2.8.1. Definition uniqueness requirements",
         "related_errors": [
@@ -3182,6 +3178,133 @@
                                 4.5,
                                 0,
                                 "Def/Blech/5, Def/Apple/4"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [],
+        "name": "definition-invalid-duplicate-definitions-differ",
+        "description": "A definition name may be defined more than once only when every definition of it is identical; the same name with different contents is an error.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "uniqueness",
+        "common_causes": [
+            "Copying a definition into several sidecar entries and editing one copy",
+            "Two sidecars in a dataset defining the same name differently"
+        ],
+        "explanation": "Identical definitions of one name (the same placeholder form and the same contents, without regard to case or order) are allowed and treated as one definition. Definitions of the same name whose contents differ are ambiguous and are an error.",
+        "correction_strategy": "Make every definition of a name identical, or rename one of them",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/Apple, (Red, Blue)) and (Definition/Apple, (Red, Green))",
+                "correct": "(Definition/Apple, (Red, Blue)) and (Definition/Apple, (Blue, Red))",
+                "explanation": "The two definitions now have the same contents; tag order does not matter"
+            }
+        ],
+        "correction_patterns": [
+            "Compare the contents of same-name definitions without regard to case or order",
+            "Rename a definition that is meant to differ"
+        ],
+        "fix_instructions": [
+            "1. Collect every definition with the repeated name",
+            "2. Compare their placeholder forms and contents ignoring tag order and case",
+            "3. Make them identical or give one a new name"
+        ],
+        "validation_hints": [
+            "Report only same-name definitions whose contents differ",
+            "Treat identical duplicates as one definition"
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "DEF_INVALID",
+            "TAG_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/Apple, (Red, Blue))",
+                                "def2": "(Definition/Apple, (Red, Green))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/Apple, (Red, Blue))",
+                                "def2": "(Definition/Apple, (Blue, Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/Apple, (Red, Blue))",
+                                    "def2": "(Definition/Apple, (Red, Green))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/Apple"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/Apple, (Red, Blue))",
+                                    "def2": "(Definition/Apple, (Blue, Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/Apple"
                             ]
                         ]
                     }
@@ -12788,6 +12911,206 @@
         }
     },
     {
+        "error_code": "TAG_GROUP_ERROR",
+        "alt_codes": [
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "name": "tag-group-error-event-context-contents",
+        "description": "An `Event-context` group contains, besides the `Event-context` tag, only tag groups, one per ongoing event process.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "cardinality",
+        "common_causes": [
+            "Placing the tags of an ongoing event directly in the Event-context group instead of in their own group",
+            "Hand-written Event-context groups"
+        ],
+        "explanation": "An Event-context group has the form (Event-context, (content-group), ...). Each content group holds the tags of one ongoing event process and is generated by tools. A bare tag beside Event-context does not belong to any process and is an error.",
+        "correction_strategy": "Wrap the tags of each ongoing process in their own group inside the Event-context group",
+        "correction_examples": [
+            {
+                "wrong": "(Event-context, Red, (Blue))",
+                "correct": "(Event-context, (Red), (Blue))",
+                "explanation": "Red is wrapped in its own content group"
+            }
+        ],
+        "correction_patterns": [
+            "Wrap each bare tag in the Event-context group in parentheses",
+            "Let tools generate Event-context groups rather than writing them by hand"
+        ],
+        "fix_instructions": [
+            "1. List the members of the Event-context group",
+            "2. Wrap every member that is a tag, other than Event-context itself, in a group",
+            "3. Check that each group describes one ongoing event process"
+        ],
+        "validation_hints": [
+            "Only Event-context may be a bare tag in its group",
+            "Any number of content groups, including none, is allowed"
+        ],
+        "specification_reference": "3.2.8.5. The Event-context tag; 5.5. Event contexts",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR",
+            "DEFINITION_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Event-context, Red, (Blue))",
+                    "(Event-context, Def/MyColor, (Blue))"
+                ],
+                "passes": [
+                    "(Event-context)",
+                    "(Event-context, (Red, Blue))",
+                    "(Event-context, (Red), (Blue))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "code1": "(Event-context, Red, (Blue))",
+                                "code2": "(Event-context, Def/MyColor, (Blue))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "code1": "(Event-context)",
+                                "code2": "(Event-context, (Red, Blue))",
+                                "code3": "(Event-context, (Red), (Blue))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Event-context, Red, (Blue))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Event-context, Def/MyColor, (Blue))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Event-context)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Event-context, (Red, Blue))"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Event-context, (Red), (Blue))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "code1": "(Event-context, Red, (Blue))",
+                                    "code2": "(Event-context, Def/MyColor, (Blue))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "code1",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "code2",
+                                "Red"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "code1": "(Event-context)",
+                                    "code2": "(Event-context, (Red, Blue))",
+                                    "code3": "(Event-context, (Red), (Blue))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "code1",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "code2",
+                                "Red"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "code3",
+                                "Red"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "TAG_INVALID",
         "alt_codes": [
             "PLACEHOLDER_INVALID"
@@ -16158,49 +16481,40 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-inset-group-has-extras",
-        "description": "An Inset group has tags or groups in addition to its defining Def or Def-expand.",
+        "description": "An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
         "common_causes": [
-            "Extra content tags added to Inset groups",
-            "Misunderstanding that Inset should be minimal",
-            "Incorrect grouping of content with Inset",
-            "Over-specification of Inset temporal boundaries",
-            "Adding unnecessary tags to Inset structure"
+            "Content tags placed directly in the Inset group instead of in its inner group",
+            "Misunderstanding that an Inset may carry only one additional tag group"
         ],
-        "explanation": "Inset tags should only include their defining Def or Def-expand tag. Additional content violates the minimal boundary specification for Insets.",
-        "correction_strategy": "Remove extra content from Inset groups",
+        "explanation": "An Inset group contains its Def or Def-expand anchor, optionally a Delay, and at most one additional tag group with information about the marked point. Any other tag at the top level of the Inset group is an error.",
+        "correction_strategy": "Move extra tags into the Inset group's single inner tag group",
         "correction_examples": [
             {
                 "wrong": "(Def/MyColor, Blue, Inset)",
-                "correct": "(Def/MyColor, Inset)",
-                "explanation": "Removed extra content tag from Inset group"
+                "correct": "(Def/MyColor, (Blue), Inset)",
+                "explanation": "Wrapped the extra tag in the inner tag group"
             },
             {
-                "wrong": "(Def/MyColor, (Blue), Inset)",
-                "correct": "(Def/MyColor, Inset)",
-                "explanation": "Eliminated additional grouped content"
+                "wrong": "(Def/MyColor, Blue, (Green), Inset)",
+                "correct": "(Def/MyColor, (Blue, Green), Inset)",
+                "explanation": "Moved the bare tag into the existing inner tag group"
             }
         ],
         "correction_patterns": [
-            "Keep only definition with Inset tag",
-            "Remove all additional content from Inset groups",
-            "Maintain minimal Inset boundary specification",
-            "Follow temporal minimalism requirements"
+            "Wrap bare content tags of an Inset group in parentheses",
+            "Keep one inner tag group per Inset"
         ],
         "fix_instructions": [
-            "1. Identify Inset groups with extra content",
-            "2. Remove all tags except definition and Inset",
-            "3. Ensure minimal Inset structure",
-            "4. Verify temporal boundary requirements",
-            "5. Check Inset group minimalism rules"
+            "1. Identify Inset groups with tags beside the anchor, the Delay, and the Inset tag",
+            "2. Move those tags into the Inset group's inner tag group, creating it if needed",
+            "3. Check that the Inset group has at most one inner tag group"
         ],
         "validation_hints": [
-            "Inset should only have definition plus Inset tag",
-            "Remove any additional content from Inset groups",
-            "Check minimal temporal boundary rules",
-            "Verify Inset group simplicity"
+            "An Inset group holds its anchor, an optional Delay, the Inset tag, and at most one inner group",
+            "A bare content tag in an Inset group is an error; the same tag inside the inner group is fine"
         ],
         "specification_reference": "3.2.8.3. Inset minimal boundary requirements",
         "related_errors": [
@@ -17407,6 +17721,237 @@
                                 0,
                                 "ball",
                                 "(Duration/5.0, (Red))"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-delay-with-anchored-marker",
+        "description": "A `Delay` tag may appear in an `Onset`, `Offset`, or `Inset` group, delaying that marker; the marker tag must stay at the top level of the group, not inside the delayed inner group.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Nesting the Onset, Offset, or Inset inside the Delay's inner group",
+            "Assuming Delay may only be paired with Duration"
+        ],
+        "explanation": "A Delay in an Onset, Offset, or Inset group places that marker at the row's onset plus the delay. The Delay, the anchor, and the marker tag are all top-level members of the same group; wrapping the anchor and marker in an inner group nests a top-level tag and is an error.",
+        "correction_strategy": "Keep Delay, the Def anchor, and the Onset/Offset/Inset tag together at the top level of one group",
+        "correction_examples": [
+            {
+                "wrong": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                "correct": "(Delay/2.0 s, Def/MyColor, Onset)",
+                "explanation": "The Onset and its anchor belong beside the Delay, not in an inner group"
+            },
+            {
+                "wrong": "(Delay/2.0 s, (Def/MyColor, Inset))",
+                "correct": "(Delay/2.0 s, Def/MyColor, Inset)",
+                "explanation": "The Inset and its anchor belong beside the Delay, not in an inner group"
+            }
+        ],
+        "correction_patterns": [
+            "Unwrap (Def/x, Onset) when it sits inside a Delay group",
+            "Put Delay in the same group as the anchored marker"
+        ],
+        "fix_instructions": [
+            "1. Find Delay groups whose inner group contains Onset, Offset, or Inset",
+            "2. Move the anchor and the marker tag up beside the Delay",
+            "3. Keep at most one additional inner tag group for an Onset or Inset, and none for an Offset"
+        ],
+        "validation_hints": [
+            "Delay may accompany Duration, Onset, Offset, or Inset in one top-level group",
+            "A temporal tag inside a nested group is always an error"
+        ],
+        "specification_reference": "3.2.8.3. Onset, Offset, and Inset; 3.2.8.4. Duration and Delay",
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "PARENTHESES_MISMATCH"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Delay/2.0 s, (Def/MyColor, Onset))",
+                    "(Delay/2.0 s, (Def/MyColor, Inset))",
+                    "(Delay/2.0 s, (Def/MyColor, Offset))"
+                ],
+                "passes": [
+                    "(Delay/2.0 s, Def/MyColor, Onset)",
+                    "(Delay/2.0 s, Def/MyColor, Onset, (Red))",
+                    "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                    "(Delay/2.0 s, Def/MyColor, Offset)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                                "mid": "(Delay/2.0 s, (Def/MyColor, Inset))",
+                                "stop": "(Delay/2.0 s, (Def/MyColor, Offset))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Delay/2.0 s, Def/MyColor, Onset)",
+                                "mid": "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                                "stop": "(Delay/2.0 s, Def/MyColor, Offset)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Inset))"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Onset))"
+                        ],
+                        [
+                            7.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Offset))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Offset)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "open": "(Def/MyColor, Onset)",
+                                    "start": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                                    "mid": "(Delay/2.0 s, (Def/MyColor, Inset))",
+                                    "stop": "(Delay/2.0 s, (Def/MyColor, Offset))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "open",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "mid",
+                                "Green"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "start",
+                                "Red"
+                            ],
+                            [
+                                7.5,
+                                0,
+                                "stop",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "start": "(Delay/2.0 s, Def/MyColor, Onset)",
+                                    "mid": "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                                    "stop": "(Delay/2.0 s, Def/MyColor, Offset)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "start",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "mid",
+                                "Green"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "stop",
+                                "Blue"
                             ]
                         ]
                     }
@@ -19320,48 +19865,39 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-inset-group-has-extras-delay",
-        "description": "An Inset group has tags or groups in addition to its defining Def or Def-expand.",
+        "description": "An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.",
         "schema": "8.3.0",
         "error_category": "temporal",
         "common_causes": [
-            "Extra content tags added to delayed Inset groups",
-            "Misunderstanding that Inset should be minimal",
-            "Incorrect grouping of content with delayed Inset",
-            "Over-specification of Inset temporal boundaries",
-            "Adding unnecessary tags to Inset structure"
+            "Content tags placed directly in the Inset group instead of in its inner group",
+            "Misunderstanding that an Inset may carry only one additional tag group"
         ],
-        "explanation": "Inset tags in delayed contexts should only include their defining Def or Def-expand tag. Additional content violates the minimal boundary specification for Insets.",
-        "correction_strategy": "Remove extra content from Inset groups",
+        "explanation": "An Inset group contains its Def or Def-expand anchor, optionally a Delay, and at most one additional tag group with information about the marked point. Any other tag at the top level of the Inset group is an error.",
+        "correction_strategy": "Move extra tags into the Inset group's single inner tag group",
         "correction_examples": [
             {
                 "wrong": "(Delay/5.0 s, Def/MyColor, Blue, Inset)",
-                "correct": "(Delay/5.0 s, Def/MyColor, Inset)",
-                "explanation": "Removed extra content tag from Inset group"
+                "correct": "(Delay/5.0 s, Def/MyColor, (Blue), Inset)",
+                "explanation": "Wrapped the extra tag in the inner tag group"
             },
             {
-                "wrong": "(Delay/5.0 s, Def/MyColor, (Blue), Inset)",
-                "correct": "(Delay/5.0 s, Def/MyColor, Inset)",
-                "explanation": "Eliminated additional grouped content"
+                "wrong": "(Delay/5.0 s, Def/MyColor, Blue, (Green), Inset)",
+                "correct": "(Delay/5.0 s, Def/MyColor, (Blue, Green), Inset)",
+                "explanation": "Moved the bare tag into the existing inner tag group"
             }
         ],
         "correction_patterns": [
-            "Keep only definition with Inset tag",
-            "Remove all additional content from Inset groups",
-            "Maintain minimal Inset boundary specification",
-            "Follow delayed temporal minimalism requirements"
+            "Wrap bare content tags of an Inset group in parentheses",
+            "Keep one inner tag group per Inset"
         ],
         "fix_instructions": [
-            "1. Identify Inset groups with extra content",
-            "2. Remove all tags except definition and Inset",
-            "3. Ensure minimal Inset structure",
-            "4. Verify delayed temporal boundary requirements",
-            "5. Check Inset group minimalism rules"
+            "1. Identify Inset groups with tags beside the anchor, the Delay, and the Inset tag",
+            "2. Move those tags into the Inset group's inner tag group, creating it if needed",
+            "3. Check that the Inset group has at most one inner tag group"
         ],
         "validation_hints": [
-            "Inset should only have definition plus Inset tag",
-            "Remove any additional content from Inset groups",
-            "Check minimal delayed temporal boundary rules",
-            "Verify Inset group simplicity"
+            "An Inset group holds its anchor, an optional Delay, the Inset tag, and at most one inner group",
+            "A bare content tag in an Inset group is an error; the same tag inside the inner group is fine"
         ],
         "specification_reference": "3.2.8.3. Inset minimal boundary requirements",
         "related_errors": [

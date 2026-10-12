@@ -1785,49 +1785,40 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-inset-group-has-extras",
-        "description": "An Inset group has tags or groups in addition to its defining Def or Def-expand.",
+        "description": "An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
         "common_causes": [
-            "Extra content tags added to Inset groups",
-            "Misunderstanding that Inset should be minimal",
-            "Incorrect grouping of content with Inset",
-            "Over-specification of Inset temporal boundaries",
-            "Adding unnecessary tags to Inset structure"
+            "Content tags placed directly in the Inset group instead of in its inner group",
+            "Misunderstanding that an Inset may carry only one additional tag group"
         ],
-        "explanation": "Inset tags should only include their defining Def or Def-expand tag. Additional content violates the minimal boundary specification for Insets.",
-        "correction_strategy": "Remove extra content from Inset groups",
+        "explanation": "An Inset group contains its Def or Def-expand anchor, optionally a Delay, and at most one additional tag group with information about the marked point. Any other tag at the top level of the Inset group is an error.",
+        "correction_strategy": "Move extra tags into the Inset group's single inner tag group",
         "correction_examples": [
             {
                 "wrong": "(Def/MyColor, Blue, Inset)",
-                "correct": "(Def/MyColor, Inset)",
-                "explanation": "Removed extra content tag from Inset group"
+                "correct": "(Def/MyColor, (Blue), Inset)",
+                "explanation": "Wrapped the extra tag in the inner tag group"
             },
             {
-                "wrong": "(Def/MyColor, (Blue), Inset)",
-                "correct": "(Def/MyColor, Inset)",
-                "explanation": "Eliminated additional grouped content"
+                "wrong": "(Def/MyColor, Blue, (Green), Inset)",
+                "correct": "(Def/MyColor, (Blue, Green), Inset)",
+                "explanation": "Moved the bare tag into the existing inner tag group"
             }
         ],
         "correction_patterns": [
-            "Keep only definition with Inset tag",
-            "Remove all additional content from Inset groups",
-            "Maintain minimal Inset boundary specification",
-            "Follow temporal minimalism requirements"
+            "Wrap bare content tags of an Inset group in parentheses",
+            "Keep one inner tag group per Inset"
         ],
         "fix_instructions": [
-            "1. Identify Inset groups with extra content",
-            "2. Remove all tags except definition and Inset",
-            "3. Ensure minimal Inset structure",
-            "4. Verify temporal boundary requirements",
-            "5. Check Inset group minimalism rules"
+            "1. Identify Inset groups with tags beside the anchor, the Delay, and the Inset tag",
+            "2. Move those tags into the Inset group's inner tag group, creating it if needed",
+            "3. Check that the Inset group has at most one inner tag group"
         ],
         "validation_hints": [
-            "Inset should only have definition plus Inset tag",
-            "Remove any additional content from Inset groups",
-            "Check minimal temporal boundary rules",
-            "Verify Inset group simplicity"
+            "An Inset group holds its anchor, an optional Delay, the Inset tag, and at most one inner group",
+            "A bare content tag in an Inset group is an error; the same tag inside the inner group is fine"
         ],
         "specification_reference": "3.2.8.3. Inset minimal boundary requirements",
         "related_errors": [
@@ -3034,6 +3025,237 @@
                                 0,
                                 "ball",
                                 "(Duration/5.0, (Red))"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-delay-with-anchored-marker",
+        "description": "A `Delay` tag may appear in an `Onset`, `Offset`, or `Inset` group, delaying that marker; the marker tag must stay at the top level of the group, not inside the delayed inner group.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Nesting the Onset, Offset, or Inset inside the Delay's inner group",
+            "Assuming Delay may only be paired with Duration"
+        ],
+        "explanation": "A Delay in an Onset, Offset, or Inset group places that marker at the row's onset plus the delay. The Delay, the anchor, and the marker tag are all top-level members of the same group; wrapping the anchor and marker in an inner group nests a top-level tag and is an error.",
+        "correction_strategy": "Keep Delay, the Def anchor, and the Onset/Offset/Inset tag together at the top level of one group",
+        "correction_examples": [
+            {
+                "wrong": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                "correct": "(Delay/2.0 s, Def/MyColor, Onset)",
+                "explanation": "The Onset and its anchor belong beside the Delay, not in an inner group"
+            },
+            {
+                "wrong": "(Delay/2.0 s, (Def/MyColor, Inset))",
+                "correct": "(Delay/2.0 s, Def/MyColor, Inset)",
+                "explanation": "The Inset and its anchor belong beside the Delay, not in an inner group"
+            }
+        ],
+        "correction_patterns": [
+            "Unwrap (Def/x, Onset) when it sits inside a Delay group",
+            "Put Delay in the same group as the anchored marker"
+        ],
+        "fix_instructions": [
+            "1. Find Delay groups whose inner group contains Onset, Offset, or Inset",
+            "2. Move the anchor and the marker tag up beside the Delay",
+            "3. Keep at most one additional inner tag group for an Onset or Inset, and none for an Offset"
+        ],
+        "validation_hints": [
+            "Delay may accompany Duration, Onset, Offset, or Inset in one top-level group",
+            "A temporal tag inside a nested group is always an error"
+        ],
+        "specification_reference": "3.2.8.3. Onset, Offset, and Inset; 3.2.8.4. Duration and Delay",
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "PARENTHESES_MISMATCH"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Delay/2.0 s, (Def/MyColor, Onset))",
+                    "(Delay/2.0 s, (Def/MyColor, Inset))",
+                    "(Delay/2.0 s, (Def/MyColor, Offset))"
+                ],
+                "passes": [
+                    "(Delay/2.0 s, Def/MyColor, Onset)",
+                    "(Delay/2.0 s, Def/MyColor, Onset, (Red))",
+                    "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                    "(Delay/2.0 s, Def/MyColor, Offset)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                                "mid": "(Delay/2.0 s, (Def/MyColor, Inset))",
+                                "stop": "(Delay/2.0 s, (Def/MyColor, Offset))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Delay/2.0 s, Def/MyColor, Onset)",
+                                "mid": "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                                "stop": "(Delay/2.0 s, Def/MyColor, Offset)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Inset))"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Onset))"
+                        ],
+                        [
+                            7.5,
+                            0,
+                            "(Delay/2.0 s, (Def/MyColor, Offset))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Offset)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "open": "(Def/MyColor, Onset)",
+                                    "start": "(Delay/2.0 s, (Def/MyColor, Onset))",
+                                    "mid": "(Delay/2.0 s, (Def/MyColor, Inset))",
+                                    "stop": "(Delay/2.0 s, (Def/MyColor, Offset))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "open",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "mid",
+                                "Green"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "start",
+                                "Red"
+                            ],
+                            [
+                                7.5,
+                                0,
+                                "stop",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "start": "(Delay/2.0 s, Def/MyColor, Onset)",
+                                    "mid": "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
+                                    "stop": "(Delay/2.0 s, Def/MyColor, Offset)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "start",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "mid",
+                                "Green"
+                            ],
+                            [
+                                6.5,
+                                0,
+                                "stop",
+                                "Blue"
                             ]
                         ]
                     }
