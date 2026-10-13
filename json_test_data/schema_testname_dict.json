@@ -139,6 +139,9 @@
     "library-invalid-duplicate-unit": [
         "SCHEMA_LIBRARY_INVALID"
     ],
+    "library-invalid-duplicate-unit-class": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
     "library-invalid-duplicate-standard-tag": [
         "SCHEMA_LIBRARY_INVALID"
     ],
