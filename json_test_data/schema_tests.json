@@ -4690,6 +4690,93 @@
     },
     {
         "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-duplicate-unit-class",
+        "warning": false,
+        "description": "An unmerged partnered library schema redeclares a unit class of its standard schema partner with a description or attributes instead of naming it only to add units.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Copying a unit class line, with its description, from the standard schema into the library",
+            "Adding a description or attribute to a unit class that the library names only to add units to it"
+        ],
+        "explanation": "An unmerged partnered library schema may not declare a schema element with the same name as an element of its standard schema partner. The one exception is a unit class named solely to add new units under it: the bare line * timeUnits followed by the new units adds them to the partner's timeUnits. A unit class line that also carries a description or attributes declares the class again rather than extending it, so it is a duplication of the partner's timeUnits.",
+        "correction_strategy": "Name the partner's unit class bare, with no description or attributes, and list only the new units under it; the class keeps the partner's description and attributes.",
+        "correction_examples": [
+            {
+                "wrong": "* timeUnits <nowiki>[Units of time.]</nowiki>",
+                "correct": "* timeUnits",
+                "explanation": "The bare name only adds the units listed under it to the partner's timeUnits."
+            },
+            {
+                "wrong": "* timeUnits <nowiki>{defaultUnits=s}</nowiki>",
+                "correct": "* timeUnits",
+                "explanation": "defaultUnits belongs to the partner's declaration of timeUnits; the library adds units only."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (i); 7.4.3. Partnered design rules",
+        "related_errors": [
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "* timeUnits <nowiki>[Units of time.]</nowiki>",
+                        "** fortnight <nowiki>{conversionFactor=1209600.0}[Fourteen days.]</nowiki>",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "* timeUnits <nowiki>{defaultUnits=s}</nowiki>",
+                        "** fortnight <nowiki>{conversionFactor=1209600.0}[Fourteen days.]</nowiki>",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "* timeUnits",
+                        "** fortnight <nowiki>{conversionFactor=1209600.0}[Fourteen days.]</nowiki>",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
         "name": "library-invalid-duplicate-standard-tag",
         "warning": false,
         "description": "An unmerged library schema declares a tag whose name already exists in its standard schema partner.",

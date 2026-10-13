@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 209 test cases in the HED test suite.
+Complete index of 210 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,7 +19,7 @@ Complete index of 209 test cases in the HED test suite.
 - [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (3 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
-- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (18 tests)
+- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (19 tests)
 - [SCHEMA_LOAD_FAILED](#schema-load-failed) (41 tests)
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
@@ -1021,6 +1021,16 @@ Complete index of 209 test cases in the HED test suite.
 **Tests**:
 
 - `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-duplicate-unit-class (correction guidance) (examples)
+
+**Description**: An unmerged partnered library schema redeclares a unit class of its standard schema partner with a description or attributes instead of naming it only to add units.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 2 fail, 1 pass
 
 ### library-invalid-duplicate-unit-modifier (correction guidance) (examples)
 
