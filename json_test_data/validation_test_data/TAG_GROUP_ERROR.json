@@ -72,15 +72,11 @@
                 "fails": [
                     "Definition/Blech, (Red)",
                     "Def-expand/Acc/4.5 m-per-s^2, (Acceleration/4.5, Red)",
-                    "Onset",
-                    "Duration/3.0 s",
-                    "Delay/3.0 s"
+                    "Duration/3.0 s"
                 ],
                 "passes": [
                     "(Def-expand/Acc/4.5, (Acceleration/4.5 m-per-s^2, Red))",
-                    "((Def-expand/Acc/4.5, (Acceleration/4.5 m-per-s^2, Red)), Onset)",
-                    "(Duration/3.0 s, (Event))",
-                    "(Duration/3.0 s, Delay/2.0 s, (Event))"
+                    "(Duration/3.0 s, (Event))"
                 ]
             },
             "sidecar_tests": {
@@ -123,6 +119,18 @@
                             0,
                             "(Def-expand/Acc/4.5, (Acceleration/4.5 m-per-s^2, Red)), Onset"
                         ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Delay/3.0 s"
+                        ]
                     ]
                 ],
                 "passes": [
@@ -141,6 +149,11 @@
                             5.5,
                             0,
                             "((Def-expand/Acc/4.5, (Acceleration/4.5 m-per-s^2, Red)), Onset)"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Duration/3.0 s, Delay/2.0 s, (Event))"
                         ]
                     ]
                 ]
@@ -702,16 +715,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Def/MyColor, Onset, Event-context)",
-                    "(Event-context, Red, Offset)",
-                    "(Event-context, Duration/3.0 s, Offset)",
-                    "(Delay/3.0 s, Duration/2.0 s, Offset)"
-                ],
-                "passes": [
-                    "(Def/MyColor, Onset)",
-                    "((Event), Duration/3.0 s, Delay/2.0 s)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -767,6 +772,30 @@
                             0,
                             "Green"
                         ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def/MyColor, Onset, Duration/3.0 s)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3.0 s, Duration/2.0 s, Def/MyColor, Onset)"
+                        ]
                     ]
                 ],
                 "passes": [
@@ -785,6 +814,28 @@
                             5.0,
                             0,
                             "Green"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "((Event), Duration/3.0 s, Delay/2.0 s)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Offset)"
                         ]
                     ]
                 ]

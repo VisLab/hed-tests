@@ -1,5 +1,6 @@
 # Unreleased
 
+- Moved the 54 string tests in 16 cases that contained Onset, Offset, Inset, or Delay (in COMMA_MISSING, TAG_GROUP_ERROR, TEMPORAL_TAG_ERROR, and TEMPORAL_TAG_ERROR_DELAY) to event tests, adding event rows wherever a rule would otherwise have lost its only test: the specification defines those tags relative to a timeline file and does not say how a validator must treat them in a lone string. Duration stays in string tests. temporal-tag-error-not-tag-group-delay now gives its Delay values units, and its unwrapped Def-expand fail is paired with a passing wrapped form and a matching correction example
 - Added TEMPORAL_TAG_ERROR case temporal-tag-error-delay-with-anchored-marker: a Delay may sit in an Onset, Offset, or Inset group and delay that marker; nesting the anchored marker inside the Delay's inner group fails (hed-specification issue #486)
 - definition-invalid-multiple-definitions: guidance restricted to same-name definitions with different contents, since identical repeats are allowed; its fixtures already only had differing contents
 - temporal-tag-error-inset-group-has-extras and its -delay twin: guidance no longer says an Inset group must be minimal; one additional tag group is allowed, as their own passing fixtures show, and only bare tags beside the anchor are the error
