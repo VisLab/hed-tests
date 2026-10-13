@@ -18,8 +18,8 @@ paths:
   a wholesale rewrite still needs asking first, as the first bullet says.
   `notes/` is write-once. `decisions.md` and `development_history.md` are
   append-only: add an entry, never rewrite or delete one.
-- A finished plan moves to `archive/completed_plans/` (split still-open boxes
-  into a new plan first) and gets an entry in `development_history.md`.
+- A finished plan moves to `archive/<year>/`, for example `archive/2026/`
+  (split still-open boxes into a new plan first) and gets an entry in `development_history.md`.
 - Temporary scripts, experiments, and one-off test files go in
   `.status/scratch/` - never the repository root. `scratch/` may hold any
   file type and is deleted unread; everywhere else is markdown only.
