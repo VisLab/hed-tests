@@ -67,13 +67,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "Onset, Red",
-                    "Offset, Def/Acc/5.4"
-                ],
-                "passes": [
-                    "(Onset, Def/Acc/5.4)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [],
@@ -104,6 +99,23 @@
                             5.0,
                             0,
                             "Onset, Def/MyColor"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset, Def/Acc/5.4)"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "Offset, Def/Acc/5.4"
                         ]
                     ]
                 ],
@@ -262,12 +274,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "((Onset, Def/MyColor), Red)"
-                ],
-                "passes": [
-                    "(Onset, Def/MyColor), Red"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -442,13 +450,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Onset, (Red))"
-                ],
-                "passes": [
-                    "(Onset, Def/MyColor, (Red))",
-                    "(Onset, (Def-expand/MyColor, (Label/Pie)), (Red))"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -502,6 +505,18 @@
                             4.5,
                             0,
                             "(Onset, Def/MyColor, (Red))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset, (Def-expand/MyColor, (Label/Pie)), (Red))"
                         ]
                     ]
                 ]
@@ -636,14 +651,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Onset, Def/MyColor, (Red), (Blue))",
-                    "((Def-expand/MyColor, (Label/Pie)), (Green), (Red), Onset)"
-                ],
-                "passes": [
-                    "(Onset, Def/MyColor)",
-                    "((Def-expand/MyColor, (Label/Pie)), (Red), Onset)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -1266,12 +1275,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Def/MyColor, Blue, Green, Onset)"
-                ],
-                "passes": [
-                    "(Def/MyColor, (Blue), Onset)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -1305,6 +1310,18 @@
                             4.5,
                             0,
                             "(Def/MyColor, Blue, (Green), Onset)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def/MyColor, Blue, Green, Onset)"
                         ]
                     ]
                 ],
@@ -2045,14 +2062,10 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "(Duration/3.0 s, Delay/2.0 s, (Green), (Blue))",
-                    "(Duration/3.0 s, (Green), (Blue))",
-                    "(Delay/3.0 s, (Green), (Blue))"
+                    "(Duration/3.0 s, (Green), (Blue))"
                 ],
                 "passes": [
-                    "(Duration/3.0 s, Delay/2.0 s, (Blue))",
-                    "(Duration/3.0 s, (Blue))",
-                    "(Delay/3.0 s, (Blue))"
+                    "(Duration/3.0 s, (Blue))"
                 ]
             },
             "sidecar_tests": {
@@ -2081,6 +2094,18 @@
                             6.0,
                             0,
                             "(Duration/3.0 s, Delay/2.0 s, (Green), (Blue))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3.0 s, (Green), (Blue))"
                         ]
                     ]
                 ],
@@ -3083,17 +3108,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Delay/2.0 s, (Def/MyColor, Onset))",
-                    "(Delay/2.0 s, (Def/MyColor, Inset))",
-                    "(Delay/2.0 s, (Def/MyColor, Offset))"
-                ],
-                "passes": [
-                    "(Delay/2.0 s, Def/MyColor, Onset)",
-                    "(Delay/2.0 s, Def/MyColor, Onset, (Red))",
-                    "(Delay/2.0 s, (Def-expand/MyColor, (Label/Pie)), Inset)",
-                    "(Delay/2.0 s, Def/MyColor, Offset)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -3170,6 +3186,18 @@
                             6.5,
                             0,
                             "(Delay/2.0 s, Def/MyColor, Offset)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2.0 s, Def/MyColor, Onset, (Red))"
                         ]
                     ]
                 ]

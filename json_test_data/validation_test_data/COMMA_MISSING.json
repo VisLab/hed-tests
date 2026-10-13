@@ -51,12 +51,10 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "(Red, Blue)(Green, (Yellow))",
-                    "(Def/MyColor, Onset)(Def/Acc/3.5)"
+                    "(Red, Blue)(Green, (Yellow))"
                 ],
                 "passes": [
-                    "(Red, Blue),   (Green, (Yellow))",
-                    "(Def/MyColor, Onset),(Def/Acc/3.5)"
+                    "(Red, Blue),   (Green, (Yellow))"
                 ]
             },
             "sidecar_tests": {
@@ -250,12 +248,10 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "Red, Blue(Green, (Yellow))",
-                    "(Def/MyColor, Onset)Def/Acc/3.5"
+                    "Red, Blue(Green, (Yellow))"
                 ],
                 "passes": [
-                    "Red,   (Green, (Yellow))",
-                    "(Def/MyColor, Onset),Def/Acc/3.5"
+                    "Red,   (Green, (Yellow))"
                 ]
             },
             "sidecar_tests": {
@@ -311,6 +307,11 @@
                             4.5,
                             0,
                             "Red,  (Green, (Yellow))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Def/MyColor, Onset),Def/Acc/3.5"
                         ]
                     ]
                 ]

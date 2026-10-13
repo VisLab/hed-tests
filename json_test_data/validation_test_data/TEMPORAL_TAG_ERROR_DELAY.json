@@ -28,6 +28,11 @@
                 "wrong": "(Delay/5, Def/Acc/5.4)",
                 "correct": "(Delay/5 s, (Def/Acc/5.4))",
                 "explanation": "Added units and proper inner group for definition"
+            },
+            {
+                "wrong": "(Delay/5.0 s, (Def-expand/Acc/5.4, (Acceleration/5.4 m-per-s^2, Red)))",
+                "correct": "(Delay/5.0 s, ((Def-expand/Acc/5.4, (Acceleration/5.4 m-per-s^2, Red))))",
+                "explanation": "The expanded definition group stands where the delayed event group belongs; wrapped it in its own group, as (Delay/5.0 s, (Def/Acc/5.4)) wraps the Def tag"
             }
         ],
         "correction_patterns": [
@@ -62,14 +67,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Delay/5, Red)",
-                    "(Delay/5, Def/Acc/5.4)",
-                    "(Delay/5, (Def-expand/Acc/5.4, (Acceleration/5.4 m-per-s^2, Red)))"
-                ],
-                "passes": [
-                    "(Delay/5 s, (Def/Acc/5.4))"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -117,6 +116,42 @@
                             0,
                             "Delay/1.0 s, (Red)"
                         ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/5.0 s, Red)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/5.0 s, Def/Acc/5.4)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/5.0 s, (Def-expand/Acc/5.4, (Acceleration/5.4 m-per-s^2, Red)))"
+                        ]
                     ]
                 ],
                 "passes": [
@@ -130,6 +165,23 @@
                             4.5,
                             0,
                             "(Delay/5.0 s, (Red))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/5.0 s, ((Def-expand/Acc/5.4, (Acceleration/5.4 m-per-s^2, Red))))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Delay/5.0 s, (Def/Acc/5.4))"
                         ]
                     ]
                 ]
@@ -263,12 +315,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "((Delay/5.0 s, Delay/7.0 s, (Def/MyColor)), Red)"
-                ],
-                "passes": [
-                    "(Onset, Delay/6 s, Def/MyColor), Red"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -447,13 +495,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Delay/5.0 s, Onset, (Red))"
-                ],
-                "passes": [
-                    "(Delay/5.0 s, Onset, Def/MyColor, (Red))",
-                    "(Delay/5.0 s, Onset, (Def-expand/MyColor, (Label/Pie)), (Red))"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -507,6 +550,18 @@
                             4.5,
                             0,
                             "(Delay/5.0 s, Onset, Def/MyColor, (Red))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/5.0 s, Onset, (Def-expand/MyColor, (Label/Pie)), (Red))"
                         ]
                     ]
                 ]
@@ -645,14 +700,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Delay/5.0 s, Onset, Def/MyColor, (Red), (Blue))",
-                    "(Delay/5.0 s, (Def-expand/MyColor, (Label/Pie)), (Green), (Red), Onset)"
-                ],
-                "passes": [
-                    "(Delay/5.0 s, Onset, Def/MyColor)",
-                    "(Delay/5.0 s, (Def-expand/MyColor, (Label/Pie)), (Red), Onset)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -1374,12 +1423,8 @@
         ],
         "tests": {
             "string_tests": {
-                "fails": [
-                    "(Delay/5.0 s, Def/MyColor, Blue, Green, Onset)"
-                ],
-                "passes": [
-                    "(Delay/5.0 s, Def/MyColor, (Blue), Onset)"
-                ]
+                "fails": [],
+                "passes": []
             },
             "sidecar_tests": {
                 "fails": [
@@ -1413,6 +1458,18 @@
                             4.5,
                             0,
                             "(Delay/5.0 s, Def/MyColor, Blue, (Green), Onset)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/5.0 s, Def/MyColor, Blue, Green, Onset)"
                         ]
                     ]
                 ],

@@ -158,7 +158,7 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 2 pass
+- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -171,7 +171,7 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 2 pass
+- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -1834,9 +1834,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 4 fail, 2 pass
 - `sidecar_tests`: 2 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 3 fail, 2 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tag-group-error-deferred-in-splice (correction guidance) (examples)
@@ -1872,9 +1871,9 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 5 fail, 4 pass
+- `string_tests`: 3 fail, 2 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tag-group-error-not-top-level (correction guidance) (examples)
@@ -2041,9 +2040,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 3 fail, 4 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 2 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-duplicated-onset-or-offset (correction guidance) (examples)
@@ -2074,8 +2072,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 3 fail, 3 pass
-- `event_tests`: 1 fail, 1 pass
+- `string_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 0 fail, 1 pass
 
 ### temporal-tag-error-duration-not-convertible (correction guidance) (examples)
@@ -2097,9 +2095,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-extra tags-delay (correction guidance) (examples)
@@ -2110,9 +2107,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-inset-group-has-extras (correction guidance) (examples)
@@ -2178,7 +2174,6 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -2191,7 +2186,6 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -2204,9 +2198,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 1 pass
 - `sidecar_tests`: 0 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-not-tag-group-delay (correction guidance) (examples)
@@ -2217,9 +2210,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 3 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 2 fail, 1 pass
+- `event_tests`: 5 fail, 2 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-offset-has-groups (correction guidance) (examples)
@@ -2265,7 +2257,6 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 2 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -2278,7 +2269,6 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 2 pass
 - `sidecar_tests`: 2 fail, 1 pass
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 3 fail, 1 pass
@@ -2313,9 +2303,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 2 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 2 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-wrong-number-of-defs-delay (correction guidance) (examples)
@@ -2326,9 +2315,8 @@ Complete index of 209 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 2 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 2 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ## UNITS_INVALID
