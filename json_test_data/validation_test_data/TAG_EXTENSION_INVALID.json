@@ -419,5 +419,157 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [
+            "PLACEHOLDER_INVALID"
+        ],
+        "name": "tag-extension-invalid-reserved-tag",
+        "description": "A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/# in a sidecar value column). Reserved tags must not be extended although they inherit extensionAllowed from Property.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Adding a descriptive word after Onset or Event-context as if it were a label",
+            "Treating Onset as a tag that takes a value and putting the value column's # on it",
+            "Assuming every tag under Property may be extended because the schema browser shows extensionAllowed"
+        ],
+        "explanation": "Reserved tags such as Onset, Offset, Inset, Event-context, and Definition have a fixed meaning that tools rely on, so they must not be extended, even though they sit under Property, which allows extensions. A word after the tag (Onset/Blah) or a sidecar placeholder on it (Onset/#) is an extension. Describe the event in the group's inner group or anchor definition instead.",
+        "correction_strategy": "Remove the extension from the reserved tag and put the information in an ordinary tag inside the group",
+        "correction_examples": [
+            {
+                "wrong": "(Onset/Blah, Def/MyColor)",
+                "correct": "(Onset, Def/MyColor, (Label/Blah))",
+                "explanation": "The extra word moves into an inner group as a Label"
+            },
+            {
+                "wrong": "(Event-context/Blah, (Red))",
+                "correct": "(Event-context, (Red))",
+                "explanation": "Event-context takes no extension"
+            },
+            {
+                "wrong": "trial: (Onset/#, Def/MyColor)",
+                "correct": "trial: (Onset, Def/MyColor, (Label/#))",
+                "explanation": "The value column's placeholder goes on a tag that takes a value"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions; 3.2.8. Reserved tags (table: must not be extended); Appendix B TAG_EXTENSION_INVALID c",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "PLACEHOLDER_INVALID",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Event-context/Blah, (Red))"
+                ],
+                "passes": [
+                    "(Event-context, (Red))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "trial": {
+                            "HED": "(Onset/#, Def/MyColor)"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Onset, Def/MyColor)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset/Blah, Def/MyColor)"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset, Def/MyColor)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": "(Onset/#, Def/MyColor)"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "start": "(Onset, Def/MyColor)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "start",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

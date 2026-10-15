@@ -80,7 +80,9 @@
     ],
     "definition-invalid-content-has-top-level-tag": [
         "DEFINITION_INVALID",
-        "TAG_GROUP_ERROR"
+        "TAG_GROUP_ERROR",
+        "TEMPORAL_TAG_ERROR",
+        "DEF_INVALID"
     ],
     "definition-not-allowed-here": [
         "DEFINITION_INVALID",
@@ -88,6 +90,16 @@
     ],
     "definition-invalid-duplicate-definitions-differ": [
         "DEFINITION_INVALID"
+    ],
+    "definition-invalid-second-part-not-placeholder": [
+        "DEFINITION_INVALID",
+        "CHARACTER_INVALID",
+        "PLACEHOLDER_INVALID"
+    ],
+    "definition-invalid-content-has-delay-or-duration-in-8-1-0": [
+        "DEFINITION_INVALID",
+        "TAG_GROUP_ERROR",
+        "TEMPORAL_TAG_ERROR"
     ],
     "def-expand-invalid-name-not-definition": [
         "DEF_EXPAND_INVALID"
@@ -348,6 +360,10 @@
         "CHARACTER_INVALID",
         "PLACEHOLDER_INVALID"
     ],
+    "tag-extension-invalid-reserved-tag": [
+        "TAG_EXTENSION_INVALID",
+        "PLACEHOLDER_INVALID"
+    ],
     "tag-group-error-missing": [
         "TAG_GROUP_ERROR",
         "TEMPORAL_TAG_ERROR",
@@ -369,6 +385,10 @@
     "tag-group-error-event-context-contents": [
         "TAG_GROUP_ERROR",
         "TEMPORAL_TAG_ERROR"
+    ],
+    "tag-group-error-event-context-braces": [
+        "TAG_GROUP_ERROR",
+        "SIDECAR_BRACES_INVALID"
     ],
     "tag-invalid-in-schema": [
         "TAG_INVALID",
@@ -394,6 +414,10 @@
     ],
     "tag-requires-child-missing": [
         "TAG_REQUIRES_CHILD"
+    ],
+    "tag-requires-child-reserved-value-in-8-2-0": [
+        "TAG_REQUIRES_CHILD",
+        "TEMPORAL_TAG_ERROR"
     ],
     "temporal-tag-error-not-tag-group": [
         "TEMPORAL_TAG_ERROR",
@@ -454,6 +478,18 @@
         "TEMPORAL_TAG_ERROR",
         "TAG_GROUP_ERROR"
     ],
+    "temporal-tag-error-duration-with-top-level-def": [
+        "TEMPORAL_TAG_ERROR",
+        "TAG_GROUP_ERROR"
+    ],
+    "temporal-tag-error-rules-apply-in-8-1-0": [
+        "TEMPORAL_TAG_ERROR",
+        "TAG_GROUP_ERROR",
+        "TAG_REQUIRES_CHILD"
+    ],
+    "temporal-tag-error-no-conversion-factor-in-8-0-0": [
+        "TEMPORAL_TAG_ERROR"
+    ],
     "temporal-tag-error-not-tag-group-delay": [
         "TEMPORAL_TAG_ERROR",
         "TAG_GROUP_ERROR"
@@ -495,6 +531,10 @@
         "TAG_GROUP_ERROR"
     ],
     "temporal-tag-error-tag-appears-where-not-allowed-delay": [
+        "TEMPORAL_TAG_ERROR",
+        "TAG_GROUP_ERROR"
+    ],
+    "temporal-tag-error-delay-missing-group": [
         "TEMPORAL_TAG_ERROR",
         "TAG_GROUP_ERROR"
     ],

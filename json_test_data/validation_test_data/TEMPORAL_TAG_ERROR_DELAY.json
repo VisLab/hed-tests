@@ -2370,5 +2370,215 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-delay-missing-group",
+        "description": "A Delay that is the only reserved tag of its group must have exactly one inner group, so (Delay/3 s) fails. Beside Onset, Offset, Inset, or Duration, Delay is secondary and that tag's row gives the group rules: (Onset, Def/MyColor, Delay/3 s) passes with no inner group, while (Delay/3 s, Duration/2 s) fails because Duration needs one.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Writing a Delay group with no inner group to say what is delayed",
+            "Expecting a Delay beside Duration to need no inner group, as it needs none beside Onset"
+        ],
+        "explanation": "A Delay group on its own places its inner group on the timeline at the row's onset plus the delay, so the inner group is required. When Delay shares a group with Onset, Offset, or Inset, it only shifts that marker, and the marker's rules apply: an Onset or Inset group may have no inner group and an Offset group has none. When Delay shares a group with Duration, the Duration rules apply, and a Duration group needs exactly one inner group.",
+        "correction_strategy": "Put the tags of the delayed event in one inner group, or pair the Delay with the Onset, Offset, or Inset it shifts",
+        "correction_examples": [
+            {
+                "wrong": "(Delay/3 s)",
+                "correct": "(Delay/3 s, (Red))",
+                "explanation": "The delayed event is described in an inner group"
+            },
+            {
+                "wrong": "(Delay/3 s, Duration/2 s)",
+                "correct": "(Delay/3 s, Duration/2 s, (Red))",
+                "explanation": "The Duration group needs its inner group"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rule 3); Appendix B TEMPORAL_TAG_ERROR l",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay/3 s)"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay/3 s, Duration/2 s)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "a": "(Delay/3 s, (Red))",
+                                "b": "(Onset, Def/MyColor, Delay/3 s)",
+                                "c": "(Offset, Def/MyColor, Delay/3 s)",
+                                "d": "(Duration/3 s, Delay/2 s, (Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s, Duration/2 s)"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            1.0,
+                            0,
+                            "(Delay/3 s, (Red))"
+                        ],
+                        [
+                            2.0,
+                            0,
+                            "(Onset, Def/MyColor, Delay/3 s)"
+                        ],
+                        [
+                            4.0,
+                            0,
+                            "(Offset, Def/MyColor, Delay/3 s)"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/3 s, Delay/2 s, (Red))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Delay/3 s)",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "a": "(Delay/3 s, (Red))",
+                                    "b": "(Onset, Def/MyColor, Delay/3 s)",
+                                    "c": "(Offset, Def/MyColor, Delay/3 s)",
+                                    "d": "(Duration/3 s, Delay/2 s, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                1.0,
+                                0,
+                                "a",
+                                "Blue"
+                            ],
+                            [
+                                2.0,
+                                0,
+                                "b",
+                                "Blue"
+                            ],
+                            [
+                                4.0,
+                                0,
+                                "c",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "d",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

@@ -48,7 +48,7 @@
             "Verify merged content maintains semantic coherence",
             "Ensure single clear context per event"
         ],
-        "specification_reference": "3.2.10.2. Event-level processing",
+        "specification_reference": "3.2.10.3. Event-level processing",
         "related_errors": [
             "TAG_EXPRESSION_REPEATED",
             "TAG_GROUP_ERROR"

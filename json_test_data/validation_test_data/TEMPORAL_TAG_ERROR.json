@@ -2188,7 +2188,7 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-delay-not-convertible",
-        "description": "In a timeline file (a tabular file with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a non-timeline file (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
+        "description": "In a timeline table (a table with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a descriptor table (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
@@ -2197,7 +2197,7 @@
             "Assuming every unit in a unit class converts to the default unit",
             "Not noticing that a unit lacks a conversionFactor in the schema"
         ],
-        "explanation": "In a timeline file a Delay is added to the row's onset to place its inner group on the file's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
+        "explanation": "In a timeline table a Delay is added to the row's onset to place its inner group on the table's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
         "correction_strategy": "Express the Delay in a unit that has a conversionFactor (s, ms, minute, hour, day)",
         "correction_examples": [
             {
@@ -2223,11 +2223,11 @@
             "4. Revalidate the events file"
         ],
         "validation_hints": [
-            "Only applies to timeline files (with an onset column), where the delayed onset is computed; Delay is banned outright from non-timeline files",
+            "Only applies to timeline tables (with an onset column), where the delayed onset is computed; Delay is banned outright from descriptor tables",
             "Report on the row that holds the Delay; validate the rest of the file normally",
             "The unit itself is valid, so UNITS_INVALID is not the right code"
         ],
-        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay; 3.3.5.3 Duration and Delay",
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"
@@ -2396,17 +2396,17 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-duration-not-convertible",
-        "description": "In a timeline file (a tabular file with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a non-timeline file such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.",
+        "description": "In a timeline table (a table with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a descriptor table such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
         "common_causes": [
             "Using a calendar unit such as month or year for a Duration in an events file",
             "Assuming every unit in a unit class converts to the default unit",
-            "Copying a Duration that is fine in participants.tsv into a timeline file"
+            "Copying a Duration that is fine in participants.tsv into a timeline table"
         ],
-        "explanation": "In a timeline file a Duration is added to the row's onset to give the end time of its group on the file's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the end time cannot be computed and the annotation is an error. In a non-timeline file nothing is placed on a timeline, so Duration may use any valid unit of its unit class there.",
-        "correction_strategy": "In a timeline file, express the Duration in a unit that has a conversionFactor (s, ms, minute, hour, day); leave a Duration in a non-timeline file as it is",
+        "explanation": "In a timeline table a Duration is added to the row's onset to give the end time of its group on the table's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the end time cannot be computed and the annotation is an error. In a descriptor table nothing is placed on a timeline, so Duration may use any valid unit of its unit class there.",
+        "correction_strategy": "In a timeline table, express the Duration in a unit that has a conversionFactor (s, ms, minute, hour, day); leave a Duration in a descriptor table as it is",
         "correction_examples": [
             {
                 "wrong": "(Duration/3 year, (Red))",
@@ -2420,7 +2420,7 @@
             }
         ],
         "correction_patterns": [
-            "Use only units with a conversionFactor in Duration values in timeline files",
+            "Use only units with a conversionFactor in Duration values in timeline tables",
             "Check the schema unit class listing when an unusual unit is needed",
             "Prefer s or ms for durations in event files"
         ],
@@ -2432,13 +2432,13 @@
             "5. Revalidate the events file"
         ],
         "validation_hints": [
-            "Only applies to timeline files (with an onset column), where the end time is computed",
+            "Only applies to timeline tables (with an onset column), where the end time is computed",
             "A Duration with any valid unit passes in a file without an onset column",
             "Report on the row that holds the Duration; validate the rest of the file normally",
             "The unit itself is valid, so UNITS_INVALID is not the right code",
             "A group pairing a convertible Delay with a non-convertible Duration is still an error"
         ],
-        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay; 3.3.5.3 Duration and Delay",
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"
@@ -3288,6 +3288,357 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-duration-with-top-level-def",
+        "description": "A Duration group may not have a Def tag or a Def-expand group at its top level (rule 2: Duration has no anchor); one may appear inside the inner group. A Def-expand group stands where its Def tag would and is never counted as the inner group.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Writing a Duration group like an Onset group, with the definition as an anchor beside it",
+            "Counting a Def-expand group as the Duration's inner group"
+        ],
+        "explanation": "Onset, Offset, and Inset groups are anchored by a Def tag or Def-expand group that names the ongoing event. A Duration group has no anchor: everything it describes goes in its one inner group, and that includes a Def tag. A Def-expand group is the expanded form of a Def tag, so the same rule applies to it, and it does not count as the inner group.",
+        "correction_strategy": "Move the Def tag or Def-expand group into the Duration's inner group",
+        "correction_examples": [
+            {
+                "wrong": "(Duration/3 s, Def/MyColor)",
+                "correct": "(Duration/3 s, (Def/MyColor))",
+                "explanation": "The Def tag is the inner group"
+            },
+            {
+                "wrong": "(Duration/3 s, Def/MyColor, (Red))",
+                "correct": "(Duration/3 s, (Red, Def/MyColor))",
+                "explanation": "The Def tag joins the inner group"
+            },
+            {
+                "wrong": "(Duration/3 s, (Def-expand/MyColor, (Label/Pie)))",
+                "correct": "(Duration/3 s, (Red, (Def-expand/MyColor, (Label/Pie))))",
+                "explanation": "The Def-expand group goes inside the inner group"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (rule 2, table column Anchor); 3.2.8.2. Def and Def-expand tags; Appendix B TEMPORAL_TAG_ERROR l",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR",
+            "DEF_EXPAND_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Duration/3 s, Def/MyColor)",
+                    "(Duration/3 s, Def/MyColor, (Red))",
+                    "(Duration/3 s, (Def-expand/MyColor, (Label/Pie)))",
+                    "(Duration/3 s, (Def-expand/MyColor, (Label/Pie)), (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 s, (Def/MyColor))",
+                    "(Duration/3 s, (Red, Def/MyColor))",
+                    "(Duration/3 s, (Red, (Def-expand/MyColor, (Label/Pie))))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 s, Def/MyColor, (Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 s, (Def/MyColor))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR",
+            "TAG_REQUIRES_CHILD"
+        ],
+        "name": "temporal-tag-error-rules-apply-in-8-1-0",
+        "description": "The reserved-tag rules for Delay and Duration apply in every standard schema version, including 8.1.0, whose schema gives these tags none of the reserved, topLevelTagGroup, or requireChild attributes: a nested or ungrouped Delay or Duration, one without a value, and a Delay in a descriptor table all fail; (Delay/2 s, (Blue)) and (Onset, Def/MyColor, Delay/3 s) in a timeline table pass.",
+        "warning": false,
+        "schema": "8.1.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Reading the 8.0.0 or 8.1.0 schema, which does not mark Delay and Duration as reserved or top-level, and treating them as ordinary tags",
+            "Leaving out the time value because the 8.1.0 schema does not mark Delay and Duration requireChild",
+            "Putting a Delay in a table without an onset column"
+        ],
+        "explanation": "Delay and Duration follow the same rules in every standard schema version: each must head its own top-level group, take a time value, and (when it is the only reserved tag of its group) have exactly one inner group, and Delay may appear only in a timeline table. The 8.0.0 and 8.1.0 schemas do not carry the attributes that state these rules; the reserved-tag rules of the specification supply them, so annotations validated against those schemas are checked the same way as under later ones.",
+        "correction_strategy": "Put each Delay or Duration, with a time value, at the top level of its own group with one inner group describing the event, and use Delay only in tables with an onset column",
+        "correction_examples": [
+            {
+                "wrong": "Duration/3 s, Red",
+                "correct": "(Duration/3 s, (Red))",
+                "explanation": "Duration heads a top-level group with one inner group"
+            },
+            {
+                "wrong": "(Red, (Duration/3 s, (Blue)))",
+                "correct": "(Red), (Duration/3 s, (Blue))",
+                "explanation": "The Duration group moves to the top level"
+            },
+            {
+                "wrong": "(Duration, (Red))",
+                "correct": "(Duration/3 s, (Red))",
+                "explanation": "Duration needs a time value"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rules 1, 3 and 4); Appendix B TEMPORAL_TAG_ERROR a, b, k; Appendix B TAG_REQUIRES_CHILD b",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR",
+            "TAG_REQUIRES_CHILD"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Red, (Duration/3 s, (Blue)))",
+                    "Duration/3 s, Red",
+                    "(Duration, (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 s, (Blue))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, (Duration/3 s, (Blue)))"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Delay/3 s, Red"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay/2 s, (Blue))",
+                                "ball": "(Onset, Def/MyColor, Delay/3 s)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay, (Red))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Red, (Delay/3 s, (Blue)))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Delay/3 s, Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "participant_id",
+                            "HED"
+                        ],
+                        [
+                            "sub-01",
+                            "(Delay/2 s, (Blue))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2 s, (Blue))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Onset, Def/MyColor, Delay/3 s)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [],
+        "name": "temporal-tag-error-no-conversion-factor-in-8-0-0",
+        "description": "Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit s, given or omitted, is taken as is, so (Duration/3 s, (Red)) and (Duration/3, (Red)) pass; a value in any other unit cannot be placed on the timeline, so (Duration/2 minute, (Red)) fails (cause n). The same Duration passes in a descriptor table.",
+        "warning": false,
+        "schema": "8.0.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Using minute, hour, or day for a Delay or Duration in an events file validated against 8.0.0",
+            "Assuming the conversion factors of later schemas are available in 8.0.0"
+        ],
+        "explanation": "In a timeline table a Delay or Duration is placed on the table's timeline, which needs the value in seconds. Standard schema 8.0.0 gives none of its time units a conversionFactor, so only a value already in the default unit s (or with no unit, which means s) can be placed; a value in minutes, hours, or days cannot. In a descriptor table nothing is placed on a timeline, so a Duration may use any valid time unit there.",
+        "correction_strategy": "Under 8.0.0, write Delay and Duration values in a timeline table in seconds, or validate against a later schema version, whose time units have conversion factors",
+        "correction_examples": [
+            {
+                "wrong": "(Duration/2 minute, (Red))",
+                "correct": "(Duration/120 s, (Red))",
+                "explanation": "Under 8.0.0 only seconds can be placed on the timeline"
+            },
+            {
+                "wrong": "(Duration/2 minute, (Red))",
+                "correct": "(Duration/2 minute, (Red)) under 8.1.0 or later",
+                "explanation": "Later schemas give minute a conversionFactor"
+            }
+        ],
+        "specification_reference": "3.2.8.4 Duration and Delay; Appendix B TEMPORAL_TAG_ERROR n",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "UNITS_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/2 minute, (Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 s, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/3, (Red))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/3 s, (Blue))"
+                        ]
+                    ],
+                    [
+                        [
+                            "participant_id",
+                            "HED"
+                        ],
+                        [
+                            "sub-01",
+                            "(Duration/2 minute, (Red))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     }

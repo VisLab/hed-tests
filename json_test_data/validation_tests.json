@@ -2874,10 +2874,12 @@
     {
         "error_code": "DEFINITION_INVALID",
         "alt_codes": [
-            "TAG_GROUP_ERROR"
+            "TAG_GROUP_ERROR",
+            "TEMPORAL_TAG_ERROR",
+            "DEF_INVALID"
         ],
         "name": "definition-invalid-content-has-top-level-tag",
-        "description": "A tag with a required or unique attribute appears in a definition.",
+        "description": "A definition's contents contain, at any level, a structural reserved tag (Definition, Def, Def-expand, Onset, Offset, Inset, Delay, Duration, Event-context; reason d) or a tag with the required or unique attribute (reason j).",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "content",
@@ -2886,10 +2888,12 @@
             "Including Event-context or other required tags in definitions",
             "Misunderstanding that definitions should contain reusable content",
             "Adding context-specific tags to generic definitions",
-            "Confusion about what content is appropriate in definitions"
+            "Confusion about what content is appropriate in definitions",
+            "Putting an Onset, Offset, Inset, Delay, or Duration group inside a definition instead of in the annotation that uses it",
+            "Referring to another definition with Def inside a definition"
         ],
-        "explanation": "Definition content should contain reusable, generic tags without required or unique attributes. Top-level tags violate definition reusability principles.",
-        "correction_strategy": "Remove required/unique tags from definition content",
+        "explanation": "Definition content should contain reusable, generic tags. The structural reserved tags and tags with the required or unique attribute may not appear anywhere in a definition's contents, at any depth: timing tags such as Onset, Delay, and Duration belong in the annotation that uses the definition, and definitions may not refer to other definitions.",
+        "correction_strategy": "Remove reserved, required, and unique tags from definition content; put timing tags in the annotation that uses the definition",
         "correction_examples": [
             {
                 "wrong": "(Definition/Apple, (Event-context, Red))",
@@ -2900,6 +2904,16 @@
                 "wrong": "(Definition/Action, (Task-context, Movement))",
                 "correct": "(Definition/Action, (Movement))",
                 "explanation": "Kept only generic content without context requirements"
+            },
+            {
+                "wrong": "(Definition/HasDuration, (Red, (Duration/2 s, (Blue))))",
+                "correct": "(Definition/HasDuration, (Red))",
+                "explanation": "Write the Duration where the definition is used: (Duration/2 s, (Def/HasDuration, (Blue)))"
+            },
+            {
+                "wrong": "(Definition/HasDef, (Red, (Def/MyColor)))",
+                "correct": "(Definition/HasDef, (Red, (Label/Pie)))",
+                "explanation": "Write out the tags of the other definition instead of referring to it"
             }
         ],
         "correction_patterns": [
@@ -2921,14 +2935,15 @@
             "Keep definition content generic and reusable",
             "Verify appropriate definition content"
         ],
-        "specification_reference": "3.2.8.1. Definition content restrictions",
+        "specification_reference": "3.2.8.1. The Definition tag; Appendix B DEFINITION_INVALID d and j",
         "related_errors": [
             "TAG_GROUP_ERROR",
             "TAG_INVALID",
             "DEFINITION_INVALID"
         ],
         "definitions": [
-            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))"
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
         ],
         "tests": {
             "string_tests": {
@@ -2942,6 +2957,48 @@
                             "HED": {
                                 "def1": "(Definition/Apple, (Event-context, Red))",
                                 "def2": "(Definition/Banana/#, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasOnset, (Onset, (Red)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasOffset, (Red, (Offset)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasInset, (Blue, (Red, (Inset))))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDelay, (Delay/2 s, (Red)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDuration, (Red, (Duration/2 s, (Blue))))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDef, (Red, (Def/MyColor)))"
                             }
                         }
                     }
@@ -3310,6 +3367,215 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID",
+            "PLACEHOLDER_INVALID"
+        ],
+        "name": "definition-invalid-second-part-not-placeholder",
+        "description": "The value of a Definition tag has a part after the name other than a single # (reason l): Definition/NewDef/3 and Definition/NewDef/Extra fail. Definition/NewDef/#/# fails too, as reason f (three # in the definition) or l.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Writing an example value instead of # after the definition name",
+            "Adding a second word to the definition name with a slash instead of a hyphen",
+            "Writing # twice after the name"
+        ],
+        "explanation": "A Definition tag's value is the definition name, optionally followed by /# when the contents hold one placeholder. Nothing else may follow the name: the value is filled in where the definition is used, as Def/NewDef/3, not where it is defined, and a name may not contain a slash.",
+        "correction_strategy": "Keep only the name, or the name and a single #, in the Definition tag",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/NewDef/3, (Label/#))",
+                "correct": "(Definition/NewDef/#, (Label/#))",
+                "explanation": "The definition takes #; the value 3 goes in the Def tag, Def/NewDef/3"
+            },
+            {
+                "wrong": "(Definition/NewDef/Extra, (Red))",
+                "correct": "(Definition/NewDef-extra, (Red))",
+                "explanation": "The name is one nameClass value"
+            },
+            {
+                "wrong": "(Definition/NewDef/#/#, (Label/#))",
+                "correct": "(Definition/NewDef/#, (Label/#))",
+                "explanation": "Only one # follows the name"
+            }
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags (value forms table); Appendix B DEFINITION_INVALID f and l",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "PLACEHOLDER_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/3, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/#/#, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/Extra, (Red))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/#, (Label/#))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/NewDef/Extra, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/NewDef/#, (Label/#))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/NewDef/Apple"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "TAG_GROUP_ERROR",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "name": "definition-invalid-content-has-delay-or-duration-in-8-1-0",
+        "description": "Delay and Duration may not appear in a definition's contents (reason d). The rule holds in every standard schema version; 8.1.0 is not special, and this case pins it there because the 8.1.0 schema does not mark Delay and Duration reserved.",
+        "warning": false,
+        "schema": "8.1.0",
+        "error_category": "content",
+        "common_causes": [
+            "Assuming that because the 8.0.0 and 8.1.0 schemas do not mark Delay and Duration reserved they may be used in definitions",
+            "Putting the timing of an event inside the definition that describes it"
+        ],
+        "explanation": "The structural reserved tags, Delay and Duration among them, may not appear anywhere in a definition's contents. The rule is applied by tag name in every standard schema version, so it holds under 8.0.0 and 8.1.0 although those schemas do not carry the reserved attribute; timing belongs in the annotation that uses the definition.",
+        "correction_strategy": "Remove Delay and Duration from the definition and write them in the annotation that uses it",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/HasDuration, (Red, (Duration/2 s)))",
+                "correct": "(Definition/HasDuration, (Red))",
+                "explanation": "Write the Duration where the definition is used"
+            }
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags; Appendix B DEFINITION_INVALID d",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDelay, (Delay/2 s, (Red)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDuration, (Red, (Duration/2 s)))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDelay, (Red, (Blue)))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     },
@@ -5988,7 +6254,7 @@
             "The same value in several rows is one defect; fix the value everywhere it appears",
             "A value that passes its value class can still break the string it is substituted into"
         ],
-        "specification_reference": "3.2.10.2. Tabular annotations",
+        "specification_reference": "3.2.10.2. Table annotations",
         "related_errors": [
             "CHARACTER_INVALID",
             "VALUE_INVALID",
@@ -6656,6 +6922,11 @@
                         "defs": {
                             "def1": "(Definition/Blech/#, (Red, Blue/#))"
                         }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Red/#"
+                        }
                     }
                 ],
                 "passes": [
@@ -6783,7 +7054,7 @@
             "The same value in several rows is one defect; fix the value everywhere it appears",
             "A value that passes its value class can still break the string it is substituted into"
         ],
-        "specification_reference": "3.2.10.2. Tabular annotations",
+        "specification_reference": "3.2.10.2. Table annotations",
         "related_errors": [
             "CHARACTER_INVALID",
             "VALUE_INVALID"
@@ -12054,6 +12325,158 @@
         }
     },
     {
+        "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [
+            "PLACEHOLDER_INVALID"
+        ],
+        "name": "tag-extension-invalid-reserved-tag",
+        "description": "A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/# in a sidecar value column). Reserved tags must not be extended although they inherit extensionAllowed from Property.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Adding a descriptive word after Onset or Event-context as if it were a label",
+            "Treating Onset as a tag that takes a value and putting the value column's # on it",
+            "Assuming every tag under Property may be extended because the schema browser shows extensionAllowed"
+        ],
+        "explanation": "Reserved tags such as Onset, Offset, Inset, Event-context, and Definition have a fixed meaning that tools rely on, so they must not be extended, even though they sit under Property, which allows extensions. A word after the tag (Onset/Blah) or a sidecar placeholder on it (Onset/#) is an extension. Describe the event in the group's inner group or anchor definition instead.",
+        "correction_strategy": "Remove the extension from the reserved tag and put the information in an ordinary tag inside the group",
+        "correction_examples": [
+            {
+                "wrong": "(Onset/Blah, Def/MyColor)",
+                "correct": "(Onset, Def/MyColor, (Label/Blah))",
+                "explanation": "The extra word moves into an inner group as a Label"
+            },
+            {
+                "wrong": "(Event-context/Blah, (Red))",
+                "correct": "(Event-context, (Red))",
+                "explanation": "Event-context takes no extension"
+            },
+            {
+                "wrong": "trial: (Onset/#, Def/MyColor)",
+                "correct": "trial: (Onset, Def/MyColor, (Label/#))",
+                "explanation": "The value column's placeholder goes on a tag that takes a value"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions; 3.2.8. Reserved tags (table: must not be extended); Appendix B TAG_EXTENSION_INVALID c",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "PLACEHOLDER_INVALID",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Event-context/Blah, (Red))"
+                ],
+                "passes": [
+                    "(Event-context, (Red))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "trial": {
+                            "HED": "(Onset/#, Def/MyColor)"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "start": "(Onset, Def/MyColor)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset/Blah, Def/MyColor)"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset, Def/MyColor)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": "(Onset/#, Def/MyColor)"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "start": "(Onset, Def/MyColor)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "start",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "TAG_GROUP_ERROR",
         "alt_codes": [
             "TEMPORAL_TAG_ERROR",
@@ -12480,7 +12903,7 @@
             "Sidecar substitution breaking top-level requirements",
             "Complex column dependencies affecting tag hierarchy"
         ],
-        "explanation": "When columns are spliced together in sidecar processing, tags with topLevelTagGroup attribute must still end up at the top level of the final assembled annotation.",
+        "explanation": "When columns are spliced together in sidecar processing, tags with topLevelTagGroup attribute must still end up at the top level of the final assembled annotation. The group rules of a reserved tag are checked on the assembled annotation, so (Duration/3 s, {other}) and (Onset, {other}) are valid when the other column supplies the inner group or the anchor, and invalid when the substitution gives the Duration group two inner groups.",
         "correction_strategy": "Restructure sidecar to maintain top-level positioning",
         "correction_examples": [
             {
@@ -12513,7 +12936,7 @@
             "Verify top-level tags remain at top level",
             "Test sidecar processing results"
         ],
-        "specification_reference": "3.2.9. Sidecar processing and tag hierarchy",
+        "specification_reference": "3.2.9.3. Sidecar curly braces (rule 9); 3.2.8. Reserved tags (rule 5); Appendix B TAG_GROUP_ERROR b",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "SIDECAR_INVALID",
@@ -12575,6 +12998,30 @@
                         "ball_type": {
                             "Description": "Has description with HED",
                             "HED": "Label/#"
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Duration/3 s, {other})"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "(Red)"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Onset, {other})"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "Def/MyColor"
+                            }
                         }
                     }
                 ]
@@ -12663,6 +13110,36 @@
                                 "Green"
                             ]
                         ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 s, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red), (Blue)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
+                            ]
+                        ]
                     }
                 ],
                 "passes": [
@@ -12700,6 +13177,66 @@
                                 0,
                                 "ball",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 s, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Onset, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "Def/MyColor"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
                             ]
                         ]
                     }
@@ -13155,6 +13692,150 @@
                                 0,
                                 "code3",
                                 "Red"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_GROUP_ERROR",
+        "alt_codes": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "name": "tag-group-error-event-context-braces",
+        "description": "An Event-context group contains a sidecar column reference ({column}). Column references may not appear in an Event-context group; they may appear beside it.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Assembling the ongoing-event contents of an Event-context group from another column with curly braces",
+            "Copying a pattern that is valid in a Duration or Onset group into an Event-context group"
+        ],
+        "explanation": "An Event-context group lists the event processes that are ongoing at an event marker, and tools generate it with every definition and column reference already expanded. A curly brace column reference inside the group is therefore not allowed, although references are allowed in Duration, Delay, Onset, Offset, and Inset groups. Usually the Event-context group should be left to tools altogether.",
+        "correction_strategy": "Remove the column reference from the Event-context group: write the content group out, or move the reference outside the group",
+        "correction_examples": [
+            {
+                "wrong": "(Event-context, {other})",
+                "correct": "(Event-context, (Red))",
+                "explanation": "The content group is written out"
+            },
+            {
+                "wrong": "(Event-context, {other})",
+                "correct": "(Event-context, (Blue)), {other}",
+                "explanation": "The reference moves outside the group"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table row Event-context, rule 5); 3.2.9.3. Sidecar curly braces (rule 5); Appendix B TAG_GROUP_ERROR e",
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "SIDECAR_BRACES_INVALID",
+            "DEFINITION_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Event-context, {other})"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "(Red)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Event-context, (Blue)), {other}"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "(Red)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Event-context, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Event-context, (Blue)), {other}"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
                             ]
                         ]
                     }
@@ -14412,7 +15093,7 @@
             "Verify merged content maintains semantic coherence",
             "Ensure single clear context per event"
         ],
-        "specification_reference": "3.2.10.2. Event-level processing",
+        "specification_reference": "3.2.10.3. Event-level processing",
         "related_errors": [
             "TAG_EXPRESSION_REPEATED",
             "TAG_GROUP_ERROR"
@@ -14744,6 +15425,118 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_REQUIRES_CHILD",
+        "alt_codes": [
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "name": "tag-requires-child-reserved-value-in-8-2-0",
+        "description": "Under standard schema 8.2.0, Delay and Duration lack the requireChild attribute but still require a value, because requireValue is true for them in reserved_tags.json (reason b): (Delay, (Red)) and (Duration, (Red)) fail. The same strings fail under 8.0.0 and 8.1.0 for the same reason (pinned for 8.1.0 in temporal-tag-error-rules-apply-in-8-1-0).",
+        "warning": false,
+        "schema": "8.2.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Leaving out the time value of a Delay or Duration",
+            "Relying on a schema before 8.3.0, which does not mark Delay and Duration requireChild"
+        ],
+        "explanation": "A Delay or Duration says how long after the event marker something starts or how long it lasts, so it needs a time value such as Duration/3 s. From standard schema 8.3.0 the schema marks both tags requireChild; in 8.0.0 to 8.2.0 the requirement comes from the reserved-tag rules instead, with the same result.",
+        "correction_strategy": "Give the Delay or Duration a time value with units",
+        "correction_examples": [
+            {
+                "wrong": "(Duration, (Red))",
+                "correct": "(Duration/3 s, (Red))",
+                "explanation": "Added the length of the event"
+            },
+            {
+                "wrong": "(Delay, (Red))",
+                "correct": "(Delay/3 s, (Red))",
+                "explanation": "Added the delay"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table column Value); Appendix A.6 (requireValue); Appendix B TAG_REQUIRES_CHILD b",
+        "related_errors": [
+            "TAG_REQUIRES_CHILD",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Duration, (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 s, (Red))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Duration, (Red))"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay, (Red))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Duration/3 s, (Red))",
+                                "ball": "(Delay/3 s, (Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay, (Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/3 s, (Blue))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     },
@@ -16936,7 +17729,7 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-delay-not-convertible",
-        "description": "In a timeline file (a tabular file with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a non-timeline file (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
+        "description": "In a timeline table (a table with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a descriptor table (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
@@ -16945,7 +17738,7 @@
             "Assuming every unit in a unit class converts to the default unit",
             "Not noticing that a unit lacks a conversionFactor in the schema"
         ],
-        "explanation": "In a timeline file a Delay is added to the row's onset to place its inner group on the file's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
+        "explanation": "In a timeline table a Delay is added to the row's onset to place its inner group on the table's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the delayed onset cannot be computed and the annotation is an error.",
         "correction_strategy": "Express the Delay in a unit that has a conversionFactor (s, ms, minute, hour, day)",
         "correction_examples": [
             {
@@ -16971,11 +17764,11 @@
             "4. Revalidate the events file"
         ],
         "validation_hints": [
-            "Only applies to timeline files (with an onset column), where the delayed onset is computed; Delay is banned outright from non-timeline files",
+            "Only applies to timeline tables (with an onset column), where the delayed onset is computed; Delay is banned outright from descriptor tables",
             "Report on the row that holds the Delay; validate the rest of the file normally",
             "The unit itself is valid, so UNITS_INVALID is not the right code"
         ],
-        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay; 3.3.5.3 Duration and Delay",
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"
@@ -17144,17 +17937,17 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-duration-not-convertible",
-        "description": "In a timeline file (a tabular file with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a non-timeline file such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.",
+        "description": "In a timeline table (a table with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a descriptor table such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
         "common_causes": [
             "Using a calendar unit such as month or year for a Duration in an events file",
             "Assuming every unit in a unit class converts to the default unit",
-            "Copying a Duration that is fine in participants.tsv into a timeline file"
+            "Copying a Duration that is fine in participants.tsv into a timeline table"
         ],
-        "explanation": "In a timeline file a Duration is added to the row's onset to give the end time of its group on the file's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the end time cannot be computed and the annotation is an error. In a non-timeline file nothing is placed on a timeline, so Duration may use any valid unit of its unit class there.",
-        "correction_strategy": "In a timeline file, express the Duration in a unit that has a conversionFactor (s, ms, minute, hour, day); leave a Duration in a non-timeline file as it is",
+        "explanation": "In a timeline table a Duration is added to the row's onset to give the end time of its group on the table's timeline. That is only possible when the value can be converted to the default unit of the unit class (seconds for timeUnits). A unit with no conversionFactor, such as month or year, has no conversion, so the end time cannot be computed and the annotation is an error. In a descriptor table nothing is placed on a timeline, so Duration may use any valid unit of its unit class there.",
+        "correction_strategy": "In a timeline table, express the Duration in a unit that has a conversionFactor (s, ms, minute, hour, day); leave a Duration in a descriptor table as it is",
         "correction_examples": [
             {
                 "wrong": "(Duration/3 year, (Red))",
@@ -17168,7 +17961,7 @@
             }
         ],
         "correction_patterns": [
-            "Use only units with a conversionFactor in Duration values in timeline files",
+            "Use only units with a conversionFactor in Duration values in timeline tables",
             "Check the schema unit class listing when an unusual unit is needed",
             "Prefer s or ms for durations in event files"
         ],
@@ -17180,13 +17973,13 @@
             "5. Revalidate the events file"
         ],
         "validation_hints": [
-            "Only applies to timeline files (with an onset column), where the end time is computed",
+            "Only applies to timeline tables (with an onset column), where the end time is computed",
             "A Duration with any valid unit passes in a file without an onset column",
             "Report on the row that holds the Duration; validate the rest of the file normally",
             "The unit itself is valid, so UNITS_INVALID is not the right code",
             "A group pairing a convertible Delay with a non-convertible Duration is still an error"
         ],
-        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay; 3.3.5.3 Duration and Delay",
+        "specification_reference": "Appendix B, TEMPORAL_TAG_ERROR cause n; 3.2.8.4 Duration and Delay",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"
@@ -18036,6 +18829,357 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-duration-with-top-level-def",
+        "description": "A Duration group may not have a Def tag or a Def-expand group at its top level (rule 2: Duration has no anchor); one may appear inside the inner group. A Def-expand group stands where its Def tag would and is never counted as the inner group.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Writing a Duration group like an Onset group, with the definition as an anchor beside it",
+            "Counting a Def-expand group as the Duration's inner group"
+        ],
+        "explanation": "Onset, Offset, and Inset groups are anchored by a Def tag or Def-expand group that names the ongoing event. A Duration group has no anchor: everything it describes goes in its one inner group, and that includes a Def tag. A Def-expand group is the expanded form of a Def tag, so the same rule applies to it, and it does not count as the inner group.",
+        "correction_strategy": "Move the Def tag or Def-expand group into the Duration's inner group",
+        "correction_examples": [
+            {
+                "wrong": "(Duration/3 s, Def/MyColor)",
+                "correct": "(Duration/3 s, (Def/MyColor))",
+                "explanation": "The Def tag is the inner group"
+            },
+            {
+                "wrong": "(Duration/3 s, Def/MyColor, (Red))",
+                "correct": "(Duration/3 s, (Red, Def/MyColor))",
+                "explanation": "The Def tag joins the inner group"
+            },
+            {
+                "wrong": "(Duration/3 s, (Def-expand/MyColor, (Label/Pie)))",
+                "correct": "(Duration/3 s, (Red, (Def-expand/MyColor, (Label/Pie))))",
+                "explanation": "The Def-expand group goes inside the inner group"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (rule 2, table column Anchor); 3.2.8.2. Def and Def-expand tags; Appendix B TEMPORAL_TAG_ERROR l",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR",
+            "DEF_EXPAND_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Duration/3 s, Def/MyColor)",
+                    "(Duration/3 s, Def/MyColor, (Red))",
+                    "(Duration/3 s, (Def-expand/MyColor, (Label/Pie)))",
+                    "(Duration/3 s, (Def-expand/MyColor, (Label/Pie)), (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 s, (Def/MyColor))",
+                    "(Duration/3 s, (Red, Def/MyColor))",
+                    "(Duration/3 s, (Red, (Def-expand/MyColor, (Label/Pie))))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 s, Def/MyColor, (Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 s, (Def/MyColor))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR",
+            "TAG_REQUIRES_CHILD"
+        ],
+        "name": "temporal-tag-error-rules-apply-in-8-1-0",
+        "description": "The reserved-tag rules for Delay and Duration apply in every standard schema version, including 8.1.0, whose schema gives these tags none of the reserved, topLevelTagGroup, or requireChild attributes: a nested or ungrouped Delay or Duration, one without a value, and a Delay in a descriptor table all fail; (Delay/2 s, (Blue)) and (Onset, Def/MyColor, Delay/3 s) in a timeline table pass.",
+        "warning": false,
+        "schema": "8.1.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Reading the 8.0.0 or 8.1.0 schema, which does not mark Delay and Duration as reserved or top-level, and treating them as ordinary tags",
+            "Leaving out the time value because the 8.1.0 schema does not mark Delay and Duration requireChild",
+            "Putting a Delay in a table without an onset column"
+        ],
+        "explanation": "Delay and Duration follow the same rules in every standard schema version: each must head its own top-level group, take a time value, and (when it is the only reserved tag of its group) have exactly one inner group, and Delay may appear only in a timeline table. The 8.0.0 and 8.1.0 schemas do not carry the attributes that state these rules; the reserved-tag rules of the specification supply them, so annotations validated against those schemas are checked the same way as under later ones.",
+        "correction_strategy": "Put each Delay or Duration, with a time value, at the top level of its own group with one inner group describing the event, and use Delay only in tables with an onset column",
+        "correction_examples": [
+            {
+                "wrong": "Duration/3 s, Red",
+                "correct": "(Duration/3 s, (Red))",
+                "explanation": "Duration heads a top-level group with one inner group"
+            },
+            {
+                "wrong": "(Red, (Duration/3 s, (Blue)))",
+                "correct": "(Red), (Duration/3 s, (Blue))",
+                "explanation": "The Duration group moves to the top level"
+            },
+            {
+                "wrong": "(Duration, (Red))",
+                "correct": "(Duration/3 s, (Red))",
+                "explanation": "Duration needs a time value"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rules 1, 3 and 4); Appendix B TEMPORAL_TAG_ERROR a, b, k; Appendix B TAG_REQUIRES_CHILD b",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR",
+            "TAG_REQUIRES_CHILD"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Red, (Duration/3 s, (Blue)))",
+                    "Duration/3 s, Red",
+                    "(Duration, (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 s, (Blue))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, (Duration/3 s, (Blue)))"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Delay/3 s, Red"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay/2 s, (Blue))",
+                                "ball": "(Onset, Def/MyColor, Delay/3 s)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay, (Red))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Red, (Delay/3 s, (Blue)))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Delay/3 s, Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "participant_id",
+                            "HED"
+                        ],
+                        [
+                            "sub-01",
+                            "(Delay/2 s, (Blue))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/2 s, (Blue))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Onset, Def/MyColor, Delay/3 s)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [],
+        "name": "temporal-tag-error-no-conversion-factor-in-8-0-0",
+        "description": "Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit s, given or omitted, is taken as is, so (Duration/3 s, (Red)) and (Duration/3, (Red)) pass; a value in any other unit cannot be placed on the timeline, so (Duration/2 minute, (Red)) fails (cause n). The same Duration passes in a descriptor table.",
+        "warning": false,
+        "schema": "8.0.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Using minute, hour, or day for a Delay or Duration in an events file validated against 8.0.0",
+            "Assuming the conversion factors of later schemas are available in 8.0.0"
+        ],
+        "explanation": "In a timeline table a Delay or Duration is placed on the table's timeline, which needs the value in seconds. Standard schema 8.0.0 gives none of its time units a conversionFactor, so only a value already in the default unit s (or with no unit, which means s) can be placed; a value in minutes, hours, or days cannot. In a descriptor table nothing is placed on a timeline, so a Duration may use any valid time unit there.",
+        "correction_strategy": "Under 8.0.0, write Delay and Duration values in a timeline table in seconds, or validate against a later schema version, whose time units have conversion factors",
+        "correction_examples": [
+            {
+                "wrong": "(Duration/2 minute, (Red))",
+                "correct": "(Duration/120 s, (Red))",
+                "explanation": "Under 8.0.0 only seconds can be placed on the timeline"
+            },
+            {
+                "wrong": "(Duration/2 minute, (Red))",
+                "correct": "(Duration/2 minute, (Red)) under 8.1.0 or later",
+                "explanation": "Later schemas give minute a conversionFactor"
+            }
+        ],
+        "specification_reference": "3.2.8.4 Duration and Delay; Appendix B TEMPORAL_TAG_ERROR n",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "UNITS_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/2 minute, (Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/3 s, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/3, (Red))"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Delay/3 s, (Blue))"
+                        ]
+                    ],
+                    [
+                        [
+                            "participant_id",
+                            "HED"
+                        ],
+                        [
+                            "sub-01",
+                            "(Duration/2 minute, (Red))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     },
@@ -20403,6 +21547,216 @@
                             ],
                             [
                                 "snack",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TEMPORAL_TAG_ERROR",
+        "alt_codes": [
+            "TAG_GROUP_ERROR"
+        ],
+        "name": "temporal-tag-error-delay-missing-group",
+        "description": "A Delay that is the only reserved tag of its group must have exactly one inner group, so (Delay/3 s) fails. Beside Onset, Offset, Inset, or Duration, Delay is secondary and that tag's row gives the group rules: (Onset, Def/MyColor, Delay/3 s) passes with no inner group, while (Delay/3 s, Duration/2 s) fails because Duration needs one.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "temporal",
+        "common_causes": [
+            "Writing a Delay group with no inner group to say what is delayed",
+            "Expecting a Delay beside Duration to need no inner group, as it needs none beside Onset"
+        ],
+        "explanation": "A Delay group on its own places its inner group on the timeline at the row's onset plus the delay, so the inner group is required. When Delay shares a group with Onset, Offset, or Inset, it only shifts that marker, and the marker's rules apply: an Onset or Inset group may have no inner group and an Offset group has none. When Delay shares a group with Duration, the Duration rules apply, and a Duration group needs exactly one inner group.",
+        "correction_strategy": "Put the tags of the delayed event in one inner group, or pair the Delay with the Onset, Offset, or Inset it shifts",
+        "correction_examples": [
+            {
+                "wrong": "(Delay/3 s)",
+                "correct": "(Delay/3 s, (Red))",
+                "explanation": "The delayed event is described in an inner group"
+            },
+            {
+                "wrong": "(Delay/3 s, Duration/2 s)",
+                "correct": "(Delay/3 s, Duration/2 s, (Red))",
+                "explanation": "The Duration group needs its inner group"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rule 3); Appendix B TEMPORAL_TAG_ERROR l",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR",
+            "TAG_GROUP_ERROR"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay/3 s)"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay/3 s, Duration/2 s)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "a": "(Delay/3 s, (Red))",
+                                "b": "(Onset, Def/MyColor, Delay/3 s)",
+                                "c": "(Offset, Def/MyColor, Delay/3 s)",
+                                "d": "(Duration/3 s, Delay/2 s, (Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s, Duration/2 s)"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            1.0,
+                            0,
+                            "(Delay/3 s, (Red))"
+                        ],
+                        [
+                            2.0,
+                            0,
+                            "(Onset, Def/MyColor, Delay/3 s)"
+                        ],
+                        [
+                            4.0,
+                            0,
+                            "(Offset, Def/MyColor, Delay/3 s)"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/3 s, Delay/2 s, (Red))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Delay/3 s)",
+                                    "ball": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "a": "(Delay/3 s, (Red))",
+                                    "b": "(Onset, Def/MyColor, Delay/3 s)",
+                                    "c": "(Offset, Def/MyColor, Delay/3 s)",
+                                    "d": "(Duration/3 s, Delay/2 s, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                1.0,
+                                0,
+                                "a",
+                                "Blue"
+                            ],
+                            [
+                                2.0,
+                                0,
+                                "b",
+                                "Blue"
+                            ],
+                            [
+                                4.0,
+                                0,
+                                "c",
+                                "Blue"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "d",
                                 "Blue"
                             ]
                         ]

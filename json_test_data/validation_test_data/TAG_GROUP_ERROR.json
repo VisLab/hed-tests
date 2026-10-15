@@ -426,7 +426,7 @@
             "Sidecar substitution breaking top-level requirements",
             "Complex column dependencies affecting tag hierarchy"
         ],
-        "explanation": "When columns are spliced together in sidecar processing, tags with topLevelTagGroup attribute must still end up at the top level of the final assembled annotation.",
+        "explanation": "When columns are spliced together in sidecar processing, tags with topLevelTagGroup attribute must still end up at the top level of the final assembled annotation. The group rules of a reserved tag are checked on the assembled annotation, so (Duration/3 s, {other}) and (Onset, {other}) are valid when the other column supplies the inner group or the anchor, and invalid when the substitution gives the Duration group two inner groups.",
         "correction_strategy": "Restructure sidecar to maintain top-level positioning",
         "correction_examples": [
             {
@@ -459,7 +459,7 @@
             "Verify top-level tags remain at top level",
             "Test sidecar processing results"
         ],
-        "specification_reference": "3.2.9. Sidecar processing and tag hierarchy",
+        "specification_reference": "3.2.9.3. Sidecar curly braces (rule 9); 3.2.8. Reserved tags (rule 5); Appendix B TAG_GROUP_ERROR b",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "SIDECAR_INVALID",
@@ -521,6 +521,30 @@
                         "ball_type": {
                             "Description": "Has description with HED",
                             "HED": "Label/#"
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Duration/3 s, {other})"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "(Red)"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Onset, {other})"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "Def/MyColor"
+                            }
                         }
                     }
                 ]
@@ -609,6 +633,36 @@
                                 "Green"
                             ]
                         ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 s, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red), (Blue)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
+                            ]
+                        ]
                     }
                 ],
                 "passes": [
@@ -646,6 +700,66 @@
                                 0,
                                 "ball",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Duration/3 s, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Onset, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "Def/MyColor"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
                             ]
                         ]
                     }
@@ -1101,6 +1215,150 @@
                                 0,
                                 "code3",
                                 "Red"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_GROUP_ERROR",
+        "alt_codes": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "name": "tag-group-error-event-context-braces",
+        "description": "An Event-context group contains a sidecar column reference ({column}). Column references may not appear in an Event-context group; they may appear beside it.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Assembling the ongoing-event contents of an Event-context group from another column with curly braces",
+            "Copying a pattern that is valid in a Duration or Onset group into an Event-context group"
+        ],
+        "explanation": "An Event-context group lists the event processes that are ongoing at an event marker, and tools generate it with every definition and column reference already expanded. A curly brace column reference inside the group is therefore not allowed, although references are allowed in Duration, Delay, Onset, Offset, and Inset groups. Usually the Event-context group should be left to tools altogether.",
+        "correction_strategy": "Remove the column reference from the Event-context group: write the content group out, or move the reference outside the group",
+        "correction_examples": [
+            {
+                "wrong": "(Event-context, {other})",
+                "correct": "(Event-context, (Red))",
+                "explanation": "The content group is written out"
+            },
+            {
+                "wrong": "(Event-context, {other})",
+                "correct": "(Event-context, (Blue)), {other}",
+                "explanation": "The reference moves outside the group"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table row Event-context, rule 5); 3.2.9.3. Sidecar curly braces (rule 5); Appendix B TAG_GROUP_ERROR e",
+        "related_errors": [
+            "TAG_GROUP_ERROR",
+            "SIDECAR_BRACES_INVALID",
+            "DEFINITION_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Event-context, {other})"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "(Red)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Event-context, (Blue)), {other}"
+                            }
+                        },
+                        "other": {
+                            "HED": {
+                                "x": "(Red)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Event-context, {other})"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Event-context, (Blue)), {other}"
+                                }
+                            },
+                            "other": {
+                                "HED": {
+                                    "x": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "other",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x",
+                                "Green"
                             ]
                         ]
                     }

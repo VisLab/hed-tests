@@ -1145,10 +1145,12 @@
     {
         "error_code": "DEFINITION_INVALID",
         "alt_codes": [
-            "TAG_GROUP_ERROR"
+            "TAG_GROUP_ERROR",
+            "TEMPORAL_TAG_ERROR",
+            "DEF_INVALID"
         ],
         "name": "definition-invalid-content-has-top-level-tag",
-        "description": "A tag with a required or unique attribute appears in a definition.",
+        "description": "A definition's contents contain, at any level, a structural reserved tag (Definition, Def, Def-expand, Onset, Offset, Inset, Delay, Duration, Event-context; reason d) or a tag with the required or unique attribute (reason j).",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "content",
@@ -1157,10 +1159,12 @@
             "Including Event-context or other required tags in definitions",
             "Misunderstanding that definitions should contain reusable content",
             "Adding context-specific tags to generic definitions",
-            "Confusion about what content is appropriate in definitions"
+            "Confusion about what content is appropriate in definitions",
+            "Putting an Onset, Offset, Inset, Delay, or Duration group inside a definition instead of in the annotation that uses it",
+            "Referring to another definition with Def inside a definition"
         ],
-        "explanation": "Definition content should contain reusable, generic tags without required or unique attributes. Top-level tags violate definition reusability principles.",
-        "correction_strategy": "Remove required/unique tags from definition content",
+        "explanation": "Definition content should contain reusable, generic tags. The structural reserved tags and tags with the required or unique attribute may not appear anywhere in a definition's contents, at any depth: timing tags such as Onset, Delay, and Duration belong in the annotation that uses the definition, and definitions may not refer to other definitions.",
+        "correction_strategy": "Remove reserved, required, and unique tags from definition content; put timing tags in the annotation that uses the definition",
         "correction_examples": [
             {
                 "wrong": "(Definition/Apple, (Event-context, Red))",
@@ -1171,6 +1175,16 @@
                 "wrong": "(Definition/Action, (Task-context, Movement))",
                 "correct": "(Definition/Action, (Movement))",
                 "explanation": "Kept only generic content without context requirements"
+            },
+            {
+                "wrong": "(Definition/HasDuration, (Red, (Duration/2 s, (Blue))))",
+                "correct": "(Definition/HasDuration, (Red))",
+                "explanation": "Write the Duration where the definition is used: (Duration/2 s, (Def/HasDuration, (Blue)))"
+            },
+            {
+                "wrong": "(Definition/HasDef, (Red, (Def/MyColor)))",
+                "correct": "(Definition/HasDef, (Red, (Label/Pie)))",
+                "explanation": "Write out the tags of the other definition instead of referring to it"
             }
         ],
         "correction_patterns": [
@@ -1192,14 +1206,15 @@
             "Keep definition content generic and reusable",
             "Verify appropriate definition content"
         ],
-        "specification_reference": "3.2.8.1. Definition content restrictions",
+        "specification_reference": "3.2.8.1. The Definition tag; Appendix B DEFINITION_INVALID d and j",
         "related_errors": [
             "TAG_GROUP_ERROR",
             "TAG_INVALID",
             "DEFINITION_INVALID"
         ],
         "definitions": [
-            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))"
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
         ],
         "tests": {
             "string_tests": {
@@ -1213,6 +1228,48 @@
                             "HED": {
                                 "def1": "(Definition/Apple, (Event-context, Red))",
                                 "def2": "(Definition/Banana/#, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasOnset, (Onset, (Red)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasOffset, (Red, (Offset)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasInset, (Blue, (Red, (Inset))))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDelay, (Delay/2 s, (Red)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDuration, (Red, (Duration/2 s, (Blue))))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDef, (Red, (Def/MyColor)))"
                             }
                         }
                     }
@@ -1581,6 +1638,212 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID",
+            "PLACEHOLDER_INVALID"
+        ],
+        "name": "definition-invalid-second-part-not-placeholder",
+        "description": "The value of a Definition tag has a part after the name other than a single # (reason l): Definition/NewDef/3 and Definition/NewDef/Extra fail. Definition/NewDef/#/# fails too, as reason f (three # in the definition) or l.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Writing an example value instead of # after the definition name",
+            "Adding a second word to the definition name with a slash instead of a hyphen",
+            "Writing # twice after the name"
+        ],
+        "explanation": "A Definition tag's value is the definition name, optionally followed by /# when the contents hold one placeholder. Nothing else may follow the name: the value is filled in where the definition is used, as Def/NewDef/3, not where it is defined, and a name may not contain a slash.",
+        "correction_strategy": "Keep only the name, or the name and a single #, in the Definition tag",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/NewDef/3, (Label/#))",
+                "correct": "(Definition/NewDef/#, (Label/#))",
+                "explanation": "The definition takes #; the value 3 goes in the Def tag, Def/NewDef/3"
+            },
+            {
+                "wrong": "(Definition/NewDef/Extra, (Red))",
+                "correct": "(Definition/NewDef-extra, (Red))",
+                "explanation": "The name is one nameClass value"
+            },
+            {
+                "wrong": "(Definition/NewDef/#/#, (Label/#))",
+                "correct": "(Definition/NewDef/#, (Label/#))",
+                "explanation": "Only one # follows the name"
+            }
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags (value forms table); Appendix B DEFINITION_INVALID f and l",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "PLACEHOLDER_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "definitions": [
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/3, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/#/#, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/Extra, (Red))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/NewDef/#, (Label/#))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/NewDef/Extra, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/NewDef/#, (Label/#))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/NewDef/Apple"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": ["TAG_GROUP_ERROR", "TEMPORAL_TAG_ERROR"],
+        "name": "definition-invalid-content-has-delay-or-duration-in-8-1-0",
+        "description": "Delay and Duration may not appear in a definition's contents (reason d). The rule holds in every standard schema version; 8.1.0 is not special, and this case pins it there because the 8.1.0 schema does not mark Delay and Duration reserved.",
+        "warning": false,
+        "schema": "8.1.0",
+        "error_category": "content",
+        "common_causes": [
+            "Assuming that because the 8.0.0 and 8.1.0 schemas do not mark Delay and Duration reserved they may be used in definitions",
+            "Putting the timing of an event inside the definition that describes it"
+        ],
+        "explanation": "The structural reserved tags, Delay and Duration among them, may not appear anywhere in a definition's contents. The rule is applied by tag name in every standard schema version, so it holds under 8.0.0 and 8.1.0 although those schemas do not carry the reserved attribute; timing belongs in the annotation that uses the definition.",
+        "correction_strategy": "Remove Delay and Duration from the definition and write them in the annotation that uses it",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/HasDuration, (Red, (Duration/2 s)))",
+                "correct": "(Definition/HasDuration, (Red))",
+                "explanation": "Write the Duration where the definition is used"
+            }
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags; Appendix B DEFINITION_INVALID d",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDelay, (Delay/2 s, (Red)))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDuration, (Red, (Duration/2 s)))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/HasDelay, (Red, (Blue)))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     }
