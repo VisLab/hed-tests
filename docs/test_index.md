@@ -1,12 +1,12 @@
 # HED test suite index
 
-Complete index of 210 test cases in the HED test suite.
+Complete index of 219 test cases in the HED test suite.
 
 ## Quick navigation
 
 - [CHARACTER_INVALID](#character-invalid) (8 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
-- [DEFINITION_INVALID](#definition-invalid) (11 tests)
+- [DEFINITION_INVALID](#definition-invalid) (13 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
 - [DEF_INVALID](#def-invalid) (3 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
@@ -29,13 +29,13 @@ Complete index of 210 test cases in the HED test suite.
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
-- [TAG_EXTENSION_INVALID](#tag-extension-invalid) (2 tests)
-- [TAG_GROUP_ERROR](#tag-group-error) (5 tests)
+- [TAG_EXTENSION_INVALID](#tag-extension-invalid) (3 tests)
+- [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
 - [TAG_INVALID](#tag-invalid) (3 tests)
 - [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (3 tests)
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
-- [TAG_REQUIRES_CHILD](#tag-requires-child) (1 test)
-- [TEMPORAL_TAG_ERROR](#temporal-tag-error) (27 tests)
+- [TAG_REQUIRES_CHILD](#tag-requires-child) (2 tests)
+- [TEMPORAL_TAG_ERROR](#temporal-tag-error) (31 tests)
 - [UNITS_INVALID](#units-invalid) (6 tests)
 - [VALUE_INVALID](#value-invalid) (6 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
@@ -191,15 +191,25 @@ Complete index of 210 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### definition-invalid-content-has-delay-or-duration-in-8-1-0 (correction guidance) (examples)
+
+**Description**: Delay and Duration may not appear in a definition's contents (reason d). The rule holds in every standard schema version; 8.1.0 is not special, and this case pins it there because the 8.1.0 schema does not mark Delay and Duration reserved.
+
+**Schema**: 8.1.0 **Category**: content
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 1 pass
+
 ### definition-invalid-content-has-top-level-tag (correction guidance) (examples)
 
-**Description**: A tag with a required or unique attribute appears in a definition.
+**Description**: A definition's contents contain, at any level, a structural reserved tag (Definition, Def, Def-expand, Onset, Offset, Inset, Delay, Duration, Event-context; reason d) or a tag with the required or unique attribute (reason j).
 
 **Schema**: 8.4.0 **Category**: content
 
 **Tests**:
 
-- `sidecar_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 7 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### definition-invalid-duplicate-definitions-differ (correction guidance) (examples)
@@ -278,6 +288,17 @@ Complete index of 210 test cases in the HED test suite.
 **Tests**:
 
 - `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### definition-invalid-second-part-not-placeholder (correction guidance) (examples)
+
+**Description**: The value of a Definition tag has a part after the name other than a single # (reason l): Definition/NewDef/3 and Definition/NewDef/Extra fail. Definition/NewDef/#/# fails too, as reason f (three # in the definition) or l.
+
+**Schema**: 8.4.0 **Category**: syntax
+
+**Tests**:
+
+- `sidecar_tests`: 3 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### definition-invalid-tag-group (correction guidance) (examples)
@@ -533,7 +554,7 @@ Complete index of 210 test cases in the HED test suite.
 
 **Tests**:
 
-- `sidecar_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### placeholder-invalid-json-value-column (correction guidance) (examples)
@@ -1832,6 +1853,19 @@ Complete index of 210 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### tag-extension-invalid-reserved-tag (correction guidance) (examples)
+
+**Description**: A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/# in a sidecar value column). Reserved tags must not be extended although they inherit extensionAllowed from Property.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ## TAG_GROUP_ERROR
 
 **File**: `json_test_data/validation_test_data/TAG_GROUP_ERROR.json`
@@ -1856,8 +1890,19 @@ Complete index of 210 test cases in the HED test suite.
 
 **Tests**:
 
-- `sidecar_tests`: 2 fail, 1 pass
+- `sidecar_tests`: 2 fail, 3 pass
 - `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 2 fail, 3 pass
+
+### tag-group-error-event-context-braces (correction guidance) (examples)
+
+**Description**: An Event-context group contains a sidecar column reference (\{column}). Column references may not appear in an Event-context group; they may appear beside it.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tag-group-error-event-context-contents (correction guidance) (examples)
@@ -2017,6 +2062,18 @@ Complete index of 210 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### tag-requires-child-reserved-value-in-8-2-0 (correction guidance) (examples)
+
+**Description**: Under standard schema 8.2.0, Delay and Duration lack the requireChild attribute but still require a value, because requireValue is true for them in reserved_tags.json (reason b): (Delay, (Red)) and (Duration, (Red)) fail. The same strings fail under 8.0.0 and 8.1.0 for the same reason (pinned for 8.1.0 in temporal-tag-error-rules-apply-in-8-1-0).
+
+**Schema**: 8.2.0 **Category**: structure
+
+**Tests**:
+
+- `string_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+
 ## TEMPORAL_TAG_ERROR
 
 **File**: `json_test_data/validation_test_data/TEMPORAL_TAG_ERROR.json`
@@ -2031,9 +2088,21 @@ Complete index of 210 test cases in the HED test suite.
 
 - `combo_tests`: 2 fail, 2 pass
 
+### temporal-tag-error-delay-missing-group (correction guidance) (examples)
+
+**Description**: A Delay that is the only reserved tag of its group must have exactly one inner group, so (Delay/3 s) fails. Beside Onset, Offset, Inset, or Duration, Delay is secondary and that tag's row gives the group rules: (Onset, Def/MyColor, Delay/3 s) passes with no inner group, while (Delay/3 s, Duration/2 s) fails because Duration needs one.
+
+**Schema**: 8.4.0 **Category**: temporal
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### temporal-tag-error-delay-not-convertible (correction guidance) (examples)
 
-**Description**: In a timeline file (a tabular file with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a non-timeline file (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.
+**Description**: In a timeline table (a table with an onset column), a Delay tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the delayed onset cannot be placed on the timeline. Delay is never allowed in a descriptor table (cause k), so it can never carry a non-convertible unit. Appendix B TEMPORAL_TAG_ERROR cause n. Implemented in hed-python PR #1399; hed-javascript issue #860.
 
 **Schema**: 8.4.0 **Category**: temporal
 
@@ -2088,7 +2157,7 @@ Complete index of 210 test cases in the HED test suite.
 
 ### temporal-tag-error-duration-not-convertible (correction guidance) (examples)
 
-**Description**: In a timeline file (a tabular file with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a non-timeline file such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.
+**Description**: In a timeline table (a table with an onset column), a Duration tag has a value that cannot be converted to the default units of its unit class because the unit has no conversionFactor (month and year in HED 8.4.0), so the end time cannot be placed on the timeline. The same Duration is valid in a descriptor table such as participants.tsv, where there is no timeline to map it onto. Appendix B TEMPORAL_TAG_ERROR cause n.
 
 **Schema**: 8.4.0 **Category**: temporal
 
@@ -2096,6 +2165,17 @@ Complete index of 210 test cases in the HED test suite.
 
 - `event_tests`: 3 fail, 2 pass
 - `combo_tests`: 1 fail, 2 pass
+
+### temporal-tag-error-duration-with-top-level-def (correction guidance) (examples)
+
+**Description**: A Duration group may not have a Def tag or a Def-expand group at its top level (rule 2: Duration has no anchor); one may appear inside the inner group. A Def-expand group stands where its Def tag would and is never counted as the inner group.
+
+**Schema**: 8.4.0 **Category**: temporal
+
+**Tests**:
+
+- `string_tests`: 4 fail, 3 pass
+- `event_tests`: 1 fail, 1 pass
 
 ### temporal-tag-error-extra tags (correction guidance) (examples)
 
@@ -2200,6 +2280,16 @@ Complete index of 210 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### temporal-tag-error-no-conversion-factor-in-8-0-0 (correction guidance) (examples)
+
+**Description**: Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit s, given or omitted, is taken as is, so (Duration/3 s, (Red)) and (Duration/3, (Red)) pass; a value in any other unit cannot be placed on the timeline, so (Duration/2 minute, (Red)) fails (cause n). The same Duration passes in a descriptor table.
+
+**Schema**: 8.0.0 **Category**: temporal
+
+**Tests**:
+
+- `event_tests`: 1 fail, 2 pass
+
 ### temporal-tag-error-not-tag-group (correction guidance) (examples)
 
 **Description**: An Onset or Offset tag does not appear in a tag group.
@@ -2282,6 +2372,18 @@ Complete index of 210 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 1 pass
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 3 fail, 1 pass
+
+### temporal-tag-error-rules-apply-in-8-1-0 (correction guidance) (examples)
+
+**Description**: The reserved-tag rules for Delay and Duration apply in every standard schema version, including 8.1.0, whose schema gives these tags none of the reserved, topLevelTagGroup, or requireChild attributes: a nested or ungrouped Delay or Duration, one without a value, and a Delay in a descriptor table all fail; (Delay/2 s, (Blue)) and (Onset, Def/MyColor, Delay/3 s) in a timeline table pass.
+
+**Schema**: 8.1.0 **Category**: temporal
+
+**Tests**:
+
+- `string_tests`: 3 fail, 1 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 4 fail, 1 pass
 
 ### temporal-tag-error-tag-appears-where-not-allowed (correction guidance) (examples)
 

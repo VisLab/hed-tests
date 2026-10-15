@@ -402,7 +402,7 @@ HED definition strings required for the test case. These are evaluated before th
 
 Tests for raw HED strings.
 
-String tests never contain `Onset`, `Offset`, `Inset`, or `Delay`. The specification defines those tags relative to a timeline file and does not say how a validator must treat them in a lone string, so rules about them are tested in event and combo tests, where the `onset` column and any earlier rows are explicit. `Duration` is allowed in string tests.
+String tests never contain `Onset`, `Offset`, `Inset`, or `Delay`. The specification defines those tags relative to a timeline table and does not say how a validator must treat them in a lone string, so rules about them are tested in event and combo tests, where the `onset` column and any earlier rows are explicit. `Duration` is allowed in string tests.
 
 **Structure**:
 

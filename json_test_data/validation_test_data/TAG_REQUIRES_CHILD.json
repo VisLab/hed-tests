@@ -198,5 +198,117 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TAG_REQUIRES_CHILD",
+        "alt_codes": [
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "name": "tag-requires-child-reserved-value-in-8-2-0",
+        "description": "Under standard schema 8.2.0, Delay and Duration lack the requireChild attribute but still require a value, because requireValue is true for them in reserved_tags.json (reason b): (Delay, (Red)) and (Duration, (Red)) fail. The same strings fail under 8.0.0 and 8.1.0 for the same reason (pinned for 8.1.0 in temporal-tag-error-rules-apply-in-8-1-0).",
+        "warning": false,
+        "schema": "8.2.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Leaving out the time value of a Delay or Duration",
+            "Relying on a schema before 8.3.0, which does not mark Delay and Duration requireChild"
+        ],
+        "explanation": "A Delay or Duration says how long after the event marker something starts or how long it lasts, so it needs a time value such as Duration/3 s. From standard schema 8.3.0 the schema marks both tags requireChild; in 8.0.0 to 8.2.0 the requirement comes from the reserved-tag rules instead, with the same result.",
+        "correction_strategy": "Give the Delay or Duration a time value with units",
+        "correction_examples": [
+            {
+                "wrong": "(Duration, (Red))",
+                "correct": "(Duration/3 s, (Red))",
+                "explanation": "Added the length of the event"
+            },
+            {
+                "wrong": "(Delay, (Red))",
+                "correct": "(Delay/3 s, (Red))",
+                "explanation": "Added the delay"
+            }
+        ],
+        "specification_reference": "3.2.8. Reserved tags (table column Value); Appendix A.6 (requireValue); Appendix B TAG_REQUIRES_CHILD b",
+        "related_errors": [
+            "TAG_REQUIRES_CHILD",
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Duration, (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 s, (Red))"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Duration, (Red))"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Delay, (Red))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Duration/3 s, (Red))",
+                                "ball": "(Delay/3 s, (Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay, (Red))"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Delay/3 s, (Red))"
+                        ],
+                        [
+                            5.0,
+                            0,
+                            "(Duration/3 s, (Blue))"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
+            }
+        }
     }
 ]

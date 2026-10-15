@@ -8,6 +8,7 @@
         "character-invalid-double-quote",
         "character-invalid-nonascii-boundary",
         "character-invalid-text-value-before-8-5-0",
+        "definition-invalid-second-part-not-placeholder",
         "parentheses-mismatch-in-value-column",
         "placeholder-invalid-in-value-column",
         "sidecar-braces-contents-invalid",
@@ -80,7 +81,8 @@
         "invalid-character-name-value-class",
         "placeholder-invalid-json-#-misplaced",
         "tag-extension-invalid-duplicate",
-        "tag-extension-invalid-bad-node-name"
+        "tag-extension-invalid-bad-node-name",
+        "tag-extension-invalid-reserved-tag"
     ],
     "PARENTHESES_MISMATCH": [
         "character-invalid-structural-in-text-value",
@@ -92,12 +94,14 @@
         "character-invalid-structural-in-text-value",
         "definition-invalid-placeholder-incorrect-of-positions",
         "definition-invalid-placeholder-conflict",
+        "definition-invalid-second-part-not-placeholder",
         "placeholder-invalid-misplaced",
         "placeholder-invalid-#-in-categorical-column",
         "placeholder-invalid-json-value-column",
         "placeholder-invalid-json-#-misplaced",
         "placeholder-invalid-in-value-column",
         "tag-extension-invalid-bad-node-name",
+        "tag-extension-invalid-reserved-tag",
         "tag-invalid-in-schema"
     ],
     "COMMA_MISSING": [
@@ -117,6 +121,8 @@
         "definition-invalid-content-has-top-level-tag",
         "definition-not-allowed-here",
         "definition-invalid-duplicate-definitions-differ",
+        "definition-invalid-second-part-not-placeholder",
+        "definition-invalid-content-has-delay-or-duration-in-8-1-0",
         "def-expand-has-extras",
         "tag-group-error-missing"
     ],
@@ -125,11 +131,13 @@
         "definition-invalid-multiple-definition-tags",
         "definition-invalid-inner-group-defs",
         "definition-invalid-content-has-top-level-tag",
+        "definition-invalid-content-has-delay-or-duration-in-8-1-0",
         "tag-group-error-missing",
         "tag-group-error-not-top-level",
         "tag-group-error-deferred-in-splice",
         "multiple-top-level-tags-in-same-group",
         "tag-group-error-event-context-contents",
+        "tag-group-error-event-context-braces",
         "temporal-tag-error-not-tag-group",
         "temporal-tag-error-nested-group",
         "temporal-tag-error-wrong-number-of-defs",
@@ -141,6 +149,8 @@
         "temporal-tag-error-tag-appears-where-not-allowed",
         "na-in-onset column",
         "temporal-tag-error-delay-with-anchored-marker",
+        "temporal-tag-error-duration-with-top-level-def",
+        "temporal-tag-error-rules-apply-in-8-1-0",
         "temporal-tag-error-not-tag-group-delay",
         "temporal-tag-error-nested-group-delay",
         "temporal-tag-error-wrong-number-of-defs-delay",
@@ -151,13 +161,62 @@
         "temporal-tag-error-duplicated-onset-or-offset-delay",
         "temporal-tag-error-inset-outside-its-event-delay",
         "temporal-tag-error-inset-group-has-extras-delay",
-        "temporal-tag-error-tag-appears-where-not-allowed-delay"
+        "temporal-tag-error-tag-appears-where-not-allowed-delay",
+        "temporal-tag-error-delay-missing-group"
     ],
     "TAG_EMPTY": [
         "definition-invalid-empty-inner-group",
         "tag-empty-extra-commas-or-parentheses",
         "tag-empty-begin-end-comma",
         "tag-empty-empty-parentheses"
+    ],
+    "TEMPORAL_TAG_ERROR": [
+        "definition-invalid-content-has-top-level-tag",
+        "definition-invalid-content-has-delay-or-duration-in-8-1-0",
+        "tag-group-error-missing",
+        "tag-group-error-not-top-level",
+        "tag-group-error-deferred-in-splice",
+        "multiple-top-level-tags-in-same-group",
+        "tag-group-error-event-context-contents",
+        "tag-requires-child-reserved-value-in-8-2-0",
+        "temporal-tag-error-not-tag-group",
+        "temporal-tag-error-nested-group",
+        "temporal-tag-error-wrong-number-of-defs",
+        "temporal-tag-error-onset-has-more-groups",
+        "temporal-tag-error-offset-has-groups",
+        "temporal-tag-error-offset-with-no-onset",
+        "temporal-tag-error-extra tags",
+        "temporal-tag-error-duplicated-onset-or-offset",
+        "temporal-tag-error-inset-outside-its-event",
+        "temporal-tag-error-inset-group-has-extras",
+        "temporal-tag-error-duration-group",
+        "temporal-tag-error-delay-not-convertible",
+        "temporal-tag-error-duration-not-convertible",
+        "temporal-tag-error-tag-appears-where-not-allowed",
+        "na-in-onset column",
+        "temporal-tag-error-delay-with-anchored-marker",
+        "temporal-tag-error-duration-with-top-level-def",
+        "temporal-tag-error-rules-apply-in-8-1-0",
+        "temporal-tag-error-no-conversion-factor-in-8-0-0",
+        "temporal-tag-error-not-tag-group-delay",
+        "temporal-tag-error-nested-group-delay",
+        "temporal-tag-error-wrong-number-of-defs-delay",
+        "temporal-tag-error-onset-has-more-groups-delay",
+        "temporal-tag-error-offset-has-groups-delay",
+        "temporal-tag-error-mismatch-delay",
+        "temporal-tag-error-extra tags-delay",
+        "temporal-tag-error-duplicated-onset-or-offset-delay",
+        "temporal-tag-error-inset-outside-its-event-delay",
+        "temporal-tag-error-inset-group-has-extras-delay",
+        "temporal-tag-error-tag-appears-where-not-allowed-delay",
+        "temporal-tag-error-delay-missing-group"
+    ],
+    "DEF_INVALID": [
+        "definition-invalid-content-has-top-level-tag",
+        "def-invalid-name",
+        "def-invalid-missing-placeholder",
+        "def-invalid-bad-placeholder-value",
+        "sidecar-braces-invalid-spot"
     ],
     "DEF_EXPAND_INVALID": [
         "def-expand-invalid-name-not-definition",
@@ -167,12 +226,6 @@
         "def-expand-missing-inner-group",
         "def-expand-has-extras",
         "def-expand-tags-in-any-order"
-    ],
-    "DEF_INVALID": [
-        "def-invalid-name",
-        "def-invalid-missing-placeholder",
-        "def-invalid-bad-placeholder-value",
-        "sidecar-braces-invalid-spot"
     ],
     "ELEMENT_DEPRECATED": [
         "tag-deprecated"
@@ -228,7 +281,8 @@
         "sidecar-braces-invalid-spot",
         "sidecar-braces-circular-reference",
         "sidecar-braces-self-reference",
-        "sidecar-braces-appear-as-value-rather-than-tag"
+        "sidecar-braces-appear-as-value-rather-than-tag",
+        "tag-group-error-event-context-braces"
     ],
     "SIDECAR_INVALID": [
         "sidecar-braces-contents-invalid",
@@ -247,40 +301,6 @@
     "TAG_EXTENDED": [
         "tag-extended-extension"
     ],
-    "TEMPORAL_TAG_ERROR": [
-        "tag-group-error-missing",
-        "tag-group-error-not-top-level",
-        "tag-group-error-deferred-in-splice",
-        "multiple-top-level-tags-in-same-group",
-        "tag-group-error-event-context-contents",
-        "temporal-tag-error-not-tag-group",
-        "temporal-tag-error-nested-group",
-        "temporal-tag-error-wrong-number-of-defs",
-        "temporal-tag-error-onset-has-more-groups",
-        "temporal-tag-error-offset-has-groups",
-        "temporal-tag-error-offset-with-no-onset",
-        "temporal-tag-error-extra tags",
-        "temporal-tag-error-duplicated-onset-or-offset",
-        "temporal-tag-error-inset-outside-its-event",
-        "temporal-tag-error-inset-group-has-extras",
-        "temporal-tag-error-duration-group",
-        "temporal-tag-error-delay-not-convertible",
-        "temporal-tag-error-duration-not-convertible",
-        "temporal-tag-error-tag-appears-where-not-allowed",
-        "na-in-onset column",
-        "temporal-tag-error-delay-with-anchored-marker",
-        "temporal-tag-error-not-tag-group-delay",
-        "temporal-tag-error-nested-group-delay",
-        "temporal-tag-error-wrong-number-of-defs-delay",
-        "temporal-tag-error-onset-has-more-groups-delay",
-        "temporal-tag-error-offset-has-groups-delay",
-        "temporal-tag-error-mismatch-delay",
-        "temporal-tag-error-extra tags-delay",
-        "temporal-tag-error-duplicated-onset-or-offset-delay",
-        "temporal-tag-error-inset-outside-its-event-delay",
-        "temporal-tag-error-inset-group-has-extras-delay",
-        "temporal-tag-error-tag-appears-where-not-allowed-delay"
-    ],
     "TAG_NAMESPACE_PREFIX_INVALID": [
         "tag-namespace_prefix-invalid-characters",
         "tag-namespace_prefix-with-colon-values",
@@ -290,6 +310,8 @@
         "tag-not-unique"
     ],
     "TAG_REQUIRES_CHILD": [
-        "tag-requires-child-missing"
+        "tag-requires-child-missing",
+        "tag-requires-child-reserved-value-in-8-2-0",
+        "temporal-tag-error-rules-apply-in-8-1-0"
     ]
 }

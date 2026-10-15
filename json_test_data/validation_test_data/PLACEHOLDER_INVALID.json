@@ -588,6 +588,11 @@
                         "defs": {
                             "def1": "(Definition/Blech/#, (Red, Blue/#))"
                         }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Red/#"
+                        }
                     }
                 ],
                 "passes": [
@@ -715,7 +720,7 @@
             "The same value in several rows is one defect; fix the value everywhere it appears",
             "A value that passes its value class can still break the string it is substituted into"
         ],
-        "specification_reference": "3.2.10.2. Tabular annotations",
+        "specification_reference": "3.2.10.2. Table annotations",
         "related_errors": [
             "CHARACTER_INVALID",
             "VALUE_INVALID"
