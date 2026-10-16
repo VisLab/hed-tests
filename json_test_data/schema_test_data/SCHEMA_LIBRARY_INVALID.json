@@ -1198,8 +1198,8 @@
             "Marking a partnered library node reserved instead of proposing the reserved tag for the standard schema",
             "Copying a reserved node from the standard schema into a library"
         ],
-        "explanation": "The reserved attribute marks nodes with special meaning or function and can appear only in standard schemas or unpartnered library schemas. An unmerged partnered library schema may not use it. The passing companion is an unpartnered library, which is self-contained and may declare the reserved schema attribute and use it on its own nodes.",
-        "correction_strategy": "Remove the reserved attribute from the partnered library node; reserved tags belong to the standard schema or to a self-contained unpartnered library.",
+        "explanation": "The reserved attribute marks the reserved tags of the standard schema, whose meanings and validation rules are fixed by the HED specification, and can appear only in standard schemas. No library schema may use it on its own elements; this case is the unmerged partnered form (see library-invalid-reserved-in-unpartnered and library-invalid-reserved-in-merged-library-node for the others). The passing companion is the same unmerged library without the attribute.",
+        "correction_strategy": "Remove the reserved attribute from the library node; reserved tags belong only to the standard schema. If the tag needs a meaning fixed by the specification, propose it for the standard schema instead.",
         "correction_examples": [
             {
                 "wrong": "'''NewTag''' <nowiki>{reserved}</nowiki> in an unmerged partnered library",
@@ -1230,6 +1230,52 @@
                 ],
                 "passes": [
                     [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-reserved-in-unpartnered",
+        "warning": false,
+        "description": "An unpartnered library schema cannot use the reserved attribute on its own tags.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Marking a library tag reserved to give it special handling by tools",
+            "Copying a reserved tag and its attributes from the standard schema into an unpartnered library"
+        ],
+        "explanation": "The reserved attribute marks the reserved tags of the standard schema, whose meaning and validation rules are fixed by the HED specification. No library schema, partnered or unpartnered, may put it on its own elements. An unpartnered library has no standard partner, so it has no reserved tags at all, and annotations drawn only from it contain none. Declaring a schema attribute named reserved is not the error here; using it on a tag is. The passing companion declares the attribute but uses it nowhere.",
+        "correction_strategy": "Remove the reserved attribute from the library's tag. If the tag needs a meaning fixed by the specification, propose it for the standard schema instead.",
+        "correction_examples": [
+            {
+                "wrong": "'''NewTag''' <nowiki>{reserved}</nowiki> in an unpartnered library",
+                "correct": "'''NewTag'''",
+                "explanation": "Library tags are never reserved; only the standard schema's reserved tags are."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (l); 7.3.4. Partnered attributes",
+        "related_errors": [
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
                         "HED version=\"1.0.0\" library=\"testconflict\"",
                         "'''Prologue'''",
                         "!# start schema",
@@ -1242,6 +1288,300 @@
                         "* reserved <nowiki>{boolProperty}</nowiki>",
                         "'''Properties'''",
                         "* boolProperty",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* reserved <nowiki>{boolProperty}</nowiki>",
+                        "'''Properties'''",
+                        "* boolProperty",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-reserved-in-merged-library-node",
+        "warning": false,
+        "description": "In a merged partnered library schema, a library node (one with inLibrary) cannot carry the reserved attribute.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Adding reserved to a library node after merging, or before merging in a tool that keeps it",
+            "Editing a merged library file by hand instead of the unmerged source"
+        ],
+        "explanation": "A merged partnered library schema contains its standard partner's elements, which may carry reserved, and the library's own elements, which carry inLibrary. Only the partner's reserved tags are reserved; a library element with inLibrary must not have the reserved attribute. The passing companion is the same merged schema with reserved removed from the library node.",
+        "correction_strategy": "Remove the reserved attribute from every element that has inLibrary, and fix the unmerged source so that the next merge does not reintroduce it.",
+        "correction_examples": [
+            {
+                "wrong": "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict, reserved}</nowiki>",
+                "correct": "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict}</nowiki>",
+                "explanation": "In a merged file, reserved may appear only on the partner's elements, those without inLibrary."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (l); 7.3.4. Partnered attributes",
+        "related_errors": [
+            "SCHEMA_ATTRIBUTE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Event''' <nowiki>[Something that happens at a given place and time.]</nowiki>",
+                        "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict, reserved}[A library subtree rooted under Event.]</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* rooted <nowiki>{tagDomain, tagRange, annotationProperty} [This top-level library schema node should have a parent which is the indicated node in the partnered standard schema.]</nowiki>",
+                        "* inLibrary <nowiki>{elementDomain, stringRange} [The named library schema that this schema element is from. This attribute is added by tools when a library schema is merged into its partnered standard schema.]</nowiki>",
+                        "* reserved <nowiki>{tagDomain, boolRange} [This tag has special meaning and requires special handling by tools.]</nowiki>",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[The value is not inherited by child nodes.]</nowiki>",
+                        "* boolRange <nowiki>[This schema attribute's value can be true or false. This property was formerly named boolProperty.]</nowiki>",
+                        "* elementDomain <nowiki>[This schema attribute can apply to any type of element class (i.e., tag, unit, unit class, unit modifier, or value class). This property was formerly named elementProperty.]</nowiki>",
+                        "* tagDomain <nowiki>[This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.]</nowiki>",
+                        "* tagRange <nowiki>[This schema attribute's value can be a node. This property was formerly named nodeProperty.]</nowiki>",
+                        "* numericRange <nowiki>[This schema attribute's value can be numeric.]</nowiki>",
+                        "* stringRange <nowiki>[This schema attribute's value can be a string.]</nowiki>",
+                        "* unitClassDomain <nowiki>[This schema attribute can apply to unit classes. This property was formerly named unitClassProperty.]</nowiki>",
+                        "* unitClassRange <nowiki>[This schema attribute's value can be a unit class.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[This schema attribute can apply to unit modifiers. This property was formerly named unitModifierProperty.]</nowiki>",
+                        "* unitDomain <nowiki>[This schema attribute can apply to units. This property was formerly named unitProperty.]</nowiki>",
+                        "* unitRange <nowiki>[This schema attribute's value can be units.]</nowiki>",
+                        "* valueClassDomain <nowiki>[This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>",
+                        "* valueClassRange <nowiki>[This schema attribute's value can be a value class.]</nowiki>",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Event''' <nowiki>[Something that happens at a given place and time.]</nowiki>",
+                        "* Rooted-tag <nowiki>{rooted=Event, inLibrary=testconflict}[A library subtree rooted under Event.]</nowiki>",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* rooted <nowiki>{tagDomain, tagRange, annotationProperty} [This top-level library schema node should have a parent which is the indicated node in the partnered standard schema.]</nowiki>",
+                        "* inLibrary <nowiki>{elementDomain, stringRange} [The named library schema that this schema element is from. This attribute is added by tools when a library schema is merged into its partnered standard schema.]</nowiki>",
+                        "* reserved <nowiki>{tagDomain, boolRange} [This tag has special meaning and requires special handling by tools.]</nowiki>",
+                        "'''Properties'''",
+                        "* annotationProperty <nowiki>[The value is not inherited by child nodes.]</nowiki>",
+                        "* boolRange <nowiki>[This schema attribute's value can be true or false. This property was formerly named boolProperty.]</nowiki>",
+                        "* elementDomain <nowiki>[This schema attribute can apply to any type of element class (i.e., tag, unit, unit class, unit modifier, or value class). This property was formerly named elementProperty.]</nowiki>",
+                        "* tagDomain <nowiki>[This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.]</nowiki>",
+                        "* tagRange <nowiki>[This schema attribute's value can be a node. This property was formerly named nodeProperty.]</nowiki>",
+                        "* numericRange <nowiki>[This schema attribute's value can be numeric.]</nowiki>",
+                        "* stringRange <nowiki>[This schema attribute's value can be a string.]</nowiki>",
+                        "* unitClassDomain <nowiki>[This schema attribute can apply to unit classes. This property was formerly named unitClassProperty.]</nowiki>",
+                        "* unitClassRange <nowiki>[This schema attribute's value can be a unit class.]</nowiki>",
+                        "* unitModifierDomain <nowiki>[This schema attribute can apply to unit modifiers. This property was formerly named unitModifierProperty.]</nowiki>",
+                        "* unitDomain <nowiki>[This schema attribute can apply to units. This property was formerly named unitProperty.]</nowiki>",
+                        "* unitRange <nowiki>[This schema attribute's value can be units.]</nowiki>",
+                        "* valueClassDomain <nowiki>[This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>",
+                        "* valueClassRange <nowiki>[This schema attribute's value can be a value class.]</nowiki>",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-reserved-name",
+        "warning": false,
+        "description": "A library schema cannot define a tag whose name is a reserved tag of a standard schema, such as Onset.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Reusing a familiar name such as Onset, Duration, or Task for a library concept",
+            "Copying a reserved tag from the standard schema into an unpartnered library so that it is available without a partner"
+        ],
+        "explanation": "The reserved tags (Definition, Def, Def-expand, Onset, Offset, Inset, Delay, Duration, Event-context and the ten organizational tags such as Task and Event-stream) have meanings and validation rules fixed by the specification. A library schema must not define a tag with one of these names, at any level of its hierarchy, even without the reserved attribute: annotations would otherwise contain a tag that looks reserved but is not. For an unmerged partnered library the same tag is also a duplicate of its partner (reason i); this case uses an unpartnered library, where only this rule applies. The passing companion gives the library tag a name of its own.",
+        "correction_strategy": "Rename the library tag so that its name is not a reserved tag name. If the library needs the reserved tag itself, partner the library with a standard schema and use the partner's tag.",
+        "correction_examples": [
+            {
+                "wrong": "'''Onset''' in an unpartnered library",
+                "correct": "'''Stimulus-onset'''",
+                "explanation": "A library-specific name avoids the reserved name."
+            },
+            {
+                "wrong": "'''NewTag''' with a child * Onset",
+                "correct": "'''NewTag''' with a child * Stimulus-onset",
+                "explanation": "The rule applies to every tag the library defines, not only top-level ones."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (m); 3.2.8. Reserved tags",
+        "related_errors": [
+            "SCHEMA_DUPLICATE_NODE"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Onset'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag'''",
+                        "* Onset",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''Stimulus-onset'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag'''",
+                        "* Stimulus-onset",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LIBRARY_INVALID",
+        "name": "library-invalid-rooted-under-reserved",
+        "warning": false,
+        "description": "A partnered library schema cannot use rooted to place a node under a reserved tag such as Onset.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Rooting a library subtree under Onset or Duration to refine temporal markers",
+            "Rooting library task or condition names under Task or Condition-variable instead of using their # value"
+        ],
+        "explanation": "A reserved tag has no child node other than #, and a library cannot change that: in the merged schema, a node rooted under a reserved tag would become its child. The rule covers all nineteen reserved tags, including Event-context and the organizational ones such as Task; a reserved tag with a # child would also give that # a sibling.Rooting under an ordinary tag, even the parent of a reserved tag such as Temporal-marker, is allowed.",
+        "correction_strategy": "Root the library node under an ordinary standard tag, for example the reserved tag's parent, or use the reserved tag's # value where it has one.",
+        "correction_examples": [
+            {
+                "wrong": "'''NewTag''' {rooted=Onset}",
+                "correct": "'''NewTag''' {rooted=Temporal-marker}",
+                "explanation": "The node becomes a sibling of Onset instead of its child."
+            },
+            {
+                "wrong": "'''NewTag''' {rooted=Event-context}",
+                "correct": "'''NewTag''' {rooted=Organizational-property}",
+                "explanation": "Event-context is reserved even though it takes no value; root the node under an ordinary tag."
+            }
+        ],
+        "specification_reference": "Appendix B. SCHEMA_LIBRARY_INVALID (n); 7.3.4. Partnered attributes",
+        "related_errors": [
+            "SCHEMA_ATTRIBUTE_VALUE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Onset}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Event-context}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.0.0\" library=\"testconflict\" withStandard=\"8.4.0\" unmerged=\"True\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''NewTag''' {rooted=Temporal-marker}",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "'''Properties'''",
                         "'''Epilogue'''",
                         "!# end hed"
                     ]

@@ -74,10 +74,18 @@
         "library-invalid-properties-in-unmerged",
         "library-invalid-merged-rooted-not-under-anchor",
         "library-invalid-merged-properties-mismatch",
-        "library-invalid-reserved-in-unmerged"
+        "library-invalid-reserved-in-unmerged",
+        "library-invalid-reserved-in-unpartnered",
+        "library-invalid-reserved-in-merged-library-node",
+        "library-invalid-reserved-name",
+        "library-invalid-rooted-under-reserved"
     ],
     "SCHEMA_MISSING_EXTRA": [
         "schema-missing-extra"
+    ],
+    "SCHEMA_RESERVED_INVALID": [
+        "schema-reserved-invalid-missing-or-unmarked",
+        "schema-reserved-invalid-child-node"
     ],
     "SCHEMA_SECTION_MISSING": [
         "schema-section-missing"

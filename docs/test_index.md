@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 219 test cases in the HED test suite.
+Complete index of 225 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -19,9 +19,10 @@ Complete index of 219 test cases in the HED test suite.
 - [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (3 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
-- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (19 tests)
+- [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (23 tests)
 - [SCHEMA_LOAD_FAILED](#schema-load-failed) (41 tests)
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
+- [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
 - [SIDECAR_INVALID](#sidecar-invalid) (2 tests)
@@ -1113,6 +1114,16 @@ Complete index of 219 test cases in the HED test suite.
 
 - `schema_tests`: 1 fail, 1 pass
 
+### library-invalid-reserved-in-merged-library-node (correction guidance) (examples)
+
+**Description**: In a merged partnered library schema, a library node (one with inLibrary) cannot carry the reserved attribute.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
 ### library-invalid-reserved-in-unmerged (correction guidance) (examples)
 
 **Description**: The reserved attribute cannot be used in an unmerged partnered library schema.
@@ -1122,6 +1133,26 @@ Complete index of 219 test cases in the HED test suite.
 **Tests**:
 
 - `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-reserved-in-unpartnered (correction guidance) (examples)
+
+**Description**: An unpartnered library schema cannot use the reserved attribute on its own tags.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### library-invalid-reserved-name (correction guidance) (examples)
+
+**Description**: A library schema cannot define a tag whose name is a reserved tag of a standard schema, such as Onset.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 2 fail, 2 pass
 
 ### library-invalid-rooted-in-unpartnered (correction guidance) (examples)
 
@@ -1158,6 +1189,16 @@ Complete index of 219 test cases in the HED test suite.
 **Description**: A schema library issue, indicating the rooted property appears in a file it shouldn't.
 
 **Schema**: any
+
+**Tests**:
+
+- `schema_tests`: 2 fail, 1 pass
+
+### library-invalid-rooted-under-reserved (correction guidance) (examples)
+
+**Description**: A partnered library schema cannot use rooted to place a node under a reserved tag such as Onset.
+
+**Schema**: any **Category**: schema_development
 
 **Tests**:
 
@@ -1600,6 +1641,30 @@ Complete index of 219 test cases in the HED test suite.
 **Tests**:
 
 - `schema_tests`: 8 fail, 1 pass
+
+## SCHEMA_RESERVED_INVALID
+
+**File**: `json_test_data/schema_test_data/SCHEMA_RESERVED_INVALID.json`
+
+### schema-reserved-invalid-child-node (correction guidance) (examples)
+
+**Description**: A reserved tag in a standard schema cannot have a child node other than #.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 1 fail, 1 pass
+
+### schema-reserved-invalid-missing-or-unmarked (correction guidance) (examples)
+
+**Description**: A standard schema must define every reserved tag with the attributes the reserved-tag rules rely on.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 4 fail, 1 pass
 
 ## SCHEMA_SECTION_MISSING
 
