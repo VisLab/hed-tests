@@ -1372,6 +1372,10 @@
             <node>
                <name>Consume</name>
                <description>Take a substance into the body by eating or drinking.</description>
+               <attribute>
+                  <name>hedId</name>
+                  <value>HED_0013234</value>
+               </attribute>
             </node>
             <node>
                <name>Halt</name>
@@ -1432,6 +1436,10 @@
             <node>
                <name>Report</name>
                <description>Exhibit a specific behavioral response to indicate detection of a signal or the making of a decision. For example, a mouse places its snout into a specific illuminated port to report a choice.</description>
+               <attribute>
+                  <name>hedId</name>
+                  <value>HED_0013235</value>
+               </attribute>
             </node>
             <node>
                <name>Rest</name>
@@ -4715,6 +4723,10 @@
                   <node>
                      <name>Electrical-artifact</name>
                      <description>Signal Contamination due to extraneous or unwanted electrical signals.</description>
+                     <attribute>
+                        <name>hedId</name>
+                        <value>HED_0013236</value>
+                     </attribute>
                      <node>
                         <name>Induction-artifact</name>
                         <description>Artifacts induced by nearby equipment. In EEG, these are usually of high frequency.</description>
@@ -4764,6 +4776,10 @@
                      <attribute>
                         <name>suggestedTag</name>
                         <value>ID</value>
+                     </attribute>
+                     <attribute>
+                        <name>hedId</name>
+                        <value>HED_0013237</value>
                      </attribute>
                      <node>
                         <name>Electrode-pops-artifact</name>
@@ -6131,6 +6147,10 @@
                   <node>
                      <name>Quantity</name>
                      <description>A numeric value with a unit from any unit class of the schema. Use it for an amount whose kind is conveyed by its unit or by an accompanying tag, for example (Parameter-label/ISI, Quantity/500 ms).</description>
+                     <attribute>
+                        <name>hedId</name>
+                        <value>HED_0013238</value>
+                     </attribute>
                      <node>
                         <name>#</name>
                         <attribute>
@@ -6143,6 +6163,10 @@
                         <attribute>
                            <name>unitClass</name>
                            <value>anyUnits</value>
+                        </attribute>
+                        <attribute>
+                           <name>hedId</name>
+                           <value>HED_0013239</value>
                         </attribute>
                      </node>
                   </node>
@@ -10353,6 +10377,10 @@
                   <node>
                      <name>Correct-rejection</name>
                      <description>An action correctly designating rejection in the context of the task.</description>
+                     <attribute>
+                        <name>hedId</name>
+                        <value>HED_0013240</value>
+                     </attribute>
                   </node>
                </node>
                <node>
@@ -10369,6 +10397,10 @@
                   <attribute>
                      <name>relatedTag</name>
                      <value>Uncued</value>
+                  </attribute>
+                  <attribute>
+                     <name>hedId</name>
+                     <value>HED_0013241</value>
                   </attribute>
                </node>
                <node>
@@ -10481,6 +10513,10 @@
                   <attribute>
                      <name>relatedTag</name>
                      <value>Cued</value>
+                  </attribute>
+                  <attribute>
+                     <name>hedId</name>
+                     <value>HED_0013242</value>
                   </attribute>
                </node>
             </node>
@@ -10710,6 +10746,10 @@
                <node>
                   <name>Trial-abort</name>
                   <description>An event that causes the trial to terminate because of a time-out, because the subject response violated the requirements of the task, or because something unexpected interrupted the trial.</description>
+                  <attribute>
+                     <name>hedId</name>
+                     <value>HED_0013243</value>
+                  </attribute>
                </node>
                <node>
                   <name>Warning</name>
@@ -10820,6 +10860,10 @@
                      <value>Go-signal</value>
                      <value>Stop-signal</value>
                   </attribute>
+                  <attribute>
+                     <name>hedId</name>
+                     <value>HED_0013244</value>
+                  </attribute>
                </node>
                <node>
                   <name>Non-informative</name>
@@ -10876,6 +10920,10 @@
                <node>
                   <name>Omitted-presentation</name>
                   <description>Something that is expected to happen or usually happens but doesn't.</description>
+                  <attribute>
+                     <name>hedId</name>
+                     <value>HED_0013245</value>
+                  </attribute>
                </node>
                <node>
                   <name>Penalty</name>
@@ -10986,9 +11034,17 @@
             <node>
                <name>Task-trial-role</name>
                <description>The type of a trial with respect to the task in a trial-based experiment.</description>
+               <attribute>
+                  <name>hedId</name>
+                  <value>HED_0013246</value>
+               </attribute>
                <node>
                   <name>Catch-trial</name>
                   <description>A control trial randomly interleaved within a trial-based experiment in which the target stimulus, predictive cue, or environmental perturbation is withheld, altered, or presented at a highly obvious baseline level. Its primary purpose is to empirically measure a subject’s false alarm (false positive) rate, allowing researchers to isolate true sensory/cognitive sensitivity from individual response bias, guessing, or lapses in attention.</description>
+                  <attribute>
+                     <name>hedId</name>
+                     <value>HED_0013247</value>
+                  </attribute>
                </node>
             </node>
          </node>
@@ -11750,6 +11806,10 @@
       <unitClassDefinition>
          <name>anyUnits</name>
          <description>Pseudo unit class with no units of its own. A placeholder with unitClass=anyUnits accepts a unit from any unit class of the schema; the value converts to the default unit of the class that unit belongs to.</description>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011516</value>
+         </attribute>
       </unitClassDefinition>
       <unitClassDefinition>
          <name>areaUnits</name>
@@ -11791,6 +11851,10 @@
             <name>defaultUnits</name>
             <value>C</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011517</value>
+         </attribute>
          <unit>
             <name>coulomb</name>
             <attribute>
@@ -11799,6 +11863,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011646</value>
             </attribute>
          </unit>
          <unit>
@@ -11813,6 +11881,10 @@
                <name>conversionFactor</name>
                <value>1.0</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011647</value>
+            </attribute>
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
@@ -11821,6 +11893,10 @@
          <attribute>
             <name>defaultUnits</name>
             <value>mol-per-L</value>
+         </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011518</value>
          </attribute>
          <unit>
             <name>molar</name>
@@ -11831,6 +11907,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011648</value>
             </attribute>
          </unit>
          <unit>
@@ -11844,6 +11924,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011649</value>
             </attribute>
          </unit>
       </unitClassDefinition>
@@ -11919,6 +12003,10 @@
             <name>defaultUnits</name>
             <value>mA</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011519</value>
+         </attribute>
          <unit>
             <name>ampere</name>
             <attribute>
@@ -11927,6 +12015,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1000</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011650</value>
             </attribute>
          </unit>
          <unit>
@@ -11940,6 +12032,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1000</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011651</value>
             </attribute>
          </unit>
       </unitClassDefinition>
@@ -11993,6 +12089,10 @@
             <name>defaultUnits</name>
             <value>J</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011520</value>
+         </attribute>
          <unit>
             <name>joule</name>
             <attribute>
@@ -12001,6 +12101,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011652</value>
             </attribute>
          </unit>
          <unit>
@@ -12015,6 +12119,10 @@
                <name>conversionFactor</name>
                <value>1.0</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011653</value>
+            </attribute>
          </unit>
          <unit>
             <name>calorie</name>
@@ -12026,6 +12134,10 @@
                <name>conversionFactor</name>
                <value>4.184</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011654</value>
+            </attribute>
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
@@ -12035,6 +12147,10 @@
             <name>defaultUnits</name>
             <value>N</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011521</value>
+         </attribute>
          <unit>
             <name>newton</name>
             <attribute>
@@ -12043,6 +12159,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011655</value>
             </attribute>
          </unit>
          <unit>
@@ -12056,6 +12176,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011656</value>
             </attribute>
          </unit>
       </unitClassDefinition>
@@ -12370,6 +12494,10 @@
             <name>defaultUnits</name>
             <value>mW</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011522</value>
+         </attribute>
          <unit>
             <name>watt</name>
             <attribute>
@@ -12378,6 +12506,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1000</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011657</value>
             </attribute>
          </unit>
          <unit>
@@ -12392,6 +12524,10 @@
                <name>conversionFactor</name>
                <value>1000</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011658</value>
+            </attribute>
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
@@ -12401,6 +12537,10 @@
             <name>defaultUnits</name>
             <value>Pa</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011523</value>
+         </attribute>
          <unit>
             <name>pascal</name>
             <attribute>
@@ -12409,6 +12549,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>1.0</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011659</value>
             </attribute>
          </unit>
          <unit>
@@ -12423,6 +12567,10 @@
                <name>conversionFactor</name>
                <value>1.0</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011660</value>
+            </attribute>
          </unit>
          <unit>
             <name>mmHg</name>
@@ -12434,6 +12582,10 @@
                <name>conversionFactor</name>
                <value>133.322</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011661</value>
+            </attribute>
          </unit>
       </unitClassDefinition>
       <unitClassDefinition>
@@ -12443,6 +12595,10 @@
             <name>defaultUnits</name>
             <value>kOhm</value>
          </attribute>
+         <attribute>
+            <name>hedId</name>
+            <value>HED_0011524</value>
+         </attribute>
          <unit>
             <name>ohm</name>
             <attribute>
@@ -12451,6 +12607,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>0.001</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011662</value>
             </attribute>
          </unit>
          <unit>
@@ -12465,6 +12625,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>0.001</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011663</value>
             </attribute>
          </unit>
       </unitClassDefinition>
@@ -12646,6 +12810,10 @@
                <name>conversionFactor</name>
                <value>604800</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011664</value>
+            </attribute>
          </unit>
          <unit>
             <name>month</name>
@@ -12727,6 +12895,10 @@
                <name>conversionFactor</name>
                <value>0.001</value>
             </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011665</value>
+            </attribute>
          </unit>
          <unit>
             <name>litre</name>
@@ -12736,6 +12908,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>0.001</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011666</value>
             </attribute>
          </unit>
          <unit>
@@ -12749,6 +12925,10 @@
             <attribute>
                <name>conversionFactor</name>
                <value>0.001</value>
+            </attribute>
+            <attribute>
+               <name>hedId</name>
+               <value>HED_0011667</value>
             </attribute>
          </unit>
       </unitClassDefinition>
