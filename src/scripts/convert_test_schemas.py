@@ -47,8 +47,8 @@ SOURCE_REPOSITORY = "https://github.com/hed-standard/hed-schemas"
 VENDORED_STANDARDS = [
     {
         "file": "HED8.5.0.xml",
-        "source_path": "standard_schema/prerelease/HED8.5.0.xml",
-        "released": False,
+        "source_path": "standard_schema/hedxml/HED8.5.0.xml",
+        "released": True,
     },
     {
         "file": "HED8.4.0.xml",
