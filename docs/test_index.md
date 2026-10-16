@@ -2347,13 +2347,13 @@ Complete index of 225 test cases in the HED test suite.
 
 ### temporal-tag-error-no-conversion-factor-in-8-0-0 (correction guidance) (examples)
 
-**Description**: Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit s, given or omitted, is taken as is, so (Duration/3 s, (Red)) and (Duration/3, (Red)) pass; a value in any other unit cannot be placed on the timeline, so (Duration/2 minute, (Red)) fails (cause n). The same Duration passes in a descriptor table.
+**Description**: Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit, given or omitted and written as s, second, or seconds, is taken as is, so (Duration/3 s, (Red)), (Duration/3, (Red)) and (Duration/3 second, (Red)) pass; a modified form or any other unit cannot be placed on the timeline, so (Duration/300 ms, (Red)) and (Duration/2 minute, (Red)) fail (cause n). The same Duration passes in a descriptor table.
 
 **Schema**: 8.0.0 **Category**: temporal
 
 **Tests**:
 
-- `event_tests`: 1 fail, 2 pass
+- `event_tests`: 2 fail, 2 pass
 
 ### temporal-tag-error-not-tag-group (correction guidance) (examples)
 
