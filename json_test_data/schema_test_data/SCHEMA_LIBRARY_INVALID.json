@@ -1519,7 +1519,7 @@
             "Rooting a library subtree under Onset or Duration to refine temporal markers",
             "Rooting library task or condition names under Task or Condition-variable instead of using their # value"
         ],
-        "explanation": "A reserved tag has no child node other than #, and a library cannot change that: in the merged schema, a node rooted under a reserved tag would become its child. The rule covers all nineteen reserved tags, including Event-context and the organizational ones such as Task; a reserved tag with a # child would also give that # a sibling.Rooting under an ordinary tag, even the parent of a reserved tag such as Temporal-marker, is allowed.",
+        "explanation": "A reserved tag has no child node other than #, and a library cannot change that: in the merged schema, a node rooted under a reserved tag would become its child. The rule covers all nineteen reserved tags, including Event-context and the organizational ones such as Task; a reserved tag with a # child would also give that # a sibling. Rooting under an ordinary tag, even the parent of a reserved tag such as Temporal-marker, is allowed.",
         "correction_strategy": "Root the library node under an ordinary standard tag, for example the reserved tag's parent, or use the reserved tag's # value where it has one.",
         "correction_examples": [
             {
