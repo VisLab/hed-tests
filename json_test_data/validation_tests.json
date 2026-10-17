@@ -19090,7 +19090,7 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-no-conversion-factor-in-8-0-0",
-        "description": "Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit s, given or omitted, is taken as is, so (Duration/3 s, (Red)) and (Duration/3, (Red)) pass; a value in any other unit cannot be placed on the timeline, so (Duration/2 minute, (Red)) fails (cause n). The same Duration passes in a descriptor table.",
+        "description": "Standard schema 8.0.0 gives no time unit a conversionFactor. In a timeline table a Delay or Duration value in the default unit, given or omitted and written as s, second, or seconds, is taken as is, so (Duration/3 s, (Red)), (Duration/3, (Red)) and (Duration/3 second, (Red)) pass; a modified form or any other unit cannot be placed on the timeline, so (Duration/300 ms, (Red)) and (Duration/2 minute, (Red)) fail (cause n). The same Duration passes in a descriptor table.",
         "warning": false,
         "schema": "8.0.0",
         "error_category": "temporal",
@@ -19098,7 +19098,7 @@
             "Using minute, hour, or day for a Delay or Duration in an events file validated against 8.0.0",
             "Assuming the conversion factors of later schemas are available in 8.0.0"
         ],
-        "explanation": "In a timeline table a Delay or Duration is placed on the table's timeline, which needs the value in seconds. Standard schema 8.0.0 gives none of its time units a conversionFactor, so only a value already in the default unit s (or with no unit, which means s) can be placed; a value in minutes, hours, or days cannot. In a descriptor table nothing is placed on a timeline, so a Duration may use any valid time unit there.",
+        "explanation": "In a timeline table a Delay or Duration is placed on the table's timeline, which needs the value in seconds. Standard schema 8.0.0 gives none of its time units a conversionFactor, so only a value already in the default unit (s, second, or seconds, or no unit, which means s) can be placed; a value in milliseconds, minutes, hours, or days cannot. In a descriptor table nothing is placed on a timeline, so a Duration may use any valid time unit there.",
         "correction_strategy": "Under 8.0.0, write Delay and Duration values in a timeline table in seconds, or validate against a later schema version, whose time units have conversion factors",
         "correction_examples": [
             {
@@ -19140,6 +19140,18 @@
                             0,
                             "(Duration/2 minute, (Red))"
                         ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Duration/300 ms, (Red))"
+                        ]
                     ]
                 ],
                 "passes": [
@@ -19163,6 +19175,16 @@
                             5.5,
                             0,
                             "(Delay/3 s, (Blue))"
+                        ],
+                        [
+                            6.0,
+                            0,
+                            "(Duration/3 second, (Red))"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "(Delay/3 seconds, (Blue))"
                         ]
                     ],
                     [

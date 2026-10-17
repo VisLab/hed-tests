@@ -172,8 +172,26 @@
     "library-invalid-reserved-in-unmerged": [
         "SCHEMA_LIBRARY_INVALID"
     ],
+    "library-invalid-reserved-in-unpartnered": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-reserved-in-merged-library-node": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-reserved-name": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
+    "library-invalid-rooted-under-reserved": [
+        "SCHEMA_LIBRARY_INVALID"
+    ],
     "schema-missing-extra": [
         "SCHEMA_MISSING_EXTRA"
+    ],
+    "schema-reserved-invalid-missing-or-unmarked": [
+        "SCHEMA_RESERVED_INVALID"
+    ],
+    "schema-reserved-invalid-child-node": [
+        "SCHEMA_RESERVED_INVALID"
     ],
     "schema-section-missing": [
         "SCHEMA_SECTION_MISSING"
