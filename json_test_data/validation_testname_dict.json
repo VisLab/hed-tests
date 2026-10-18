@@ -331,6 +331,9 @@
     "sidecar-refers-to-missing-tsv-hed-column": [
         "SIDECAR_KEY_MISSING"
     ],
+    "tabular-invalid-duplicate-column-name": [
+        "TABULAR_INVALID"
+    ],
     "tag-empty-extra-commas-or-parentheses": [
         "TAG_EMPTY"
     ],

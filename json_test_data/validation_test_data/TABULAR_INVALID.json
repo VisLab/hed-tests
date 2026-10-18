@@ -1,0 +1,204 @@
+[
+    {
+        "error_code": "TABULAR_INVALID",
+        "alt_codes": [],
+        "name": "tabular-invalid-duplicate-column-name",
+        "description": "A column name appears more than once in the first line (the column names) of a tabular file (reason a). The error does not depend on whether the repeated column is annotated: a repeated HED column, a repeated column with no annotation, a name repeated three times, and a repeated column that a sidecar annotates all fail. Distinct names pass, including a name that is a prefix of another (trial and trial_type).",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "A column copied when the table was exported or merged, keeping its name",
+            "Two tables joined side by side without renaming the columns they share",
+            "A tool that appends one column per annotation writing a column whose name already exists",
+            "Editing the header line by hand"
+        ],
+        "explanation": "The first line of a tabular file lists its column names, and each name may appear only once. When a name repeats, a sidecar entry or a curly-brace reference cannot say which of the columns it means, and assembling a row's annotation would combine the annotations of the repeated columns or lose one of them. Validators report this as TABULAR_INVALID before any row annotation is assembled; earlier validators reported such files as TAG_EXPRESSION_REPEATED, or not at all.",
+        "correction_strategy": "Rename or remove the repeated column so that every column name in the header is unique, then give the renamed column its own sidecar entry if it carries information that should be annotated.",
+        "correction_examples": [
+            {
+                "wrong": "Header: onset, duration, trial, trial",
+                "correct": "Header: onset, duration, trial, response",
+                "explanation": "Renamed the second trial column after what it records"
+            },
+            {
+                "wrong": "Header: onset, duration, HED, HED",
+                "correct": "Header: onset, duration, HED",
+                "explanation": "Merged the two HED columns into one, joining each row's two annotations with a comma"
+            }
+        ],
+        "correction_patterns": [
+            "Make every name in the header line unique",
+            "Rename a copied column after the information it holds",
+            "Keep one HED column per table"
+        ],
+        "fix_instructions": [
+            "1. Read the header line of the tabular file and list the names that occur more than once",
+            "2. Decide for each repeated column whether it is a copy (remove it) or holds other information (rename it)",
+            "3. Add a sidecar entry for a renamed column if it should be annotated",
+            "4. Validate the file again"
+        ],
+        "validation_hints": [
+            "Compare the number of column names with the number of distinct column names",
+            "Column names that differ only by a suffix (trial, trial_type) are distinct"
+        ],
+        "specification_reference": "3.2.10. Tabular files",
+        "related_errors": [
+            "TAG_EXPRESSION_REPEATED"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red",
+                            "Blue"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "response",
+                            "response",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "left",
+                            "right",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED",
+                            "HED",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red",
+                            "Blue",
+                            "Green"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red, Blue"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial",
+                            "trial_type",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "practice",
+                            "Red"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go",
+                                "stop"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop",
+                                "go"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+]

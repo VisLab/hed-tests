@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 225 test cases in the HED test suite.
+Complete index of 226 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -27,6 +27,7 @@ Complete index of 225 test cases in the HED test suite.
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
 - [SIDECAR_INVALID](#sidecar-invalid) (2 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
+- [TABULAR_INVALID](#tabular-invalid) (1 test)
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
@@ -1787,6 +1788,21 @@ Complete index of 225 test cases in the HED test suite.
 **Tests**:
 
 - `sidecar_tests`: 0 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+## TABULAR_INVALID
+
+**File**: `json_test_data/validation_test_data/TABULAR_INVALID.json`
+
+### tabular-invalid-duplicate-column-name (correction guidance) (examples)
+
+**Description**: A column name appears more than once in the first line (the column names) of a tabular file (reason a). The error does not depend on whether the repeated column is annotated: a repeated HED column, a repeated column with no annotation, a name repeated three times, and a repeated column that a sidecar annotates all fail. Distinct names pass, including a name that is a prefix of another (trial and trial_type).
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `event_tests`: 3 fail, 2 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ## TAG_EMPTY
