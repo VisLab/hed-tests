@@ -1140,6 +1140,10 @@ Tests are organized by error code, mapping to validation rules in the HED specif
 - `SIDECAR_BRACES_INVALID` - Curly brace errors
 - `SIDECAR_KEY_MISSING` - Missing required keys
 
+### Tabular file errors
+
+- `TABULAR_INVALID` - Malformed tabular file (a column name repeated in the header)
+
 ### Schema errors
 
 - `SCHEMA_ATTRIBUTE_INVALID` - Invalid schema attributes
