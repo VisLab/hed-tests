@@ -285,16 +285,17 @@
         "tag-group-error-event-context-braces"
     ],
     "SIDECAR_INVALID": [
-        "sidecar-braces-contents-invalid",
         "sidecar-invalid-key-at-wrong-level",
-        "sidecar-invalid-na-annotated"
+        "sidecar-invalid-na-annotated",
+        "sidecar-invalid-key-whitespace"
     ],
     "SIDECAR_KEY_MISSING": [
         "sidecar-key-missing",
         "sidecar-refers-to-missing-tsv-hed-column"
     ],
     "TABULAR_INVALID": [
-        "tabular-invalid-duplicate-column-name"
+        "tabular-invalid-duplicate-column-name",
+        "tabular-invalid-column-name-whitespace"
     ],
     "TAG_EXPRESSION_REPEATED": [
         "tag-expression-repeated-same-level",

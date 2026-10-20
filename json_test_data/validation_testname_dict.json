@@ -297,8 +297,7 @@
     ],
     "sidecar-braces-contents-invalid": [
         "SIDECAR_BRACES_INVALID",
-        "CHARACTER_INVALID",
-        "SIDECAR_INVALID"
+        "CHARACTER_INVALID"
     ],
     "sidecar-braces-invalid-spot": [
         "SIDECAR_BRACES_INVALID",
@@ -325,6 +324,9 @@
     "sidecar-invalid-na-annotated": [
         "SIDECAR_INVALID"
     ],
+    "sidecar-invalid-key-whitespace": [
+        "SIDECAR_INVALID"
+    ],
     "sidecar-key-missing": [
         "SIDECAR_KEY_MISSING"
     ],
@@ -332,6 +334,9 @@
         "SIDECAR_KEY_MISSING"
     ],
     "tabular-invalid-duplicate-column-name": [
+        "TABULAR_INVALID"
+    ],
+    "tabular-invalid-column-name-whitespace": [
         "TABULAR_INVALID"
     ],
     "tag-empty-extra-commas-or-parentheses": [

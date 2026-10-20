@@ -8903,8 +8903,7 @@
     {
         "error_code": "SIDECAR_BRACES_INVALID",
         "alt_codes": [
-            "CHARACTER_INVALID",
-            "SIDECAR_INVALID"
+            "CHARACTER_INVALID"
         ],
         "name": "sidecar-braces-contents-invalid",
         "description": "The item in curly braces is not the word HED or a column name with HED annotations in the sidecar.",
@@ -10203,6 +10202,201 @@
         }
     },
     {
+        "error_code": "SIDECAR_INVALID",
+        "alt_codes": [],
+        "name": "sidecar-invalid-key-whitespace",
+        "description": "A top-level sidecar key begins or ends with whitespace (reason d). A trailing blank, a leading blank, and a trailing tab fail, on categorical and value entries, on a padded key beside its unpadded twin, and on a padded key whose entry has no HED. A sidecar key trial with a padded entry for a header column trial fails. Unpadded keys pass, including a key with an internal blank.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "A blank typed after a key when the sidecar was edited by hand",
+            "A sidecar generated from a spreadsheet whose header cells had trailing blanks",
+            "Copying a column name from a document together with the space after it"
+        ],
+        "explanation": "A top-level sidecar key names the column it annotates and is matched to the header exactly, with no trimming. A key with leading or trailing whitespace (blank, tab, line feed, or carriage return) looks like the column name but does not match it, and validators that trimmed keys could merge two keys silently. The specification makes the padding itself SIDECAR_INVALID, whether or not the entry has a HED key.",
+        "correction_strategy": "Remove the leading and trailing whitespace from every top-level key of the sidecar, so that each key is exactly the column name it annotates; if that leaves two keys with the same name, merge them into one entry.",
+        "correction_examples": [
+            {
+                "wrong": "{\"trial \": {\"HED\": {\"go\": \"Experimental-trial\"}}}",
+                "correct": "{\"trial\": {\"HED\": {\"go\": \"Experimental-trial\"}}}",
+                "explanation": "Removed the trailing blank from the key so it matches the column trial"
+            },
+            {
+                "wrong": "{\"trial\": {...}, \"trial \": {...}}",
+                "correct": "{\"trial\": {...}}",
+                "explanation": "Removed the padded duplicate and kept one entry for the column"
+            }
+        ],
+        "correction_patterns": [
+            "Trim leading and trailing whitespace from every top-level sidecar key",
+            "Keep exactly one entry per column name"
+        ],
+        "fix_instructions": [
+            "1. List the top-level keys of the sidecar",
+            "2. Compare each key with its trimmed form",
+            "3. Remove the whitespace, merging any entries that then share a name",
+            "4. Validate the sidecar again"
+        ],
+        "validation_hints": [
+            "Compare each top-level key with its trimmed form",
+            "Blanks inside a key (trial type) are not padding and are not this error"
+        ],
+        "specification_reference": "3.2.9. Sidecars",
+        "related_errors": [
+            "TABULAR_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "trial ": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        " response_time": {
+                            "HED": "Label/#"
+                        }
+                    },
+                    {
+                        "trial\t": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        },
+                        "trial ": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial ": {
+                            "Description": "The trial type."
+                        },
+                        "response_time": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "trial": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "response_time": {
+                            "HED": "Label/#"
+                        }
+                    },
+                    {
+                        "trial type": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "Description": "The trial type."
+                        },
+                        "response_time": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial ": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "SIDECAR_KEY_MISSING",
         "alt_codes": [],
         "name": "sidecar-key-missing",
@@ -10653,6 +10847,224 @@
                                 0,
                                 "stop",
                                 "go"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TABULAR_INVALID",
+        "alt_codes": [],
+        "name": "tabular-invalid-column-name-whitespace",
+        "description": "A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column, and a padded name that is also repeated is reported under (b). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "A blank typed after a column name when the header line was edited by hand",
+            "A spreadsheet export that keeps a trailing blank from the source cell",
+            "Columns aligned with blanks for readability before the file was saved as TSV",
+            "A script that writes the header with a separator such as ', ' instead of a single tab"
+        ],
+        "explanation": "Each column name in the header must be exactly the name that sidecar entries and curly-brace references use. A name with leading or trailing whitespace (blank, tab, line feed, or carriage return) looks identical to the unpadded name but is a different string, so one validator would trim it and match a sidecar entry while another would not. The specification therefore makes the padding itself an error, TABULAR_INVALID, reported before any row annotation is assembled.",
+        "correction_strategy": "Remove the leading and trailing whitespace from every column name in the header line, so that each name matches its sidecar entry exactly.",
+        "correction_examples": [
+            {
+                "wrong": "Header: onset, duration, 'trial ' (trailing blank)",
+                "correct": "Header: onset, duration, trial",
+                "explanation": "Removed the trailing blank so the column matches the sidecar entry trial"
+            },
+            {
+                "wrong": "Header: onset, duration, ' HED' (leading blank)",
+                "correct": "Header: onset, duration, HED",
+                "explanation": "Removed the leading blank so the column is recognized as the HED column"
+            }
+        ],
+        "correction_patterns": [
+            "Trim leading and trailing whitespace from every header cell",
+            "Separate header cells with exactly one tab and nothing else"
+        ],
+        "fix_instructions": [
+            "1. Open the tabular file in a plain-text editor that shows whitespace",
+            "2. Find header cells with blanks before or after the name",
+            "3. Remove the blanks, keeping exactly one tab between names",
+            "4. Validate the file again"
+        ],
+        "validation_hints": [
+            "Compare each header cell with its trimmed form",
+            "Blanks inside a name (trial type) are not padding and are not this error"
+        ],
+        "specification_reference": "3.2.10. Tabular files",
+        "related_errors": [
+            "SIDECAR_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED "
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            " HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial ",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial ",
+                            "trial ",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "stop",
+                            "Red"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial type",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "Red"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial "
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
                             ]
                         ]
                     }

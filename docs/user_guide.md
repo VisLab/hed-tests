@@ -1142,7 +1142,7 @@ Tests are organized by error code, mapping to validation rules in the HED specif
 
 ### Tabular file errors
 
-- `TABULAR_INVALID` - Malformed tabular file (a column name repeated in the header)
+- `TABULAR_INVALID` - Malformed tabular file (a column name repeated in the header, or beginning or ending with whitespace)
 
 ### Schema errors
 
