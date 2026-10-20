@@ -2,8 +2,7 @@
     {
         "error_code": "SIDECAR_BRACES_INVALID",
         "alt_codes": [
-            "CHARACTER_INVALID",
-            "SIDECAR_INVALID"
+            "CHARACTER_INVALID"
         ],
         "name": "sidecar-braces-contents-invalid",
         "description": "The item in curly braces is not the word HED or a column name with HED annotations in the sidecar.",

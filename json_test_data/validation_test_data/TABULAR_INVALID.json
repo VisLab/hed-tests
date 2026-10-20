@@ -200,5 +200,223 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TABULAR_INVALID",
+        "alt_codes": [],
+        "name": "tabular-invalid-column-name-whitespace",
+        "description": "A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column, and a padded name that is also repeated is reported under (b). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "A blank typed after a column name when the header line was edited by hand",
+            "A spreadsheet export that keeps a trailing blank from the source cell",
+            "Columns aligned with blanks for readability before the file was saved as TSV",
+            "A script that writes the header with a separator such as ', ' instead of a single tab"
+        ],
+        "explanation": "Each column name in the header must be exactly the name that sidecar entries and curly-brace references use. A name with leading or trailing whitespace (blank, tab, line feed, or carriage return) looks identical to the unpadded name but is a different string, so one validator would trim it and match a sidecar entry while another would not. The specification therefore makes the padding itself an error, TABULAR_INVALID, reported before any row annotation is assembled.",
+        "correction_strategy": "Remove the leading and trailing whitespace from every column name in the header line, so that each name matches its sidecar entry exactly.",
+        "correction_examples": [
+            {
+                "wrong": "Header: onset, duration, 'trial ' (trailing blank)",
+                "correct": "Header: onset, duration, trial",
+                "explanation": "Removed the trailing blank so the column matches the sidecar entry trial"
+            },
+            {
+                "wrong": "Header: onset, duration, ' HED' (leading blank)",
+                "correct": "Header: onset, duration, HED",
+                "explanation": "Removed the leading blank so the column is recognized as the HED column"
+            }
+        ],
+        "correction_patterns": [
+            "Trim leading and trailing whitespace from every header cell",
+            "Separate header cells with exactly one tab and nothing else"
+        ],
+        "fix_instructions": [
+            "1. Open the tabular file in a plain-text editor that shows whitespace",
+            "2. Find header cells with blanks before or after the name",
+            "3. Remove the blanks, keeping exactly one tab between names",
+            "4. Validate the file again"
+        ],
+        "validation_hints": [
+            "Compare each header cell with its trimmed form",
+            "Blanks inside a name (trial type) are not padding and are not this error"
+        ],
+        "specification_reference": "3.2.10. Tabular files",
+        "related_errors": [
+            "SIDECAR_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED "
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            " HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial ",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial ",
+                            "trial ",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "stop",
+                            "Red"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "trial type",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "go",
+                            "Red"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial "
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

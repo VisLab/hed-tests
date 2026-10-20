@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 226 test cases in the HED test suite.
+Complete index of 228 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -25,9 +25,9 @@ Complete index of 226 test cases in the HED test suite.
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
-- [SIDECAR_INVALID](#sidecar-invalid) (2 tests)
+- [SIDECAR_INVALID](#sidecar-invalid) (3 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
-- [TABULAR_INVALID](#tabular-invalid) (1 test)
+- [TABULAR_INVALID](#tabular-invalid) (2 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
@@ -1754,6 +1754,17 @@ Complete index of 226 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
 
+### sidecar-invalid-key-whitespace (correction guidance) (examples)
+
+**Description**: A top-level sidecar key begins or ends with whitespace (reason d). A trailing blank, a leading blank, and a trailing tab fail, on categorical and value entries, on a padded key beside its unpadded twin, and on a padded key whose entry has no HED. A sidecar key trial with a padded entry for a header column trial fails. Unpadded keys pass, including a key with an internal blank.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 5 fail, 4 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### sidecar-invalid-na-annotated (correction guidance) (examples)
 
 **Description**: An annotation entry is provided for `n/a`.
@@ -1793,6 +1804,17 @@ Complete index of 226 test cases in the HED test suite.
 ## TABULAR_INVALID
 
 **File**: `json_test_data/validation_test_data/TABULAR_INVALID.json`
+
+### tabular-invalid-column-name-whitespace (correction guidance) (examples)
+
+**Description**: A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column, and a padded name that is also repeated is reported under (b). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `event_tests`: 4 fail, 3 pass
+- `combo_tests`: 1 fail, 1 pass
 
 ### tabular-invalid-duplicate-column-name (correction guidance) (examples)
 
