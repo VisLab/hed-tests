@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 228 test cases in the HED test suite.
+Complete index of 229 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -27,7 +27,7 @@ Complete index of 228 test cases in the HED test suite.
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
 - [SIDECAR_INVALID](#sidecar-invalid) (3 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
-- [TABULAR_INVALID](#tabular-invalid) (2 tests)
+- [TABULAR_INVALID](#tabular-invalid) (3 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
@@ -1805,15 +1805,26 @@ Complete index of 228 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TABULAR_INVALID.json`
 
-### tabular-invalid-column-name-whitespace (correction guidance) (examples)
+### tabular-invalid-blank-column-name (correction guidance) (examples)
 
-**Description**: A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column, and a padded name that is also repeated is reported under (b). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.
+**Description**: A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
-- `event_tests`: 4 fail, 3 pass
+- `event_tests`: 3 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### tabular-invalid-column-name-whitespace (correction guidance) (examples)
+
+**Description**: A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column,, a padded name that is also repeated is reported under (b), and a name made only of a blank is padded and fails under (b), not as a blank name (c). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `event_tests`: 5 fail, 3 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tabular-invalid-duplicate-column-name (correction guidance) (examples)

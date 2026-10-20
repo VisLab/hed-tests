@@ -295,7 +295,8 @@
     ],
     "TABULAR_INVALID": [
         "tabular-invalid-duplicate-column-name",
-        "tabular-invalid-column-name-whitespace"
+        "tabular-invalid-column-name-whitespace",
+        "tabular-invalid-blank-column-name"
     ],
     "TAG_EXPRESSION_REPEATED": [
         "tag-expression-repeated-same-level",

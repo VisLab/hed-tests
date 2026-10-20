@@ -205,7 +205,7 @@
         "error_code": "TABULAR_INVALID",
         "alt_codes": [],
         "name": "tabular-invalid-column-name-whitespace",
-        "description": "A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column, and a padded name that is also repeated is reported under (b). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.",
+        "description": "A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column,, a padded name that is also repeated is reported under (b), and a name made only of a blank is padded and fails under (b), not as a blank name (c). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "structure",
@@ -241,7 +241,8 @@
         ],
         "validation_hints": [
             "Compare each header cell with its trimmed form",
-            "Blanks inside a name (trial type) are not padding and are not this error"
+            "Blanks inside a name (trial type) are not padding and are not this error",
+            "A name made only of whitespace is padding, reason (b), not a blank name, reason (c)"
         ],
         "specification_reference": "3.2.10. Tabular files",
         "related_errors": [
@@ -310,6 +311,20 @@
                             0,
                             "go",
                             "stop",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            " ",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "n/a",
                             "Red"
                         ]
                     ]
@@ -383,6 +398,184 @@
                                 5.5,
                                 0,
                                 "stop"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TABULAR_INVALID",
+        "alt_codes": [],
+        "name": "tabular-invalid-blank-column-name",
+        "description": "A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "A tab typed after the last column name when the header line was edited by hand",
+            "A spreadsheet export that writes an empty header cell for an unused or deleted column",
+            "Two tabs typed between column names where one was intended",
+            "A script that writes the header with a trailing separator after the last name"
+        ],
+        "explanation": "Every column of a tabular file needs a name, because sidecar entries and curly-brace references find a column by its name. An empty header cell gives its column no name at all: no sidecar entry can describe it, and a line that ends with a tab silently adds such a column. The specification therefore makes a blank column name an error, TABULAR_INVALID, reported once for each blank name by its column position before any row annotation is assembled. Several blank names are not a repeated name; each is reported as blank.",
+        "correction_strategy": "Give every column in the header line a name, or remove the empty column (its header cell and the matching cell in every row), including any trailing tab at the end of the lines.",
+        "correction_examples": [
+            {
+                "wrong": "Header: onset, duration, HED, '' (the line ends with a tab)",
+                "correct": "Header: onset, duration, HED",
+                "explanation": "Removed the trailing tab from the header and the rows, so the file has no unnamed last column"
+            },
+            {
+                "wrong": "Header: onset, '', HED (blank name in the middle)",
+                "correct": "Header: onset, duration, HED",
+                "explanation": "Named the empty column duration so that every column has a name"
+            }
+        ],
+        "correction_patterns": [
+            "Give every header cell a non-empty name",
+            "Remove trailing tabs from the header line and from every row"
+        ],
+        "fix_instructions": [
+            "1. Open the tabular file in a plain-text editor that shows tabs",
+            "2. Find empty header cells, including one after a tab at the end of the header line",
+            "3. Name each empty column, or delete it from the header and from every row",
+            "4. Validate the file again"
+        ],
+        "validation_hints": [
+            "Check each header cell for the empty string, including the cell after a trailing tab",
+            "A name made only of whitespace is padding, reason (b), not a blank name",
+            "Several blank names are each reported as blank, not as a repeated name"
+        ],
+        "specification_reference": "3.2.10. Tabular files",
+        "related_errors": [],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED",
+                            ""
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red",
+                            ""
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            "n/a",
+                            "Red"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "",
+                            "",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            "n/a",
+                            "n/a",
+                            "Red"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Red"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                ""
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go",
+                                ""
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop",
+                                ""
                             ]
                         ]
                     }

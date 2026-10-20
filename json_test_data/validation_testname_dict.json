@@ -339,6 +339,9 @@
     "tabular-invalid-column-name-whitespace": [
         "TABULAR_INVALID"
     ],
+    "tabular-invalid-blank-column-name": [
+        "TABULAR_INVALID"
+    ],
     "tag-empty-extra-commas-or-parentheses": [
         "TAG_EMPTY"
     ],
