@@ -287,7 +287,8 @@
     "SIDECAR_INVALID": [
         "sidecar-invalid-key-at-wrong-level",
         "sidecar-invalid-na-annotated",
-        "sidecar-invalid-key-whitespace"
+        "sidecar-invalid-key-whitespace",
+        "sidecar-invalid-value-key-whitespace"
     ],
     "SIDECAR_KEY_MISSING": [
         "sidecar-key-missing",
@@ -296,7 +297,8 @@
     "TABULAR_INVALID": [
         "tabular-invalid-duplicate-column-name",
         "tabular-invalid-column-name-whitespace",
-        "tabular-invalid-blank-column-name"
+        "tabular-invalid-blank-column-name",
+        "tabular-invalid-value-whitespace"
     ],
     "TAG_EXPRESSION_REPEATED": [
         "tag-expression-repeated-same-level",
