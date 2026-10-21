@@ -542,5 +542,185 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "SIDECAR_INVALID",
+        "alt_codes": [],
+        "name": "sidecar-invalid-value-key-whitespace",
+        "description": "In a categorical entry, a column value listed as a key under HED begins or ends with whitespace (reason e). A trailing blank, a leading blank, and a trailing tab on a key under HED fail, and a combo whose sidecar has the padded key go fails even though the table holds go. Unpadded keys pass, including a key with an internal blank, a key ending with a no-break space (U+00A0, not whitespace for the rule), and a padded key in a BIDS Levels dictionary of the same entry, which is not checked.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "A blank typed after a value when the sidecar was edited by hand",
+            "A sidecar generated from a spreadsheet whose value cells kept a trailing blank",
+            "A key copied from a table column that itself had padded values"
+        ],
+        "explanation": "The keys under HED in a categorical entry are the column values that the entry annotates, and a column value matches a key only when the two strings are identical. A key with leading or trailing whitespace could match only a column value with the same whitespace, which is itself TABULAR_INVALID, so it can never annotate a row. The specification therefore makes the padded key a sidecar error, SIDECAR_INVALID, reported when the sidecar is validated, alone or with a table.",
+        "correction_strategy": "Remove the leading and trailing whitespace from every key under HED in each categorical entry, so that each key is exactly the column value it annotates.",
+        "correction_examples": [
+            {
+                "wrong": "{\"trial\": {\"HED\": {\"go \": \"Experimental-trial\"}}} (trailing blank in the key go)",
+                "correct": "{\"trial\": {\"HED\": {\"go\": \"Experimental-trial\"}}}",
+                "explanation": "Removed the trailing blank so the key matches the column value go"
+            }
+        ],
+        "correction_patterns": [
+            "Trim leading and trailing whitespace from every key under HED in a categorical entry"
+        ],
+        "fix_instructions": [
+            "1. Open the sidecar in an editor that shows whitespace",
+            "2. In each categorical entry, find keys under HED with blanks or tabs before or after them",
+            "3. Remove the whitespace so each key is exactly the column value",
+            "4. Validate the sidecar again"
+        ],
+        "validation_hints": [
+            "Only keys under HED in a categorical entry are checked; a top-level key is reason d",
+            "Keys of a BIDS Levels dictionary are not checked",
+            "Blanks inside a key (go now) are not padding and are not this error",
+            "A no-break space is not whitespace for this rule"
+        ],
+        "specification_reference": "3.2.9.2. Sidecar validation",
+        "related_errors": [
+            "TABULAR_INVALID",
+            "SIDECAR_KEY_MISSING"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "trial": {
+                            "HED": {
+                                "go ": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": {
+                                " go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": {
+                                "go\t": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "trial": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": {
+                                "go now": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": {
+                                "go\u00a0": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    },
+                    {
+                        "trial": {
+                            "Levels": {
+                                "go ": "A go trial",
+                                "stop": "A stop trial"
+                            },
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go ": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": {
+                                    "go": "Experimental-trial",
+                                    "stop": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

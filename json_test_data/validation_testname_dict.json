@@ -327,6 +327,9 @@
     "sidecar-invalid-key-whitespace": [
         "SIDECAR_INVALID"
     ],
+    "sidecar-invalid-value-key-whitespace": [
+        "SIDECAR_INVALID"
+    ],
     "sidecar-key-missing": [
         "SIDECAR_KEY_MISSING"
     ],
@@ -340,6 +343,9 @@
         "TABULAR_INVALID"
     ],
     "tabular-invalid-blank-column-name": [
+        "TABULAR_INVALID"
+    ],
+    "tabular-invalid-value-whitespace": [
         "TABULAR_INVALID"
     ],
     "tag-empty-extra-commas-or-parentheses": [

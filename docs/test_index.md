@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 229 test cases in the HED test suite.
+Complete index of 231 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -25,9 +25,9 @@ Complete index of 229 test cases in the HED test suite.
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
-- [SIDECAR_INVALID](#sidecar-invalid) (3 tests)
+- [SIDECAR_INVALID](#sidecar-invalid) (4 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
-- [TABULAR_INVALID](#tabular-invalid) (3 tests)
+- [TABULAR_INVALID](#tabular-invalid) (4 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
@@ -1776,6 +1776,17 @@ Complete index of 229 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### sidecar-invalid-value-key-whitespace (correction guidance) (examples)
+
+**Description**: In a categorical entry, a column value listed as a key under HED begins or ends with whitespace (reason e). A trailing blank, a leading blank, and a trailing tab on a key under HED fail, and a combo whose sidecar has the padded key go fails even though the table holds go. Unpadded keys pass, including a key with an internal blank, a key ending with a no-break space (U+00A0, not whitespace for the rule), and a padded key in a BIDS Levels dictionary of the same entry, which is not checked.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 3 fail, 4 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ## SIDECAR_KEY_MISSING
 
 **File**: `json_test_data/validation_test_data/SIDECAR_KEY_MISSING.json`
@@ -1837,6 +1848,16 @@ Complete index of 229 test cases in the HED test suite.
 
 - `event_tests`: 3 fail, 4 pass
 - `combo_tests`: 1 fail, 1 pass
+
+### tabular-invalid-value-whitespace (correction guidance) (examples)
+
+**Description**: A value in a column with categorical or value HED annotations begins or ends with whitespace (reason d). In a categorical column, go with a trailing or leading blank, a value made only of a blank, and n/a with a trailing blank fail; in a value column, 30 with a trailing or leading blank fails. The same tables pass with go, 30, n/a, and an empty cell, and also with a HED column cell that has blanks around its tag, a categorical value ending with a no-break space (U+00A0, not whitespace for the rule; it only lacks an annotation, a warning), and a padded value in a column with no HED annotation.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `combo_tests`: 6 fail, 4 pass
 
 ## TAG_EMPTY
 
