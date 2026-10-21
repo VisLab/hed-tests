@@ -344,7 +344,7 @@
         "error_code": "SIDECAR_INVALID",
         "alt_codes": [],
         "name": "sidecar-invalid-key-whitespace",
-        "description": "A top-level sidecar key begins or ends with whitespace (reason d). A trailing blank, a leading blank, and a trailing tab fail, on categorical and value entries, on a padded key beside its unpadded twin, and on a padded key whose entry has no HED. A sidecar key trial with a padded entry for a header column trial fails. Unpadded keys pass, including a key with an internal blank.",
+        "description": "A top-level sidecar key begins or ends with whitespace (reason d). A trailing blank, a leading blank, and a trailing tab fail, on categorical and value entries, on a padded key beside its unpadded twin, and on a padded key whose entry has no HED. A sidecar key trial with a padded entry for a header column trial fails. Unpadded keys pass, including a key with an internal blank and a key that ends with a no-break space (U+00A0), which is not whitespace for this rule.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "structure",
@@ -465,6 +465,14 @@
                         },
                         "response_time": {
                             "HED": "Label/#"
+                        }
+                    },
+                    {
+                        "trial\u00a0": {
+                            "HED": {
+                                "go": "Experimental-trial",
+                                "stop": "Agent-action"
+                            }
                         }
                     }
                 ]

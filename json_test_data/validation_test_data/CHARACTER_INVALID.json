@@ -659,7 +659,7 @@
         "error_code": "CHARACTER_INVALID",
         "alt_codes": [],
         "name": "character-invalid-double-quote",
-        "description": "A HED string contains a double quote, which no HED string may contain whatever the value class.",
+        "description": "A HED string contains a double quote, which no HED string may contain whatever the value class. In a tabular file a double quote is an ordinary character, so a HED cell written wholly in quotes (\"Red\") keeps its quotes and fails.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "validation",
@@ -749,6 +749,18 @@
                             4.5,
                             0,
                             "Description/The \"go\" cue appeared"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "\"Red\""
                         ]
                     ]
                 ],

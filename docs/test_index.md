@@ -48,7 +48,7 @@ Complete index of 229 test cases in the HED test suite.
 
 ### character-invalid-double-quote (correction guidance) (examples)
 
-**Description**: A HED string contains a double quote, which no HED string may contain whatever the value class.
+**Description**: A HED string contains a double quote, which no HED string may contain whatever the value class. In a tabular file a double quote is an ordinary character, so a HED cell written wholly in quotes ("Red") keeps its quotes and fails.
 
 **Schema**: 8.4.0 **Category**: validation
 
@@ -56,7 +56,7 @@ Complete index of 229 test cases in the HED test suite.
 
 - `string_tests`: 3 fail, 3 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### character-invalid-non-printing-appears (correction guidance) (examples)
@@ -1756,13 +1756,13 @@ Complete index of 229 test cases in the HED test suite.
 
 ### sidecar-invalid-key-whitespace (correction guidance) (examples)
 
-**Description**: A top-level sidecar key begins or ends with whitespace (reason d). A trailing blank, a leading blank, and a trailing tab fail, on categorical and value entries, on a padded key beside its unpadded twin, and on a padded key whose entry has no HED. A sidecar key trial with a padded entry for a header column trial fails. Unpadded keys pass, including a key with an internal blank.
+**Description**: A top-level sidecar key begins or ends with whitespace (reason d). A trailing blank, a leading blank, and a trailing tab fail, on categorical and value entries, on a padded key beside its unpadded twin, and on a padded key whose entry has no HED. A sidecar key trial with a padded entry for a header column trial fails. Unpadded keys pass, including a key with an internal blank and a key that ends with a no-break space (U+00A0), which is not whitespace for this rule.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
-- `sidecar_tests`: 5 fail, 4 pass
+- `sidecar_tests`: 5 fail, 5 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### sidecar-invalid-na-annotated (correction guidance) (examples)
@@ -1807,35 +1807,35 @@ Complete index of 229 test cases in the HED test suite.
 
 ### tabular-invalid-blank-column-name (correction guidance) (examples)
 
-**Description**: A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass.
+**Description**: A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a first line that is only a tab has two blank names, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
 - `event_tests`: 3 fail, 1 pass
-- `combo_tests`: 1 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
 
 ### tabular-invalid-column-name-whitespace (correction guidance) (examples)
 
-**Description**: A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column,, a padded name that is also repeated is reported under (b), and a name made only of a blank is padded and fails under (b), not as a blank name (c). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank.
+**Description**: A column name in the first line of a tabular file begins or ends with whitespace (reason b). A trailing or leading blank fails, on the HED column or on any other column, a padded name that is also repeated is reported under (b), trial beside a padded trial is one padded name rather than a repeat, and a name made only of a blank is padded and fails under (b), not as a blank name (c). A header naming trial for a sidecar entry trial fails when the header cell is padded. The same tables with unpadded names pass, including a name with an internal blank and a name that ends with a no-break space (U+00A0), which is not whitespace for this rule.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
-- `event_tests`: 5 fail, 3 pass
+- `event_tests`: 6 fail, 4 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tabular-invalid-duplicate-column-name (correction guidance) (examples)
 
-**Description**: A column name appears more than once in the first line (the column names) of a tabular file (reason a). The error does not depend on whether the repeated column is annotated: a repeated HED column, a repeated column with no annotation, a name repeated three times, and a repeated column that a sidecar annotates all fail. Distinct names pass, including a name that is a prefix of another (trial and trial_type).
+**Description**: A column name appears more than once in the first line (the column names) of a tabular file (reason a). The error does not depend on whether the repeated column is annotated: a repeated HED column, a repeated column with no annotation, a name repeated three times, and a repeated column that a sidecar annotates all fail. Distinct names pass, including a name that is a prefix of another (trial and trial_type). Names are compared exactly as written: a double quote is an ordinary character, so trial and "trial" are two names, and 1 and 1.0 are two names, not one number.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
-- `event_tests`: 3 fail, 2 pass
+- `event_tests`: 3 fail, 4 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ## TAG_EMPTY
