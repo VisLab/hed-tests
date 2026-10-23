@@ -2009,7 +2009,7 @@ Complete index of 234 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 7 fail, 4 pass
+- `string_tests`: 7 fail, 5 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

@@ -14156,7 +14156,8 @@
                     "Item/Blech/1red",
                     "Item/3D-printout",
                     "Item/Blech/Blech1/Blech2",
-                    "Item/\u00dcber"
+                    "Item/\u00dcber",
+                    "Item/\u00dc"
                 ]
             },
             "sidecar_tests": {
