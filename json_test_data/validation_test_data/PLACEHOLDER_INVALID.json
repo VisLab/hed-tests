@@ -797,5 +797,173 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "PLACEHOLDER_INVALID",
+        "alt_codes": [],
+        "name": "placeholder-invalid-after-extension",
+        "description": "A placeholder (`#`) follows a user extension term (Item/Blech/#) or stands in for one (Item/#). The # cannot be an extension, so this is PLACEHOLDER_INVALID in every context, events file or sidecar.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Extending a tag with a new term and then putting the value column's # after the new term",
+            "Putting # on a tag such as Item that allows extensions but does not take a value",
+            "Assuming that a tag which can be extended can also take a value"
+        ],
+        "explanation": "A # placeholder may only replace the value of a tag whose schema node has a # child (Label/#, Age/#). A user extension such as Item/Blech is a new term, not a schema node, so it has no # child and cannot take a value; neither can a tag like Item, which allows extensions but takes no value. Use a tag that takes a value for the column's values, next to the extension if the term is needed.",
+        "correction_strategy": "Move the # to a tag that takes a value, keeping any extension term as an ordinary tag",
+        "correction_examples": [
+            {
+                "wrong": "trial: Item/Blech/#",
+                "correct": "trial: Item/Blech, Label/#",
+                "explanation": "The extension stays a tag; the column's value goes on Label, which takes a value"
+            },
+            {
+                "wrong": "trial: Item/#",
+                "correct": "trial: Item, Parameter-value/#",
+                "explanation": "Item takes no value; Parameter-value does"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions (rule 5); Appendix B PLACEHOLDER_INVALID d",
+        "related_errors": [
+            "PLACEHOLDER_INVALID",
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Item/Blech/#",
+                    "Item/#",
+                    "Item/Blech/#/Foo"
+                ],
+                "passes": [
+                    "Item/Blech"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "trial": {
+                            "HED": "Item/Blech/#"
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Item/#"
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Item/Blech/#/Foo"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "trial": {
+                            "HED": "Label/#"
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Item/Blech, Label/#"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/Blech/#"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/#"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/Blech"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": "Item/Blech/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": "Item/Blech, Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

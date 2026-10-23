@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 231 test cases in the HED test suite.
+Complete index of 234 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -11,7 +11,7 @@ Complete index of 231 test cases in the HED test suite.
 - [DEF_INVALID](#def-invalid) (3 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (3 tests)
-- [PLACEHOLDER_INVALID](#placeholder-invalid) (5 tests)
+- [PLACEHOLDER_INVALID](#placeholder-invalid) (6 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
 - [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
@@ -31,7 +31,7 @@ Complete index of 231 test cases in the HED test suite.
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
-- [TAG_EXTENSION_INVALID](#tag-extension-invalid) (3 tests)
+- [TAG_EXTENSION_INVALID](#tag-extension-invalid) (5 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
 - [TAG_INVALID](#tag-invalid) (3 tests)
 - [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (3 tests)
@@ -536,6 +536,19 @@ Complete index of 231 test cases in the HED test suite.
 **Tests**:
 
 - `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### placeholder-invalid-after-extension (correction guidance) (examples)
+
+**Description**: A placeholder (`#`) follows a user extension term (Item/Blech/#) or stands in for one (Item/#). The # cannot be an extension, so this is PLACEHOLDER_INVALID in every context, events file or sidecar.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 3 fail, 1 pass
+- `sidecar_tests`: 3 fail, 2 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### placeholder-invalid-in-value-column (correction guidance) (examples)
@@ -1953,7 +1966,7 @@ Complete index of 231 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 7 fail, 1 pass
+- `string_tests`: 8 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -1987,6 +2000,29 @@ Complete index of 231 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
+
+### tag-extension-invalid-no-letter (correction guidance) (examples)
+
+**Description**: A tag extension term contains no letter (Item/Blech/3, Item/1-2, Item/\_). An extension term must contain at least one letter: A-Z or a-z, or any Unicode letter in schema versions whose nameClass allows non-ASCII characters (8.3.0 and later), so a non-ASCII term with no letter (a degree sign, an Arabic-Indic digit) also fails.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 7 fail, 4 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### tag-extension-invalid-no-letter-8-2-0 (correction guidance) (examples)
+
+**Description**: The rule that an extension term must contain a letter applies to every standard schema version >= 8.0.0, here 8.2.0: Item/Blech/3 and Item/1-2 fail, Item/Blech/1red passes.
+
+**Schema**: 8.2.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 2 fail, 1 pass
 
 ### tag-extension-invalid-reserved-tag (correction guidance) (examples)
 

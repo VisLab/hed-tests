@@ -422,9 +422,7 @@
     },
     {
         "error_code": "TAG_EXTENSION_INVALID",
-        "alt_codes": [
-            "PLACEHOLDER_INVALID"
-        ],
+        "alt_codes": [],
         "name": "tag-extension-invalid-reserved-tag",
         "description": "A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/# in a sidecar value column). Reserved tags must not be extended although they inherit extensionAllowed from Property.",
         "warning": false,
@@ -569,6 +567,222 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [],
+        "name": "tag-extension-invalid-no-letter",
+        "description": "A tag extension term contains no letter (Item/Blech/3, Item/1-2, Item/_). An extension term must contain at least one letter: A-Z or a-z, or any Unicode letter in schema versions whose nameClass allows non-ASCII characters (8.3.0 and later), so a non-ASCII term with no letter (a degree sign, an Arabic-Indic digit) also fails.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing a number after a tag that does not take a value, as if it did (Item/3)",
+            "Using a numeric code as a new term instead of a word",
+            "Expecting Item/1-2 to describe a range or a pair"
+        ],
+        "explanation": "An extension adds a new term under a tag that allows extensions, and a term must contain at least one letter: A-Z, a-z, or any Unicode letter in schema versions that allow non-ASCII terms. A term such as 3 or 1-2 looks like a value, but the tag takes no value. A term may still begin with a digit when it contains a letter (1red, 3D-printout). To record a number, use a tag that takes a value.",
+        "correction_strategy": "Give the extension a term with a letter, or record the number with a tag that takes a value",
+        "correction_examples": [
+            {
+                "wrong": "Item/Blech/3",
+                "correct": "Item/Blech, Item-count/3",
+                "explanation": "The count goes on Item-count, which takes a numeric value"
+            },
+            {
+                "wrong": "Item/1-2",
+                "correct": "Item/Pair-item",
+                "explanation": "The new term contains letters"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions (rule 6); Appendix B TAG_EXTENSION_INVALID b",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED",
+            "VALUE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Item/Blech/3",
+                    "Item/1-2",
+                    "Item/42",
+                    "Item/_",
+                    "Item/-1",
+                    "Item/\u00b0",
+                    "Item/\u0663"
+                ],
+                "passes": [
+                    "Item/Blech/1red",
+                    "Item/3D-printout",
+                    "Item/Blech/Blech1/Blech2",
+                    "Item/\u00dcber"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/Blech/3",
+                                "ball": "Item/1-2"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/Blech/1red",
+                                "ball": "Item/3D-printout"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/42"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/3D-printout"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Item/Blech/3"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Item/Blech/1red"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [],
+        "name": "tag-extension-invalid-no-letter-8-2-0",
+        "description": "The rule that an extension term must contain a letter applies to every standard schema version >= 8.0.0, here 8.2.0: Item/Blech/3 and Item/1-2 fail, Item/Blech/1red passes.",
+        "warning": false,
+        "schema": "8.2.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing a number after a tag that does not take a value, as if it did (Item/3)",
+            "Using a numeric code as a new term instead of a word",
+            "Expecting Item/1-2 to describe a range or a pair"
+        ],
+        "explanation": "An extension adds a new term under a tag that allows extensions, and a term must contain at least one letter: A-Z, a-z, or any Unicode letter in schema versions that allow non-ASCII terms. A term such as 3 or 1-2 looks like a value, but the tag takes no value. A term may still begin with a digit when it contains a letter (1red, 3D-printout). To record a number, use a tag that takes a value.",
+        "correction_strategy": "Give the extension a term with a letter, or record the number with a tag that takes a value",
+        "correction_examples": [
+            {
+                "wrong": "Item/Blech/3",
+                "correct": "Item/Blech, Item-count/3",
+                "explanation": "The count goes on Item-count, which takes a numeric value"
+            },
+            {
+                "wrong": "Item/1-2",
+                "correct": "Item/Pair-item",
+                "explanation": "The new term contains letters"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions (rule 6); Appendix B TAG_EXTENSION_INVALID b",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED",
+            "VALUE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Item/Blech/3",
+                    "Item/1-2"
+                ],
+                "passes": [
+                    "Item/Blech/1red"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     }
