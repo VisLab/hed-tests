@@ -82,7 +82,9 @@
         "placeholder-invalid-json-#-misplaced",
         "tag-extension-invalid-duplicate",
         "tag-extension-invalid-bad-node-name",
-        "tag-extension-invalid-reserved-tag"
+        "tag-extension-invalid-reserved-tag",
+        "tag-extension-invalid-no-letter",
+        "tag-extension-invalid-no-letter-8-2-0"
     ],
     "PARENTHESES_MISMATCH": [
         "character-invalid-structural-in-text-value",
@@ -100,8 +102,8 @@
         "placeholder-invalid-json-value-column",
         "placeholder-invalid-json-#-misplaced",
         "placeholder-invalid-in-value-column",
+        "placeholder-invalid-after-extension",
         "tag-extension-invalid-bad-node-name",
-        "tag-extension-invalid-reserved-tag",
         "tag-invalid-in-schema"
     ],
     "COMMA_MISSING": [

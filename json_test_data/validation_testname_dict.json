@@ -171,6 +171,9 @@
         "CHARACTER_INVALID",
         "VALUE_INVALID"
     ],
+    "placeholder-invalid-after-extension": [
+        "PLACEHOLDER_INVALID"
+    ],
     "different-standard-schemas-in-same-merge-group": [
         "SCHEMA_LOAD_FAILED"
     ],
@@ -378,8 +381,13 @@
         "PLACEHOLDER_INVALID"
     ],
     "tag-extension-invalid-reserved-tag": [
-        "TAG_EXTENSION_INVALID",
-        "PLACEHOLDER_INVALID"
+        "TAG_EXTENSION_INVALID"
+    ],
+    "tag-extension-invalid-no-letter": [
+        "TAG_EXTENSION_INVALID"
+    ],
+    "tag-extension-invalid-no-letter-8-2-0": [
+        "TAG_EXTENSION_INVALID"
     ],
     "tag-group-error-missing": [
         "TAG_GROUP_ERROR",
