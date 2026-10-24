@@ -424,7 +424,7 @@
         "error_code": "TAG_EXTENSION_INVALID",
         "alt_codes": [],
         "name": "tag-extension-invalid-reserved-tag",
-        "description": "A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/# in a sidecar value column). Reserved tags must not be extended although they inherit extensionAllowed from Property.",
+        "description": "A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/#). Reserved tags must not be extended although they inherit extensionAllowed from Property. Onset/# is never allowed and is TAG_EXTENSION_INVALID in every context: a sidecar value column, a HED string, an events file, and a combo. In a HED string or events file a validator may also report PLACEHOLDER_INVALID, since no # is allowed there at all.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "semantic",
@@ -464,7 +464,8 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "(Event-context/Blah, (Red))"
+                    "(Event-context/Blah, (Red))",
+                    "(Onset/#, Def/MyColor)"
                 ],
                 "passes": [
                     "(Event-context, (Red))"
@@ -500,6 +501,18 @@
                             4.5,
                             0,
                             "(Onset/Blah, Def/MyColor)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Onset/#, Def/MyColor)"
                         ]
                     ]
                 ],

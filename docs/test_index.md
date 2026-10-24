@@ -2026,15 +2026,15 @@ Complete index of 234 test cases in the HED test suite.
 
 ### tag-extension-invalid-reserved-tag (correction guidance) (examples)
 
-**Description**: A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/# in a sidecar value column). Reserved tags must not be extended although they inherit extensionAllowed from Property.
+**Description**: A structural reserved tag is extended, with a term (Onset/Blah, Event-context/Blah) or with a placeholder (Onset/#). Reserved tags must not be extended although they inherit extensionAllowed from Property. Onset/# is never allowed and is TAG_EXTENSION_INVALID in every context: a sidecar value column, a HED string, an events file, and a combo. In a HED string or events file a validator may also report PLACEHOLDER_INVALID, since no # is allowed there at all.
 
 **Schema**: 8.4.0 **Category**: semantic
 
 **Tests**:
 
-- `string_tests`: 1 fail, 1 pass
+- `string_tests`: 2 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ## TAG_GROUP_ERROR
