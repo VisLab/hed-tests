@@ -2039,7 +2039,7 @@ Complete index of 235 test cases in the HED test suite.
 
 ### tag-extension-invalid-reserved-tag-placeholder (correction guidance) (examples)
 
-**Description**: A # follows a reserved tag that takes no value (Onset/#). It is an error in every context: a HED string, an events file, a sidecar value column, and a combo. A validator may report it as TAG_EXTENSION_INVALID (the # extends a reserved tag) or as PLACEHOLDER_INVALID (the # has no placeholder child to stand for, or is not allowed there at all), depending on which check finds it first.
+**Description**: A # follows a reserved tag that takes no value. It is an error in every context: a HED string ((Event-context/#, (Red)), since string tests use no temporal tag), an events file, a sidecar value column, and a combo ((Onset/#, Def/MyColor)). A validator may report it as TAG_EXTENSION_INVALID (the # extends a reserved tag) or as PLACEHOLDER_INVALID (the # has no placeholder child to stand for, or is not allowed there at all), depending on which check finds it first.
 
 **Schema**: 8.4.0 **Category**: semantic
 

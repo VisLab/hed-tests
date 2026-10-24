@@ -14111,7 +14111,7 @@
             "PLACEHOLDER_INVALID"
         ],
         "name": "tag-extension-invalid-reserved-tag-placeholder",
-        "description": "A # follows a reserved tag that takes no value (Onset/#). It is an error in every context: a HED string, an events file, a sidecar value column, and a combo. A validator may report it as TAG_EXTENSION_INVALID (the # extends a reserved tag) or as PLACEHOLDER_INVALID (the # has no placeholder child to stand for, or is not allowed there at all), depending on which check finds it first.",
+        "description": "A # follows a reserved tag that takes no value. It is an error in every context: a HED string ((Event-context/#, (Red)), since string tests use no temporal tag), an events file, a sidecar value column, and a combo ((Onset/#, Def/MyColor)). A validator may report it as TAG_EXTENSION_INVALID (the # extends a reserved tag) or as PLACEHOLDER_INVALID (the # has no placeholder child to stand for, or is not allowed there at all), depending on which check finds it first.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "semantic",
@@ -14128,9 +14128,9 @@
                 "explanation": "The value column's placeholder goes on a tag that takes a value"
             },
             {
-                "wrong": "(Onset/#, Def/MyColor)",
-                "correct": "(Onset, Def/MyColor)",
-                "explanation": "No # belongs in a HED string or events file"
+                "wrong": "(Event-context/#, (Red))",
+                "correct": "(Event-context, (Red))",
+                "explanation": "Event-context takes no value, and no # belongs in a HED string or events file"
             }
         ],
         "specification_reference": "3.2.5. Tag extensions; 3.2.8. Reserved tags; Appendix B TAG_EXTENSION_INVALID c, PLACEHOLDER_INVALID a and d",
@@ -14145,10 +14145,10 @@
         "tests": {
             "string_tests": {
                 "fails": [
-                    "(Onset/#, Def/MyColor)"
+                    "(Event-context/#, (Red))"
                 ],
                 "passes": [
-                    "(Onset, Def/MyColor)"
+                    "(Event-context, (Red))"
                 ]
             },
             "sidecar_tests": {
