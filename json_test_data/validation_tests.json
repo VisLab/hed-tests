@@ -14477,7 +14477,7 @@
             "Adding a kind of agent under Agent or Human-agent",
             "Assuming that every tag can be extended, as Item and Property can"
         ],
-        "explanation": "Only a tag that has the extensionAllowed attribute, or inherits it from an ancestor, may be extended. In the standard schema Item, Property, Action and Relation carry it; Event and Agent do not, so no tag in their subtrees (Sensory-event, Experiment-structure, Human-agent) can take a new term. Such an extension is an error, not a TAG_EXTENDED warning. Keep the Event or Agent tag as it is and say what is special about it with a tag from a subtree that allows extensions.",
+        "explanation": "Only a tag that has the extensionAllowed attribute, or inherits it from an ancestor, may be extended. In standard schema 8.0.0 Item, Property and Action carry it; Event, Agent and Relation do not (Relation gains it in later versions), so no tag in their subtrees (Sensory-event, Experiment-structure, Human-agent) can take a new term. Such an extension is an error, not a TAG_EXTENDED warning. Keep the Event or Agent tag as it is and say what is special about it with a tag from a subtree that allows extensions.",
         "correction_strategy": "Leave the Event or Agent tag unextended and put the detail in a separate tag from a subtree that allows extensions",
         "correction_examples": [
             {
