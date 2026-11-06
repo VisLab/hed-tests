@@ -800,9 +800,11 @@
     },
     {
         "error_code": "PLACEHOLDER_INVALID",
-        "alt_codes": [],
+        "alt_codes": [
+            "TAG_EXTENSION_INVALID"
+        ],
         "name": "placeholder-invalid-after-extension",
-        "description": "A placeholder (`#`) follows a user extension term (Item/Blech/#) or stands in for one (Item/#). The # cannot be an extension, so this is PLACEHOLDER_INVALID in every context, events file or sidecar.",
+        "description": "A placeholder (`#`) follows a user extension term (Item/Blech/#) or stands in for one (Item/#). The # cannot be an extension, so this is PLACEHOLDER_INVALID in every context, events file or sidecar. A validator that checks extensionAllowed or the term itself first may report TAG_EXTENSION_INVALID instead.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "semantic",
@@ -945,6 +947,158 @@
                         "sidecar": {
                             "trial": {
                                 "HED": "Item/Blech, Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "PLACEHOLDER_INVALID",
+        "alt_codes": [
+            "TAG_EXTENSION_INVALID"
+        ],
+        "name": "placeholder-invalid-units-after-extension",
+        "description": "A placeholder with units (`# g`) follows a user extension term (Item/Blech/# g) or stands in for one (Item/# g). Units do not give an extension a value, so this is the same error as a bare # after an extension. A validator that reads `# g` as one extension term may report TAG_EXTENSION_INVALID instead.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Putting a value column's # and its units after a new extension term",
+            "Putting # with units on a tag such as Item that allows extensions but does not take a value",
+            "Assuming that adding units makes the # a value"
+        ],
+        "explanation": "A # placeholder, with or without units, may only replace the value of a tag whose schema node has a # child (Weight/#, Duration/#). A user extension such as Item/Blech is a new term, not a schema node, so it has no # child and takes no value, and neither does a tag like Item. Units only say how to read a value; they cannot make a tag take one. Put the # and its units on a tag that takes a value of that kind, next to the extension if the term is needed.",
+        "correction_strategy": "Move the # and its units to a tag that takes a value with those units, keeping any extension term as an ordinary tag",
+        "correction_examples": [
+            {
+                "wrong": "trial: Item/Blech/# g",
+                "correct": "trial: Item/Blech, Weight/# g",
+                "explanation": "The extension stays a tag; the value in grams goes on Weight, which takes a value with weight units"
+            },
+            {
+                "wrong": "trial: Item/# g",
+                "correct": "trial: Item, Weight/# g",
+                "explanation": "Item takes no value; Weight does"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions (rule 5); Appendix B PLACEHOLDER_INVALID d",
+        "related_errors": [
+            "PLACEHOLDER_INVALID",
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Item/Blech/# g",
+                    "Item/# g"
+                ],
+                "passes": [
+                    "Item/Blech"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "trial": {
+                            "HED": "Item/Blech/# g"
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Item/# g"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "trial": {
+                            "HED": "Weight/# g"
+                        }
+                    },
+                    {
+                        "trial": {
+                            "HED": "Item/Blech, Weight/# g"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/Blech/# g"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/Blech"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": "Item/Blech/# g"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "trial",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "trial": {
+                                "HED": "Item/Blech, Weight/# g"
                             }
                         },
                         "events": [

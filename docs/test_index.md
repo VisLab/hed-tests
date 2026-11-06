@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 235 test cases in the HED test suite.
+Complete index of 239 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -11,7 +11,7 @@ Complete index of 235 test cases in the HED test suite.
 - [DEF_INVALID](#def-invalid) (3 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (3 tests)
-- [PLACEHOLDER_INVALID](#placeholder-invalid) (6 tests)
+- [PLACEHOLDER_INVALID](#placeholder-invalid) (7 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
 - [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
@@ -31,7 +31,7 @@ Complete index of 235 test cases in the HED test suite.
 - [TAG_EMPTY](#tag-empty) (3 tests)
 - [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
-- [TAG_EXTENSION_INVALID](#tag-extension-invalid) (6 tests)
+- [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
 - [TAG_INVALID](#tag-invalid) (3 tests)
 - [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (3 tests)
@@ -540,7 +540,7 @@ Complete index of 235 test cases in the HED test suite.
 
 ### placeholder-invalid-after-extension (correction guidance) (examples)
 
-**Description**: A placeholder (`#`) follows a user extension term (Item/Blech/#) or stands in for one (Item/#). The # cannot be an extension, so this is PLACEHOLDER_INVALID in every context, events file or sidecar.
+**Description**: A placeholder (`#`) follows a user extension term (Item/Blech/#) or stands in for one (Item/#). The # cannot be an extension, so this is PLACEHOLDER_INVALID in every context, events file or sidecar. A validator that checks extensionAllowed or the term itself first may report TAG_EXTENSION_INVALID instead.
 
 **Schema**: 8.4.0 **Category**: semantic
 
@@ -593,6 +593,19 @@ Complete index of 235 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 1 pass
 - `sidecar_tests`: 1 fail, 0 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### placeholder-invalid-units-after-extension (correction guidance) (examples)
+
+**Description**: A placeholder with units (`# g`) follows a user extension term (Item/Blech/# g) or stands in for one (Item/# g). Units do not give an extension a value, so this is the same error as a bare # after an extension. A validator that reads `# g` as one extension term may report TAG_EXTENSION_INVALID instead.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 2 fail, 1 pass
+- `sidecar_tests`: 2 fail, 2 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
@@ -2024,6 +2037,30 @@ Complete index of 235 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 1 pass
 
+### tag-extension-invalid-not-allowed (correction guidance) (examples)
+
+**Description**: A tag is extended although neither it nor any of its ancestors has the extensionAllowed attribute (Sensory-event/Baloney, Agent/Blech). The Event and Agent subtrees of the standard schema do not allow extensions, so a term below them that is not in the schema is TAG_EXTENSION_INVALID, in short or long form and at any depth.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 8 fail, 6 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
+
+### tag-extension-invalid-not-allowed-8-0-0 (correction guidance) (examples)
+
+**Description**: The rule of tag-extension-invalid-not-allowed under the oldest standard schema, 8.0.0: Sensory-event and Agent have no extensionAllowed ancestor there either, so extending them is TAG_EXTENSION_INVALID.
+
+**Schema**: 8.0.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 2 fail, 2 pass
+- `event_tests`: 1 fail, 1 pass
+
 ### tag-extension-invalid-reserved-tag (correction guidance) (examples)
 
 **Description**: A structural reserved tag is extended with a term (Onset/Blah, Event-context/Blah). Reserved tags must not be extended although they inherit extensionAllowed from Property. A # after a reserved tag (Onset/#) is tested in tag-extension-invalid-reserved-tag-placeholder, since it may be reported under either of two codes.
@@ -2046,6 +2083,19 @@ Complete index of 235 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### tag-extension-invalid-schema-term-after-extension (correction guidance) (examples)
+
+**Description**: A term that is already a node in the schema follows a user extension term (Item/Blech/Red). Every level after an extension term is also an extension, and an extension term must not already be in the schema.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 2 fail, 3 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

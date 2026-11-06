@@ -14,7 +14,7 @@
             "Using placeholder (#) in wrong context",
             "Including extra whitespace or incorrect formatting"
         ],
-        "explanation": "HED tags must exist in the specified schema or be valid extensions of existing tags. Invalid tags often result from spelling errors, using outdated tag names, or attempting to extend non-extensible tags.",
+        "explanation": "HED tags must exist in the specified schema or be valid extensions of existing tags. Invalid tags often result from spelling errors or using outdated tag names. A new term under a schema tag that does not allow extensions (Sensory-event/Baloney) is a TAG_EXTENSION_INVALID error, not TAG_INVALID.",
         "correction_strategy": "Use valid schema tags or create proper extensions",
         "correction_examples": [
             {
@@ -28,9 +28,9 @@
                 "explanation": "Replaced invalid placeholder usage with proper tag value"
             },
             {
-                "wrong": "Sensory-event/Baloney",
-                "correct": "Sensory-event/Auditory",
-                "explanation": "Replaced invalid extension with valid schema tag"
+                "wrong": "Visul-presentation",
+                "correct": "Visual-presentation",
+                "explanation": "Corrected the misspelled tag name"
             }
         ],
         "correction_patterns": [
@@ -94,8 +94,7 @@
                     [
                         ["onset", "duration", "HED"],
                         [ 4.5, 0, "Label #"],
-                        [ 5.5, 0, "Property/Sensory-event"],
-                        [ 5.5, 0, "Sensory-event/Baloney"]
+                        [ 5.5, 0, "Property/Sensory-event"]
                     ]
                 ],
                 "passes": [
@@ -112,8 +111,7 @@
                             "event_code": {
                                 "HED": {
                                     "face": "ReallyInvalid",
-                                    "ball": "Property/Sensory-event",
-                                    "square": "Sensory-event/Baloney"
+                                    "ball": "Property/Sensory-event"
                                 }
                             }
                         },

@@ -200,6 +200,156 @@
     },
     {
         "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [],
+        "name": "tag-extension-invalid-schema-term-after-extension",
+        "description": "A term that is already a node in the schema follows a user extension term (Item/Blech/Red). Every level after an extension term is also an extension, and an extension term must not already be in the schema.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing a schema tag as a further level of an extension instead of as a separate tag",
+            "Using a word for the new term that is already a tag elsewhere in the schema"
+        ],
+        "explanation": "Once a tag string leaves the schema with an extension term (Blech in Item/Blech), every later level is an extension too. An extension term must not already be a node in the schema, so a schema tag such as Red cannot be one of those levels. Write the schema tag as its own tag beside the extended tag, or pick a new term that is not in the schema.",
+        "correction_strategy": "Split the schema tag off as a separate tag, or rename the extension term",
+        "correction_examples": [
+            {
+                "wrong": "Item/Blech/Red",
+                "correct": "Item/Blech, Red",
+                "explanation": "Red is a schema tag, so it stands as its own tag beside the extension"
+            },
+            {
+                "wrong": "Item/Blech/Blech1/Red",
+                "correct": "Item/Blech/Blech1/Reddish",
+                "explanation": "Reddish is not in the schema, so it can be a further extension term"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions (rule 1); Appendix B TAG_EXTENSION_INVALID a",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Item/Blech/Red",
+                    "Item/Blech/Blech1/Red"
+                ],
+                "passes": [
+                    "Item/Blech/Reddish",
+                    "Item/Blech/Blech1",
+                    "Item/Blech, Red"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/Blech/Red",
+                                "ball": "Item/Blech/Blech1/Red"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/Blech, Red",
+                                "ball": "Item/Blech/Blech1/Reddish"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/Blech/Red"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/Blech, Red"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Item/Blech/Red"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Item/Blech, Red"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXTENSION_INVALID",
         "alt_codes": [
             "CHARACTER_INVALID",
             "PLACEHOLDER_INVALID"
@@ -417,6 +567,294 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [],
+        "name": "tag-extension-invalid-not-allowed",
+        "description": "A tag is extended although neither it nor any of its ancestors has the extensionAllowed attribute (Sensory-event/Baloney, Agent/Blech). The Event and Agent subtrees of the standard schema do not allow extensions, so a term below them that is not in the schema is TAG_EXTENSION_INVALID, in short or long form and at any depth.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Adding a more specific kind of event under Sensory-event or another Event tag",
+            "Adding a kind of agent under Agent or Human-agent",
+            "Assuming that every tag can be extended, as Item and Property can"
+        ],
+        "explanation": "Only a tag that has the extensionAllowed attribute, or inherits it from an ancestor, may be extended. In the standard schema Item, Property, Action and Relation carry it; Event and Agent do not, so no tag in their subtrees (Sensory-event, Experiment-structure, Human-agent) can take a new term. Such an extension is an error, not a TAG_EXTENDED warning. Keep the Event or Agent tag as it is and say what is special about it with a tag from a subtree that allows extensions.",
+        "correction_strategy": "Leave the Event or Agent tag unextended and put the detail in a separate tag from a subtree that allows extensions",
+        "correction_examples": [
+            {
+                "wrong": "Sensory-event/CustomModality",
+                "correct": "Sensory-event, Sensory-presentation/Custom-modality",
+                "explanation": "Sensory-presentation is a Property and allows extensions; Sensory-event does not"
+            },
+            {
+                "wrong": "Human-agent/Blech",
+                "correct": "Human-agent, Agent-trait/Blech",
+                "explanation": "Agent-trait is a Property and allows extensions; Human-agent does not"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions; Appendix A extensionAllowed; Appendix B TAG_EXTENSION_INVALID c",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED",
+            "TAG_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Sensory-event/Baloney",
+                    "Sensory-event/CustomModality",
+                    "Event/Sensory-event/Baloney",
+                    "Event/Baloney",
+                    "Sensory-event/Baloney/Foo",
+                    "Agent/Blech",
+                    "Human-agent/Blech",
+                    "Experiment-structure/Blech"
+                ],
+                "passes": [
+                    "Sensory-event",
+                    "Action/Blech",
+                    "Agent-trait/Blech",
+                    "Item/Blech",
+                    "Sensory-event, Sensory-presentation/Custom-modality",
+                    "Human-agent, Agent-trait/Blech"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Sensory-event/Baloney",
+                                "ball": "Agent/Blech"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Event/Sensory-event/Baloney"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Sensory-event, Sensory-presentation/Custom-modality",
+                                "ball": "Human-agent, Agent-trait/Blech"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Sensory-event/CustomModality"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Human-agent/Blech"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Sensory-event, Sensory-presentation/Custom-modality"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Sensory-event/Baloney"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Sensory-event"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Agent/Blech"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Sensory-event"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Human-agent, Agent-trait/Blech"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXTENSION_INVALID",
+        "alt_codes": [],
+        "name": "tag-extension-invalid-not-allowed-8-0-0",
+        "description": "The rule of tag-extension-invalid-not-allowed under the oldest standard schema, 8.0.0: Sensory-event and Agent have no extensionAllowed ancestor there either, so extending them is TAG_EXTENSION_INVALID.",
+        "warning": false,
+        "schema": "8.0.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Adding a more specific kind of event under Sensory-event or another Event tag",
+            "Adding a kind of agent under Agent or Human-agent",
+            "Assuming that every tag can be extended, as Item and Property can"
+        ],
+        "explanation": "Only a tag that has the extensionAllowed attribute, or inherits it from an ancestor, may be extended. In the standard schema Item, Property, Action and Relation carry it; Event and Agent do not, so no tag in their subtrees (Sensory-event, Experiment-structure, Human-agent) can take a new term. Such an extension is an error, not a TAG_EXTENDED warning. Keep the Event or Agent tag as it is and say what is special about it with a tag from a subtree that allows extensions.",
+        "correction_strategy": "Leave the Event or Agent tag unextended and put the detail in a separate tag from a subtree that allows extensions",
+        "correction_examples": [
+            {
+                "wrong": "Sensory-event/CustomModality",
+                "correct": "Sensory-event, Sensory-presentation/Custom-modality",
+                "explanation": "Sensory-presentation is a Property and allows extensions; Sensory-event does not"
+            },
+            {
+                "wrong": "Human-agent/Blech",
+                "correct": "Human-agent, Agent-trait/Blech",
+                "explanation": "Agent-trait is a Property and allows extensions; Human-agent does not"
+            }
+        ],
+        "specification_reference": "3.2.5. Tag extensions; Appendix A extensionAllowed; Appendix B TAG_EXTENSION_INVALID c",
+        "related_errors": [
+            "TAG_EXTENSION_INVALID",
+            "TAG_EXTENDED",
+            "TAG_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Sensory-event/Baloney",
+                    "Agent/Blech"
+                ],
+                "passes": [
+                    "Sensory-event",
+                    "Item/Blech"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Sensory-event/Baloney"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Sensory-event, Item/Blech"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [],
+                "passes": []
             }
         }
     },
