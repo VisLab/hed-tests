@@ -80,8 +80,13 @@
     "TAG_EXTENSION_INVALID": [
         "invalid-character-name-value-class",
         "placeholder-invalid-json-#-misplaced",
+        "placeholder-invalid-after-extension",
+        "placeholder-invalid-units-after-extension",
         "tag-extension-invalid-duplicate",
+        "tag-extension-invalid-schema-term-after-extension",
         "tag-extension-invalid-bad-node-name",
+        "tag-extension-invalid-not-allowed",
+        "tag-extension-invalid-not-allowed-8-0-0",
         "tag-extension-invalid-reserved-tag",
         "tag-extension-invalid-reserved-tag-placeholder",
         "tag-extension-invalid-no-letter",
@@ -104,6 +109,7 @@
         "placeholder-invalid-json-#-misplaced",
         "placeholder-invalid-in-value-column",
         "placeholder-invalid-after-extension",
+        "placeholder-invalid-units-after-extension",
         "tag-extension-invalid-bad-node-name",
         "tag-extension-invalid-reserved-tag-placeholder",
         "tag-invalid-in-schema"

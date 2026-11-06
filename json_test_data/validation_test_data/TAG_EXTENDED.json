@@ -23,9 +23,9 @@
                 "explanation": "Used existing schema tag instead of extension"
             },
             {
-                "wrong": "Sensory-event/CustomModality",
-                "correct": "Sensory-event/Auditory",
-                "explanation": "Found appropriate existing modality"
+                "wrong": "Sensory-presentation/Smell-presentation",
+                "correct": "Olfactory-presentation",
+                "explanation": "Olfactory-presentation is already in the schema, so no extension is needed"
             }
         ],
         "correction_patterns": [

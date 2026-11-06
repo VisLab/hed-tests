@@ -1,47 +1,95 @@
 # Unreleased
 
+- Added tag-extension cases for hed-specification 3.2.5 and Appendix B TAG_EXTENSION_INVALID: TAG_EXTENSION_INVALID tag-extension-invalid-not-allowed (reason c for tags that are not reserved: Event and Agent have no extensionAllowed, so Sensory-event/Baloney, Sensory-event/CustomModality, Event/Sensory-event/Baloney, Event/Baloney, Sensory-event/Baloney/Foo, Agent/Blech, Human-agent/Blech, and Experiment-structure/Blech fail in a string, a sidecar, an events file, and a combo, with no alternative code; Sensory-event, Action/Blech, Agent-trait/Blech, and Item/Blech pass) and its twin tag-extension-invalid-not-allowed-8-0-0 (Sensory-event/Baloney and Agent/Blech under 8.0.0); tag-extension-invalid-schema-term-after-extension (reason a, rule 1: Item/Blech/Red and Item/Blech/Blech1/Red fail; Item/Blech/Reddish and Item/Blech, Red pass); PLACEHOLDER_INVALID placeholder-invalid-units-after-extension (reason d with units: Item/Blech/# g and Item/# g fail, alternative TAG_EXTENSION_INVALID because a validator may read # g as one extension term; Weight/# g and Item/Blech, Weight/# g pass in a sidecar value column)
+
+- placeholder-invalid-after-extension now accepts TAG_EXTENSION_INVALID as an alternative
+
+- Sensory-event/Baloney left tag-invalid-in-schema, whose events and combo tests listed it as a TAG_INVALID fail although every validator reports TAG_EXTENSION_INVALID; it is now a fail of tag-extension-invalid-not-allowed. The correction guidance of tag-invalid-in-schema and tag-extended-extension no longer gives Sensory-event/Auditory as a correct form (it is itself TAG_EXTENSION_INVALID) or Sensory-event/CustomModality as a TAG_EXTENDED warning (it is an error)
+
 - Vendored the released standard schemas 8.0.0, 8.1.0, 8.2.0, and 8.3.0 in `json_test_data/test_schemas/hedxml/`, copied unchanged from hed-schemas with their source commits in `manifest.json`. Validation cases name these versions, and a validator that no longer bundles them had to fetch them from the network; every standard version the suite uses now resolves from that folder. This replaces the earlier note that 8.0.0, 8.1.0, and 8.2.0 come from the validators' bundled copies
+
 - Split tag-extension-invalid-reserved-tag. A # after a reserved tag that takes no value (Onset/#) is an error in every context, but which code a validator reports depends on which check finds it first, so hed-specification (3.2.5, Appendix B TAG_EXTENSION_INVALID c and PLACEHOLDER_INVALID d) allows either: the new case tag-extension-invalid-reserved-tag-placeholder (TAG_EXTENSION_INVALID, alternative PLACEHOLDER_INVALID) fails (Event-context/#, (Red)) as a HED string (string tests use no temporal tag) and (Onset/#, Def/MyColor) in an events file, in a sidecar value column, and as a combo, and passes (Event-context, (Red)), (Onset, Def/MyColor), and the value column (Onset, Def/MyColor, (Label/#)). tag-extension-invalid-reserved-tag keeps the term extensions with no alternative code and now covers every context: (Event-context/Blah, (Red)) as a string, (Onset/Blah, Def/MyColor) in an events file, in a categorical sidecar, and as a combo
+
 - Added cases for the tag-extension rules of hed-specification branch fix_extensions (3.2.5 rules 5 and 6): PLACEHOLDER_INVALID placeholder-invalid-after-extension (reason d: Item/Blech/#, Item/#, and Item/Blech/#/Foo fail in a string, an events file, and a sidecar value column, and as a combo; Item/Blech, Label/#, and Item/Blech, Label/# pass; no alternative code) and TAG_EXTENSION_INVALID tag-extension-invalid-no-letter (reason b: Item/Blech/3, Item/1-2, Item/42, Item/\_, and Item/-1 fail, as strings, in a categorical sidecar, an events file, and a combo, and so do the non-ASCII terms with no letter Item/ followed by U+00B0 (degree sign) or by U+0663 (Arabic-Indic digit three) under 8.4.0; Item/Blech/1red, Item/3D-printout, Item/Blech/Blech1/Blech2, and Item/ followed by U+00DC (a Unicode letter) and ber, and Item/ followed by U+00DC alone (the term's only letter non-ASCII) pass) and tag-extension-invalid-no-letter-8-2-0 (the same rule under schema 8.2.0: Item/Blech/3 and Item/1-2 fail, Item/Blech/1red passes); tag-extended-extension also warns on Item/Blech/Blech1/Blech2; tag-extension-invalid-reserved-tag briefly stopped accepting PLACEHOLDER_INVALID for Onset/#, which the split above restores in its own case
+
 - Added cases for the padded-value rules of hed-specification PR #725 (3.2.10.2, 3.2.9.2): TABULAR_INVALID tabular-invalid-value-whitespace (reason d: in a column with categorical or value HED annotations a value with a leading or trailing blank fails, including a value of only a blank and n/a with a trailing blank; go, 30, n/a, an empty cell, a HED column cell with blanks around its tag, a value ending with a no-break space, and a padded value in a column with no HED annotation pass) and SIDECAR_INVALID sidecar-invalid-value-key-whitespace (reason e: a key under HED in a categorical entry with a leading or trailing blank or a trailing tab fails, alone and as a combo whose table holds go; unpadded keys, a key with an internal blank, a key ending with a no-break space, and a padded key in a Levels dictionary pass)
+
 - Extended the column-name cases (hed-specification 3.2.10, 3.2.9.2): tabular-invalid-blank-column-name fails a first line that is only a tab (two blank names); tabular-invalid-column-name-whitespace fails trial beside a padded trial (one padded name, not a repeat) and passes a name ending with a no-break space (U+00A0, not whitespace for the rule); tabular-invalid-duplicate-column-name passes trial beside "trial" (a double quote is an ordinary character) and 1 beside 1.0 (names are text, not numbers); sidecar-invalid-key-whitespace passes a top-level key ending with a no-break space; character-invalid-double-quote fails a HED cell written wholly in quotes ("Red"), which keeps its quotes
+
 - Added TABULAR_INVALID case tabular-invalid-blank-column-name for the blank-name rule of hed-specification PR #723 (3.2.10, Appendix B TABULAR_INVALID c): an empty header cell fails, whether a header line that ends with a tab, a blank name between two others, or two blank names (reported under c for each, not as a repeat under a), and a combo whose header has a blank column beside the sidecar-annotated trial; the same tables without the blank column pass
+
 - Added cases for the whitespace rule of hed-specification PR #721 (3.2.10, 3.2.9.2): TABULAR_INVALID tabular-invalid-column-name-whitespace (reason b: a header cell with a leading or trailing blank fails, on the HED column or any other, including a padded name that also repeats, a name made only of a blank (padding, not a blank name), and a padded trial with a sidecar entry for trial; unpadded names pass, including trial type) and SIDECAR_INVALID sidecar-invalid-key-whitespace (reason d: a top-level sidecar key with a leading or trailing blank or a trailing tab fails, beside its unpadded twin, and with no HED entry; a padded trial key with a header trial fails as a combo; unpadded keys pass, including trial type)
+
 - sidecar-braces-contents-invalid no longer accepts SIDECAR_INVALID as an alternative: hed-specification PR #721 makes a curly-brace reference to a column with no HED SIDECAR_BRACES_INVALID only, as both validators already report
+
 - Added TABULAR_INVALID case tabular-invalid-duplicate-column-name for the new code of hed-specification PR #720 (3.2.10, Appendix B TABULAR_INVALID a): a column name repeated in the header of a tabular file fails, whether it is the HED column, an unannotated column, a sidecar-annotated column (combo), or repeated three times; distinct names pass, including trial beside trial_type
+
 - temporal-tag-error-no-conversion-factor-in-8-0-0: under 8.0.0 the default unit is taken as is in any spelling (s, second, seconds, or no unit), so (Duration/3 second, (Red)) and (Delay/3 seconds, (Blue)) now pass in a timeline table; a modified form still fails, with (Duration/300 ms, (Red)) added beside 2 minute (hed-specification decisions 2026-10-16)
+
 - Added schema cases for the reserved-tag schema rules of hed-specification 2726082: SCHEMA_LIBRARY_INVALID library-invalid-reserved-in-unpartnered and library-invalid-reserved-in-merged-library-node (reason l: no library element may carry reserved, partnered or not), library-invalid-reserved-name (reason m: a library may not define a tag named Onset, at any level) and library-invalid-rooted-under-reserved (reason n: rooted=Onset and rooted=Event-context fail, rooted=Temporal-marker passes); new SCHEMA_RESERVED_INVALID file with schema-reserved-invalid-missing-or-unmarked (reason a: Onset or Def without reserved, Delay without topLevelTagGroup, Event-stream missing) and schema-reserved-invalid-child-node (reason b: Onset with a child Blah). The SCHEMA_RESERVED_INVALID fixtures are a trimmed copy of the released 8.5.0 standard schema with version 99.0.0, whose unchanged form is the pass
+
 - Every fixture of the three SCHEMA_ATTRIBUTE_VALUE_INVALID_HED_ID cases and the six SCHEMA_CHARACTER_INVALID cases now carries an identical reserved-tag block under Property (the nineteen reserved tags under their real parents with reserved, and topLevelTagGroup on Definition, Event-context, Onset, Offset, Inset, Delay and Duration) and declares reserved and topLevelTagGroup with their tagDomain and boolRange properties: these are 8.4.0 standard schemas, which SCHEMA_RESERVED_INVALID (a) requires to define the reserved tags
+
 - library-invalid-reserved-in-unmerged: its pass was an unpartnered library using reserved, which reason l now forbids; the pass is now the same unmerged library without the attribute, and the explanation says reserved belongs only to standard schemas
+
 - Added cases for the reserved-tag rules of hed-specification 3.2.8 (PR #715): TAG_EXTENSION_INVALID tag-extension-invalid-reserved-tag (Onset/Blah, Event-context/Blah, and a sidecar Onset/# fail); TEMPORAL_TAG_ERROR_DELAY temporal-tag-error-delay-missing-group ((Delay/3 s) alone and (Delay/3 s, Duration/2 s) fail; Delay beside Onset or Offset needs no inner group); TAG_GROUP_ERROR tag-group-error-event-context-braces (no column reference in an Event-context group); DEFINITION_INVALID definition-invalid-second-part-not-placeholder (only # may follow a Definition name) and definition-invalid-content-has-delay-or-duration-in-8-1-0; TAG_REQUIRES_CHILD tag-requires-child-reserved-value-in-8-2-0 (Delay and Duration need a value under 8.2.0, which lacks requireChild, as under 8.0.0 and 8.1.0); TEMPORAL_TAG_ERROR temporal-tag-error-duration-with-top-level-def (rule 2, with the Def-expand equivalents), temporal-tag-error-rules-apply-in-8-1-0 (the Delay and Duration rules hold under 8.1.0, whose schema lacks their attributes) and temporal-tag-error-no-conversion-factor-in-8-0-0 (8.0.0 has no conversionFactor: a value in s, given or omitted, passes in a timeline table and 2 minute fails). The 8.0.0, 8.1.0 and 8.2.0 schemas come from the validators' bundled copies and are not vendored
+
 - Extended existing cases for the same rules: definition-invalid-content-has-top-level-tag now fails Onset, Offset, Inset, Delay, Duration, and Def anywhere in a definition's contents (reason d) and accepts TEMPORAL_TAG_ERROR and DEF_INVALID as alternatives; tag-group-error-deferred-in-splice passes (Duration/3 s, \{other}) and (Onset, \{other}) when the column supplies the inner group or anchor and fails a substitution that gives two inner groups; placeholder-invalid-json-#-misplaced fails the sidecar value column Red/#
+
 - Corrected specification_reference in temporal-tag-error-delay-not-convertible and temporal-tag-error-duration-not-convertible (3.3.5.3 no longer exists), parentheses-mismatch-in-value-column and placeholder-invalid-in-value-column (3.2.10.2 is Table annotations), and tag-not-unique (Event-level processing is 3.2.10.3); the two not-convertible cases and the user guide now say timeline table and descriptor table instead of timeline file and non-timeline file
+
 - Added SCHEMA_LIBRARY_INVALID case library-invalid-duplicate-unit-class: an unmerged partnered library may name a partner unit class bare only to add units to it; redeclaring it with a description or attributes is a duplication (hed-python issue #1434 missed the description form)
+
 - Moved the 54 string tests in 16 cases that contained Onset, Offset, Inset, or Delay (in COMMA_MISSING, TAG_GROUP_ERROR, TEMPORAL_TAG_ERROR, and TEMPORAL_TAG_ERROR_DELAY) to event tests, adding event rows wherever a rule would otherwise have lost its only test: the specification defines those tags relative to a timeline file and does not say how a validator must treat them in a lone string. Duration stays in string tests. temporal-tag-error-not-tag-group-delay now gives its Delay values units, and its unwrapped Def-expand fail is paired with a passing wrapped form and a matching correction example
+
 - Added TEMPORAL_TAG_ERROR case temporal-tag-error-delay-with-anchored-marker: a Delay may sit in an Onset, Offset, or Inset group and delay that marker; nesting the anchored marker inside the Delay's inner group fails (hed-specification issue #486)
+
 - definition-invalid-multiple-definitions: guidance restricted to same-name definitions with different contents, since identical repeats are allowed; its fixtures already only had differing contents
+
 - temporal-tag-error-inset-group-has-extras and its -delay twin: guidance no longer says an Inset group must be minimal; one additional tag group is allowed, as their own passing fixtures show, and only bare tags beside the anchor are the error
+
 - Added TAG_GROUP_ERROR case tag-group-error-event-context-contents: an Event-context group holds only content groups beside the Event-context tag; a bare tag in it fails
+
 - Added DEFINITION_INVALID case definition-invalid-duplicate-definitions-differ: identical definitions of one name (tag order aside) pass; the same name with different contents fails
+
 - Added DEF_EXPAND_INVALID case def-expand-tags-in-any-order: a Def-expand whose inner group lists the definition's tags in a different order, or reorders a nested subgroup, passes; a changed placeholder value or a flattened subgroup still fails (hed-python issue #1455 compared the groups as ordered lists)
+
 - duplicate-schema-in-merge-group (SCHEMA_LOAD_FAILED) now fails: specification 3.1.2.4 (hed-specification PR #710) says duplicate schemas (same name regardless of version) cannot appear in the same merge group, so the exact duplicate is an error like two different versions of one library
+
 - Renamed schema-deprecated-deprecated-attribute to schema-deprecated-attribute-used-by-element and schema-deprecated-deprecated-property to schema-deprecated-property-used-by-attribute, and reworded their descriptions to say what uses what
+
 - schema-deprecated-property-used-by-attribute (was schema-deprecated-deprecated-property): both fixtures are now an unpartnered score library that declares deprecatedFrom and its two properties; as an unmerged partnered library they declared a property, which SCHEMA_LIBRARY_INVALID (j) forbids now that hed-python implements reasons j-l
+
 - Added CHARACTER_INVALID cases character-invalid-double-quote (no HED string may contain a double quote, under every schema version), character-invalid-nonascii-boundary (U+009F is a C1 control and invalid everywhere; U+00A0 is the first nonascii character and valid in a nameClass value under 8.5.0, whose declaration lists nonascii) and character-invalid-text-value-before-8-5-0 (under 8.2.0 a textClass value uses the text set, so underscores and apostrophes are valid and square brackets, curly braces and double quotes are not)
+
 - Refreshed the vendored 8.5.0 prerelease snapshot from hed-schemas 518b34d (nameClass declares nonascii; dateTimeClass declares period, plus and Z; Report, No-go-signal, Task-trial-role and Catch-trial) and rebuilt the partnered test libraries
+
 - value-invalid-date-time-format now also fails dates that do not exist in the Gregorian calendar (2026-02-31, 2026-04-31, 2027-02-29) and passes the leap day 2028-02-29; the explanation says validators check the calendar after the format, as the BIDS text requires
+
 - Added SCHEMA_ANNOTATION_INVALID schema test cases: eight failing annotation values (undefined prefix, unknown external property, bare external term, two dc:source citations naming no Sources row, and three skos:exactMatch/skos:closeMatch values whose term is not in prefix notation) and seven passing ones; every case is a library partnered with 8.5.0, since the rule is gated on a standard version of 8.5.0 or later
+
 - Fixed the combo passes case of na-in-onset column (TEMPORAL_TAG_ERROR): its first data row had three cells under a four-column header; added the missing duration value 0
+
 - Added UNITS_INVALID cases units-invalid-case (all unit strings are case-sensitive), units-invalid-symbol-plural (symbols take no plural), and units-invalid-compound-units (SI modifiers apply per component, so cm-per-us is valid and kmm-per-s is not)
+
 - Added the testaux test library (auxiliary items only, partnered with 8.5.0) and testclash probe versions 13.0.0-19.0.0
+
 - Added SCHEMA_LOAD_FAILED cases for auxiliary-section merging (unit classes, units, unit modifiers, value classes, schema attributes and their properties) and two passing namespaced combinations
+
 - Added SCHEMA_LIBRARY_INVALID cases for duplicate value class, schema attribute, and unit modifier, rooted in an unpartnered library, and an unpartnered library with its own Properties section
+
 - Renamed schema test cases library-invalid-rooted-in-library-present to library-invalid-inlibrary-in-unmerged and library-invalid-rooted-in-duplicate-other to library-invalid-duplicate-unit
+
 - Set warning to false on all schema test cases except SCHEMA_MISSING_EXTRA and added specification_reference to every SCHEMA_LIBRARY_INVALID case
+
 - Replaced the v2: namespace prefix with alt: in SCHEMA_LOAD_FAILED cases and correction examples (namespace names must be alphabetic)
+
 - Re-described same-library-two-incompatible-versions: the pair fails on the version rule alone, never on element comparison (spec 7.3.6.5)
+
 - Added SCHEMA_LIBRARY_INVALID cases for the remaining reasons: non-empty Properties in an unmerged partnered library (j), merged-form rooted node not under its anchor (e), merged-form Properties mismatch with the partner (k), and reserved in an unmerged partnered library (l)
+
 - Fixture fixes: partnered fixtures and the testaux/testclash schemas now use the real 8.4.0/8.5.0 property name boolRange instead of boolProperty, and the merged-form fixtures define the rooted and inLibrary attributes they use (unpartnered self-contained fixtures keep their own boolProperty declarations)
+
 - Refreshed the vendored 8.5.0 prerelease snapshot (test_schemas/hedxml/HED8.5.0.xml) from hed-schemas and regenerated the 24 merged 8.5.0-partnered test libraries; the old snapshot still listed uV beside V, which 8.5.0 forbids
 
 # Initial repository creation January 23, 2026

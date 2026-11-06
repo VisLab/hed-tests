@@ -172,7 +172,12 @@
         "VALUE_INVALID"
     ],
     "placeholder-invalid-after-extension": [
-        "PLACEHOLDER_INVALID"
+        "PLACEHOLDER_INVALID",
+        "TAG_EXTENSION_INVALID"
+    ],
+    "placeholder-invalid-units-after-extension": [
+        "PLACEHOLDER_INVALID",
+        "TAG_EXTENSION_INVALID"
     ],
     "different-standard-schemas-in-same-merge-group": [
         "SCHEMA_LOAD_FAILED"
@@ -375,10 +380,19 @@
     "tag-extension-invalid-duplicate": [
         "TAG_EXTENSION_INVALID"
     ],
+    "tag-extension-invalid-schema-term-after-extension": [
+        "TAG_EXTENSION_INVALID"
+    ],
     "tag-extension-invalid-bad-node-name": [
         "TAG_EXTENSION_INVALID",
         "CHARACTER_INVALID",
         "PLACEHOLDER_INVALID"
+    ],
+    "tag-extension-invalid-not-allowed": [
+        "TAG_EXTENSION_INVALID"
+    ],
+    "tag-extension-invalid-not-allowed-8-0-0": [
+        "TAG_EXTENSION_INVALID"
     ],
     "tag-extension-invalid-reserved-tag": [
         "TAG_EXTENSION_INVALID"
