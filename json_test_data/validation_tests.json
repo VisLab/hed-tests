@@ -5428,9 +5428,9 @@
                 "explanation": "Used numeric value for acceleration definition"
             },
             {
-                "wrong": "Def/Label/123 (numeric for text label)",
-                "correct": "Def/Label/Description (text value)",
-                "explanation": "Used text value for label definition"
+                "wrong": "Def/Acc/3 m (length units for an acceleration placeholder)",
+                "correct": "Def/Acc/3 (number only; the definition supplies m-per-s^2)",
+                "explanation": "The definition already appends m-per-s^2 to the placeholder, so the value must be a bare number"
             }
         ],
         "correction_patterns": [
@@ -5652,9 +5652,9 @@
                 "explanation": "Used numeric value for acceleration definition"
             },
             {
-                "wrong": "Def/Label/123 (numeric for text label)",
-                "correct": "Def/Label/Description (text value)",
-                "explanation": "Used text value for label definition"
+                "wrong": "Def/Acc/3 m (length units for an acceleration placeholder)",
+                "correct": "Def/Acc/3 (number only; the definition supplies m-per-s^2)",
+                "explanation": "The definition already appends m-per-s^2 to the placeholder, so the value must be a bare number"
             }
         ],
         "correction_patterns": [
