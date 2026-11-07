@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 239 test cases in the HED test suite.
+Complete index of 240 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -8,7 +8,7 @@ Complete index of 239 test cases in the HED test suite.
 - [COMMA_MISSING](#comma-missing) (2 tests)
 - [DEFINITION_INVALID](#definition-invalid) (13 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
-- [DEF_INVALID](#def-invalid) (3 tests)
+- [DEF_INVALID](#def-invalid) (4 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (3 tests)
 - [PLACEHOLDER_INVALID](#placeholder-invalid) (7 tests)
@@ -439,6 +439,16 @@ Complete index of 239 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
+
+### def-invalid-bad-value-from-value-column (correction guidance) (examples)
+
+**Description**: A value column annotated with `Def/Name/#` has a value that is invalid for the definition's placeholder.
+
+**Schema**: 8.4.0 **Category**: value
+
+**Tests**:
+
+- `combo_tests`: 4 fail, 2 pass
 
 ### def-invalid-missing-placeholder (correction guidance) (examples)
 
