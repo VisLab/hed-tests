@@ -5428,9 +5428,9 @@
                 "explanation": "Used numeric value for acceleration definition"
             },
             {
-                "wrong": "Def/Label/123 (numeric for text label)",
-                "correct": "Def/Label/Description (text value)",
-                "explanation": "Used text value for label definition"
+                "wrong": "Def/Acc/3 m (length units for an acceleration placeholder)",
+                "correct": "Def/Acc/3 (number only; the definition supplies m-per-s^2)",
+                "explanation": "The definition already appends m-per-s^2 to the placeholder, so the value must be a bare number"
             }
         ],
         "correction_patterns": [
@@ -5514,7 +5514,7 @@
                         [
                             5.0,
                             0,
-                            "Def/3 m"
+                            "Def/Acc/3 m"
                         ],
                         [
                             6.3,
@@ -5618,6 +5618,242 @@
                                 0,
                                 "ball",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEF_INVALID",
+        "alt_codes": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "name": "def-invalid-bad-value-from-value-column",
+        "description": "A value column annotated with `Def/Name/#` has a value that is invalid for the definition's placeholder.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "value",
+        "common_causes": [
+            "Invalid data type for placeholder value",
+            "Non-numeric values where numbers expected",
+            "Invalid string values for placeholder",
+            "Incorrect value format for definition requirements",
+            "Type mismatch between value and definition expectations"
+        ],
+        "explanation": "Placeholder values in Def tags must match the data type and format expected by the definition. Invalid values break proper definition expansion.",
+        "correction_strategy": "Use appropriate value types for placeholder",
+        "correction_examples": [
+            {
+                "wrong": "Def/Acc/baloney (non-numeric for acceleration)",
+                "correct": "Def/Acc/5.0 (numeric value)",
+                "explanation": "Used numeric value for acceleration definition"
+            },
+            {
+                "wrong": "Def/Acc/3 m (length units for an acceleration placeholder)",
+                "correct": "Def/Acc/3 (number only; the definition supplies m-per-s^2)",
+                "explanation": "The definition already appends m-per-s^2 to the placeholder, so the value must be a bare number"
+            }
+        ],
+        "correction_patterns": [
+            "Use numeric values for numeric placeholders",
+            "Use text values for text placeholders",
+            "Match value type to definition expectations",
+            "Verify value format requirements"
+        ],
+        "fix_instructions": [
+            "1. Check definition to understand expected value type",
+            "2. Verify current placeholder value type",
+            "3. Replace with appropriate value type",
+            "4. Test definition expansion works correctly",
+            "5. Verify value meets definition constraints"
+        ],
+        "validation_hints": [
+            "Check if definition expects numeric or text values",
+            "Verify value type matches definition requirements",
+            "Test placeholder substitution results",
+            "Ensure value format is appropriate"
+        ],
+        "specification_reference": "3.2.8.1. Def placeholder value requirements",
+        "related_errors": [
+            "VALUE_INVALID",
+            "DEF_INVALID",
+            "PLACEHOLDER_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "acc": {
+                                "HED": "Def/Acc/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "acc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "abc"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "acc": {
+                                "HED": "Def/Acc/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "acc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "3 m"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "acc": {
+                                "HED": "Def/Acc/#"
+                            },
+                            "event_code": {
+                                "HED": {
+                                    "ball": "{acc}, Blue",
+                                    "face": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "acc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                3.5
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "face",
+                                "abc"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "acc": {
+                                "HED": "Def/Acc/#"
+                            },
+                            "event_code": {
+                                "HED": {
+                                    "ball": "{acc}, Blue",
+                                    "face": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "acc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                "abc"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "acc": {
+                                "HED": "Def/Acc/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "acc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                4.5
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "n/a"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "acc": {
+                                "HED": "Def/Acc/#"
+                            },
+                            "event_code": {
+                                "HED": {
+                                    "ball": "{acc}, Blue",
+                                    "face": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "acc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                3.5
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "face",
+                                4.5
                             ]
                         ]
                     }

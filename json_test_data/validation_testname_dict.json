@@ -137,6 +137,11 @@
         "VALUE_INVALID",
         "UNITS_INVALID"
     ],
+    "def-invalid-bad-value-from-value-column": [
+        "DEF_INVALID",
+        "VALUE_INVALID",
+        "UNITS_INVALID"
+    ],
     "tag-deprecated": [
         "ELEMENT_DEPRECATED"
     ],
