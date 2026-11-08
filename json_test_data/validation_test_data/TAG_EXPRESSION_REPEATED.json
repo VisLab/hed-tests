@@ -600,5 +600,304 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-na-onset-row",
+        "description": "A tag is repeated in the assembled annotation of a row whose onset is n/a.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Repeating in the HED column a tag that the row's sidecar annotation already supplies",
+            "Assuming that rows without an onset are not validated"
+        ],
+        "explanation": "A row whose onset is n/a is not merged with any other row, but its assembled annotation (the HED column joined with the annotations of its sidecar-annotated columns) is still validated like any other row's. A tag that appears both in the HED column and in the sidecar annotation of the same row is repeated at the top level, wherever the row sits in the file.",
+        "correction_strategy": "Remove the tag from the HED column or from the sidecar annotation",
+        "correction_examples": [
+            {
+                "wrong": "event_code show -> \"Sensory-event, Visual-presentation\" with HED column \"Sensory-event, Red\"",
+                "correct": "event_code show -> \"Sensory-event, Visual-presentation\" with HED column \"Red\"",
+                "explanation": "Sensory-event is supplied once, by the sidecar"
+            }
+        ],
+        "correction_patterns": [
+            "Keep each tag in one place: the sidecar or the HED column",
+            "Validate rows without an onset the same way as timed rows"
+        ],
+        "fix_instructions": [
+            "1. Assemble the annotation of each row whose onset is n/a",
+            "2. Find tags that appear in both the HED column and the sidecar annotation",
+            "3. Remove one of the two"
+        ],
+        "validation_hints": [
+            "A row with an n/a onset is validated wherever it appears: first, in the middle, or last",
+            "Its assembled annotation is checked for repeats like any other row's"
+        ],
+        "specification_reference": "3.2.7.4. Repeated expressions",
+        "related_errors": [
+            "TEMPORAL_TAG_ERROR"
+        ],
+        "tests": {
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "show": "Sensory-event, Visual-presentation",
+                                    "press": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                "n/a",
+                                0,
+                                "show",
+                                "Sensory-event, Yellow"
+                            ],
+                            [
+                                1.5,
+                                0,
+                                "show",
+                                "Red"
+                            ],
+                            [
+                                2.5,
+                                0,
+                                "press",
+                                "Blue"
+                            ],
+                            [
+                                3.5,
+                                0,
+                                "show",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "show": "Sensory-event, Visual-presentation",
+                                    "press": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                1.5,
+                                0,
+                                "show",
+                                "Red"
+                            ],
+                            [
+                                "n/a",
+                                0,
+                                "show",
+                                "Sensory-event, Yellow"
+                            ],
+                            [
+                                2.5,
+                                0,
+                                "press",
+                                "Blue"
+                            ],
+                            [
+                                3.5,
+                                0,
+                                "show",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "show": "Sensory-event, Visual-presentation",
+                                    "press": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                1.5,
+                                0,
+                                "show",
+                                "Red"
+                            ],
+                            [
+                                2.5,
+                                0,
+                                "press",
+                                "Blue"
+                            ],
+                            [
+                                3.5,
+                                0,
+                                "show",
+                                "Green"
+                            ],
+                            [
+                                "n/a",
+                                0,
+                                "show",
+                                "Sensory-event, Yellow"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "show": "Sensory-event, Visual-presentation",
+                                    "press": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                "n/a",
+                                0,
+                                "show",
+                                "Yellow"
+                            ],
+                            [
+                                1.5,
+                                0,
+                                "show",
+                                "Red"
+                            ],
+                            [
+                                2.5,
+                                0,
+                                "press",
+                                "Blue"
+                            ],
+                            [
+                                3.5,
+                                0,
+                                "show",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "show": "Sensory-event, Visual-presentation",
+                                    "press": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                1.5,
+                                0,
+                                "show",
+                                "Red"
+                            ],
+                            [
+                                "n/a",
+                                0,
+                                "show",
+                                "Yellow"
+                            ],
+                            [
+                                2.5,
+                                0,
+                                "press",
+                                "Blue"
+                            ],
+                            [
+                                3.5,
+                                0,
+                                "show",
+                                "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "show": "Sensory-event, Visual-presentation",
+                                    "press": "Agent-action"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                1.5,
+                                0,
+                                "show",
+                                "Red"
+                            ],
+                            [
+                                2.5,
+                                0,
+                                "press",
+                                "Blue"
+                            ],
+                            [
+                                3.5,
+                                0,
+                                "show",
+                                "Green"
+                            ],
+                            [
+                                "n/a",
+                                0,
+                                "show",
+                                "Yellow"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

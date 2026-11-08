@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 240 test cases in the HED test suite.
+Complete index of 241 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -29,7 +29,7 @@ Complete index of 240 test cases in the HED test suite.
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (4 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
-- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (3 tests)
+- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (4 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
@@ -1941,6 +1941,16 @@ Complete index of 240 test cases in the HED test suite.
 ## TAG_EXPRESSION_REPEATED
 
 **File**: `json_test_data/validation_test_data/TAG_EXPRESSION_REPEATED.json`
+
+### tag-expression-repeated-na-onset-row (correction guidance) (examples)
+
+**Description**: A tag is repeated in the assembled annotation of a row whose onset is n/a.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `combo_tests`: 3 fail, 3 pass
 
 ### tag-expression-repeated-same-level (correction guidance) (examples)
 
