@@ -414,7 +414,12 @@
             "string_tests": {
                 "fails": [
                     "Red/Red$2",
-                    "Red/R#d"
+                    "Red/R#d",
+                    "Item/my.ext",
+                    "Item/a+b",
+                    "Item/a^b",
+                    "Item/a b",
+                    "Item/a:b"
                 ],
                 "passes": [
                     "Red-color/Red",
@@ -429,6 +434,41 @@
                             "HED": {
                                 "face": "Red/Red$2",
                                 "ball": "Red/R#d"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/my.ext"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/a+b"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/a^b"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/a b"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Item/a:b"
                             }
                         }
                     }
@@ -464,6 +504,66 @@
                             5.5,
                             0,
                             "Red/R#d"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/my.ext"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/a+b"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/a^b"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/a b"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Item/a:b"
                         ]
                     ]
                 ],

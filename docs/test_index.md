@@ -2006,9 +2006,9 @@ Complete index of 240 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 2 fail, 3 pass
-- `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `string_tests`: 7 fail, 3 pass
+- `sidecar_tests`: 6 fail, 1 pass
+- `event_tests`: 6 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tag-extension-invalid-duplicate (correction guidance) (examples)
