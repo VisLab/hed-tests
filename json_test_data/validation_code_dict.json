@@ -316,7 +316,8 @@
     "TAG_EXPRESSION_REPEATED": [
         "tag-expression-repeated-same-level",
         "tags-duplicated-across-multiple-rows",
-        "tags-with-duplicated-onsets-across-multiple-rows"
+        "tags-with-duplicated-onsets-across-multiple-rows",
+        "tag-expression-repeated-na-onset-row"
     ],
     "TAG_EXTENDED": [
         "tag-extended-extension"
