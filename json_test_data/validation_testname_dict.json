@@ -101,6 +101,14 @@
         "TAG_GROUP_ERROR",
         "TEMPORAL_TAG_ERROR"
     ],
+    "definition-invalid-in-value-entry": [
+        "DEFINITION_INVALID",
+        "PLACEHOLDER_INVALID"
+    ],
+    "definition-invalid-beside-other-tags": [
+        "DEFINITION_INVALID",
+        "TAG_INVALID"
+    ],
     "def-expand-invalid-name-not-definition": [
         "DEF_EXPAND_INVALID"
     ],
@@ -156,6 +164,10 @@
         "CHARACTER_INVALID",
         "VALUE_INVALID"
     ],
+    "parentheses-mismatch-equal-count-wrong-order": [
+        "PARENTHESES_MISMATCH",
+        "COMMA_MISSING"
+    ],
     "placeholder-invalid-misplaced": [
         "PLACEHOLDER_INVALID",
         "VALUE_INVALID"
@@ -183,6 +195,11 @@
     "placeholder-invalid-units-after-extension": [
         "PLACEHOLDER_INVALID",
         "TAG_EXTENSION_INVALID"
+    ],
+    "placeholder-invalid-not-whole-value": [
+        "PLACEHOLDER_INVALID",
+        "VALUE_INVALID",
+        "CHARACTER_INVALID"
     ],
     "different-standard-schemas-in-same-merge-group": [
         "SCHEMA_LOAD_FAILED"
@@ -331,6 +348,10 @@
         "VALUE_INVALID",
         "UNITS_INVALID"
     ],
+    "sidecar-braces-column-name-with-period": [
+        "SIDECAR_BRACES_INVALID",
+        "CHARACTER_INVALID"
+    ],
     "sidecar-invalid-key-at-wrong-level": [
         "SIDECAR_INVALID"
     ],
@@ -341,6 +362,9 @@
         "SIDECAR_INVALID"
     ],
     "sidecar-invalid-value-key-whitespace": [
+        "SIDECAR_INVALID"
+    ],
+    "sidecar-invalid-hed-key-nested-beside-valid": [
         "SIDECAR_INVALID"
     ],
     "sidecar-key-missing": [
@@ -380,6 +404,9 @@
         "TAG_EXPRESSION_REPEATED"
     ],
     "tag-expression-repeated-na-onset-row": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-column-name-with-period": [
         "TAG_EXPRESSION_REPEATED"
     ],
     "tag-extended-extension": [
@@ -606,6 +633,11 @@
     ],
     "units-invalid-any-units": [
         "UNITS_INVALID"
+    ],
+    "units-invalid-def-value-units": [
+        "UNITS_INVALID",
+        "VALUE_INVALID",
+        "DEF_INVALID"
     ],
     "value-invalid-#-substitution": [
         "VALUE_INVALID",

@@ -1,17 +1,17 @@
 # HED test suite index
 
-Complete index of 241 test cases in the HED test suite.
+Complete index of 249 test cases in the HED test suite.
 
 ## Quick navigation
 
 - [CHARACTER_INVALID](#character-invalid) (8 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
-- [DEFINITION_INVALID](#definition-invalid) (13 tests)
+- [DEFINITION_INVALID](#definition-invalid) (15 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
 - [DEF_INVALID](#def-invalid) (4 tests)
 - [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
-- [PARENTHESES_MISMATCH](#parentheses-mismatch) (3 tests)
-- [PLACEHOLDER_INVALID](#placeholder-invalid) (7 tests)
+- [PARENTHESES_MISMATCH](#parentheses-mismatch) (4 tests)
+- [PLACEHOLDER_INVALID](#placeholder-invalid) (8 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
 - [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
@@ -24,12 +24,12 @@ Complete index of 241 test cases in the HED test suite.
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
-- [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (5 tests)
-- [SIDECAR_INVALID](#sidecar-invalid) (4 tests)
+- [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (6 tests)
+- [SIDECAR_INVALID](#sidecar-invalid) (5 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (4 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
-- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (4 tests)
+- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (5 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
@@ -38,7 +38,7 @@ Complete index of 241 test cases in the HED test suite.
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (2 tests)
 - [TEMPORAL_TAG_ERROR](#temporal-tag-error) (31 tests)
-- [UNITS_INVALID](#units-invalid) (6 tests)
+- [UNITS_INVALID](#units-invalid) (7 tests)
 - [VALUE_INVALID](#value-invalid) (6 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
 
@@ -193,6 +193,17 @@ Complete index of 241 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### definition-invalid-beside-other-tags (correction guidance) (examples)
+
+**Description**: A sidecar categorical annotation contains a definition and a tag that is not a definition.
+
+**Schema**: 8.4.0 **Category**: context
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### definition-invalid-content-has-delay-or-duration-in-8-1-0 (correction guidance) (examples)
 
 **Description**: Delay and Duration may not appear in a definition's contents (reason d). The rule holds in every standard schema version; 8.1.0 is not special, and this case pins it there because the 8.1.0 schema does not mark Delay and Duration reserved.
@@ -234,6 +245,17 @@ Complete index of 241 test cases in the HED test suite.
 **Tests**:
 
 - `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### definition-invalid-in-value-entry (correction guidance) (examples)
+
+**Description**: A sidecar value entry contains a definition.
+
+**Schema**: 8.4.0 **Category**: context
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### definition-invalid-inner-group-defs (correction guidance) (examples)
@@ -497,6 +519,19 @@ Complete index of 241 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/PARENTHESES_MISMATCH.json`
 
+### parentheses-mismatch-equal-count-wrong-order (correction guidance) (examples)
+
+**Description**: A HED string has as many open as closed parentheses, but a closing parenthesis comes before its opening one.
+
+**Schema**: 8.4.0 **Category**: syntax
+
+**Tests**:
+
+- `string_tests`: 2 fail, 1 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
+
 ### parentheses-mismatch-in-value-column (correction guidance) (examples)
 
 **Description**: A value in a sidecar-annotated value column contains an unmatched parenthesis, so the HED string obtained by substituting the value for the # is unbalanced.
@@ -605,6 +640,17 @@ Complete index of 241 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 0 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
+
+### placeholder-invalid-not-whole-value (correction guidance) (examples)
+
+**Description**: In a sidecar value entry the placeholder (#) is not the whole value directly after a slash.
+
+**Schema**: 8.4.0 **Category**: count
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
 
 ### placeholder-invalid-units-after-extension (correction guidance) (examples)
 
@@ -1743,6 +1789,17 @@ Complete index of 241 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 2 pass
 - `combo_tests`: 0 fail, 1 pass
 
+### sidecar-braces-column-name-with-period (correction guidance) (examples)
+
+**Description**: A name in curly braces contains a period and is not the name of a HED-annotated column.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### sidecar-braces-contents-invalid (correction guidance) (examples)
 
 **Description**: The item in curly braces is not the word HED or a column name with HED annotations in the sidecar.
@@ -1778,6 +1835,17 @@ Complete index of 241 test cases in the HED test suite.
 ## SIDECAR_INVALID
 
 **File**: `json_test_data/validation_test_data/SIDECAR_INVALID.json`
+
+### sidecar-invalid-hed-key-nested-beside-valid (correction guidance) (examples)
+
+**Description**: A sidecar entry has a valid second-level HED key and also a HED key at a deeper level.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
 
 ### sidecar-invalid-key-at-wrong-level (correction guidance) (examples)
 
@@ -1941,6 +2009,16 @@ Complete index of 241 test cases in the HED test suite.
 ## TAG_EXPRESSION_REPEATED
 
 **File**: `json_test_data/validation_test_data/TAG_EXPRESSION_REPEATED.json`
+
+### tag-expression-repeated-column-name-with-period (correction guidance) (examples)
+
+**Description**: A curly-brace reference to a column whose name has a period is substituted, and the result repeats a tag.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `combo_tests`: 1 fail, 1 pass
 
 ### tag-expression-repeated-na-onset-row (correction guidance) (examples)
 
@@ -2723,6 +2801,19 @@ Complete index of 241 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 3 fail, 4 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### units-invalid-def-value-units (correction guidance) (examples)
+
+**Description**: A Def value carries units although the definition's placeholder already has them.
+
+**Schema**: 8.4.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 1 fail, 1 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

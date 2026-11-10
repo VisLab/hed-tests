@@ -899,5 +899,118 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-column-name-with-period",
+        "description": "A curly-brace reference to a column whose name has a period is substituted, and the result repeats a tag.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Repeating a tag in a group and in the annotation substituted into it"
+        ],
+        "explanation": "A reference such as {my.col} is replaced by the annotation of the my.col column when the row is assembled, whatever characters the column name contains. Here (Red, {my.col}) with my.col value x annotated as Red assembles to (Red, Red), which repeats Red in one group. A validator that does not substitute the reference misses the repeat.",
+        "correction_strategy": "Remove the tag from the group or from the referenced annotation",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"(Red, {my.col})\" and my.col x -> \"Red\"",
+                "correct": "face -> \"(Red, {my.col})\" and my.col x -> \"Blue\"",
+                "explanation": "The assembled group (Red, Blue) has no repeat"
+            }
+        ],
+        "correction_patterns": [
+            "Check the assembled annotation, after every curly-brace reference is substituted"
+        ],
+        "fix_instructions": [
+            "1. Assemble the row, substituting each referenced column",
+            "2. Look for tags repeated within a group"
+        ],
+        "validation_hints": [
+            "A sidecar in which some value of my.col would repeat a tag fails even for rows with other values; the passing sidecar annotates x as Green"
+        ],
+        "specification_reference": "3.2.7.4. Repeated expressions",
+        "related_errors": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {my.col})"
+                                }
+                            },
+                            "my.col": {
+                                "HED": {
+                                    "x": "Red",
+                                    "y": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "my.col"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {my.col})"
+                                }
+                            },
+                            "my.col": {
+                                "HED": {
+                                    "x": "Green",
+                                    "y": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "my.col"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "y"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

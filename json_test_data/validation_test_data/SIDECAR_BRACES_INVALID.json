@@ -955,5 +955,138 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "SIDECAR_BRACES_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID"
+        ],
+        "name": "sidecar-braces-column-name-with-period",
+        "description": "A name in curly braces contains a period and is not the name of a HED-annotated column.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Referring to a column that has no HED annotation in the sidecar",
+            "Misspelling a column name that contains a period"
+        ],
+        "explanation": "Any column name may appear in curly braces, including one with a period, but it must name a HED-annotated column in the sidecar. A validator that does not read {my.col} as a reference may report the braces as CHARACTER_INVALID instead.",
+        "correction_strategy": "Annotate the referenced column in the sidecar, or correct the name in the braces",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"Red, {my.col}\" with no my.col entry",
+                "correct": "face -> \"Red, {my.col}\" and my.col -> {\"HED\": {\"x\": \"Blue\"}}",
+                "explanation": "The referenced column is annotated"
+            }
+        ],
+        "correction_patterns": [
+            "Every name in braces is a key of the sidecar with a HED entry"
+        ],
+        "fix_instructions": [
+            "1. List the names in curly braces",
+            "2. Check each one against the sidecar keys that have HED"
+        ],
+        "validation_hints": [
+            "Column names are not limited to letters, digits, hyphens and underscores"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "SIDECAR_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red, {my.col}",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red, {my.col}",
+                                "ball": "Green"
+                            }
+                        },
+                        "my.col": {
+                            "HED": {
+                                "x": "Blue"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red, {my.col}",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red, {my.col}",
+                                    "ball": "Green"
+                                }
+                            },
+                            "my.col": {
+                                "HED": {
+                                    "x": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "my.col"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

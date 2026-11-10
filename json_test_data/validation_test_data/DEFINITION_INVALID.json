@@ -1846,5 +1846,252 @@
                 "passes": []
             }
         }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "PLACEHOLDER_INVALID"
+        ],
+        "name": "definition-invalid-in-value-entry",
+        "description": "A sidecar value entry contains a definition.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "context",
+        "common_causes": [
+            "Putting a definition in the HED string of a value column"
+        ],
+        "explanation": "Definitions in a sidecar go in a categorical entry whose annotations contain only definitions. A value entry may not contain one. When the value entry also has two placeholders, a validator may report PLACEHOLDER_INVALID instead.",
+        "correction_strategy": "Move the definition to a categorical entry that holds only definitions",
+        "correction_examples": [
+            {
+                "wrong": "rt -> {\"HED\": \"(Definition/MyDef, (Red)), Label/#\"}",
+                "correct": "defs -> {\"HED\": {\"a\": \"(Definition/MyDef, (Red))\"}} and rt -> {\"HED\": \"Label/#\"}",
+                "explanation": "The definition is in its own categorical entry"
+            }
+        ],
+        "correction_patterns": [
+            "Keep definitions in a definitions-only categorical entry"
+        ],
+        "fix_instructions": [
+            "1. Find definitions in value entries",
+            "2. Move each to a categorical entry with only definitions"
+        ],
+        "validation_hints": [
+            "A value entry is a string with one #, not a dictionary"
+        ],
+        "specification_reference": "3.2.8.1. Definition placement requirements",
+        "related_errors": [
+            "PLACEHOLDER_INVALID",
+            "TAG_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "rt": {
+                            "HED": "(Definition/MyDef, (Red)), Label/#"
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": "(Definition/MyDef, (Red)), Label/#, Age/#"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "(Definition/MyDef, (Red))"
+                            }
+                        },
+                        "rt": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "(Definition/MyDef, (Red)), Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "a": "(Definition/MyDef, (Red))"
+                                }
+                            },
+                            "rt": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "TAG_INVALID"
+        ],
+        "name": "definition-invalid-beside-other-tags",
+        "description": "A sidecar categorical annotation contains a definition and a tag that is not a definition.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "context",
+        "common_causes": [
+            "Adding an ordinary tag to an annotation that holds definitions"
+        ],
+        "explanation": "A sidecar annotation that contains a definition must contain only definitions. This holds for each annotation by itself, also when every annotation of the column has a definition. A validator may report the extra tag as TAG_INVALID instead.",
+        "correction_strategy": "Remove the other tag, or move it to an annotation without definitions",
+        "correction_examples": [
+            {
+                "wrong": "a -> \"(Definition/MyDef, (Red)), Blue\"",
+                "correct": "a -> \"(Definition/MyDef, (Red))\"",
+                "explanation": "The annotation holds only the definition"
+            }
+        ],
+        "correction_patterns": [
+            "Check each annotation that has a definition for tags outside definitions"
+        ],
+        "fix_instructions": [
+            "1. Find annotations with definitions",
+            "2. Remove any top-level tag or group that is not a definition"
+        ],
+        "validation_hints": [
+            "Every annotation in the failing columns has a definition, so comparing annotations is not enough"
+        ],
+        "specification_reference": "3.2.8.1. Definition placement requirements",
+        "related_errors": [
+            "TAG_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "(Definition/MyDef, (Red)), Blue"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "Blue, (Definition/MyDef, (Red))",
+                                "b": "(Definition/MyDef2, (Green)), (Definition/MyDef3, (Yellow))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "(Definition/MyDef, (Red))",
+                                "b": "(Definition/MyDef2, (Green)), (Definition/MyDef3, (Yellow))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "a": "(Definition/MyDef, (Red)), Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/MyDef"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "a": "(Definition/MyDef, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/MyDef"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

@@ -722,5 +722,145 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "SIDECAR_INVALID",
+        "alt_codes": [],
+        "name": "sidecar-invalid-hed-key-nested-beside-valid",
+        "description": "A sidecar entry has a valid second-level HED key and also a HED key at a deeper level.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Putting HED inside a Levels dictionary",
+            "Nesting an annotation under an extra key"
+        ],
+        "explanation": "The HED key must be a second-level key of the sidecar. A HED key deeper down is an error even when the same entry also has a valid HED key.",
+        "correction_strategy": "Move the annotation into the second-level HED dictionary",
+        "correction_examples": [
+            {
+                "wrong": "event_code -> {\"HED\": {\"face\": \"Red\"}, \"Levels\": {\"face\": \"A face\", \"HED\": \"Blue\"}}",
+                "correct": "event_code -> {\"HED\": {\"face\": \"Red\"}, \"Levels\": {\"face\": \"A face\"}}",
+                "explanation": "Levels holds only descriptions"
+            }
+        ],
+        "correction_patterns": [
+            "Search the whole entry for HED keys, not only its second level"
+        ],
+        "fix_instructions": [
+            "1. Find every HED key in the sidecar",
+            "2. Check that each is a second-level key"
+        ],
+        "validation_hints": [
+            "A valid HED key in the entry does not make a nested one valid"
+        ],
+        "specification_reference": "3.2.9. Sidecars",
+        "related_errors": [
+            "SIDECAR_KEY_MISSING"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red"
+                            },
+                            "Levels": {
+                                "face": "A face",
+                                "HED": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red"
+                            },
+                            "extra": {
+                                "inner": {
+                                    "HED": "Blue"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red"
+                            },
+                            "Levels": {
+                                "face": "A face"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red"
+                                },
+                                "Levels": {
+                                    "face": "A face",
+                                    "HED": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red"
+                                },
+                                "Levels": {
+                                    "face": "A face"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]
