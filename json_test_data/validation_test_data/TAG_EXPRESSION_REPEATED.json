@@ -928,7 +928,7 @@
             "2. Look for tags repeated within a group"
         ],
         "validation_hints": [
-            "The same sidecar passes for a row whose my.col value is annotated Blue"
+            "A sidecar in which some value of my.col would repeat a tag fails even for rows with other values; the passing sidecar annotates x as Green"
         ],
         "specification_reference": "3.2.7.4. Repeated expressions",
         "related_errors": [
@@ -989,7 +989,7 @@
                             },
                             "my.col": {
                                 "HED": {
-                                    "x": "Red",
+                                    "x": "Green",
                                     "y": "Blue"
                                 }
                             }
