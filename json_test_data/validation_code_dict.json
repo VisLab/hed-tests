@@ -241,7 +241,8 @@
         "def-invalid-missing-placeholder",
         "def-invalid-bad-placeholder-value",
         "def-invalid-bad-value-from-value-column",
-        "sidecar-braces-invalid-spot"
+        "sidecar-braces-invalid-spot",
+        "units-invalid-def-value-units"
     ],
     "DEF_EXPAND_INVALID": [
         "def-expand-invalid-name-not-definition",

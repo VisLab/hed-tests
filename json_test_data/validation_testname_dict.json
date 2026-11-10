@@ -636,7 +636,8 @@
     ],
     "units-invalid-def-value-units": [
         "UNITS_INVALID",
-        "VALUE_INVALID"
+        "VALUE_INVALID",
+        "DEF_INVALID"
     ],
     "value-invalid-#-substitution": [
         "VALUE_INVALID",

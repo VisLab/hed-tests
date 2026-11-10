@@ -1110,7 +1110,8 @@
     {
         "error_code": "UNITS_INVALID",
         "alt_codes": [
-            "VALUE_INVALID"
+            "VALUE_INVALID",
+            "DEF_INVALID"
         ],
         "name": "units-invalid-def-value-units",
         "description": "A Def value carries units although the definition's placeholder already has them.",
@@ -1120,7 +1121,7 @@
         "common_causes": [
             "Giving units in the Def value when the definition supplies them"
         ],
-        "explanation": "The value of Def/Freq/3 kHz replaces the # in (Frequency/# Hz), giving Frequency/3 kHz Hz, which has two units. A validator may report this as VALUE_INVALID, as the substituted value is not valid.",
+        "explanation": "The value of Def/Freq/3 kHz replaces the # in (Frequency/# Hz), giving Frequency/3 kHz Hz, which has two units. A validator may report this as VALUE_INVALID, as the substituted value is not valid, or as DEF_INVALID, as the Def value has units the definition does not allow.",
         "correction_strategy": "Give only the number in the Def value",
         "correction_examples": [
             {
