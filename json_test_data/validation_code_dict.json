@@ -11,9 +11,11 @@
         "definition-invalid-second-part-not-placeholder",
         "parentheses-mismatch-in-value-column",
         "placeholder-invalid-in-value-column",
+        "placeholder-invalid-not-whole-value",
         "sidecar-braces-contents-invalid",
         "sidecar-braces-invalid-spot",
         "sidecar-braces-appear-as-value-rather-than-tag",
+        "sidecar-braces-column-name-with-period",
         "tag-extension-invalid-bad-node-name",
         "value-invalid-#-substitution",
         "value-invalid-incompatible-value-class",
@@ -30,6 +32,7 @@
         "definition-invalid-placeholder-incorrect-of-positions",
         "definition-invalid-placeholder-conflict",
         "definition-not-allowed-here",
+        "definition-invalid-beside-other-tags",
         "tag-group-error-missing",
         "tag-invalid-in-schema",
         "tag-has-extra-whitespace",
@@ -52,6 +55,7 @@
         "units-invalid-symbol-plural",
         "units-invalid-compound-units",
         "units-invalid-any-units",
+        "units-invalid-def-value-units",
         "value-invalid-blank-missing-before-units",
         "invalid-character-numeric-class",
         "bad-value-in-curly-column"
@@ -70,8 +74,10 @@
         "placeholder-invalid-misplaced",
         "placeholder-invalid-json-#-misplaced",
         "placeholder-invalid-in-value-column",
+        "placeholder-invalid-not-whole-value",
         "sidecar-braces-invalid-spot",
         "sidecar-braces-appear-as-value-rather-than-tag",
+        "units-invalid-def-value-units",
         "value-invalid-#-substitution",
         "value-invalid-incompatible-value-class",
         "value-invalid-blank-missing-before-units",
@@ -98,13 +104,15 @@
         "character-invalid-structural-in-text-value",
         "parentheses-mismatch-unmatched-parentheses",
         "parentheses-mismatch-incorrect-nesting",
-        "parentheses-mismatch-in-value-column"
+        "parentheses-mismatch-in-value-column",
+        "parentheses-mismatch-equal-count-wrong-order"
     ],
     "PLACEHOLDER_INVALID": [
         "character-invalid-structural-in-text-value",
         "definition-invalid-placeholder-incorrect-of-positions",
         "definition-invalid-placeholder-conflict",
         "definition-invalid-second-part-not-placeholder",
+        "definition-invalid-in-value-entry",
         "placeholder-invalid-misplaced",
         "placeholder-invalid-#-in-categorical-column",
         "placeholder-invalid-json-value-column",
@@ -112,6 +120,7 @@
         "placeholder-invalid-in-value-column",
         "placeholder-invalid-after-extension",
         "placeholder-invalid-units-after-extension",
+        "placeholder-invalid-not-whole-value",
         "tag-extension-invalid-bad-node-name",
         "tag-extension-invalid-reserved-tag-placeholder",
         "tag-invalid-in-schema"
@@ -119,7 +128,8 @@
     "COMMA_MISSING": [
         "character-invalid-structural-in-text-value",
         "comma-missing-tag-groups",
-        "comma-missing-tag-and-group"
+        "comma-missing-tag-and-group",
+        "parentheses-mismatch-equal-count-wrong-order"
     ],
     "DEFINITION_INVALID": [
         "definition-invalid-tag-group",
@@ -135,6 +145,8 @@
         "definition-invalid-duplicate-definitions-differ",
         "definition-invalid-second-part-not-placeholder",
         "definition-invalid-content-has-delay-or-duration-in-8-1-0",
+        "definition-invalid-in-value-entry",
+        "definition-invalid-beside-other-tags",
         "def-expand-has-extras",
         "tag-group-error-missing"
     ],
@@ -295,13 +307,15 @@
         "sidecar-braces-circular-reference",
         "sidecar-braces-self-reference",
         "sidecar-braces-appear-as-value-rather-than-tag",
+        "sidecar-braces-column-name-with-period",
         "tag-group-error-event-context-braces"
     ],
     "SIDECAR_INVALID": [
         "sidecar-invalid-key-at-wrong-level",
         "sidecar-invalid-na-annotated",
         "sidecar-invalid-key-whitespace",
-        "sidecar-invalid-value-key-whitespace"
+        "sidecar-invalid-value-key-whitespace",
+        "sidecar-invalid-hed-key-nested-beside-valid"
     ],
     "SIDECAR_KEY_MISSING": [
         "sidecar-key-missing",
@@ -317,7 +331,8 @@
         "tag-expression-repeated-same-level",
         "tags-duplicated-across-multiple-rows",
         "tags-with-duplicated-onsets-across-multiple-rows",
-        "tag-expression-repeated-na-onset-row"
+        "tag-expression-repeated-na-onset-row",
+        "tag-expression-repeated-column-name-with-period"
     ],
     "TAG_EXTENDED": [
         "tag-extended-extension"

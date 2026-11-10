@@ -3592,6 +3592,253 @@
         }
     },
     {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "PLACEHOLDER_INVALID"
+        ],
+        "name": "definition-invalid-in-value-entry",
+        "description": "A sidecar value entry contains a definition.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "context",
+        "common_causes": [
+            "Putting a definition in the HED string of a value column"
+        ],
+        "explanation": "Definitions in a sidecar go in a categorical entry whose annotations contain only definitions. A value entry may not contain one. When the value entry also has two placeholders, a validator may report PLACEHOLDER_INVALID instead.",
+        "correction_strategy": "Move the definition to a categorical entry that holds only definitions",
+        "correction_examples": [
+            {
+                "wrong": "rt -> {\"HED\": \"(Definition/MyDef, (Red)), Label/#\"}",
+                "correct": "defs -> {\"HED\": {\"a\": \"(Definition/MyDef, (Red))\"}} and rt -> {\"HED\": \"Label/#\"}",
+                "explanation": "The definition is in its own categorical entry"
+            }
+        ],
+        "correction_patterns": [
+            "Keep definitions in a definitions-only categorical entry"
+        ],
+        "fix_instructions": [
+            "1. Find definitions in value entries",
+            "2. Move each to a categorical entry with only definitions"
+        ],
+        "validation_hints": [
+            "A value entry is a string with one #, not a dictionary"
+        ],
+        "specification_reference": "3.2.8.1. Definition placement requirements",
+        "related_errors": [
+            "PLACEHOLDER_INVALID",
+            "TAG_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "rt": {
+                            "HED": "(Definition/MyDef, (Red)), Label/#"
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": "(Definition/MyDef, (Red)), Label/#, Age/#"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "(Definition/MyDef, (Red))"
+                            }
+                        },
+                        "rt": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "(Definition/MyDef, (Red)), Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "a": "(Definition/MyDef, (Red))"
+                                }
+                            },
+                            "rt": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [
+            "TAG_INVALID"
+        ],
+        "name": "definition-invalid-beside-other-tags",
+        "description": "A sidecar categorical annotation contains a definition and a tag that is not a definition.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "context",
+        "common_causes": [
+            "Adding an ordinary tag to an annotation that holds definitions"
+        ],
+        "explanation": "A sidecar annotation that contains a definition must contain only definitions. This holds for each annotation by itself, also when every annotation of the column has a definition. A validator may report the extra tag as TAG_INVALID instead.",
+        "correction_strategy": "Remove the other tag, or move it to an annotation without definitions",
+        "correction_examples": [
+            {
+                "wrong": "a -> \"(Definition/MyDef, (Red)), Blue\"",
+                "correct": "a -> \"(Definition/MyDef, (Red))\"",
+                "explanation": "The annotation holds only the definition"
+            }
+        ],
+        "correction_patterns": [
+            "Check each annotation that has a definition for tags outside definitions"
+        ],
+        "fix_instructions": [
+            "1. Find annotations with definitions",
+            "2. Remove any top-level tag or group that is not a definition"
+        ],
+        "validation_hints": [
+            "Every annotation in the failing columns has a definition, so comparing annotations is not enough"
+        ],
+        "specification_reference": "3.2.8.1. Definition placement requirements",
+        "related_errors": [
+            "TAG_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "(Definition/MyDef, (Red)), Blue"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "Blue, (Definition/MyDef, (Red))",
+                                "b": "(Definition/MyDef2, (Green)), (Definition/MyDef3, (Yellow))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "a": "(Definition/MyDef, (Red))",
+                                "b": "(Definition/MyDef2, (Green)), (Definition/MyDef3, (Yellow))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "a": "(Definition/MyDef, (Red)), Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/MyDef"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "a": "(Definition/MyDef, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/MyDef"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "DEF_EXPAND_INVALID",
         "alt_codes": [],
         "name": "def-expand-invalid-name-not-definition",
@@ -6582,6 +6829,219 @@
         }
     },
     {
+        "error_code": "PARENTHESES_MISMATCH",
+        "alt_codes": [
+            "COMMA_MISSING"
+        ],
+        "name": "parentheses-mismatch-equal-count-wrong-order",
+        "description": "A HED string has as many open as closed parentheses, but a closing parenthesis comes before its opening one.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Moving a parenthesis to the wrong side of a tag when editing",
+            "Checking only that the counts are equal"
+        ],
+        "explanation": "Parentheses must nest: reading from the left, the number of closing parentheses may never exceed the number of opening ones. Equal totals are not enough. A validator that checks commas first may report the `)(` as COMMA_MISSING instead.",
+        "correction_strategy": "Move each closing parenthesis after the opening one it matches",
+        "correction_examples": [
+            {
+                "wrong": "(Red)), ((Blue)",
+                "correct": "(Red), (Blue)",
+                "explanation": "The second closing parenthesis belongs after Blue"
+            },
+            {
+                "wrong": ")(Red)(",
+                "correct": "(Red)",
+                "explanation": "The stray parentheses on both sides are removed"
+            }
+        ],
+        "correction_patterns": [
+            "Scan left to right keeping a depth count; it must never go below zero",
+            "The depth must end at zero"
+        ],
+        "fix_instructions": [
+            "1. Count the depth from the left",
+            "2. Find where it first goes below zero",
+            "3. Move or remove that parenthesis"
+        ],
+        "validation_hints": [
+            "An equal number of ( and ) does not mean the string is balanced"
+        ],
+        "specification_reference": "3.2.2. Tag group structure",
+        "related_errors": [
+            "COMMA_MISSING",
+            "TAG_GROUP_ERROR"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Red)), ((Blue)",
+                    ")(Red)("
+                ],
+                "passes": [
+                    "(Red), (Blue)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red)), ((Blue)",
+                                "ball": "Green"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": ")(Red)(",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red), (Blue)",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Red)), ((Blue)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            ")(Red)("
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Red), (Blue)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red)), ((Blue)",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Yellow"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                ")(Red)("
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red), (Blue)",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Yellow"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "(Yellow), (Blue)"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "PLACEHOLDER_INVALID",
         "alt_codes": [
             "VALUE_INVALID"
@@ -7695,6 +8155,146 @@
                                 0,
                                 "3",
                                 "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "PLACEHOLDER_INVALID",
+        "alt_codes": [
+            "VALUE_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "name": "placeholder-invalid-not-whole-value",
+        "description": "In a sidecar value entry the placeholder (#) is not the whole value directly after a slash.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "count",
+        "common_causes": [
+            "Writing a prefix or suffix next to the # (Label/x#, Label/#x)",
+            "Expecting # to be replaced inside a word"
+        ],
+        "explanation": "The placeholder stands for the whole value of its tag, so it must come directly after the slash and nothing may follow it but units. Here the value x# or #x also breaks Label's name value class, so a validator may report the error as VALUE_INVALID or CHARACTER_INVALID instead.",
+        "correction_strategy": "Make the # the whole value; put any fixed text in another tag",
+        "correction_examples": [
+            {
+                "wrong": "Label/x#",
+                "correct": "Label/#",
+                "explanation": "The placeholder is the whole value"
+            },
+            {
+                "wrong": "Label/#x",
+                "correct": "Label/#",
+                "explanation": "Nothing follows the placeholder"
+            }
+        ],
+        "correction_patterns": [
+            "A placeholder is replaced by the whole column value",
+            "Only units may follow the #, after a blank"
+        ],
+        "fix_instructions": [
+            "1. Find each # in the value entry",
+            "2. Remove any characters between the slash and the # or after it"
+        ],
+        "validation_hints": [
+            "Check the template itself, not only the substituted string: Label/#x with value 5 gives a valid Label/5x"
+        ],
+        "specification_reference": "3.2.9. Value column placeholder requirements",
+        "related_errors": [
+            "VALUE_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "rt": {
+                            "HED": "Label/x#"
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": "Label/#x"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "rt": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "Label/x#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "Label/#x"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
                             ]
                         ]
                     }
@@ -10428,6 +11028,139 @@
         }
     },
     {
+        "error_code": "SIDECAR_BRACES_INVALID",
+        "alt_codes": [
+            "CHARACTER_INVALID"
+        ],
+        "name": "sidecar-braces-column-name-with-period",
+        "description": "A name in curly braces contains a period and is not the name of a HED-annotated column.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Referring to a column that has no HED annotation in the sidecar",
+            "Misspelling a column name that contains a period"
+        ],
+        "explanation": "Any column name may appear in curly braces, including one with a period, but it must name a HED-annotated column in the sidecar. A validator that does not read {my.col} as a reference may report the braces as CHARACTER_INVALID instead.",
+        "correction_strategy": "Annotate the referenced column in the sidecar, or correct the name in the braces",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"Red, {my.col}\" with no my.col entry",
+                "correct": "face -> \"Red, {my.col}\" and my.col -> {\"HED\": {\"x\": \"Blue\"}}",
+                "explanation": "The referenced column is annotated"
+            }
+        ],
+        "correction_patterns": [
+            "Every name in braces is a key of the sidecar with a HED entry"
+        ],
+        "fix_instructions": [
+            "1. List the names in curly braces",
+            "2. Check each one against the sidecar keys that have HED"
+        ],
+        "validation_hints": [
+            "Column names are not limited to letters, digits, hyphens and underscores"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "SIDECAR_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red, {my.col}",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red, {my.col}",
+                                "ball": "Green"
+                            }
+                        },
+                        "my.col": {
+                            "HED": {
+                                "x": "Blue"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red, {my.col}",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red, {my.col}",
+                                    "ball": "Green"
+                                }
+                            },
+                            "my.col": {
+                                "HED": {
+                                    "x": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "my.col"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "SIDECAR_INVALID",
         "alt_codes": [],
         "name": "sidecar-invalid-key-at-wrong-level",
@@ -11147,6 +11880,146 @@
                                 5.0,
                                 0,
                                 "stop"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "SIDECAR_INVALID",
+        "alt_codes": [],
+        "name": "sidecar-invalid-hed-key-nested-beside-valid",
+        "description": "A sidecar entry has a valid second-level HED key and also a HED key at a deeper level.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Putting HED inside a Levels dictionary",
+            "Nesting an annotation under an extra key"
+        ],
+        "explanation": "The HED key must be a second-level key of the sidecar. A HED key deeper down is an error even when the same entry also has a valid HED key.",
+        "correction_strategy": "Move the annotation into the second-level HED dictionary",
+        "correction_examples": [
+            {
+                "wrong": "event_code -> {\"HED\": {\"face\": \"Red\"}, \"Levels\": {\"face\": \"A face\", \"HED\": \"Blue\"}}",
+                "correct": "event_code -> {\"HED\": {\"face\": \"Red\"}, \"Levels\": {\"face\": \"A face\"}}",
+                "explanation": "Levels holds only descriptions"
+            }
+        ],
+        "correction_patterns": [
+            "Search the whole entry for HED keys, not only its second level"
+        ],
+        "fix_instructions": [
+            "1. Find every HED key in the sidecar",
+            "2. Check that each is a second-level key"
+        ],
+        "validation_hints": [
+            "A valid HED key in the entry does not make a nested one valid"
+        ],
+        "specification_reference": "3.2.9. Sidecars",
+        "related_errors": [
+            "SIDECAR_KEY_MISSING"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red"
+                            },
+                            "Levels": {
+                                "face": "A face",
+                                "HED": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red"
+                            },
+                            "extra": {
+                                "inner": {
+                                    "HED": "Blue"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Red"
+                            },
+                            "Levels": {
+                                "face": "A face"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red"
+                                },
+                                "Levels": {
+                                    "face": "A face",
+                                    "HED": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red"
+                                },
+                                "Levels": {
+                                    "face": "A face"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
                             ]
                         ]
                     }
@@ -14017,6 +14890,119 @@
                                 0,
                                 "show",
                                 "Yellow"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-column-name-with-period",
+        "description": "A curly-brace reference to a column whose name has a period is substituted, and the result repeats a tag.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Repeating a tag in a group and in the annotation substituted into it"
+        ],
+        "explanation": "A reference such as {my.col} is replaced by the annotation of the my.col column when the row is assembled, whatever characters the column name contains. Here (Red, {my.col}) with my.col value x annotated as Red assembles to (Red, Red), which repeats Red in one group. A validator that does not substitute the reference misses the repeat.",
+        "correction_strategy": "Remove the tag from the group or from the referenced annotation",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"(Red, {my.col})\" and my.col x -> \"Red\"",
+                "correct": "face -> \"(Red, {my.col})\" and my.col x -> \"Blue\"",
+                "explanation": "The assembled group (Red, Blue) has no repeat"
+            }
+        ],
+        "correction_patterns": [
+            "Check the assembled annotation, after every curly-brace reference is substituted"
+        ],
+        "fix_instructions": [
+            "1. Assemble the row, substituting each referenced column",
+            "2. Look for tags repeated within a group"
+        ],
+        "validation_hints": [
+            "The same sidecar passes for a row whose my.col value is annotated Blue"
+        ],
+        "specification_reference": "3.2.7.4. Repeated expressions",
+        "related_errors": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {my.col})"
+                                }
+                            },
+                            "my.col": {
+                                "HED": {
+                                    "x": "Red",
+                                    "y": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "my.col"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "x"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {my.col})"
+                                }
+                            },
+                            "my.col": {
+                                "HED": {
+                                    "x": "Red",
+                                    "y": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "my.col"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "y"
                             ]
                         ]
                     }
@@ -26101,6 +27087,156 @@
             "combo_tests": {
                 "fails": [],
                 "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [
+            "VALUE_INVALID"
+        ],
+        "name": "units-invalid-def-value-units",
+        "description": "A Def value carries units although the definition's placeholder already has them.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Giving units in the Def value when the definition supplies them"
+        ],
+        "explanation": "The value of Def/Freq/3 kHz replaces the # in (Frequency/# Hz), giving Frequency/3 kHz Hz, which has two units. A validator may report this as VALUE_INVALID, as the substituted value is not valid.",
+        "correction_strategy": "Give only the number in the Def value",
+        "correction_examples": [
+            {
+                "wrong": "Def/Freq/3 kHz",
+                "correct": "Def/Freq/3",
+                "explanation": "The definition supplies Hz"
+            }
+        ],
+        "correction_patterns": [
+            "Substitute the Def value into the definition and check the result"
+        ],
+        "fix_instructions": [
+            "1. Find the definition's placeholder",
+            "2. If it has units, give the Def value without units"
+        ],
+        "validation_hints": [
+            "Check the substituted tag, not only the Def value"
+        ],
+        "specification_reference": "3.2.4. Tags that take values",
+        "related_errors": [
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Freq/#, (Frequency/# Hz))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Def/Freq/3 kHz"
+                ],
+                "passes": [
+                    "Def/Freq/3"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Def/Freq/3 kHz",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Def/Freq/3",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Def/Freq/3 kHz"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Def/Freq/3"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Def/Freq/3 kHz"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Def/Freq/3"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ]
             }
         }
     },

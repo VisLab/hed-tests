@@ -1106,5 +1106,155 @@
                 "passes": []
             }
         }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [
+            "VALUE_INVALID"
+        ],
+        "name": "units-invalid-def-value-units",
+        "description": "A Def value carries units although the definition's placeholder already has them.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Giving units in the Def value when the definition supplies them"
+        ],
+        "explanation": "The value of Def/Freq/3 kHz replaces the # in (Frequency/# Hz), giving Frequency/3 kHz Hz, which has two units. A validator may report this as VALUE_INVALID, as the substituted value is not valid.",
+        "correction_strategy": "Give only the number in the Def value",
+        "correction_examples": [
+            {
+                "wrong": "Def/Freq/3 kHz",
+                "correct": "Def/Freq/3",
+                "explanation": "The definition supplies Hz"
+            }
+        ],
+        "correction_patterns": [
+            "Substitute the Def value into the definition and check the result"
+        ],
+        "fix_instructions": [
+            "1. Find the definition's placeholder",
+            "2. If it has units, give the Def value without units"
+        ],
+        "validation_hints": [
+            "Check the substituted tag, not only the Def value"
+        ],
+        "specification_reference": "3.2.4. Tags that take values",
+        "related_errors": [
+            "VALUE_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Freq/#, (Frequency/# Hz))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Def/Freq/3 kHz"
+                ],
+                "passes": [
+                    "Def/Freq/3"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Def/Freq/3 kHz",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Def/Freq/3",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Def/Freq/3 kHz"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Def/Freq/3"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Def/Freq/3 kHz"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Def/Freq/3"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

@@ -523,5 +523,218 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "PARENTHESES_MISMATCH",
+        "alt_codes": [
+            "COMMA_MISSING"
+        ],
+        "name": "parentheses-mismatch-equal-count-wrong-order",
+        "description": "A HED string has as many open as closed parentheses, but a closing parenthesis comes before its opening one.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "syntax",
+        "common_causes": [
+            "Moving a parenthesis to the wrong side of a tag when editing",
+            "Checking only that the counts are equal"
+        ],
+        "explanation": "Parentheses must nest: reading from the left, the number of closing parentheses may never exceed the number of opening ones. Equal totals are not enough. A validator that checks commas first may report the `)(` as COMMA_MISSING instead.",
+        "correction_strategy": "Move each closing parenthesis after the opening one it matches",
+        "correction_examples": [
+            {
+                "wrong": "(Red)), ((Blue)",
+                "correct": "(Red), (Blue)",
+                "explanation": "The second closing parenthesis belongs after Blue"
+            },
+            {
+                "wrong": ")(Red)(",
+                "correct": "(Red)",
+                "explanation": "The stray parentheses on both sides are removed"
+            }
+        ],
+        "correction_patterns": [
+            "Scan left to right keeping a depth count; it must never go below zero",
+            "The depth must end at zero"
+        ],
+        "fix_instructions": [
+            "1. Count the depth from the left",
+            "2. Find where it first goes below zero",
+            "3. Move or remove that parenthesis"
+        ],
+        "validation_hints": [
+            "An equal number of ( and ) does not mean the string is balanced"
+        ],
+        "specification_reference": "3.2.2. Tag group structure",
+        "related_errors": [
+            "COMMA_MISSING",
+            "TAG_GROUP_ERROR"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Red)), ((Blue)",
+                    ")(Red)("
+                ],
+                "passes": [
+                    "(Red), (Blue)"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red)), ((Blue)",
+                                "ball": "Green"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": ")(Red)(",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red), (Blue)",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Red)), ((Blue)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            ")(Red)("
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Red), (Blue)"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red)), ((Blue)",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Yellow"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Red",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                ")(Red)("
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red), (Blue)",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Yellow"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                "(Yellow), (Blue)"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

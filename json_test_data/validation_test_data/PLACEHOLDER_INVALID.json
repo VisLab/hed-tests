@@ -1119,5 +1119,145 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "PLACEHOLDER_INVALID",
+        "alt_codes": [
+            "VALUE_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "name": "placeholder-invalid-not-whole-value",
+        "description": "In a sidecar value entry the placeholder (#) is not the whole value directly after a slash.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "count",
+        "common_causes": [
+            "Writing a prefix or suffix next to the # (Label/x#, Label/#x)",
+            "Expecting # to be replaced inside a word"
+        ],
+        "explanation": "The placeholder stands for the whole value of its tag, so it must come directly after the slash and nothing may follow it but units. Here the value x# or #x also breaks Label's name value class, so a validator may report the error as VALUE_INVALID or CHARACTER_INVALID instead.",
+        "correction_strategy": "Make the # the whole value; put any fixed text in another tag",
+        "correction_examples": [
+            {
+                "wrong": "Label/x#",
+                "correct": "Label/#",
+                "explanation": "The placeholder is the whole value"
+            },
+            {
+                "wrong": "Label/#x",
+                "correct": "Label/#",
+                "explanation": "Nothing follows the placeholder"
+            }
+        ],
+        "correction_patterns": [
+            "A placeholder is replaced by the whole column value",
+            "Only units may follow the #, after a blank"
+        ],
+        "fix_instructions": [
+            "1. Find each # in the value entry",
+            "2. Remove any characters between the slash and the # or after it"
+        ],
+        "validation_hints": [
+            "Check the template itself, not only the substituted string: Label/#x with value 5 gives a valid Label/5x"
+        ],
+        "specification_reference": "3.2.9. Value column placeholder requirements",
+        "related_errors": [
+            "VALUE_INVALID",
+            "CHARACTER_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "rt": {
+                            "HED": "Label/x#"
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": "Label/#x"
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "rt": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "Label/x#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "Label/#x"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "rt": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]
