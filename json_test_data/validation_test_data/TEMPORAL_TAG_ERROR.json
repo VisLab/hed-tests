@@ -3422,7 +3422,7 @@
                 "explanation": "Duration needs a time value"
             }
         ],
-        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rules 1, 3 and 4); Appendix B TEMPORAL_TAG_ERROR a, b, k; Appendix B TAG_REQUIRES_CHILD b",
+        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rules 1, 3 and 4); Appendix B TEMPORAL_TAG_ERROR a, b, k; Appendix B TAG_REQUIRES_CHILD b; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "TAG_GROUP_ERROR",
@@ -3571,7 +3571,7 @@
                 "explanation": "Later schemas give minute a conversionFactor"
             }
         ],
-        "specification_reference": "3.2.8.4 Duration and Delay; Appendix B TEMPORAL_TAG_ERROR n",
+        "specification_reference": "3.2.8.4 Duration and Delay; Appendix B TEMPORAL_TAG_ERROR n; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"

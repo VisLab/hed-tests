@@ -547,7 +547,7 @@
             "Consider upgrading to HED 8.3.0+ for better character support",
             "Use only basic ASCII characters for maximum compatibility"
         ],
-        "specification_reference": "2.2. Character sets and schema versioning",
+        "specification_reference": "2.2. Character sets and schema versioning; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TAG_INVALID",
             "VALUE_INVALID",
@@ -1221,7 +1221,7 @@
             "The 8.0.0 to 8.2.0 schemas declare an explicit character list for textClass; validators apply text instead, as the specification records",
             "Parentheses, the number sign, and the tilde are structural characters: a validator may report PARENTHESES_MISMATCH or PLACEHOLDER_INVALID for them, and from 8.5.0 value-text excludes them"
         ],
-        "specification_reference": "A.1.3. Value classes",
+        "specification_reference": "A.1.3. Value classes; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TAG_INVALID",
             "VALUE_INVALID"
@@ -3543,7 +3543,7 @@
                 "explanation": "Write the Duration where the definition is used"
             }
         ],
-        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags; Appendix B DEFINITION_INVALID d",
+        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags; Appendix B DEFINITION_INVALID d; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "DEFINITION_INVALID",
             "TEMPORAL_TAG_ERROR"
@@ -20103,7 +20103,7 @@
                 "explanation": "Added the delay"
             }
         ],
-        "specification_reference": "3.2.8. Reserved tags (table column Value); Appendix A.6 (requireValue); Appendix B TAG_REQUIRES_CHILD b",
+        "specification_reference": "3.2.8. Reserved tags (table column Value); Appendix A.6 (requireValue); Appendix B TAG_REQUIRES_CHILD b; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TAG_REQUIRES_CHILD",
             "TEMPORAL_TAG_ERROR"
@@ -23610,7 +23610,7 @@
                 "explanation": "Duration needs a time value"
             }
         ],
-        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rules 1, 3 and 4); Appendix B TEMPORAL_TAG_ERROR a, b, k; Appendix B TAG_REQUIRES_CHILD b",
+        "specification_reference": "3.2.8. Reserved tags (table rows Delay and Duration; rules 1, 3 and 4); Appendix B TEMPORAL_TAG_ERROR a, b, k; Appendix B TAG_REQUIRES_CHILD b; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "TAG_GROUP_ERROR",
@@ -23759,7 +23759,7 @@
                 "explanation": "Later schemas give minute a conversionFactor"
             }
         ],
-        "specification_reference": "3.2.8.4 Duration and Delay; Appendix B TEMPORAL_TAG_ERROR n",
+        "specification_reference": "3.2.8.4 Duration and Delay; Appendix B TEMPORAL_TAG_ERROR n; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TEMPORAL_TAG_ERROR",
             "UNITS_INVALID"

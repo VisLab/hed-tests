@@ -227,7 +227,7 @@
                 "explanation": "Added the delay"
             }
         ],
-        "specification_reference": "3.2.8. Reserved tags (table column Value); Appendix A.6 (requireValue); Appendix B TAG_REQUIRES_CHILD b",
+        "specification_reference": "3.2.8. Reserved tags (table column Value); Appendix A.6 (requireValue); Appendix B TAG_REQUIRES_CHILD b; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "TAG_REQUIRES_CHILD",
             "TEMPORAL_TAG_ERROR"
