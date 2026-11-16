@@ -1799,7 +1799,7 @@
                 "explanation": "Write the Duration where the definition is used"
             }
         ],
-        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags; Appendix B DEFINITION_INVALID d",
+        "specification_reference": "3.2.8.1. The Definition tag; 3.2.8. Reserved tags; Appendix B DEFINITION_INVALID d; Appendix B.3. Differences for earlier schema versions",
         "related_errors": [
             "DEFINITION_INVALID",
             "TEMPORAL_TAG_ERROR"
