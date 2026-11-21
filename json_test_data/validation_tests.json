@@ -25510,13 +25510,14 @@
         "error_category": "temporal_logic",
         "common_causes": [
             "Multiple Onset/Offset tags with same definition in single event",
+            "Forgetting that a Delay moves a group in time, so two rows with different onsets can still coincide (0.0 s with Delay/2 s and 2.0 s)",
             "Duplicate delayed temporal boundaries for same definition",
             "Misunderstanding temporal tag uniqueness requirements",
             "Incorrect event-level temporal tag organization",
             "Over-specification of delayed temporal relationships"
         ],
-        "explanation": "Each definition can have at most one Onset or Offset tag per event in delayed contexts. Multiple temporal tags with the same anchor create ambiguous temporal boundaries.",
-        "correction_strategy": "Remove duplicate temporal tags with same definition",
+        "explanation": "The time of a group is the time of its row plus the value of any Delay in the group. Two Onset, Offset or Inset groups with the same anchor cannot occur at the same time, whether they are in one row or in different rows: an Onset at 0.0 s with Delay/2 s and an Onset at 2.0 s both occur at 2 s. Groups at the same row onset are fine when their delayed times differ.",
+        "correction_strategy": "Remove the duplicate temporal tag with the same definition, or change the row onset or the Delay so that the groups occur at different times",
         "correction_examples": [
             {
                 "wrong": "(Delay/5.0 s, Def/MyColor, Onset), (Delay/5.0 s, Def/MyColor, Onset)",
@@ -25527,10 +25528,15 @@
                 "wrong": "(Delay/5.0 s, Def/MyColor, Offset), (Delay/5.0 s, Def/MyColor, Offset)",
                 "correct": "(Delay/5.0 s, Def/MyColor, Offset)",
                 "explanation": "Eliminated duplicate Offset temporal tags"
+            },
+            {
+                "wrong": "row at 0.0: (Def/MyColor, Onset, Delay/2 s); row at 2.0: (Def/MyColor, Onset)",
+                "correct": "row at 0.0: (Def/MyColor, Onset, Delay/2 s); row at 3.0: (Def/MyColor, Onset)",
+                "explanation": "Both groups occurred at 2 s after the Delay was added to the first row onset; moving the second row makes the times differ"
             }
         ],
         "correction_patterns": [
-            "Ensure unique temporal tags per definition per event",
+            "Ensure no two Onset/Offset/Inset groups with the same anchor occur at the same time (row onset plus any Delay)",
             "Remove duplicate Onset/Offset tags",
             "Consolidate temporal information for same definition",
             "Maintain temporal tag uniqueness in delayed contexts"
@@ -25538,12 +25544,12 @@
         "fix_instructions": [
             "1. Identify duplicate temporal tags with same definition",
             "2. Remove redundant Onset/Offset instances",
-            "3. Keep single temporal tag per definition per event",
+            "3. Compute the time of each group as its row onset plus any Delay, and give groups with the same anchor different times",
             "4. Verify temporal uniqueness requirements",
             "5. Check delayed context organization rules"
         ],
         "validation_hints": [
-            "Each definition gets one temporal tag per event",
+            "Compare row onset plus Delay for every Onset/Offset/Inset group with the same anchor, across rows as well as within one row",
             "Look for duplicate Onset/Offset with same anchor",
             "Check temporal tag uniqueness requirements",
             "Verify delayed context temporal organization"
@@ -27223,10 +27229,10 @@
         "common_causes": [
             "Adding s to a unit symbol (mss, Hzs)",
             "Adding s to a unit whose plural is itself (hertzs)",
-            "Using an irregular plural incorrectly (foots instead of feet)"
+            "Guessing a plural instead of using the listed one (foots instead of feet)"
         ],
-        "explanation": "Unit names such as second or foot may be written in the plural (seconds, feet) because tools apply a standard pluralizer. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
-        "correction_strategy": "Use the singular symbol, or the standard plural of the unit name",
+        "explanation": "Unit names such as second or foot may be written in the plural that the unit plurals file of the specification lists for them (seconds, feet); no plural is derived by a rule. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
+        "correction_strategy": "Use the singular symbol, or the plural that the specification lists for the unit name",
         "correction_examples": [
             {
                 "wrong": "Frequency/3 hertzs",
@@ -27246,18 +27252,18 @@
         ],
         "correction_patterns": [
             "Never pluralize a symbol",
-            "Use the dictionary plural of a unit name",
+            "Use the plural that the unit plurals file lists for a unit name",
             "When unsure, use the singular form"
         ],
         "fix_instructions": [
             "1. Check whether the unit is a symbol (short abbreviation such as ms, Hz, km) or a name (second, foot, hertz)",
             "2. For a symbol, remove any trailing s",
-            "3. For a name, use its standard English plural or the singular"
+            "3. For a name, use the plural that the unit plurals file of the specification lists for it, or the singular"
         ],
         "validation_hints": [
             "Symbols match only their exact string",
-            "Names match their singular and pluralizer plural",
-            "hertz is uncountable"
+            "Names match their singular and the one plural listed for them",
+            "hertz is its own listed plural"
         ],
         "specification_reference": "3.1.4.4. Unit classes and units",
         "related_errors": [
@@ -27418,7 +27424,7 @@
             "Adding s or es to a unit name that has an irregular or compound plural (foots, inchs, degree-Celsiuses)",
             "Adding s to a unit name whose plural is itself (kilohertzs)",
             "Pluralizing a unit name that the schema in use does not define (Volts in schema 8.5.0 is not a unit)",
-            "Putting the plural ending on the unit name instead of on its last part (millidegree-Celsiuses)"
+            "Adding an ending to the last component of a compound name instead of using the listed plural (millidegree-Celsiuses adds es to Celsius; the listed plural pluralizes degree: millidegrees-Celsius)"
         ],
         "explanation": "No plural is derived by a rule. The plural of a unit name is the one the unit plurals file of the HED specification lists for it: feet for foot, inches for inch, degrees-Celsius for degree-Celsius, and hertz for hertz. A unit name with an SI unit modifier takes the modifier followed by the listed plural (millidegrees-Celsius, kilohertz). A string that is not the listed plural of a unit name of the schema in use is not a valid unit.",
         "correction_strategy": "Use the singular unit name or the plural that the specification lists for it; with an SI unit modifier, put the modifier before the listed plural",

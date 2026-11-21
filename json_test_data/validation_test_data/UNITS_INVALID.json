@@ -608,10 +608,10 @@
         "common_causes": [
             "Adding s to a unit symbol (mss, Hzs)",
             "Adding s to a unit whose plural is itself (hertzs)",
-            "Using an irregular plural incorrectly (foots instead of feet)"
+            "Guessing a plural instead of using the listed one (foots instead of feet)"
         ],
-        "explanation": "Unit names such as second or foot may be written in the plural (seconds, feet) because tools apply a standard pluralizer. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
-        "correction_strategy": "Use the singular symbol, or the standard plural of the unit name",
+        "explanation": "Unit names such as second or foot may be written in the plural that the unit plurals file of the specification lists for them (seconds, feet); no plural is derived by a rule. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
+        "correction_strategy": "Use the singular symbol, or the plural that the specification lists for the unit name",
         "correction_examples": [
             {
                 "wrong": "Frequency/3 hertzs",
@@ -631,18 +631,18 @@
         ],
         "correction_patterns": [
             "Never pluralize a symbol",
-            "Use the dictionary plural of a unit name",
+            "Use the plural that the unit plurals file lists for a unit name",
             "When unsure, use the singular form"
         ],
         "fix_instructions": [
             "1. Check whether the unit is a symbol (short abbreviation such as ms, Hz, km) or a name (second, foot, hertz)",
             "2. For a symbol, remove any trailing s",
-            "3. For a name, use its standard English plural or the singular"
+            "3. For a name, use the plural that the unit plurals file of the specification lists for it, or the singular"
         ],
         "validation_hints": [
             "Symbols match only their exact string",
-            "Names match their singular and pluralizer plural",
-            "hertz is uncountable"
+            "Names match their singular and the one plural listed for them",
+            "hertz is its own listed plural"
         ],
         "specification_reference": "3.1.4.4. Unit classes and units",
         "related_errors": [
@@ -803,7 +803,7 @@
             "Adding s or es to a unit name that has an irregular or compound plural (foots, inchs, degree-Celsiuses)",
             "Adding s to a unit name whose plural is itself (kilohertzs)",
             "Pluralizing a unit name that the schema in use does not define (Volts in schema 8.5.0 is not a unit)",
-            "Putting the plural ending on the unit name instead of on its last part (millidegree-Celsiuses)"
+            "Adding an ending to the last component of a compound name instead of using the listed plural (millidegree-Celsiuses adds es to Celsius; the listed plural pluralizes degree: millidegrees-Celsius)"
         ],
         "explanation": "No plural is derived by a rule. The plural of a unit name is the one the unit plurals file of the HED specification lists for it: feet for foot, inches for inch, degrees-Celsius for degree-Celsius, and hertz for hertz. A unit name with an SI unit modifier takes the modifier followed by the listed plural (millidegrees-Celsius, kilohertz). A string that is not the listed plural of a unit name of the schema in use is not a valid unit.",
         "correction_strategy": "Use the singular unit name or the plural that the specification lists for it; with an SI unit modifier, put the modifier before the listed plural",

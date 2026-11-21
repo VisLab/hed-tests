@@ -1567,13 +1567,14 @@
         "error_category": "temporal_logic",
         "common_causes": [
             "Multiple Onset/Offset tags with same definition in single event",
+            "Forgetting that a Delay moves a group in time, so two rows with different onsets can still coincide (0.0 s with Delay/2 s and 2.0 s)",
             "Duplicate delayed temporal boundaries for same definition",
             "Misunderstanding temporal tag uniqueness requirements",
             "Incorrect event-level temporal tag organization",
             "Over-specification of delayed temporal relationships"
         ],
-        "explanation": "Each definition can have at most one Onset or Offset tag per event in delayed contexts. Multiple temporal tags with the same anchor create ambiguous temporal boundaries.",
-        "correction_strategy": "Remove duplicate temporal tags with same definition",
+        "explanation": "The time of a group is the time of its row plus the value of any Delay in the group. Two Onset, Offset or Inset groups with the same anchor cannot occur at the same time, whether they are in one row or in different rows: an Onset at 0.0 s with Delay/2 s and an Onset at 2.0 s both occur at 2 s. Groups at the same row onset are fine when their delayed times differ.",
+        "correction_strategy": "Remove the duplicate temporal tag with the same definition, or change the row onset or the Delay so that the groups occur at different times",
         "correction_examples": [
             {
                 "wrong": "(Delay/5.0 s, Def/MyColor, Onset), (Delay/5.0 s, Def/MyColor, Onset)",
@@ -1584,10 +1585,15 @@
                 "wrong": "(Delay/5.0 s, Def/MyColor, Offset), (Delay/5.0 s, Def/MyColor, Offset)",
                 "correct": "(Delay/5.0 s, Def/MyColor, Offset)",
                 "explanation": "Eliminated duplicate Offset temporal tags"
+            },
+            {
+                "wrong": "row at 0.0: (Def/MyColor, Onset, Delay/2 s); row at 2.0: (Def/MyColor, Onset)",
+                "correct": "row at 0.0: (Def/MyColor, Onset, Delay/2 s); row at 3.0: (Def/MyColor, Onset)",
+                "explanation": "Both groups occurred at 2 s after the Delay was added to the first row onset; moving the second row makes the times differ"
             }
         ],
         "correction_patterns": [
-            "Ensure unique temporal tags per definition per event",
+            "Ensure no two Onset/Offset/Inset groups with the same anchor occur at the same time (row onset plus any Delay)",
             "Remove duplicate Onset/Offset tags",
             "Consolidate temporal information for same definition",
             "Maintain temporal tag uniqueness in delayed contexts"
@@ -1595,12 +1601,12 @@
         "fix_instructions": [
             "1. Identify duplicate temporal tags with same definition",
             "2. Remove redundant Onset/Offset instances",
-            "3. Keep single temporal tag per definition per event",
+            "3. Compute the time of each group as its row onset plus any Delay, and give groups with the same anchor different times",
             "4. Verify temporal uniqueness requirements",
             "5. Check delayed context organization rules"
         ],
         "validation_hints": [
-            "Each definition gets one temporal tag per event",
+            "Compare row onset plus Delay for every Onset/Offset/Inset group with the same anchor, across rows as well as within one row",
             "Look for duplicate Onset/Offset with same anchor",
             "Check temporal tag uniqueness requirements",
             "Verify delayed context temporal organization"
