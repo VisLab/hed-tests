@@ -237,6 +237,12 @@
     "two-standard-versions-in-same-merge-group": [
         "SCHEMA_LOAD_FAILED"
     ],
+    "same-standard-version-twice-in-merge-group": [
+        "SCHEMA_LOAD_FAILED"
+    ],
+    "prefixed-standard-version-twice-in-merge-group": [
+        "SCHEMA_LOAD_FAILED"
+    ],
     "unpartnered-library-in-shared-namespace": [
         "SCHEMA_LOAD_FAILED"
     ],
@@ -632,6 +638,9 @@
         "UNITS_INVALID"
     ],
     "units-invalid-symbol-plural": [
+        "UNITS_INVALID"
+    ],
+    "units-invalid-plural-not-listed": [
         "UNITS_INVALID"
     ],
     "units-invalid-compound-units": [

@@ -8790,7 +8790,7 @@
             "8.5.0"
         ],
         "error_category": "schema",
-        "explanation": "A merge group resolves to exactly one standard schema partner. Listing two different bare standard schema versions in the unprefixed group gives the group two conflicting partners, so the load fails.",
+        "explanation": "A merge group resolves to exactly one standard schema partner. A standard schema cannot be listed twice in the same merge group, in the same or in different versions; listing two different bare standard schema versions in the unprefixed group makes the load fail.",
         "common_causes": [
             "Concatenating version specifications from two datasets",
             "Trying to validate against two standard versions at once",
@@ -8819,6 +8819,96 @@
                 "fails": [
                     "Red",
                     "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "same-standard-version-twice-in-merge-group",
+        "description": "The same standard schema version cannot be listed twice in the same merge group.",
+        "warning": false,
+        "schema": [
+            "8.5.0",
+            "8.5.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A schema is listed once in a merge group. An exact duplicate of a standard schema fails the load just as two different versions of it do.",
+        "common_causes": [
+            "Concatenating version specifications from two datasets that use the same standard version",
+            "Repeating the standard version when adding a library schema to an existing specification",
+            "Copy-and-paste error in a version list"
+        ],
+        "correction_strategy": "List the standard schema once per namespace; remove the duplicate.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.5.0\", \"8.5.0\"]",
+                "correct": "[\"8.5.0\"]",
+                "explanation": "A repeated standard version adds nothing; keep one."
+            },
+            {
+                "wrong": "[\"8.5.0\", \"8.5.0\"]",
+                "correct": "[\"8.5.0\", \"other:8.5.0\"]",
+                "explanation": "If the same version is genuinely needed twice, put the second in its own namespace and prefix its tags with other: in annotations."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "prefixed-standard-version-twice-in-merge-group",
+        "description": "The same standard schema version cannot be listed twice in the same prefixed merge group.",
+        "warning": false,
+        "schema": [
+            "ts:8.5.0",
+            "ts:8.5.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A schema is listed once in a merge group, and a namespace prefix does not change that: both entries are in the ts: group. An exact duplicate of a standard schema fails the load just as two different versions of it do.",
+        "common_causes": [
+            "Concatenating version specifications that both use the same prefix and standard version",
+            "Repeating the prefixed standard version when adding a library schema to an existing specification",
+            "Copy-and-paste error in a version list"
+        ],
+        "correction_strategy": "List the standard schema once per namespace; remove the duplicate.",
+        "correction_examples": [
+            {
+                "wrong": "[\"ts:8.5.0\", \"ts:8.5.0\"]",
+                "correct": "[\"ts:8.5.0\"]",
+                "explanation": "A repeated standard version adds nothing; keep one."
+            },
+            {
+                "wrong": "[\"ts:8.5.0\", \"ts:8.5.0\"]",
+                "correct": "[\"ts:8.5.0\", \"other:8.5.0\"]",
+                "explanation": "If the same version is genuinely needed twice, put the second in a different namespace and prefix its tags with other: in annotations."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": [
+            "SCHEMA_VERSION_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Red",
+                    "ts:Blue"
                 ],
                 "passes": []
             }
@@ -25415,18 +25505,19 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-duplicated-onset-or-offset-delay",
-        "description": "An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.",
+        "description": "An Onset or an Offset with a given Def or Def-expand anchor occurs at the same time (the time of its row plus any Delay) as another Onset or Offset that uses the same anchor.",
         "schema": "8.3.0",
         "error_category": "temporal_logic",
         "common_causes": [
             "Multiple Onset/Offset tags with same definition in single event",
+            "Forgetting that a Delay moves a group in time, so two rows with different onsets can still coincide (0.0 s with Delay/2 s and 2.0 s)",
             "Duplicate delayed temporal boundaries for same definition",
             "Misunderstanding temporal tag uniqueness requirements",
             "Incorrect event-level temporal tag organization",
             "Over-specification of delayed temporal relationships"
         ],
-        "explanation": "Each definition can have at most one Onset or Offset tag per event in delayed contexts. Multiple temporal tags with the same anchor create ambiguous temporal boundaries.",
-        "correction_strategy": "Remove duplicate temporal tags with same definition",
+        "explanation": "The time of a group is the time of its row plus the value of any Delay in the group. Two Onset, Offset or Inset groups with the same anchor cannot occur at the same time, whether they are in one row or in different rows: an Onset at 0.0 s with Delay/2 s and an Onset at 2.0 s both occur at 2 s. Groups at the same row onset are fine when their delayed times differ.",
+        "correction_strategy": "Remove the duplicate temporal tag with the same definition, or change the row onset or the Delay so that the groups occur at different times",
         "correction_examples": [
             {
                 "wrong": "(Delay/5.0 s, Def/MyColor, Onset), (Delay/5.0 s, Def/MyColor, Onset)",
@@ -25437,10 +25528,15 @@
                 "wrong": "(Delay/5.0 s, Def/MyColor, Offset), (Delay/5.0 s, Def/MyColor, Offset)",
                 "correct": "(Delay/5.0 s, Def/MyColor, Offset)",
                 "explanation": "Eliminated duplicate Offset temporal tags"
+            },
+            {
+                "wrong": "row at 0.0: (Def/MyColor, Onset, Delay/2 s); row at 2.0: (Def/MyColor, Onset)",
+                "correct": "row at 0.0: (Def/MyColor, Onset, Delay/2 s); row at 3.0: (Def/MyColor, Onset)",
+                "explanation": "Both groups occurred at 2 s after the Delay was added to the first row onset; moving the second row makes the times differ"
             }
         ],
         "correction_patterns": [
-            "Ensure unique temporal tags per definition per event",
+            "Ensure no two Onset/Offset/Inset groups with the same anchor occur at the same time (row onset plus any Delay)",
             "Remove duplicate Onset/Offset tags",
             "Consolidate temporal information for same definition",
             "Maintain temporal tag uniqueness in delayed contexts"
@@ -25448,12 +25544,12 @@
         "fix_instructions": [
             "1. Identify duplicate temporal tags with same definition",
             "2. Remove redundant Onset/Offset instances",
-            "3. Keep single temporal tag per definition per event",
+            "3. Compute the time of each group as its row onset plus any Delay, and give groups with the same anchor different times",
             "4. Verify temporal uniqueness requirements",
             "5. Check delayed context organization rules"
         ],
         "validation_hints": [
-            "Each definition gets one temporal tag per event",
+            "Compare row onset plus Delay for every Onset/Offset/Inset group with the same anchor, across rows as well as within one row",
             "Look for duplicate Onset/Offset with same anchor",
             "Check temporal tag uniqueness requirements",
             "Verify delayed context temporal organization"
@@ -25572,6 +25668,36 @@
                                 "(Delay/5.0 s, Def/MyColor, Offset)"
                             ]
                         ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Blue",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "face",
+                                "(Def/MyColor, Onset, Delay/2 s)"
+                            ],
+                            [
+                                2.0,
+                                0,
+                                "ball",
+                                "(Def/MyColor, Onset)"
+                            ]
+                        ]
                     }
                 ],
                 "passes": [
@@ -25602,6 +25728,66 @@
                                 0,
                                 "ball",
                                 "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Blue",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "face",
+                                "(Def/MyColor, Onset, Delay/2 s)"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "ball",
+                                "(Def/MyColor, Onset)"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Blue",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "face",
+                                "(Def/MyColor, Onset)"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "ball",
+                                "(Def/MyColor, Offset, Delay/1 s)"
                             ]
                         ]
                     }
@@ -27036,17 +27222,17 @@
         "error_code": "UNITS_INVALID",
         "alt_codes": [],
         "name": "units-invalid-symbol-plural",
-        "description": "A unit symbol cannot be pluralized, and a unit name accepts only its standard English plural.",
+        "description": "A unit symbol cannot be pluralized, and a unit name accepts only the plural that the specification lists for it.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "validation",
         "common_causes": [
             "Adding s to a unit symbol (mss, Hzs)",
             "Adding s to a unit whose plural is itself (hertzs)",
-            "Using an irregular plural incorrectly (foots instead of feet)"
+            "Guessing a plural instead of using the listed one (foots instead of feet)"
         ],
-        "explanation": "Unit names such as second or foot may be written in the plural (seconds, feet) because tools apply a standard pluralizer. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
-        "correction_strategy": "Use the singular symbol, or the standard plural of the unit name",
+        "explanation": "Unit names such as second or foot may be written in the plural that the unit plurals file of the specification lists for them (seconds, feet); no plural is derived by a rule. Unit symbols such as ms and Hz are abbreviations that already stand for singular and plural and take no s. Hertz is its own plural.",
+        "correction_strategy": "Use the singular symbol, or the plural that the specification lists for the unit name",
         "correction_examples": [
             {
                 "wrong": "Frequency/3 hertzs",
@@ -27066,18 +27252,18 @@
         ],
         "correction_patterns": [
             "Never pluralize a symbol",
-            "Use the dictionary plural of a unit name",
+            "Use the plural that the unit plurals file lists for a unit name",
             "When unsure, use the singular form"
         ],
         "fix_instructions": [
             "1. Check whether the unit is a symbol (short abbreviation such as ms, Hz, km) or a name (second, foot, hertz)",
             "2. For a symbol, remove any trailing s",
-            "3. For a name, use its standard English plural or the singular"
+            "3. For a name, use the plural that the unit plurals file of the specification lists for it, or the singular"
         ],
         "validation_hints": [
             "Symbols match only their exact string",
-            "Names match their singular and pluralizer plural",
-            "hertz is uncountable"
+            "Names match their singular and the one plural listed for them",
+            "hertz is its own listed plural"
         ],
         "specification_reference": "3.1.4.4. Unit classes and units",
         "related_errors": [
@@ -27222,6 +27408,97 @@
                             ]
                         ]
                     }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-plural-not-listed",
+        "description": "The plural of a unit name is the one that the unit plurals file of the specification lists for it; a unit name with an SI unit modifier takes the modifier followed by that plural, and no other plural is valid.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Adding s or es to a unit name that has an irregular or compound plural (foots, inchs, degree-Celsiuses)",
+            "Adding s to a unit name whose plural is itself (kilohertzs)",
+            "Pluralizing a unit name that the schema in use does not define (Volts in schema 8.5.0 is not a unit)",
+            "Adding an ending to the last component of a compound name instead of using the listed plural (millidegree-Celsiuses adds es to Celsius; the listed plural pluralizes degree: millidegrees-Celsius)"
+        ],
+        "explanation": "No plural is derived by a rule. The plural of a unit name is the one the unit plurals file of the HED specification lists for it: feet for foot, inches for inch, degrees-Celsius for degree-Celsius, and hertz for hertz. A unit name with an SI unit modifier takes the modifier followed by the listed plural (millidegrees-Celsius, kilohertz). A string that is not the listed plural of a unit name of the schema in use is not a valid unit.",
+        "correction_strategy": "Use the singular unit name or the plural that the specification lists for it; with an SI unit modifier, put the modifier before the listed plural",
+        "correction_examples": [
+            {
+                "wrong": "Quantity/3 degree-Celsiuses",
+                "correct": "Quantity/3 degrees-Celsius",
+                "explanation": "The listed plural of degree-Celsius is degrees-Celsius"
+            },
+            {
+                "wrong": "Quantity/3 millidegree-Celsiuses",
+                "correct": "Quantity/3 millidegrees-Celsius",
+                "explanation": "A modified plural is the modifier followed by the listed plural"
+            },
+            {
+                "wrong": "Quantity/3 foots",
+                "correct": "Quantity/3 feet",
+                "explanation": "The listed plural of foot is feet"
+            },
+            {
+                "wrong": "Quantity/3 inchs",
+                "correct": "Quantity/3 inches",
+                "explanation": "The listed plural of inch is inches"
+            },
+            {
+                "wrong": "Quantity/3 kilohertzs",
+                "correct": "Quantity/3 kilohertz",
+                "explanation": "Hertz is its own plural, so kilohertz is too"
+            },
+            {
+                "wrong": "Quantity/3 Volts",
+                "correct": "Quantity/3 volts",
+                "explanation": "Unit names are case-sensitive and the unit name of schema 8.5.0 is volt, whose plural is volts"
+            }
+        ],
+        "correction_patterns": [
+            "Look up the plural of a unit name in the unit plurals file instead of guessing it",
+            "Put an SI unit modifier before the listed plural",
+            "When unsure, use the singular form"
+        ],
+        "fix_instructions": [
+            "1. Find the singular unit name that the string is a plural of",
+            "2. Check that the schema in use defines that unit name",
+            "3. Replace the string with the plural that the unit plurals file lists for that name, or with the singular",
+            "4. If the string has an SI unit modifier, keep the modifier in front of the listed plural"
+        ],
+        "validation_hints": [
+            "A unit name matches its singular and the one plural listed for it",
+            "A unit name that is not listed has no plural",
+            "An entry of the plurals file applies only if its key is a unit name of the schema in use"
+        ],
+        "specification_reference": "3.1.4.4. Unit classes and units; A.8. Unit plurals file",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Quantity/3 degree-Celsiuses",
+                    "Quantity/3 millidegree-Celsiuses",
+                    "Quantity/3 foots",
+                    "Quantity/3 inchs",
+                    "Quantity/3 kilohertzs",
+                    "Quantity/3 Volts"
+                ],
+                "passes": [
+                    "Quantity/3 degrees-Celsius",
+                    "Quantity/3 millidegrees-Celsius",
+                    "Quantity/3 volts",
+                    "Quantity/3 millimolars",
+                    "Quantity/3 lbs",
+                    "Quantity/3 kilohertz"
                 ]
             }
         }

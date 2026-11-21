@@ -455,7 +455,7 @@
             "8.5.0"
         ],
         "error_category": "schema",
-        "explanation": "A merge group resolves to exactly one standard schema partner. Listing two different bare standard schema versions in the unprefixed group gives the group two conflicting partners, so the load fails.",
+        "explanation": "A merge group resolves to exactly one standard schema partner. A standard schema cannot be listed twice in the same merge group, in the same or in different versions; listing two different bare standard schema versions in the unprefixed group makes the load fail.",
         "common_causes": [
             "Concatenating version specifications from two datasets",
             "Trying to validate against two standard versions at once",
@@ -482,6 +482,92 @@
                 "fails": [
                     "Red",
                     "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "same-standard-version-twice-in-merge-group",
+        "description": "The same standard schema version cannot be listed twice in the same merge group.",
+        "warning": false,
+        "schema": [
+            "8.5.0",
+            "8.5.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A schema is listed once in a merge group. An exact duplicate of a standard schema fails the load just as two different versions of it do.",
+        "common_causes": [
+            "Concatenating version specifications from two datasets that use the same standard version",
+            "Repeating the standard version when adding a library schema to an existing specification",
+            "Copy-and-paste error in a version list"
+        ],
+        "correction_strategy": "List the standard schema once per namespace; remove the duplicate.",
+        "correction_examples": [
+            {
+                "wrong": "[\"8.5.0\", \"8.5.0\"]",
+                "correct": "[\"8.5.0\"]",
+                "explanation": "A repeated standard version adds nothing; keep one."
+            },
+            {
+                "wrong": "[\"8.5.0\", \"8.5.0\"]",
+                "correct": "[\"8.5.0\", \"other:8.5.0\"]",
+                "explanation": "If the same version is genuinely needed twice, put the second in its own namespace and prefix its tags with other: in annotations."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_VERSION_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red",
+                    "Blue"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
+        "name": "prefixed-standard-version-twice-in-merge-group",
+        "description": "The same standard schema version cannot be listed twice in the same prefixed merge group.",
+        "warning": false,
+        "schema": [
+            "ts:8.5.0",
+            "ts:8.5.0"
+        ],
+        "error_category": "schema",
+        "explanation": "A schema is listed once in a merge group, and a namespace prefix does not change that: both entries are in the ts: group. An exact duplicate of a standard schema fails the load just as two different versions of it do.",
+        "common_causes": [
+            "Concatenating version specifications that both use the same prefix and standard version",
+            "Repeating the prefixed standard version when adding a library schema to an existing specification",
+            "Copy-and-paste error in a version list"
+        ],
+        "correction_strategy": "List the standard schema once per namespace; remove the duplicate.",
+        "correction_examples": [
+            {
+                "wrong": "[\"ts:8.5.0\", \"ts:8.5.0\"]",
+                "correct": "[\"ts:8.5.0\"]",
+                "explanation": "A repeated standard version adds nothing; keep one."
+            },
+            {
+                "wrong": "[\"ts:8.5.0\", \"ts:8.5.0\"]",
+                "correct": "[\"ts:8.5.0\", \"other:8.5.0\"]",
+                "explanation": "If the same version is genuinely needed twice, put the second in a different namespace and prefix its tags with other: in annotations."
+            }
+        ],
+        "specification_reference": "3.1.2.4. Partnered combinations; 7.3.6. Lazy partnering",
+        "related_errors": ["SCHEMA_VERSION_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Red",
+                    "ts:Blue"
                 ],
                 "passes": []
             }
