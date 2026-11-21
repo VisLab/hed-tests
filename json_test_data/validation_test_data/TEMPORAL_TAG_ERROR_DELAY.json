@@ -1562,7 +1562,7 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-duplicated-onset-or-offset-delay",
-        "description": "An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.",
+        "description": "An Onset or an Offset with a given Def or Def-expand anchor occurs at the same time (the time of its row plus any Delay) as another Onset or Offset that uses the same anchor.",
         "schema": "8.3.0",
         "error_category": "temporal_logic",
         "common_causes": [
@@ -1719,6 +1719,36 @@
                                 "(Delay/5.0 s, Def/MyColor, Offset)"
                             ]
                         ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Blue",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "face",
+                                "(Def/MyColor, Onset, Delay/2 s)"
+                            ],
+                            [
+                                2.0,
+                                0,
+                                "ball",
+                                "(Def/MyColor, Onset)"
+                            ]
+                        ]
                     }
                 ],
                 "passes": [
@@ -1749,6 +1779,66 @@
                                 0,
                                 "ball",
                                 "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Blue",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "face",
+                                "(Def/MyColor, Onset, Delay/2 s)"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "ball",
+                                "(Def/MyColor, Onset)"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Blue",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "face",
+                                "(Def/MyColor, Onset)"
+                            ],
+                            [
+                                0.0,
+                                0,
+                                "ball",
+                                "(Def/MyColor, Offset, Delay/1 s)"
                             ]
                         ]
                     }

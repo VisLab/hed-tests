@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 251 test cases in the HED test suite.
+Complete index of 254 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -20,7 +20,7 @@ Complete index of 251 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (3 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (23 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (41 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (43 tests)
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
@@ -38,7 +38,7 @@ Complete index of 251 test cases in the HED test suite.
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (2 tests)
 - [TEMPORAL_TAG_ERROR](#temporal-tag-error) (31 tests)
-- [UNITS_INVALID](#units-invalid) (7 tests)
+- [UNITS_INVALID](#units-invalid) (8 tests)
 - [VALUE_INVALID](#value-invalid) (6 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
 
@@ -1591,6 +1591,16 @@ Complete index of 251 test cases in the HED test suite.
 
 - `string_tests`: 0 fail, 2 pass
 
+### prefixed-standard-version-twice-in-merge-group (correction guidance) (examples)
+
+**Description**: The same standard schema version cannot be listed twice in the same prefixed merge group.
+
+**Schema**: ts:8.5.0, ts:8.5.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
+
 ### same-library-two-incompatible-versions (correction guidance) (examples)
 
 **Description**: Two versions of the same library cannot appear in one merge group, even when they differ only by a patch-level change such as a revised element description.
@@ -1620,6 +1630,16 @@ Complete index of 251 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 0 fail, 2 pass
+
+### same-standard-version-twice-in-merge-group (correction guidance) (examples)
+
+**Description**: The same standard schema version cannot be listed twice in the same merge group.
+
+**Schema**: 8.5.0, 8.5.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 2 fail, 0 pass
 
 ### shared-element-compatible-across-libraries (correction guidance) (examples)
 
@@ -2489,13 +2509,13 @@ Complete index of 251 test cases in the HED test suite.
 
 ### temporal-tag-error-duplicated-onset-or-offset-delay (correction guidance) (examples)
 
-**Description**: An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.
+**Description**: An Onset or an Offset with a given Def or Def-expand anchor occurs at the same time (the time of its row plus any Delay) as another Onset or Offset that uses the same anchor.
 
 **Schema**: 8.3.0 **Category**: temporal_logic
 
 **Tests**:
 
-- `combo_tests`: 3 fail, 1 pass
+- `combo_tests`: 4 fail, 3 pass
 
 ### temporal-tag-error-duration-group (correction guidance) (examples)
 
@@ -2853,6 +2873,16 @@ Complete index of 251 test cases in the HED test suite.
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
+### units-invalid-plural-not-listed (correction guidance) (examples)
+
+**Description**: The plural of a unit name is the one that the unit plurals file of the specification lists for it; a unit name with an SI unit modifier takes the modifier followed by that plural, and no other plural is valid.
+
+**Schema**: 8.5.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 6 fail, 6 pass
+
 ### units-invalid-si-units (correction guidance) (examples)
 
 **Description**: A unit modifier is applied to units that are not SI units.
@@ -2868,7 +2898,7 @@ Complete index of 251 test cases in the HED test suite.
 
 ### units-invalid-symbol-plural (correction guidance) (examples)
 
-**Description**: A unit symbol cannot be pluralized, and a unit name accepts only its standard English plural.
+**Description**: A unit symbol cannot be pluralized, and a unit name accepts only the plural that the specification lists for it.
 
 **Schema**: 8.4.0 **Category**: validation
 

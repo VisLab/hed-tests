@@ -601,7 +601,7 @@
         "error_code": "UNITS_INVALID",
         "alt_codes": [],
         "name": "units-invalid-symbol-plural",
-        "description": "A unit symbol cannot be pluralized, and a unit name accepts only its standard English plural.",
+        "description": "A unit symbol cannot be pluralized, and a unit name accepts only the plural that the specification lists for it.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "validation",
@@ -787,6 +787,97 @@
                             ]
                         ]
                     }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "UNITS_INVALID",
+        "alt_codes": [],
+        "name": "units-invalid-plural-not-listed",
+        "description": "The plural of a unit name is the one that the unit plurals file of the specification lists for it; a unit name with an SI unit modifier takes the modifier followed by that plural, and no other plural is valid.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Adding s or es to a unit name that has an irregular or compound plural (foots, inchs, degree-Celsiuses)",
+            "Adding s to a unit name whose plural is itself (kilohertzs)",
+            "Pluralizing a unit name that the schema in use does not define (Volts in schema 8.5.0 is not a unit)",
+            "Putting the plural ending on the unit name instead of on its last part (millidegree-Celsiuses)"
+        ],
+        "explanation": "No plural is derived by a rule. The plural of a unit name is the one the unit plurals file of the HED specification lists for it: feet for foot, inches for inch, degrees-Celsius for degree-Celsius, and hertz for hertz. A unit name with an SI unit modifier takes the modifier followed by the listed plural (millidegrees-Celsius, kilohertz). A string that is not the listed plural of a unit name of the schema in use is not a valid unit.",
+        "correction_strategy": "Use the singular unit name or the plural that the specification lists for it; with an SI unit modifier, put the modifier before the listed plural",
+        "correction_examples": [
+            {
+                "wrong": "Quantity/3 degree-Celsiuses",
+                "correct": "Quantity/3 degrees-Celsius",
+                "explanation": "The listed plural of degree-Celsius is degrees-Celsius"
+            },
+            {
+                "wrong": "Quantity/3 millidegree-Celsiuses",
+                "correct": "Quantity/3 millidegrees-Celsius",
+                "explanation": "A modified plural is the modifier followed by the listed plural"
+            },
+            {
+                "wrong": "Quantity/3 foots",
+                "correct": "Quantity/3 feet",
+                "explanation": "The listed plural of foot is feet"
+            },
+            {
+                "wrong": "Quantity/3 inchs",
+                "correct": "Quantity/3 inches",
+                "explanation": "The listed plural of inch is inches"
+            },
+            {
+                "wrong": "Quantity/3 kilohertzs",
+                "correct": "Quantity/3 kilohertz",
+                "explanation": "Hertz is its own plural, so kilohertz is too"
+            },
+            {
+                "wrong": "Quantity/3 Volts",
+                "correct": "Quantity/3 volts",
+                "explanation": "Unit names are case-sensitive and the unit name of schema 8.5.0 is volt, whose plural is volts"
+            }
+        ],
+        "correction_patterns": [
+            "Look up the plural of a unit name in the unit plurals file instead of guessing it",
+            "Put an SI unit modifier before the listed plural",
+            "When unsure, use the singular form"
+        ],
+        "fix_instructions": [
+            "1. Find the singular unit name that the string is a plural of",
+            "2. Check that the schema in use defines that unit name",
+            "3. Replace the string with the plural that the unit plurals file lists for that name, or with the singular",
+            "4. If the string has an SI unit modifier, keep the modifier in front of the listed plural"
+        ],
+        "validation_hints": [
+            "A unit name matches its singular and the one plural listed for it",
+            "A unit name that is not listed has no plural",
+            "An entry of the plurals file applies only if its key is a unit name of the schema in use"
+        ],
+        "specification_reference": "3.1.4.4. Unit classes and units; A.8. Unit plurals file",
+        "related_errors": [
+            "VALUE_INVALID",
+            "UNITS_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Quantity/3 degree-Celsiuses",
+                    "Quantity/3 millidegree-Celsiuses",
+                    "Quantity/3 foots",
+                    "Quantity/3 inchs",
+                    "Quantity/3 kilohertzs",
+                    "Quantity/3 Volts"
+                ],
+                "passes": [
+                    "Quantity/3 degrees-Celsius",
+                    "Quantity/3 millidegrees-Celsius",
+                    "Quantity/3 volts",
+                    "Quantity/3 millimolars",
+                    "Quantity/3 lbs",
+                    "Quantity/3 kilohertz"
                 ]
             }
         }
