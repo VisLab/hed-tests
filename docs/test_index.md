@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 258 test cases in the HED test suite.
+Complete index of 259 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -25,7 +25,7 @@ Complete index of 258 test cases in the HED test suite.
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (6 tests)
-- [SIDECAR_INVALID](#sidecar-invalid) (5 tests)
+- [SIDECAR_INVALID](#sidecar-invalid) (6 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (6 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
@@ -660,7 +660,7 @@ Complete index of 258 test cases in the HED test suite.
 
 **Tests**:
 
-- `sidecar_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 4 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### placeholder-invalid-misplaced (correction guidance) (examples)
@@ -1891,6 +1891,17 @@ Complete index of 258 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/SIDECAR_INVALID.json`
 
+### sidecar-invalid-annotation-empty (correction guidance) (examples)
+
+**Description**: An annotation in a categorical entry of a sidecar is empty or consists only of blanks.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 3 fail, 2 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### sidecar-invalid-hed-key-nested-beside-valid (correction guidance) (examples)
 
 **Description**: A sidecar entry has a valid second-level HED key and also a HED key at a deeper level.
@@ -1958,7 +1969,7 @@ Complete index of 258 test cases in the HED test suite.
 
 **Tests**:
 
-- `combo_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 2 pass
 
 ### sidecar-refers-to-missing-tsv-hed-column (warning) (correction guidance) (examples)
 

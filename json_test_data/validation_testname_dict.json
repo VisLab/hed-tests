@@ -381,6 +381,9 @@
     "sidecar-invalid-hed-key-nested-beside-valid": [
         "SIDECAR_INVALID"
     ],
+    "sidecar-invalid-annotation-empty": [
+        "SIDECAR_INVALID"
+    ],
     "sidecar-key-missing": [
         "SIDECAR_KEY_MISSING"
     ],

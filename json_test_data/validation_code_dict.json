@@ -316,7 +316,8 @@
         "sidecar-invalid-na-annotated",
         "sidecar-invalid-key-whitespace",
         "sidecar-invalid-value-key-whitespace",
-        "sidecar-invalid-hed-key-nested-beside-valid"
+        "sidecar-invalid-hed-key-nested-beside-valid",
+        "sidecar-invalid-annotation-empty"
     ],
     "SIDECAR_KEY_MISSING": [
         "sidecar-key-missing",
