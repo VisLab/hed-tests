@@ -5,6 +5,9 @@
             "versions": {
                 "1.0.0": {
                     "withStandard": "8.5.0"
+                },
+                "1.1.0": {
+                    "withStandard": "8.5.0"
                 }
             }
         },

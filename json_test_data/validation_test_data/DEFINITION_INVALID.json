@@ -154,141 +154,6 @@
     {
         "error_code": "DEFINITION_INVALID",
         "alt_codes": [
-            "TAG_EMPTY"
-        ],
-        "name": "definition-invalid-empty-inner-group",
-        "description": "A definition's enclosing tag group has an empty inner group (i.e., the definition's contents).",
-        "warning": false,
-        "schema": "8.4.0",
-        "error_category": "content",
-        "common_causes": [
-            "Empty parentheses in definition content",
-            "Missing definition body content",
-            "Syntax errors creating empty groups",
-            "Incomplete definition specification"
-        ],
-        "explanation": "Definitions must contain meaningful content within their inner groups. Empty inner groups indicate incomplete or malformed definitions.",
-        "correction_strategy": "Add proper content to definition inner groups",
-        "correction_examples": [
-            {
-                "wrong": "(Definition/MyEvent, ())",
-                "correct": "(Definition/MyEvent, (Red, Blue))",
-                "explanation": "Added actual content to empty definition group"
-            },
-            {
-                "wrong": "(Definition/Action/#, (,))",
-                "correct": "(Definition/Action/#, (Motion/# m-per-s^2))",
-                "explanation": "Replaced malformed content with proper definition"
-            }
-        ],
-        "correction_patterns": [
-            "Add meaningful tags to definition content",
-            "Remove empty parentheses groups",
-            "Ensure definition content is complete"
-        ],
-        "fix_instructions": [
-            "1. Identify empty inner groups in definitions",
-            "2. Add appropriate content tags",
-            "3. Verify definition completeness",
-            "4. Remove empty or malformed groups"
-        ],
-        "validation_hints": [
-            "Check for empty parentheses in definitions",
-            "Ensure definition content is meaningful",
-            "Verify no missing content"
-        ],
-        "specification_reference": "3.2.8.1. Definition content requirements",
-        "related_errors": [
-            "TAG_EMPTY",
-            "PARENTHESES_MISMATCH"
-        ],
-        "definitions": [
-            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
-            "(Definition/MyColor, (Label/Pie))"
-        ],
-        "tests": {
-            "string_tests": {
-                "fails": [],
-                "passes": []
-            },
-            "sidecar_tests": {
-                "fails": [
-                    {
-                        "defs": {
-                            "HED": {
-                                "def2": "(Definition/Blech/#, ())"
-                            }
-                        }
-                    }
-                ],
-                "passes": [
-                    {
-                        "defs": {
-                            "HED": {
-                                "def1": "(Definition/Apple)"
-                            }
-                        }
-                    }
-                ]
-            },
-            "event_tests": {
-                "fails": [],
-                "passes": []
-            },
-            "combo_tests": {
-                "fails": [
-                    {
-                        "sidecar": {
-                            "defs": {
-                                "HED": {
-                                    "def2": "(Definition/Blech/#, ())"
-                                }
-                            }
-                        },
-                        "events": [
-                            [
-                                "onset",
-                                "duration",
-                                "HED"
-                            ],
-                            [
-                                4.5,
-                                0,
-                                "Def/MyColor, Def/Apple"
-                            ]
-                        ]
-                    }
-                ],
-                "passes": [
-                    {
-                        "sidecar": {
-                            "defs": {
-                                "HED": {
-                                    "def1": "(Definition/Apple)",
-                                    "def2": "(Definition/Blech, (Red))"
-                                }
-                            }
-                        },
-                        "events": [
-                            [
-                                "onset",
-                                "duration",
-                                "HED"
-                            ],
-                            [
-                                4.5,
-                                0,
-                                "Def/MyColor, Def/Apple"
-                            ]
-                        ]
-                    }
-                ]
-            }
-        }
-    },
-    {
-        "error_code": "DEFINITION_INVALID",
-        "alt_codes": [
             "TAG_GROUP_ERROR"
         ],
         "name": "definition-invalid-multiple-definition-tags",
@@ -2087,6 +1952,560 @@
                                 4.5,
                                 0,
                                 "Def/MyDef"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [],
+        "name": "definition-invalid-identical-in-one-string",
+        "description": "Identical definitions of one name in the same HED string are one definition, not a repeated expression; the same name with different contents in one string is an error.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "uniqueness",
+        "common_causes": [
+            "Pasting the same definition twice into one sidecar entry",
+            "Merging two sidecar entries that each carried the same definition",
+            "Editing one of two copies of a definition that sit in one string"
+        ],
+        "explanation": "Definitions are processed on their own, apart from the annotation they appear in, so identical definitions of one name (the same placeholder form and the same contents, without regard to tag case or order) are one definition even when both copies are in the same HED string. They are not a repeated expression. Repeated Def tags, such as Def/X, Def/X, are still a repeated expression. Two definitions of one name whose contents differ are an error wherever they appear.",
+        "correction_strategy": "Make the copies of a definition identical, or rename the one that is meant to differ; removing a redundant identical copy is optional",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/X, (Red)), (Definition/X, (Blue))",
+                "correct": "(Definition/X, (Red)), (Definition/Y, (Blue))",
+                "explanation": "The two definitions differ, so one of them gets a new name"
+            },
+            {
+                "wrong": "(Definition/X, (Red)), (Definition/X, (Blue))",
+                "correct": "(Definition/X, (Red)), (Definition/X, (Red))",
+                "explanation": "Identical copies in one string are allowed and treated as one definition"
+            }
+        ],
+        "correction_patterns": [
+            "Compare same-name definitions in one string as you would across entries",
+            "Do not report identical Definition groups as repeated expressions"
+        ],
+        "fix_instructions": [
+            "1. Find definitions of the same name, including several in one string",
+            "2. Compare their placeholder forms and contents ignoring tag order and tag case",
+            "3. If they differ, make them identical or rename one"
+        ],
+        "validation_hints": [
+            "Identical Definition groups in one string are one definition",
+            "Def/X, Def/X in one string is still a repeated expression",
+            "Definition names are matched without regard to case"
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "TAG_EXPRESSION_REPEATED",
+            "DEF_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red)), (Definition/X, (Blue))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red)), (Definition/X, (Red))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red, Blue)), (Definition/X, (Blue, Red))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red)), (Definition/X, (red))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red)), (Definition/x, (Red))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/Y/#, (Label/#)), (Definition/Y/#, (Label/#))"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/Z), (Definition/Z)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red)), (Definition/X, (Blue))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red)), (Definition/X, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red, Blue)), (Definition/X, (Blue, Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red)), (Definition/X, (red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red)), (Definition/x, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/Y/#, (Label/#)), (Definition/Y/#, (Label/#))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/Y/3"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/Z), (Definition/Z)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/Z"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [],
+        "name": "definition-invalid-name-case",
+        "description": "Definition names are matched without regard to case, so names that differ only in case name the same definition and must have identical contents.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "uniqueness",
+        "common_causes": [
+            "Capitalizing a definition name differently in two sidecar columns",
+            "Assuming that X and x are different definition names"
+        ],
+        "explanation": "A definition name is treated like a schema node name: it is matched without regard to case. Definition/X and Definition/x define the same name, so they are allowed only when their contents are identical, and are an error when the contents differ.",
+        "correction_strategy": "Use one spelling for each definition name and keep its definitions identical, or choose a genuinely different name",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/X, (Red)) and (Definition/x, (Blue))",
+                "correct": "(Definition/X, (Red)) and (Definition/Y, (Blue))",
+                "explanation": "X and x are the same name, so the definition meant to differ gets a different name"
+            }
+        ],
+        "correction_patterns": [
+            "Compare definition names case-insensitively",
+            "Spell each definition name the same way everywhere"
+        ],
+        "fix_instructions": [
+            "1. Fold definition names to one case before comparing them",
+            "2. For names that match, compare the contents",
+            "3. Rename a definition whose contents are meant to differ"
+        ],
+        "validation_hints": [
+            "Definition/X and Definition/x name the same definition",
+            "Same-name definitions with different contents are an error even when the names differ in case"
+        ],
+        "specification_reference": "3.2.3. Tag case-sensitivity",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "DEF_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs1": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red))"
+                            }
+                        },
+                        "defs2": {
+                            "HED": {
+                                "def2": "(Definition/x, (Blue))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs1": {
+                            "HED": {
+                                "def1": "(Definition/X, (Red))"
+                            }
+                        },
+                        "defs2": {
+                            "HED": {
+                                "def2": "(Definition/x, (Red))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs1": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red))"
+                                }
+                            },
+                            "defs2": {
+                                "HED": {
+                                    "def2": "(Definition/x, (Blue))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs1": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Red))"
+                                }
+                            },
+                            "defs2": {
+                                "HED": {
+                                    "def2": "(Definition/x, (Red))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "DEFINITION_INVALID",
+        "alt_codes": [],
+        "name": "definition-invalid-value-case",
+        "description": "Tags in definition contents are compared without regard to case but values with case, so definitions of one name that differ in the case of a value are different definitions.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "uniqueness",
+        "common_causes": [
+            "Typing a value in different case in two copies of a definition",
+            "Assuming the case rule for tags also applies to values"
+        ],
+        "explanation": "Two definitions of one name must be identical. Tags are compared without regard to case, so Label and label match, but values keep their case, so Label/abc and Label/ABC are different. (Definition/X, (Label/abc)) and (Definition/X, (Label/ABC)) are therefore different definitions of X, which is an error.",
+        "correction_strategy": "Make the values in every definition of a name match exactly, including case, or rename one definition",
+        "correction_examples": [
+            {
+                "wrong": "(Definition/X, (Label/abc)) and (Definition/X, (Label/ABC))",
+                "correct": "(Definition/X, (Label/abc)) and (Definition/X, (label/abc))",
+                "explanation": "The value now matches exactly; the case of the tag does not matter"
+            }
+        ],
+        "correction_patterns": [
+            "Compare tags without case and values with case",
+            "Copy definitions exactly rather than retyping them"
+        ],
+        "fix_instructions": [
+            "1. Collect every definition of the repeated name",
+            "2. Compare tags ignoring case and values exactly",
+            "3. Make the values match or rename one definition"
+        ],
+        "validation_hints": [
+            "Label/abc and label/abc are the same tag expression",
+            "Label/abc and Label/ABC are different values"
+        ],
+        "specification_reference": "3.2.8.1. The Definition tag",
+        "related_errors": [
+            "DEFINITION_INVALID",
+            "DEF_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "defs1": {
+                            "HED": {
+                                "def1": "(Definition/X, (Label/abc))"
+                            }
+                        },
+                        "defs2": {
+                            "HED": {
+                                "def2": "(Definition/X, (Label/ABC))"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "defs1": {
+                            "HED": {
+                                "def1": "(Definition/X, (Label/abc))"
+                            }
+                        },
+                        "defs2": {
+                            "HED": {
+                                "def2": "(Definition/X, (label/abc))"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "defs1": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Label/abc))"
+                                }
+                            },
+                            "defs2": {
+                                "HED": {
+                                    "def2": "(Definition/X, (Label/ABC))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "defs1": {
+                                "HED": {
+                                    "def1": "(Definition/X, (Label/abc))"
+                                }
+                            },
+                            "defs2": {
+                                "HED": {
+                                    "def2": "(Definition/X, (label/abc))"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/X"
                             ]
                         ]
                     }

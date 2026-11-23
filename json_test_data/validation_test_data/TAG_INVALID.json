@@ -176,6 +176,11 @@
                 "wrong": "Event/ Sensory-event",
                 "correct": "Event/Sensory-event",
                 "explanation": "Removed space after forward slash"
+            },
+            {
+                "wrong": "Label/ abc",
+                "correct": "Label/abc",
+                "explanation": "A blank may not appear directly before or after a slash, including the slash before a value."
             }
         ],
         "correction_patterns": [
@@ -213,7 +218,9 @@
                     "Sensory- event,Green",
                     "Sensory -event,Blue",
                     "Event /Sensory-event, Black",
-                    "Event/ Sensory-event,White"
+                    "Event/ Sensory-event,White",
+                    "Label/ abc",
+                    "(Duration/ 3 s, (Red))"
                 ],
                 "passes": [
                     "Sensory-event, Green"
@@ -229,6 +236,11 @@
                                 "pine": "Event /Sensory-event, Black",
                                 "apple": "Event/ Sensory-event,White"
                             }
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": "Label/ #"
                         }
                     }
                 ],
@@ -270,6 +282,18 @@
                             9.1,
                             0,
                             "Event/ Sensory-event,White"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/ abc"
                         ]
                     ]
                 ],

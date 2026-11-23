@@ -1802,16 +1802,17 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-inset-group-has-extras",
-        "description": "An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.",
+        "description": "An Inset group has more than one inner group, or tags other than its anchor and an optional Delay that are not in a tag group.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "temporal",
         "common_causes": [
             "Content tags placed directly in the Inset group instead of in its inner group",
+            "Information split over two or more inner groups of one Inset group",
             "Misunderstanding that an Inset may carry only one additional tag group"
         ],
-        "explanation": "An Inset group contains its Def or Def-expand anchor, optionally a Delay, and at most one additional tag group with information about the marked point. Any other tag at the top level of the Inset group is an error.",
-        "correction_strategy": "Move extra tags into the Inset group's single inner tag group",
+        "explanation": "An Inset group contains its Def or Def-expand anchor, optionally a Delay, and at most one additional tag group with information about the marked point. A second inner tag group, or any other tag at the top level of the Inset group, is an error.",
+        "correction_strategy": "Move extra tags, and the contents of extra inner groups, into the Inset group's single inner tag group",
         "correction_examples": [
             {
                 "wrong": "(Def/MyColor, Blue, Inset)",
@@ -1822,6 +1823,11 @@
                 "wrong": "(Def/MyColor, Blue, (Green), Inset)",
                 "correct": "(Def/MyColor, (Blue, Green), Inset)",
                 "explanation": "Moved the bare tag into the existing inner tag group"
+            },
+            {
+                "wrong": "(Def/MyColor, (Blue), (Green), Inset)",
+                "correct": "(Def/MyColor, (Blue, Green), Inset)",
+                "explanation": "Merged the two inner tag groups into one"
             }
         ],
         "correction_patterns": [
@@ -1830,7 +1836,7 @@
         ],
         "fix_instructions": [
             "1. Identify Inset groups with tags beside the anchor, the Delay, and the Inset tag",
-            "2. Move those tags into the Inset group's inner tag group, creating it if needed",
+            "2. Move those tags, and the contents of any second inner group, into the Inset group's inner tag group, creating it if needed",
             "3. Check that the Inset group has at most one inner tag group"
         ],
         "validation_hints": [
@@ -1883,6 +1889,23 @@
                             5.5,
                             0,
                             "(Def/MyColor, Offset)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "(Def/MyColor, (Blue), (Green), Inset)"
                         ]
                     ]
                 ],
@@ -1952,6 +1975,36 @@
                                 0,
                                 "face",
                                 "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Def/MyColor, Onset)",
+                                    "snack": "(Def/MyColor, (Blue), (Green), Inset)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "snack",
+                                "Red"
                             ]
                         ]
                     }

@@ -442,6 +442,11 @@
                 "wrong": "Red, (), Blue",
                 "correct": "Red, Blue",
                 "explanation": "Removed empty group between tags"
+            },
+            {
+                "wrong": "(Definition/MyEvent, ())",
+                "correct": "(Definition/MyEvent) or (Definition/MyEvent, (Red))",
+                "explanation": "An empty inner group in a definition is an empty tag group: drop it, or put the definition's contents in it"
             }
         ],
         "correction_patterns": [
@@ -484,6 +489,13 @@
                             "HED": {
                                 "face": "(Red, (), (Blue), ((Green)))",
                                 "ball": "(((   ))), Red"
+                            }
+                        }
+                    },
+                    {
+                        "defs": {
+                            "HED": {
+                                "def1": "(Definition/MyEvent, ())"
                             }
                         }
                     }
@@ -568,6 +580,27 @@
                                 0,
                                 "ball",
                                 "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "defs": {
+                                "HED": {
+                                    "def1": "(Definition/MyEvent, ())"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "Def/MyColor"
                             ]
                         ]
                     }

@@ -50,10 +50,6 @@
         "TAG_GROUP_ERROR",
         "TAG_INVALID"
     ],
-    "definition-invalid-empty-inner-group": [
-        "DEFINITION_INVALID",
-        "TAG_EMPTY"
-    ],
     "definition-invalid-multiple-definition-tags": [
         "DEFINITION_INVALID",
         "TAG_GROUP_ERROR"
@@ -109,6 +105,15 @@
         "DEFINITION_INVALID",
         "TAG_INVALID"
     ],
+    "definition-invalid-identical-in-one-string": [
+        "DEFINITION_INVALID"
+    ],
+    "definition-invalid-name-case": [
+        "DEFINITION_INVALID"
+    ],
+    "definition-invalid-value-case": [
+        "DEFINITION_INVALID"
+    ],
     "def-expand-invalid-name-not-definition": [
         "DEF_EXPAND_INVALID"
     ],
@@ -151,6 +156,9 @@
         "UNITS_INVALID"
     ],
     "tag-deprecated": [
+        "ELEMENT_DEPRECATED"
+    ],
+    "element-deprecated-unit": [
         "ELEMENT_DEPRECATED"
     ],
     "parentheses-mismatch-unmatched-parentheses": [

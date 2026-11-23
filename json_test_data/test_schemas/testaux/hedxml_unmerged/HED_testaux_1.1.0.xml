@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<HED version="1.1.0" library="testaux" withStandard="8.5.0" unmerged="True">
+   <prologue>testaux 1.1.0 is the deprecation version of the testaux auxiliary-items library of the hed-tests test schema set, partnered with standard schema 8.5.0 like 1.0.0. It is a copy of testaux 1.0.0 with three changes: the unit bigauxunit and the unit modifier auxMod carry deprecatedFrom=1.0.0, and the new unit auxsiunit, which has SIUnit, gives auxMod a unit to modify. It exists so the suite can test ELEMENT_DEPRECATED for a deprecated unit and a deprecated unit modifier, which no released standard schema can. Change from testaux 1.0.0: minor (elements deprecated, a unit added).</prologue>
+   <schema>
+      <node>
+         <name>Aux-measure</name>
+         <description>A tag that takes a value with units of the auxUnits unit class.</description>
+         <node>
+            <name>#</name>
+            <description>Value of Aux-measure.</description>
+            <attribute>
+               <name>takesValue</name>
+            </attribute>
+            <attribute>
+               <name>unitClass</name>
+               <value>auxUnits</value>
+            </attribute>
+         </node>
+      </node>
+      <node>
+         <name>Aux-value</name>
+         <description>A tag that takes a value of the auxClass value class.</description>
+         <node>
+            <name>#</name>
+            <description>Value of Aux-value.</description>
+            <attribute>
+               <name>takesValue</name>
+            </attribute>
+            <attribute>
+               <name>valueClass</name>
+               <value>auxClass</value>
+            </attribute>
+         </node>
+      </node>
+   </schema>
+   <unitClassDefinitions>
+      <unitClassDefinition>
+         <name>auxUnits</name>
+         <description>The auxiliary unit class shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>defaultUnits</name>
+            <value>auxunit</value>
+         </attribute>
+         <unit>
+            <name>auxunit</name>
+            <description>The base unit of the auxUnits unit class.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>bigauxunit</name>
+            <description>A larger unit of the auxUnits unit class. Deprecated: use auxunit with a value 1000 times larger.</description>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1000.0</value>
+            </attribute>
+            <attribute>
+               <name>deprecatedFrom</name>
+               <value>1.0.0</value>
+            </attribute>
+         </unit>
+         <unit>
+            <name>auxsiunit</name>
+            <description>An SI unit of the auxUnits unit class that takes SI unit modifiers.</description>
+            <attribute>
+               <name>SIUnit</name>
+            </attribute>
+            <attribute>
+               <name>conversionFactor</name>
+               <value>1.0</value>
+            </attribute>
+         </unit>
+      </unitClassDefinition>
+   </unitClassDefinitions>
+   <unitModifierDefinitions>
+      <unitModifierDefinition>
+         <name>auxMod</name>
+         <description>The auxiliary unit modifier shared across libraries in the aux merge cases. Deprecated: write the value 100 times larger without the modifier.</description>
+         <attribute>
+            <name>SIUnitModifier</name>
+         </attribute>
+         <attribute>
+            <name>conversionFactor</name>
+            <value>100.0</value>
+         </attribute>
+         <attribute>
+            <name>deprecatedFrom</name>
+            <value>1.0.0</value>
+         </attribute>
+      </unitModifierDefinition>
+   </unitModifierDefinitions>
+   <valueClassDefinitions>
+      <valueClassDefinition>
+         <name>auxClass</name>
+         <description>The auxiliary value class shared across libraries in the aux merge cases.</description>
+         <attribute>
+            <name>allowedCharacter</name>
+            <value>letters</value>
+         </attribute>
+      </valueClassDefinition>
+   </valueClassDefinitions>
+   <schemaAttributeDefinitions>
+      <schemaAttributeDefinition>
+         <name>auxAttribute</name>
+         <description>The auxiliary schema attribute shared across libraries in the aux merge cases.</description>
+         <property>
+            <name>boolRange</name>
+         </property>
+      </schemaAttributeDefinition>
+   </schemaAttributeDefinitions>
+   <propertyDefinitions/>
+   <epilogue>Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.</epilogue>
+   <schemaSources/>
+   <schemaPrefixes/>
+   <externalAnnotations/>
+</HED>
