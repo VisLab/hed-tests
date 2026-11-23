@@ -193,5 +193,252 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "ELEMENT_DEPRECATED",
+        "alt_codes": [],
+        "name": "element-deprecated-unit",
+        "description": "A unit or unit modifier is deprecated.",
+        "warning": true,
+        "schema": [
+            "testaux_1.1.0"
+        ],
+        "error_category": "semantic",
+        "common_causes": [
+            "Using a unit that a newer schema version has deprecated",
+            "Using a unit modifier that a newer schema version has deprecated",
+            "Copying values with units from annotations made for an older schema version"
+        ],
+        "explanation": "A unit or unit modifier with the deprecatedFrom attribute is still accepted, so the annotation remains valid, but a validator warns for each use. The element's description in the schema says what to use instead. This case uses the test library testaux 1.1.0, in which the unit bigauxunit and the unit modifier auxMod are deprecated.",
+        "correction_strategy": "Replace the deprecated unit or unit modifier with the alternative named in its schema description, converting the value",
+        "correction_examples": [
+            {
+                "wrong": "Aux-measure/3 bigauxunit",
+                "correct": "Aux-measure/3000 auxunit",
+                "explanation": "bigauxunit is deprecated; the value is converted to the base unit auxunit"
+            },
+            {
+                "wrong": "Aux-measure/3 auxModauxsiunit",
+                "correct": "Aux-measure/300 auxsiunit",
+                "explanation": "The unit modifier auxMod is deprecated; the value is written without the modifier"
+            }
+        ],
+        "correction_patterns": [
+            "Read the deprecated element's schema description for its replacement",
+            "Convert the value when changing the unit or dropping the modifier"
+        ],
+        "fix_instructions": [
+            "1. Find the unit or unit modifier the warning names",
+            "2. Look up its replacement in the schema description",
+            "3. Convert the value and write it with the replacement unit"
+        ],
+        "validation_hints": [
+            "A deprecated unit or unit modifier is a warning, not an error",
+            "Check the unit and, for SI units, the unit modifier in front of it"
+        ],
+        "specification_reference": "A.1.4.5. deprecatedFrom",
+        "related_errors": [
+            "UNITS_INVALID",
+            "SCHEMA_DEPRECATION_ERROR"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Aux-measure/3 bigauxunit",
+                    "Aux-measure/3 auxModauxsiunit"
+                ],
+                "passes": [
+                    "Aux-measure/3 auxunit",
+                    "Aux-measure/3 auxsiunit"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Aux-measure/3 bigauxunit",
+                                "ball": "Green"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Aux-measure/3 auxModauxsiunit",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Aux-measure/3 auxunit",
+                                "ball": "Green"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Aux-measure/3 bigauxunit"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Green"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Aux-measure/3 auxModauxsiunit"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Green"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Aux-measure/3 auxunit"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Green"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Aux-measure/3 bigauxunit",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                "Blue"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "face",
+                                "Red"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Aux-measure/3 auxModauxsiunit",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                "Blue"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "face",
+                                "Red"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Aux-measure/3 auxunit",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "ball",
+                                "Blue"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "face",
+                                "Red"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

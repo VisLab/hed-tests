@@ -61,13 +61,18 @@ this folder by cache-convention file name.
 - **testminimal** - a third library name with an unchanging vocabulary:
   unpartnered 1.0.0, 2.0.0 partnered with 8.4.0, and 2.1.0 partnered with
   8.5.0, for the mismatched-partner and multi-library cases.
-- **testaux** - the auxiliary-items library: a single version 1.0.0
-  partnered with 8.5.0 that declares one auxiliary element of each type
-  (unit class `auxUnits` with units `auxunit` and `bigauxunit`, unit
-  modifier `auxMod`, value class `auxClass`, schema attribute
-  `auxAttribute`) plus the tags `Aux-measure` and `Aux-value` that use
-  them, so the auxiliary-section merge rules have controlled probes. The
-  testclash 13.0.0+ versions carry probe copies of these elements.
+- **testaux** - the auxiliary-items library. Version 1.0.0, partnered
+  with 8.5.0, declares one auxiliary element of each type (unit class
+  `auxUnits` with units `auxunit` and `bigauxunit`, unit modifier
+  `auxMod`, value class `auxClass`, schema attribute `auxAttribute`) plus
+  the tags `Aux-measure` and `Aux-value` that use them, so the
+  auxiliary-section merge rules have controlled probes. The testclash
+  13.0.0+ versions carry probe copies of these elements. Version 1.1.0,
+  also partnered with 8.5.0 (minor change), deprecates `bigauxunit` and
+  `auxMod` (`deprecatedFrom=1.0.0`) and adds the SI unit `auxsiunit` for
+  `auxMod` to modify; it is used by the ELEMENT_DEPRECATED case
+  `element-deprecated-unit`, because no released standard schema has a
+  deprecated unit or unit modifier that an annotation can use.
 
 Each version's prologue states its role and the semver level of its change
 from the predecessor.

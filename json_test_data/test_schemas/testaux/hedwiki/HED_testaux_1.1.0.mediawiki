@@ -1,0 +1,36 @@
+HED version="1.1.0" library="testaux" withStandard="8.5.0" unmerged="True"
+
+'''Prologue'''
+testaux 1.1.0 is the deprecation version of the testaux auxiliary-items library of the hed-tests test schema set, partnered with standard schema 8.5.0 like 1.0.0. It is a copy of testaux 1.0.0 with three changes: the unit bigauxunit and the unit modifier auxMod carry deprecatedFrom=1.0.0, and the new unit auxsiunit, which has SIUnit, gives auxMod a unit to modify. It exists so the suite can test ELEMENT_DEPRECATED for a deprecated unit and a deprecated unit modifier, which no released standard schema can. Change from testaux 1.0.0: minor (elements deprecated, a unit added).
+
+!# start schema
+
+'''Aux-measure''' <nowiki>[A tag that takes a value with units of the auxUnits unit class.]</nowiki>
+* <nowiki># {takesValue, unitClass=auxUnits}[Value of Aux-measure.]</nowiki>
+
+'''Aux-value''' <nowiki>[A tag that takes a value of the auxClass value class.]</nowiki>
+* <nowiki># {takesValue, valueClass=auxClass}[Value of Aux-value.]</nowiki>
+
+!# end schema
+
+'''Unit classes'''
+* auxUnits <nowiki>{defaultUnits=auxunit}[The auxiliary unit class shared across libraries in the aux merge cases.]</nowiki>
+** auxunit <nowiki>{conversionFactor=1.0}[The base unit of the auxUnits unit class.]</nowiki>
+** bigauxunit <nowiki>{conversionFactor=1000.0, deprecatedFrom=1.0.0}[A larger unit of the auxUnits unit class. Deprecated: use auxunit with a value 1000 times larger.]</nowiki>
+** auxsiunit <nowiki>{SIUnit, conversionFactor=1.0}[An SI unit of the auxUnits unit class that takes SI unit modifiers.]</nowiki>
+
+'''Unit modifiers'''
+* auxMod <nowiki>{SIUnitModifier, conversionFactor=100.0, deprecatedFrom=1.0.0}[The auxiliary unit modifier shared across libraries in the aux merge cases. Deprecated: write the value 100 times larger without the modifier.]</nowiki>
+
+'''Value classes'''
+* auxClass <nowiki>{allowedCharacter=letters}[The auxiliary value class shared across libraries in the aux merge cases.]</nowiki>
+
+'''Schema attributes'''
+* auxAttribute <nowiki>{boolRange}[The auxiliary schema attribute shared across libraries in the aux merge cases.]</nowiki>
+
+'''Properties'''
+
+'''Epilogue'''
+Part of the hed-tests test schema set. See json_test_data/test_schemas/README.md for the loading convention.
+
+!# end hed

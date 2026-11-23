@@ -31,6 +31,11 @@
                 "wrong": "(Blue, Green), (Green, Blue)",
                 "correct": "(Blue, Green)",
                 "explanation": "Removed equivalent group (order doesn't matter)"
+            },
+            {
+                "wrong": "Def/MyColor, Def/MyColor",
+                "correct": "Def/MyColor",
+                "explanation": "Removed the repeated Def tag; unlike identical Definition groups, repeated Def tags are a repeated expression"
             }
         ],
         "correction_patterns": [
@@ -67,7 +72,8 @@
                 "fails": [
                     "Red, (Blue), Red, Green",
                     "(Red, Blue, (Green)), (Red, Blue, (Green))",
-                    "(Red, (Blue, Green, (Yellow)), Red, (Blue, Green, (Yellow)))"
+                    "(Red, (Blue, Green, (Yellow)), Red, (Blue, Green, (Yellow)))",
+                    "Def/MyColor, Def/MyColor"
                 ],
                 "passes": [
                     "Red, (Blue, Red)",
@@ -82,6 +88,13 @@
                                 "face": "Red, (Blue), Red, Green",
                                 "ball": "(Red, Blue, (Green)), (Red, Blue, (Green))",
                                 "square": "(Red, (Blue, Green, (Yellow)), Red, (Blue, Green, (Yellow)))"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Def/MyColor, Def/MyColor"
                             }
                         }
                     }
@@ -119,6 +132,18 @@
                             6.5,
                             0,
                             "(Red, (Blue, Green, (Yellow)), Red, (Blue, Green, (Yellow)))"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Def/MyColor, Def/MyColor"
                         ]
                     ]
                 ],
@@ -172,6 +197,30 @@
                                 0,
                                 "ball",
                                 "Green"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Def/MyColor, Def/MyColor",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Red"
                             ]
                         ]
                     }

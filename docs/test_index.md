@@ -1,15 +1,15 @@
 # HED test suite index
 
-Complete index of 254 test cases in the HED test suite.
+Complete index of 257 test cases in the HED test suite.
 
 ## Quick navigation
 
 - [CHARACTER_INVALID](#character-invalid) (8 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
-- [DEFINITION_INVALID](#definition-invalid) (15 tests)
+- [DEFINITION_INVALID](#definition-invalid) (17 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
 - [DEF_INVALID](#def-invalid) (4 tests)
-- [ELEMENT_DEPRECATED](#element-deprecated) (1 test)
+- [ELEMENT_DEPRECATED](#element-deprecated) (2 tests)
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (4 tests)
 - [PLACEHOLDER_INVALID](#placeholder-invalid) (8 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
@@ -236,16 +236,16 @@ Complete index of 254 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
-### definition-invalid-empty-inner-group (correction guidance) (examples)
+### definition-invalid-identical-in-one-string (correction guidance) (examples)
 
-**Description**: A definition's enclosing tag group has an empty inner group (i.e., the definition's contents).
+**Description**: Identical definitions of one name in the same HED string are one definition, not a repeated expression; the same name with different contents in one string is an error.
 
-**Schema**: 8.4.0 **Category**: content
+**Schema**: 8.4.0 **Category**: uniqueness
 
 **Tests**:
 
-- `sidecar_tests`: 1 fail, 1 pass
-- `combo_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 1 fail, 6 pass
+- `combo_tests`: 1 fail, 6 pass
 
 ### definition-invalid-in-value-entry (correction guidance) (examples)
 
@@ -284,6 +284,17 @@ Complete index of 254 test cases in the HED test suite.
 ### definition-invalid-multiple-definitions (correction guidance) (examples)
 
 **Description**: Definitions with the same name have different contents.
+
+**Schema**: 8.4.0 **Category**: uniqueness
+
+**Tests**:
+
+- `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### definition-invalid-name-case (correction guidance) (examples)
+
+**Description**: Definition names are matched without regard to case, so names that differ only in case name the same definition and must have identical contents.
 
 **Schema**: 8.4.0 **Category**: uniqueness
 
@@ -334,6 +345,17 @@ Complete index of 254 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 2 fail, 0 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### definition-invalid-value-case (correction guidance) (examples)
+
+**Description**: Tags in definition contents are compared without regard to case but values with case, so definitions of one name that differ in the case of a value are different definitions.
+
+**Schema**: 8.4.0 **Category**: uniqueness
+
+**Tests**:
+
 - `sidecar_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
@@ -501,6 +523,19 @@ Complete index of 254 test cases in the HED test suite.
 ## ELEMENT_DEPRECATED
 
 **File**: `json_test_data/validation_test_data/ELEMENT_DEPRECATED.json`
+
+### element-deprecated-unit (warning) (correction guidance) (examples)
+
+**Description**: A unit or unit modifier is deprecated.
+
+**Schema**: testaux_1.1.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 2 fail, 2 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
 
 ### tag-deprecated (warning) (correction guidance) (examples)
 
@@ -2031,9 +2066,9 @@ Complete index of 254 test cases in the HED test suite.
 **Tests**:
 
 - `string_tests`: 2 fail, 2 pass
-- `sidecar_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 2 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
-- `combo_tests`: 1 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
 
 ### tag-empty-extra-commas-or-parentheses (correction guidance) (examples)
 
@@ -2080,10 +2115,10 @@ Complete index of 254 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 3 fail, 2 pass
-- `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
-- `combo_tests`: 1 fail, 1 pass
+- `string_tests`: 4 fail, 2 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
 
 ### tags-duplicated-across-multiple-rows (correction guidance) (examples)
 
@@ -2328,9 +2363,9 @@ Complete index of 254 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 4 fail, 1 pass
-- `sidecar_tests`: 1 fail, 1 pass
-- `event_tests`: 1 fail, 1 pass
+- `string_tests`: 6 fail, 1 pass
+- `sidecar_tests`: 2 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### tag-has-leading-trailing-or-consecutive-slashes (correction guidance) (examples)
@@ -2577,14 +2612,14 @@ Complete index of 254 test cases in the HED test suite.
 
 ### temporal-tag-error-inset-group-has-extras (correction guidance) (examples)
 
-**Description**: An Inset group has tags, other than its anchor and an optional Delay, that are not in a tag group.
+**Description**: An Inset group has more than one inner group, or tags other than its anchor and an optional Delay that are not in a tag group.
 
 **Schema**: 8.4.0 **Category**: temporal
 
 **Tests**:
 
-- `event_tests`: 1 fail, 1 pass
-- `combo_tests`: 1 fail, 1 pass
+- `event_tests`: 2 fail, 1 pass
+- `combo_tests`: 2 fail, 1 pass
 
 ### temporal-tag-error-inset-group-has-extras-delay (correction guidance) (examples)
 

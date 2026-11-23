@@ -134,7 +134,6 @@
     ],
     "DEFINITION_INVALID": [
         "definition-invalid-tag-group",
-        "definition-invalid-empty-inner-group",
         "definition-invalid-multiple-definition-tags",
         "definition-invalid-inner-group-defs",
         "definition-invalid-bad-number-of-placeholders",
@@ -148,6 +147,9 @@
         "definition-invalid-content-has-delay-or-duration-in-8-1-0",
         "definition-invalid-in-value-entry",
         "definition-invalid-beside-other-tags",
+        "definition-invalid-identical-in-one-string",
+        "definition-invalid-name-case",
+        "definition-invalid-value-case",
         "def-expand-has-extras",
         "tag-group-error-missing"
     ],
@@ -188,12 +190,6 @@
         "temporal-tag-error-inset-group-has-extras-delay",
         "temporal-tag-error-tag-appears-where-not-allowed-delay",
         "temporal-tag-error-delay-missing-group"
-    ],
-    "TAG_EMPTY": [
-        "definition-invalid-empty-inner-group",
-        "tag-empty-extra-commas-or-parentheses",
-        "tag-empty-begin-end-comma",
-        "tag-empty-empty-parentheses"
     ],
     "TEMPORAL_TAG_ERROR": [
         "definition-invalid-content-has-top-level-tag",
@@ -255,7 +251,8 @@
         "def-expand-tags-in-any-order"
     ],
     "ELEMENT_DEPRECATED": [
-        "tag-deprecated"
+        "tag-deprecated",
+        "element-deprecated-unit"
     ],
     "SCHEMA_LOAD_FAILED": [
         "different-standard-schemas-in-same-merge-group",
@@ -332,6 +329,11 @@
         "tabular-invalid-value-whitespace",
         "tabular-invalid-empty-line",
         "tabular-invalid-cell-count"
+    ],
+    "TAG_EMPTY": [
+        "tag-empty-extra-commas-or-parentheses",
+        "tag-empty-begin-end-comma",
+        "tag-empty-empty-parentheses"
     ],
     "TAG_EXPRESSION_REPEATED": [
         "tag-expression-repeated-same-level",
