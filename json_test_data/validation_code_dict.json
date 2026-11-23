@@ -340,7 +340,8 @@
         "tags-duplicated-across-multiple-rows",
         "tags-with-duplicated-onsets-across-multiple-rows",
         "tag-expression-repeated-na-onset-row",
-        "tag-expression-repeated-column-name-with-period"
+        "tag-expression-repeated-column-name-with-period",
+        "tag-expression-repeated-value-case"
     ],
     "TAG_EXTENDED": [
         "tag-extended-extension"

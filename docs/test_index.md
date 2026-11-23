@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 257 test cases in the HED test suite.
+Complete index of 258 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -29,7 +29,7 @@ Complete index of 257 test cases in the HED test suite.
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (6 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
-- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (5 tests)
+- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (6 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
@@ -2119,6 +2119,19 @@ Complete index of 257 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 1 pass
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
+
+### tag-expression-repeated-value-case (correction guidance) (examples)
+
+**Description**: Tags that differ only in the case of a node name, tag extension or definition name are repeated; tags whose values differ in case are not.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 14 fail, 8 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
 
 ### tags-duplicated-across-multiple-rows (correction guidance) (examples)
 

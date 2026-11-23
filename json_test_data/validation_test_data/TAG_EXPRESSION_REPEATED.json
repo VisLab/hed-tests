@@ -1061,5 +1061,238 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-value-case",
+        "description": "Tags that differ only in the case of a node name, tag extension or definition name are repeated; tags whose values differ in case are not.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing the same tag twice with different capitalization",
+            "Assuming that changing the case of a tag makes it a different tag",
+            "Writing a tag extension or definition name twice with different capitalization",
+            "Combining a sidecar annotation and a HED column cell that contain the same tag in different case"
+        ],
+        "explanation": "Node names, tag extensions and definition names are matched without regard to case, so Red and red, Red/Blech and Red/blech, and Def/MyColor and Def/mycolor are each the same tag expression and may not appear twice at the same level. The value that replaces a # placeholder is matched exactly as written, so Label/abc and Label/ABC are different tag expressions and may both appear.",
+        "correction_strategy": "Remove one of two tags that differ only in the case of their node names, extensions or definition names. Leave two tags that share a node but whose values differ in case; they are not repeated.",
+        "correction_examples": [
+            {
+                "wrong": "Red, red",
+                "correct": "Red",
+                "explanation": "Node names are matched without regard to case, so red repeats Red"
+            },
+            {
+                "wrong": "Label/abc, label/abc",
+                "correct": "Label/abc",
+                "explanation": "The tag differs only in case and the value is the same, so the expression is repeated"
+            },
+            {
+                "wrong": "Def/MyColor, Def/mycolor",
+                "correct": "Def/MyColor",
+                "explanation": "Definition names are matched without regard to case"
+            },
+            {
+                "wrong": "Red/Blech, Red/blech",
+                "correct": "Red/Blech",
+                "explanation": "Tag extensions are matched without regard to case"
+            }
+        ],
+        "correction_patterns": [
+            "Treat tags that differ only in capitalization as the same tag",
+            "Keep tags whose values differ, even if only in case",
+            "Remove the second of two tags that match without regard to case"
+        ],
+        "fix_instructions": [
+            "1. Compare the tags at each level without regard to the case of node names, extensions and definition names",
+            "2. Compare values exactly as written",
+            "3. Remove one tag of each pair that matches under these rules",
+            "4. Leave tags whose values differ only in case"
+        ],
+        "validation_hints": [
+            "Lowercase node names, extensions and definition names before comparing",
+            "Do not change the case of values before comparing",
+            "Units are not part of this rule; a unit in the wrong case is UNITS_INVALID"
+        ],
+        "specification_reference": "3.2.3. Tag case-sensitivity",
+        "related_errors": [
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red, red",
+                    "RED, Red",
+                    "(Red, Blue), (blue, RED)",
+                    "Label/abc, label/abc",
+                    "Label/abc, LABEL/abc",
+                    "Property/Informational-property/Label/abc, label/abc",
+                    "(Label/abc, Red), (red, label/abc)",
+                    "Item-count/3, item-count/3",
+                    "Weight/3 kg, weight/3 kg",
+                    "Red/Blech, Red/blech",
+                    "Red/Blech, red/Blech",
+                    "Def/MyColor, Def/mycolor",
+                    "Def/MyColor, def/MyColor",
+                    "Def/Acc/4.5, def/acc/4.5"
+                ],
+                "passes": [
+                    "Label/abc, Label/ABC",
+                    "Label/abc, label/ABC",
+                    "(Label/abc, Red), (Label/Abc, Red)",
+                    "ID/a1, ID/A1",
+                    "Label/abc, Label/abd",
+                    "Label/Été, Label/été",
+                    "Def/mycolor, Red",
+                    "Def/Acc/4.5, Def/Acc/4.6"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Label/abc, label/abc",
+                                "ball": "Red/Blech, Red/blech",
+                                "square": "Def/MyColor, Def/mycolor"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Label/abc, Label/ABC",
+                                "ball": "Def/mycolor, Red",
+                                "square": "Def/Acc/4.5, Def/Acc/4.6"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/abc, label/abc"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Red/Blech, Red/blech"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "Def/MyColor, Def/mycolor"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/abc, Label/ABC"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Def/mycolor, Red"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "Def/Acc/4.5, Def/Acc/4.6"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Label/abc",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "label/abc"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                ""
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Label/abc",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Label/ABC"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                ""
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]
