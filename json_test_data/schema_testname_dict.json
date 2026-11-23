@@ -8,6 +8,9 @@
     "attribute-invalid-any-units-not-empty": [
         "SCHEMA_ATTRIBUTE_INVALID"
     ],
+    "attribute-invalid-on-property": [
+        "SCHEMA_ATTRIBUTE_INVALID"
+    ],
     "attribute-invalid-allowed-character": [
         "SCHEMA_ATTRIBUTE_VALUE_INVALID"
     ],
@@ -92,9 +95,6 @@
         "SCHEMA_DEPRECATION_ERROR"
     ],
     "schema-deprecated-attribute-used-by-element": [
-        "SCHEMA_DEPRECATION_ERROR"
-    ],
-    "schema-deprecated-property-used-by-attribute": [
         "SCHEMA_DEPRECATION_ERROR"
     ],
     "attribute-duplicate-node": [

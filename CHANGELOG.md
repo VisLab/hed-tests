@@ -1,5 +1,7 @@
 # Unreleased
 
+- A schema property cannot be deprecated (hed-specification 3.1.4.8; SCHEMA_DEPRECATION_ERROR reason e no longer used): removed SCHEMA_DEPRECATION_ERROR schema-deprecated-property-used-by-attribute and added SCHEMA_ATTRIBUTE_INVALID attribute-invalid-on-property (4 fails: a deprecated property unused, used by an attribute, used by a deprecated attribute, and `extensionAllowed` on a property; 1 passes).
+
 - Added SIDECAR_INVALID sidecar-invalid-annotation-empty (3.2.9.2, reason f: an annotation in a categorical entry may not be empty or blank; a value with no annotation is written `n/a`): 3 sidecar fails, 2 passes, combo 1/1. Extended SIDECAR_KEY_MISSING sidecar-key-missing with a combo passes item (a value annotated `n/a` has an entry, so no warning) and PLACEHOLDER_INVALID placeholder-invalid-json-value-column with three sidecar fails items (a value entry of `""`, `" "` or `n/a`).
 
 - Added TAG_EXPRESSION_REPEATED tag-expression-repeated-value-case (3.2.3: node names, tag extensions and definition names are matched without regard to case, so `Red, red`, `Red/Blech, Red/blech` and `Def/MyColor, Def/mycolor` are repeats; a value is matched exactly as written, so `Label/abc, Label/ABC` and `ID/a1, ID/A1` are not). 14 string fails and 8 passes, one non-ASCII value pair, and sidecar, events and combo items.

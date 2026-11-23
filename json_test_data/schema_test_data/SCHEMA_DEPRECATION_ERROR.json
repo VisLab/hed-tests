@@ -632,59 +632,5 @@
         ]
       }
     }
-  },
-  {
-    "error_code": "SCHEMA_DEPRECATION_ERROR",
-    "name": "schema-deprecated-property-used-by-attribute",
-    "warning": false,
-    "description": "A schema deprecation issue: a schema attribute uses a deprecated property",
-    "schema": "",
-    "definitions": [],
-    "tests": {
-      "schema_tests": {
-        "fails": [
-          [
-            "HED version=\"1.1.0\" library=\"score\"",
-            "'''Prologue'''",
-            "!# start schema",
-            "'''BaseTag'''",
-            "!# end schema",
-            "'''Unit classes'''",
-            "'''Unit modifiers'''",
-            "'''Value classes'''",
-            "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedProperty}",
-            "* deprecatedFrom {elementProperty, stringRange}",
-            "'''Properties'''",
-            "* deprecatedProperty {deprecatedFrom=1.0.0}",
-            "* elementProperty",
-            "* stringRange",
-            "'''Epilogue'''",
-            "!# end hed"
-          ]
-        ],
-        "passes": [
-          [
-            "HED version=\"1.1.0\" library=\"score\"",
-            "'''Prologue'''",
-            "!# start schema",
-            "'''BaseTag'''",
-            "!# end schema",
-            "'''Unit classes'''",
-            "'''Unit modifiers'''",
-            "'''Value classes'''",
-            "'''Schema attributes'''",
-            "* deprecatedAttribute {deprecatedProperty, deprecatedFrom=1.0.0}",
-            "* deprecatedFrom {elementProperty, stringRange}",
-            "'''Properties'''",
-            "* deprecatedProperty {deprecatedFrom=1.0.0}",
-            "* elementProperty",
-            "* stringRange",
-            "'''Epilogue'''",
-            "!# end hed"
-          ]
-        ]
-      }
-    }
   }
 ]

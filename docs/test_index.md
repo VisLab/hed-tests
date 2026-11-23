@@ -13,10 +13,10 @@ Complete index of 259 test cases in the HED test suite.
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (4 tests)
 - [PLACEHOLDER_INVALID](#placeholder-invalid) (8 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
-- [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
+- [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (3 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
 - [SCHEMA_CHARACTER_INVALID](#schema-character-invalid) (6 tests)
-- [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
+- [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (7 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (3 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (23 tests)
@@ -728,6 +728,16 @@ Complete index of 259 test cases in the HED test suite.
 
 - `schema_tests`: 2 fail, 1 pass
 
+### attribute-invalid-on-property (correction guidance) (examples)
+
+**Description**: A schema property carries a schema attribute other than hedId.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 4 fail, 1 pass
+
 ### attribute-invalid-unknown (correction guidance) (examples)
 
 **Description**: A schema attribute issue, saying there is an unknown one.
@@ -999,16 +1009,6 @@ Complete index of 259 test cases in the HED test suite.
 **Tests**:
 
 - `schema_tests`: 2 fail, 4 pass
-
-### schema-deprecated-property-used-by-attribute
-
-**Description**: A schema deprecation issue: a schema attribute uses a deprecated property
-
-**Schema**: any
-
-**Tests**:
-
-- `schema_tests`: 1 fail, 1 pass
 
 ### schema-deprecated-unit-class
 

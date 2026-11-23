@@ -255,5 +255,154 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "SCHEMA_ATTRIBUTE_INVALID",
+        "name": "attribute-invalid-on-property",
+        "warning": false,
+        "description": "A schema property carries a schema attribute other than hedId.",
+        "schema": "",
+        "error_category": "schema_development",
+        "common_causes": [
+            "Deprecating a schema property with deprecatedFrom",
+            "Copying attributes from a schema attribute or tag onto a property",
+            "Treating properties like other schema elements"
+        ],
+        "explanation": "A schema property can have no schema attribute other than hedId. In particular a schema property cannot be deprecated, so deprecatedFrom on a property is an error whether or not any schema attribute uses the property.",
+        "correction_strategy": "Remove every attribute other than hedId from the property",
+        "correction_examples": [
+            {
+                "wrong": "* deprecatedProperty {deprecatedFrom=1.0.0}",
+                "correct": "* deprecatedProperty",
+                "explanation": "A schema property cannot be deprecated"
+            },
+            {
+                "wrong": "* myProperty {extensionAllowed}",
+                "correct": "* myProperty",
+                "explanation": "extensionAllowed is not an attribute a property may carry"
+            }
+        ],
+        "correction_patterns": [
+            "Leave schema properties without attributes, apart from hedId",
+            "Deprecate the schema attribute that uses a property, not the property"
+        ],
+        "fix_instructions": [
+            "1. List the attributes on each line of the Properties section",
+            "2. Remove every attribute other than hedId",
+            "3. If the aim was to retire the property, deprecate the schema attributes that use it instead"
+        ],
+        "validation_hints": [
+            "Check every entry of the Properties section, used or not",
+            "hedId is the only attribute a schema property may have"
+        ],
+        "specification_reference": "3.1.4.8. Schema properties",
+        "related_errors": [
+            "SCHEMA_DEPRECATION_ERROR",
+            "SCHEMA_ATTRIBUTE_VALUE_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "schema_tests": {
+                "fails": [
+                    [
+                        "HED version=\"1.1.0\" library=\"score\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''BaseTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* deprecatedFrom {elementProperty, stringRange}",
+                        "'''Properties'''",
+                        "* deprecatedProperty {deprecatedFrom=1.0.0}",
+                        "* elementProperty",
+                        "* stringRange",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.1.0\" library=\"score\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''BaseTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* deprecatedAttribute {deprecatedProperty}",
+                        "* deprecatedFrom {elementProperty, stringRange}",
+                        "'''Properties'''",
+                        "* deprecatedProperty {deprecatedFrom=1.0.0}",
+                        "* elementProperty",
+                        "* stringRange",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.1.0\" library=\"score\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''BaseTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* deprecatedAttribute {deprecatedProperty, deprecatedFrom=1.0.0}",
+                        "* deprecatedFrom {elementProperty, stringRange}",
+                        "'''Properties'''",
+                        "* deprecatedProperty {deprecatedFrom=1.0.0}",
+                        "* elementProperty",
+                        "* stringRange",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ],
+                    [
+                        "HED version=\"1.1.0\" library=\"score\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''BaseTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* deprecatedFrom {elementProperty, stringRange}",
+                        "* extensionAllowed {boolRange}",
+                        "'''Properties'''",
+                        "* myProperty {extensionAllowed}",
+                        "* boolRange",
+                        "* elementProperty",
+                        "* stringRange",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ],
+                "passes": [
+                    [
+                        "HED version=\"1.1.0\" library=\"score\"",
+                        "'''Prologue'''",
+                        "!# start schema",
+                        "'''BaseTag'''",
+                        "!# end schema",
+                        "'''Unit classes'''",
+                        "'''Unit modifiers'''",
+                        "'''Value classes'''",
+                        "'''Schema attributes'''",
+                        "* deprecatedAttribute {deprecatedProperty}",
+                        "* deprecatedFrom {elementProperty, stringRange}",
+                        "'''Properties'''",
+                        "* deprecatedProperty",
+                        "* elementProperty",
+                        "* stringRange",
+                        "'''Epilogue'''",
+                        "!# end hed"
+                    ]
+                ]
+            }
+        }
     }
 ]
