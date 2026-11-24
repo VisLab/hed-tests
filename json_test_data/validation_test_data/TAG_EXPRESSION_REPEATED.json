@@ -1068,7 +1068,7 @@
         "name": "tag-expression-repeated-value-case",
         "description": "Tags that differ only in the case of a node name, tag extension or definition name are repeated; tags whose values differ in case are not.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "semantic",
         "common_causes": [
             "Writing the same tag twice with different capitalization",

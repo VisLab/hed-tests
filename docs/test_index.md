@@ -2168,7 +2168,7 @@ Complete index of 262 test cases in the HED test suite.
 
 **Description**: Tags that differ only in the case of a node name, tag extension or definition name are repeated; tags whose values differ in case are not.
 
-**Schema**: 8.4.0 **Category**: semantic
+**Schema**: 8.5.0 **Category**: semantic
 
 **Tests**:
 
