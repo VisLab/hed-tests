@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added a combo fails item to TABULAR_INVALID tabular-invalid-blank-column-name: an empty first line and no `HED` column, with a sidecar that has HED (3.2.10: a table whose sidecar has HED annotations is validated, so its empty first line is reported).
+
 - A schema property cannot be deprecated (hed-specification 3.1.4.8; SCHEMA_DEPRECATION_ERROR reason e no longer used): removed SCHEMA_DEPRECATION_ERROR schema-deprecated-property-used-by-attribute and added SCHEMA_ATTRIBUTE_INVALID attribute-invalid-on-property (4 fails: a deprecated property unused, used by an attribute, used by a deprecated attribute, and `extensionAllowed` on a property; 1 passes).
 
 - Added SIDECAR_INVALID sidecar-invalid-annotation-empty (3.2.9.2, reason f: an annotation in a categorical entry may not be empty or blank; a value with no annotation is written `n/a`): 3 sidecar fails, 2 passes, combo 1/1. Extended SIDECAR_KEY_MISSING sidecar-key-missing with a combo passes item (a value annotated `n/a` has an entry, so no warning) and PLACEHOLDER_INVALID placeholder-invalid-json-value-column with three sidecar fails items (a value entry of `""`, `" "` or `n/a`).
