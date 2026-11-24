@@ -435,6 +435,15 @@
     "tag-expression-repeated-value-case": [
         "TAG_EXPRESSION_REPEATED"
     ],
+    "tag-expression-repeated-hed-column-reference": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-reference-removed": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-curly-brace-substitution": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
     "tag-extended-extension": [
         "TAG_EXTENDED"
     ],

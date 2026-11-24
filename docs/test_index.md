@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 259 test cases in the HED test suite.
+Complete index of 262 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -29,7 +29,7 @@ Complete index of 259 test cases in the HED test suite.
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (6 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
-- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (6 tests)
+- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (9 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
@@ -2108,6 +2108,28 @@ Complete index of 259 test cases in the HED test suite.
 
 - `combo_tests`: 1 fail, 1 pass
 
+### tag-expression-repeated-curly-brace-substitution (correction guidance) (examples)
+
+**Description**: A sidecar annotation repeats a tag when the annotation of a column it references is substituted. Under rule 10 of the sidecar curly-brace rules, each annotation of each referenced column is substituted, one referenced column at a time with every other reference removed, whether or not a table uses that value. So (Red, \{color}) is invalid if an annotation of color is Red, and (Red, \{color}), (Blue, \{shade}) is invalid for the same color with shade removed. A repeat that needs two referenced columns filled at once, such as (\{color}, \{shade}) when both give Red, is required only when a row is assembled; the combo fails item pins it, and no sidecar item depends on whether a validator reports it in the sidecar.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 2 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### tag-expression-repeated-hed-column-reference (correction guidance) (examples)
+
+**Description**: A sidecar annotation repeats a tag once its \{HED} reference is removed. Under rule 10 of the sidecar curly-brace rules, a \{HED} reference is always removed when the sidecar is checked, as it is in a row whose HED cell is n/a or blank, so (Red, \{HED}), (Red) is invalid as a sidecar on its own: removing the reference leaves (Red), (Red). The combo item fails on a row whose HED cell is n/a. (Red, \{HED}), (Blue) passes.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### tag-expression-repeated-na-onset-row (correction guidance) (examples)
 
 **Description**: A tag is repeated in the assembled annotation of a row whose onset is n/a.
@@ -2117,6 +2139,17 @@ Complete index of 259 test cases in the HED test suite.
 **Tests**:
 
 - `combo_tests`: 3 fail, 3 pass
+
+### tag-expression-repeated-reference-removed (correction guidance) (examples)
+
+**Description**: A sidecar annotation repeats a tag once a curly-brace reference to another column is removed. Under rule 10 of the sidecar curly-brace rules, the annotation is also checked with all its references removed, as in a row whose referenced cell is n/a or blank (rule 3), so (Red, \{color}), (Red) is invalid as a sidecar on its own even though no annotation of color is Red, and so is (Red, \{rt}), (Red) for a value column rt. The combo items fail on rows whose color cell is n/a or blank (the empty string) and whose rt cell is n/a.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 0 pass
+- `combo_tests`: 3 fail, 0 pass
 
 ### tag-expression-repeated-same-level (correction guidance) (examples)
 
@@ -2578,15 +2611,16 @@ Complete index of 259 test cases in the HED test suite.
 
 ### temporal-tag-error-duration-group (correction guidance) (examples)
 
-**Description**: A Duration or Delay has extra tags or groups.
+**Description**: A Duration or Delay has extra tags or groups, or a Duration is missing its required group. The group rules are checked on the assembled row (rule 9 of the sidecar curly-brace rules): the value template (Duration/# s, \{stim_desc}) is valid when the annotations of stim_desc supply the group, and a row whose stim_desc is n/a fails; (Duration/# s, \{HED}) is valid in the sidecar, and a row whose HED cell is Red (no group) fails.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
 - `string_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 0 fail, 2 pass
 - `event_tests`: 2 fail, 1 pass
-- `combo_tests`: 0 fail, 1 pass
+- `combo_tests`: 2 fail, 3 pass
 
 ### temporal-tag-error-duration-not-convertible (correction guidance) (examples)
 

@@ -1,5 +1,7 @@
 # Unreleased
 
+- Rule 10 of the sidecar curly-brace rules (3.2.9.3: each referenced column substituted one at a time with the other references removed, plus all references removed): added TAG_EXPRESSION_REPEATED tag-expression-repeated-hed-column-reference (`(Red, {HED}), (Red)`; sidecar 1/1, combo 1/1), tag-expression-repeated-reference-removed (`(Red, {color}), (Red)` and a value column `(Red, {rt}), (Red)`; sidecar 2/0, combo 3/0 with `n/a` and blank cells) and tag-expression-repeated-curly-brace-substitution (`(Red, {color})` and two references; sidecar 2/2, combo 1/1, the combo fails item a repeat that needs two columns filled). Extended TEMPORAL_TAG_ERROR temporal-tag-error-duration-group with value templates `(Duration/# s, {stim_desc})` and `(Duration/# s, {HED})` (rule 9: sidecar 2 passes, combo 2/2; rows with no inner group fail).
+
 - Added a combo fails item to TABULAR_INVALID tabular-invalid-blank-column-name: an empty first line and no `HED` column, with a sidecar that has HED (3.2.10: a table whose sidecar has HED annotations is validated, so its empty first line is reported).
 
 - A schema property cannot be deprecated (hed-specification 3.1.4.8; SCHEMA_DEPRECATION_ERROR reason e no longer used): removed SCHEMA_DEPRECATION_ERROR schema-deprecated-property-used-by-attribute and added SCHEMA_ATTRIBUTE_INVALID attribute-invalid-on-property (4 fails: a deprecated property unused, used by an attribute, used by a deprecated attribute, and `extensionAllowed` on a property; 1 passes).

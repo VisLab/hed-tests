@@ -2063,7 +2063,7 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-duration-group",
-        "description": "A Duration or Delay has extra tags or groups.",
+        "description": "A Duration or Delay has extra tags or groups, or a Duration is missing its required group. The group rules are checked on the assembled row (rule 9 of the sidecar curly-brace rules): the value template (Duration/# s, {stim_desc}) is valid when the annotations of stim_desc supply the group, and a row whose stim_desc is n/a fails; (Duration/# s, {HED}) is valid in the sidecar, and a row whose HED cell is Red (no group) fails.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "structure",
@@ -2101,7 +2101,8 @@
         "validation_hints": [
             "Check Duration/Delay groups for extra content",
             "Ensure temporal tags appear with time values only",
-            "Verify proper separation of temporal and descriptive content"
+            "Verify proper separation of temporal and descriptive content",
+            "A curly-brace reference that supplies the inner group is not checked for the group in the sidecar; the row is checked after assembly (TEMPORAL_TAG_ERROR or TAG_GROUP_ERROR)"
         ],
         "specification_reference": "3.2.8.3. Duration and Delay group structure",
         "related_errors": [
@@ -2123,7 +2124,23 @@
             },
             "sidecar_tests": {
                 "fails": [],
-                "passes": []
+                "passes": [
+                    {
+                        "dur": {
+                            "HED": "(Duration/# s, {stim_desc})"
+                        },
+                        "stim_desc": {
+                            "HED": {
+                                "a": "(Red)"
+                            }
+                        }
+                    },
+                    {
+                        "dur": {
+                            "HED": "(Duration/# s, {HED})"
+                        }
+                    }
+                ]
             },
             "event_tests": {
                 "fails": [
@@ -2188,7 +2205,55 @@
                 ]
             },
             "combo_tests": {
-                "fails": [],
+                "fails": [
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {stim_desc})"
+                            },
+                            "stim_desc": {
+                                "HED": {
+                                    "a": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "stim_desc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "n/a"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {HED})"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "Red"
+                            ]
+                        ]
+                    }
+                ],
                 "passes": [
                     {
                         "sidecar": {
@@ -2230,6 +2295,53 @@
                                 0,
                                 "ball",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {stim_desc})"
+                            },
+                            "stim_desc": {
+                                "HED": {
+                                    "a": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "stim_desc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "a"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {HED})"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "(Red)"
                             ]
                         ]
                     }
