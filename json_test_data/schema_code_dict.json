@@ -5,6 +5,7 @@
     "SCHEMA_ATTRIBUTE_INVALID": [
         "attribute-invalid-unknown",
         "attribute-invalid-any-units-not-empty",
+        "attribute-invalid-on-property",
         "attribute-relatedTag-invalid",
         "attribute-suggestedTag-invalid"
     ],
@@ -42,8 +43,7 @@
         "schema-deprecated-unit-class",
         "schema-deprecated-value-class",
         "schema-deprecated-invalid-suggested-related-tag",
-        "schema-deprecated-attribute-used-by-element",
-        "schema-deprecated-property-used-by-attribute"
+        "schema-deprecated-attribute-used-by-element"
     ],
     "SCHEMA_DUPLICATE_NODE": [
         "attribute-duplicate-node",

@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 257 test cases in the HED test suite.
+Complete index of 262 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -13,10 +13,10 @@ Complete index of 257 test cases in the HED test suite.
 - [PARENTHESES_MISMATCH](#parentheses-mismatch) (4 tests)
 - [PLACEHOLDER_INVALID](#placeholder-invalid) (8 tests)
 - [SCHEMA_ANNOTATION_INVALID](#schema-annotation-invalid) (1 test)
-- [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (2 tests)
+- [SCHEMA_ATTRIBUTE_INVALID](#schema-attribute-invalid) (3 tests)
 - [SCHEMA_ATTRIBUTE_VALUE_INVALID](#schema-attribute-value-invalid) (14 tests)
 - [SCHEMA_CHARACTER_INVALID](#schema-character-invalid) (6 tests)
-- [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (8 tests)
+- [SCHEMA_DEPRECATION_ERROR](#schema-deprecation-error) (7 tests)
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (3 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (23 tests)
@@ -25,11 +25,11 @@ Complete index of 257 test cases in the HED test suite.
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
 - [SIDECAR_BRACES_INVALID](#sidecar-braces-invalid) (6 tests)
-- [SIDECAR_INVALID](#sidecar-invalid) (5 tests)
+- [SIDECAR_INVALID](#sidecar-invalid) (6 tests)
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (6 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
-- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (5 tests)
+- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (9 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
@@ -660,7 +660,7 @@ Complete index of 257 test cases in the HED test suite.
 
 **Tests**:
 
-- `sidecar_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 4 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
 
 ### placeholder-invalid-misplaced (correction guidance) (examples)
@@ -727,6 +727,16 @@ Complete index of 257 test cases in the HED test suite.
 **Tests**:
 
 - `schema_tests`: 2 fail, 1 pass
+
+### attribute-invalid-on-property (correction guidance) (examples)
+
+**Description**: A schema property carries a schema attribute other than hedId.
+
+**Schema**: any **Category**: schema_development
+
+**Tests**:
+
+- `schema_tests`: 4 fail, 1 pass
 
 ### attribute-invalid-unknown (correction guidance) (examples)
 
@@ -999,16 +1009,6 @@ Complete index of 257 test cases in the HED test suite.
 **Tests**:
 
 - `schema_tests`: 2 fail, 4 pass
-
-### schema-deprecated-property-used-by-attribute
-
-**Description**: A schema deprecation issue: a schema attribute uses a deprecated property
-
-**Schema**: any
-
-**Tests**:
-
-- `schema_tests`: 1 fail, 1 pass
 
 ### schema-deprecated-unit-class
 
@@ -1891,6 +1891,17 @@ Complete index of 257 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/SIDECAR_INVALID.json`
 
+### sidecar-invalid-annotation-empty (correction guidance) (examples)
+
+**Description**: An annotation in a categorical entry of a sidecar is empty or consists only of blanks.
+
+**Schema**: 8.4.0 **Category**: structure
+
+**Tests**:
+
+- `sidecar_tests`: 3 fail, 2 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### sidecar-invalid-hed-key-nested-beside-valid (correction guidance) (examples)
 
 **Description**: A sidecar entry has a valid second-level HED key and also a HED key at a deeper level.
@@ -1958,7 +1969,7 @@ Complete index of 257 test cases in the HED test suite.
 
 **Tests**:
 
-- `combo_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 2 pass
 
 ### sidecar-refers-to-missing-tsv-hed-column (warning) (correction guidance) (examples)
 
@@ -1977,14 +1988,14 @@ Complete index of 257 test cases in the HED test suite.
 
 ### tabular-invalid-blank-column-name (correction guidance) (examples)
 
-**Description**: A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a first line that is only a tab has two blank names, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass. An empty first line is a single blank column name, so a file whose first line is empty fails under this reason (its later lines also have two cells against one, reason f); two empty first lines put the HED header on line 3 (and three put it on line 4), where a validator that looks only at line 1 or 2 does not see it and may skip the file as having no HED; the items check the error code only, so a validator that reports the empty lines under reason e without looking for HED also passes them; the one-column items break only reasons c and e, not the cell count (f); either way the error is TABULAR_INVALID.
+**Description**: A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a first line that is only a tab has two blank names, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass. An empty first line is a single blank column name, so a file whose first line is empty fails under this reason (its later lines also have two cells against one, reason f); two empty first lines put the HED header on line 3 (and three put it on line 4), where a validator that looks only at line 1 or 2 does not see it and may skip the file as having no HED; the items check the error code only, so a validator that reports the empty lines under reason e without looking for HED also passes them; the one-column items break only reasons c and e, not the cell count (f); one combo item has an empty first line and no HED column, so only its sidecar makes it a table that carries HED and must be validated; either way the error is TABULAR_INVALID.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
 - `event_tests`: 7 fail, 1 pass
-- `combo_tests`: 2 fail, 1 pass
+- `combo_tests`: 3 fail, 1 pass
 
 ### tabular-invalid-cell-count (correction guidance) (examples)
 
@@ -2097,6 +2108,28 @@ Complete index of 257 test cases in the HED test suite.
 
 - `combo_tests`: 1 fail, 1 pass
 
+### tag-expression-repeated-curly-brace-substitution (correction guidance) (examples)
+
+**Description**: A sidecar annotation repeats a tag when the annotation of a column it references is substituted. Under rule 10 of the sidecar curly-brace rules, each annotation of each referenced column is substituted, one referenced column at a time with every other reference removed, whether or not a table uses that value. So (Red, \{color}) is invalid if an annotation of color is Red, and (Red, \{color}), (Blue, \{shade}) is invalid for the same color with shade removed. A repeat that needs two referenced columns filled at once, such as (\{color}, \{shade}) when both give Red, is required only when a row is assembled; the combo fails item pins it, and no sidecar item depends on whether a validator reports it in the sidecar.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 2 pass
+- `combo_tests`: 1 fail, 1 pass
+
+### tag-expression-repeated-hed-column-reference (correction guidance) (examples)
+
+**Description**: A sidecar annotation repeats a tag once its \{HED} reference is removed. Under rule 10 of the sidecar curly-brace rules, a \{HED} reference is always removed when the sidecar is checked, as it is in a row whose HED cell is n/a or blank, so (Red, \{HED}), (Red) is invalid as a sidecar on its own: removing the reference leaves (Red), (Red). The combo item fails on a row whose HED cell is n/a. (Red, \{HED}), (Blue) passes.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `sidecar_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### tag-expression-repeated-na-onset-row (correction guidance) (examples)
 
 **Description**: A tag is repeated in the assembled annotation of a row whose onset is n/a.
@@ -2106,6 +2139,17 @@ Complete index of 257 test cases in the HED test suite.
 **Tests**:
 
 - `combo_tests`: 3 fail, 3 pass
+
+### tag-expression-repeated-reference-removed (correction guidance) (examples)
+
+**Description**: A sidecar annotation repeats a tag once a curly-brace reference to another column is removed. Under rule 10 of the sidecar curly-brace rules, the annotation is also checked with all its references removed, as in a row whose referenced cell is n/a or blank (rule 3), so (Red, \{color}), (Red) is invalid as a sidecar on its own even though no annotation of color is Red, and so is (Red, \{rt}), (Red) for a value column rt. The combo items fail on rows whose color cell is n/a or blank (the empty string) and whose rt cell is n/a.
+
+**Schema**: 8.4.0 **Category**: semantic
+
+**Tests**:
+
+- `sidecar_tests`: 2 fail, 0 pass
+- `combo_tests`: 3 fail, 0 pass
 
 ### tag-expression-repeated-same-level (correction guidance) (examples)
 
@@ -2119,6 +2163,19 @@ Complete index of 257 test cases in the HED test suite.
 - `sidecar_tests`: 2 fail, 1 pass
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 2 fail, 1 pass
+
+### tag-expression-repeated-value-case (correction guidance) (examples)
+
+**Description**: Tags that differ only in the case of a node name, tag extension or definition name are repeated; tags whose values differ in case are not.
+
+**Schema**: 8.5.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 14 fail, 8 pass
+- `sidecar_tests`: 1 fail, 1 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
 
 ### tags-duplicated-across-multiple-rows (correction guidance) (examples)
 
@@ -2554,15 +2611,16 @@ Complete index of 257 test cases in the HED test suite.
 
 ### temporal-tag-error-duration-group (correction guidance) (examples)
 
-**Description**: A Duration or Delay has extra tags or groups.
+**Description**: A Duration or Delay has extra tags or groups, or a Duration is missing its required group. The group rules are checked on the assembled row (rule 9 of the sidecar curly-brace rules): the value template (Duration/# s, \{stim_desc}) is valid when the annotations of stim_desc supply the group, and a row whose stim_desc is n/a fails; (Duration/# s, \{HED}) is valid in the sidecar, and a row whose HED cell is Red (no group) fails.
 
 **Schema**: 8.4.0 **Category**: structure
 
 **Tests**:
 
 - `string_tests`: 1 fail, 1 pass
+- `sidecar_tests`: 0 fail, 2 pass
 - `event_tests`: 2 fail, 1 pass
-- `combo_tests`: 0 fail, 1 pass
+- `combo_tests`: 2 fail, 3 pass
 
 ### temporal-tag-error-duration-not-convertible (correction guidance) (examples)
 

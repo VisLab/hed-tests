@@ -8133,6 +8133,21 @@
                         "memory": {
                             "HED": "Blue, Red, Label/#"
                         }
+                    },
+                    {
+                        "rt": {
+                            "HED": ""
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": " "
+                        }
+                    },
+                    {
+                        "rt": {
+                            "HED": "n/a"
+                        }
                     }
                 ],
                 "passes": [
@@ -12784,6 +12799,174 @@
         }
     },
     {
+        "error_code": "SIDECAR_INVALID",
+        "alt_codes": [],
+        "name": "sidecar-invalid-annotation-empty",
+        "description": "An annotation in a categorical entry of a sidecar is empty or consists only of blanks.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Leaving a placeholder empty string for a value that has not been annotated yet",
+            "A spreadsheet-to-JSON conversion that writes blank cells as empty strings or spaces",
+            "Deleting the text of an annotation without deleting or replacing the entry"
+        ],
+        "explanation": "Every annotation in a categorical entry must say something. A column value that has no HED annotation is given the annotation n/a, which contributes nothing when a row is assembled and still counts as an entry, so no missing-entry warning is reported for it. An empty string or a string of blanks is not allowed.",
+        "correction_strategy": "Write the missing annotation, or replace the empty or blank string with n/a",
+        "correction_examples": [
+            {
+                "wrong": "code -> {\"HED\": {\"go\": \"\", \"stop\": \"Blue\"}}",
+                "correct": "code -> {\"HED\": {\"go\": \"n/a\", \"stop\": \"Blue\"}}",
+                "explanation": "A value with no annotation is written n/a"
+            },
+            {
+                "wrong": "code -> {\"HED\": {\"go\": \"   \", \"stop\": \"Blue\"}}",
+                "correct": "code -> {\"HED\": {\"go\": \"Sensory-event\", \"stop\": \"Blue\"}}",
+                "explanation": "Wrote the missing annotation in place of the blanks"
+            }
+        ],
+        "correction_patterns": [
+            "Replace an empty or blank annotation with n/a",
+            "Write the annotation that is missing",
+            "Keep the entry; do not delete the value from the sidecar"
+        ],
+        "fix_instructions": [
+            "1. Find categorical annotations that are empty or contain only blanks",
+            "2. Decide whether the value should be annotated",
+            "3. Write the annotation, or write n/a if the value has none"
+        ],
+        "validation_hints": [
+            "Strip blanks before testing whether an annotation is empty",
+            "n/a is a valid annotation of a categorical value and adds nothing to the row",
+            "A value entry (one HED string with #) can never be n/a; that is PLACEHOLDER_INVALID"
+        ],
+        "specification_reference": "3.2.9.2. Sidecar validation",
+        "related_errors": [
+            "SIDECAR_KEY_MISSING",
+            "PLACEHOLDER_INVALID",
+            "TAG_EMPTY"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "",
+                                "stop": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "code": {
+                            "HED": {
+                                "go": " ",
+                                "stop": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "   ",
+                                "stop": "Blue"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "n/a",
+                                "stop": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "n/a",
+                                "stop": "n/a"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "code": {
+                                "HED": {
+                                    "go": "",
+                                    "stop": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "code": {
+                                "HED": {
+                                    "go": "n/a",
+                                    "stop": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "error_code": "SIDECAR_KEY_MISSING",
         "alt_codes": [],
         "name": "sidecar-key-missing",
@@ -12915,6 +13098,33 @@
                                 0,
                                 "ball",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "code": {
+                                "HED": {
+                                    "go": "n/a",
+                                    "stop": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
                             ]
                         ]
                     }
@@ -13569,7 +13779,7 @@
         "error_code": "TABULAR_INVALID",
         "alt_codes": [],
         "name": "tabular-invalid-blank-column-name",
-        "description": "A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a first line that is only a tab has two blank names, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass. An empty first line is a single blank column name, so a file whose first line is empty fails under this reason (its later lines also have two cells against one, reason f); two empty first lines put the HED header on line 3 (and three put it on line 4), where a validator that looks only at line 1 or 2 does not see it and may skip the file as having no HED; the items check the error code only, so a validator that reports the empty lines under reason e without looking for HED also passes them; the one-column items break only reasons c and e, not the cell count (f); either way the error is TABULAR_INVALID.",
+        "description": "A column name in the first line of a tabular file is blank, the empty string (reason c). A first line that ends with a tab has a blank last name, a first line that is only a tab has two blank names, a blank name between two others fails, and two blank names are reported under (c) for each blank name, not as a repeated name under (a). A header naming trial for a sidecar entry trial fails when the header also has a blank column. The same tables without the blank column pass. An empty first line is a single blank column name, so a file whose first line is empty fails under this reason (its later lines also have two cells against one, reason f); two empty first lines put the HED header on line 3 (and three put it on line 4), where a validator that looks only at line 1 or 2 does not see it and may skip the file as having no HED; the items check the error code only, so a validator that reports the empty lines under reason e without looking for HED also passes them; the one-column items break only reasons c and e, not the cell count (f); one combo item has an empty first line and no HED column, so only its sidecar makes it a table that carries HED and must be validated; either way the error is TABULAR_INVALID.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "structure",
@@ -13771,6 +13981,24 @@
                             [
                                 "go",
                                 "x"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "response": {
+                                "HED": {
+                                    "a": "Red"
+                                }
+                            }
+                        },
+                        "events": [
+                            [],
+                            [
+                                "response"
+                            ],
+                            [
+                                "a"
                             ]
                         ]
                     }
@@ -16293,6 +16521,735 @@
                                 0,
                                 "face",
                                 "y"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-value-case",
+        "description": "Tags that differ only in the case of a node name, tag extension or definition name are repeated; tags whose values differ in case are not.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing the same tag twice with different capitalization",
+            "Assuming that changing the case of a tag makes it a different tag",
+            "Writing a tag extension or definition name twice with different capitalization",
+            "Combining a sidecar annotation and a HED column cell that contain the same tag in different case"
+        ],
+        "explanation": "Node names, tag extensions and definition names are matched without regard to case, so Red and red, Red/Blech and Red/blech, and Def/MyColor and Def/mycolor are each the same tag expression and may not appear twice at the same level. The value that replaces a # placeholder is matched exactly as written, so Label/abc and Label/ABC are different tag expressions and may both appear.",
+        "correction_strategy": "Remove one of two tags that differ only in the case of their node names, extensions or definition names. Leave two tags that share a node but whose values differ in case; they are not repeated.",
+        "correction_examples": [
+            {
+                "wrong": "Red, red",
+                "correct": "Red",
+                "explanation": "Node names are matched without regard to case, so red repeats Red"
+            },
+            {
+                "wrong": "Label/abc, label/abc",
+                "correct": "Label/abc",
+                "explanation": "The tag differs only in case and the value is the same, so the expression is repeated"
+            },
+            {
+                "wrong": "Def/MyColor, Def/mycolor",
+                "correct": "Def/MyColor",
+                "explanation": "Definition names are matched without regard to case"
+            },
+            {
+                "wrong": "Red/Blech, Red/blech",
+                "correct": "Red/Blech",
+                "explanation": "Tag extensions are matched without regard to case"
+            }
+        ],
+        "correction_patterns": [
+            "Treat tags that differ only in capitalization as the same tag",
+            "Keep tags whose values differ, even if only in case",
+            "Remove the second of two tags that match without regard to case"
+        ],
+        "fix_instructions": [
+            "1. Compare the tags at each level without regard to the case of node names, extensions and definition names",
+            "2. Compare values exactly as written",
+            "3. Remove one tag of each pair that matches under these rules",
+            "4. Leave tags whose values differ only in case"
+        ],
+        "validation_hints": [
+            "Lowercase node names, extensions and definition names before comparing",
+            "Do not change the case of values before comparing",
+            "Units are not part of this rule; a unit in the wrong case is UNITS_INVALID"
+        ],
+        "specification_reference": "3.2.3. Tag case-sensitivity",
+        "related_errors": [
+            "UNITS_INVALID"
+        ],
+        "definitions": [
+            "(Definition/Acc/#, (Acceleration/# m-per-s^2, Red))",
+            "(Definition/MyColor, (Label/Pie))"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "Red, red",
+                    "RED, Red",
+                    "(Red, Blue), (blue, RED)",
+                    "Label/abc, label/abc",
+                    "Label/abc, LABEL/abc",
+                    "Property/Informational-property/Label/abc, label/abc",
+                    "(Label/abc, Red), (red, label/abc)",
+                    "Item-count/3, item-count/3",
+                    "Weight/3 kg, weight/3 kg",
+                    "Red/Blech, Red/blech",
+                    "Red/Blech, red/Blech",
+                    "Def/MyColor, Def/mycolor",
+                    "Def/MyColor, def/MyColor",
+                    "Def/Acc/4.5, def/acc/4.5"
+                ],
+                "passes": [
+                    "Label/abc, Label/ABC",
+                    "Label/abc, label/ABC",
+                    "(Label/abc, Red), (Label/Abc, Red)",
+                    "ID/a1, ID/A1",
+                    "Label/abc, Label/abd",
+                    "Label/\u00c9t\u00e9, Label/\u00e9t\u00e9",
+                    "Def/mycolor, Red",
+                    "Def/Acc/4.5, Def/Acc/4.6"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Label/abc, label/abc",
+                                "ball": "Red/Blech, Red/blech",
+                                "square": "Def/MyColor, Def/mycolor"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "Label/abc, Label/ABC",
+                                "ball": "Def/mycolor, Red",
+                                "square": "Def/Acc/4.5, Def/Acc/4.6"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/abc, label/abc"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Red/Blech, Red/blech"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "Def/MyColor, Def/mycolor"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "Label/abc, Label/ABC"
+                        ],
+                        [
+                            5.5,
+                            0,
+                            "Def/mycolor, Red"
+                        ],
+                        [
+                            6.5,
+                            0,
+                            "Def/Acc/4.5, Def/Acc/4.6"
+                        ]
+                    ]
+                ]
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Label/abc",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "label/abc"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                ""
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "Label/abc",
+                                    "ball": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Label/ABC"
+                            ],
+                            [
+                                5.0,
+                                0,
+                                "ball",
+                                ""
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-hed-column-reference",
+        "description": "A sidecar annotation repeats a tag once its {HED} reference is removed. Under rule 10 of the sidecar curly-brace rules, a {HED} reference is always removed when the sidecar is checked, as it is in a row whose HED cell is n/a or blank, so (Red, {HED}), (Red) is invalid as a sidecar on its own: removing the reference leaves (Red), (Red). The combo item fails on a row whose HED cell is n/a. (Red, {HED}), (Blue) passes.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing a sidecar annotation that is only valid when the HED column is filled",
+            "Repeating in a separate group a tag that sits beside a {HED} reference"
+        ],
+        "explanation": "When the HED cell of a row is n/a or blank, the {HED} reference is removed together with its comma, so (Red, {HED}), (Red) assembles to (Red), (Red), which repeats the group (Red). A validator checks every sidecar annotation with the {HED} reference removed, so the sidecar is invalid even if every row of the current file fills the HED column.",
+        "correction_strategy": "Change the sidecar annotation so it stays valid when the HED column is empty; do not rely on the HED column being filled",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"(Red, {HED}), (Red)\"",
+                "correct": "face -> \"(Red, {HED}), (Blue)\"",
+                "explanation": "With the reference removed the annotation is (Red), (Blue), which has no repeat"
+            },
+            {
+                "wrong": "face -> \"(Red, {HED}), (Red)\"",
+                "correct": "face -> \"(Red, {HED})\"",
+                "explanation": "The second (Red) adds nothing; dropping it removes the repeat"
+            }
+        ],
+        "correction_patterns": [
+            "Check each sidecar annotation with every {HED} reference removed"
+        ],
+        "fix_instructions": [
+            "1. Find the sidecar annotation that contains {HED}",
+            "2. Remove {HED} and its comma, and look for a repeated tag or group",
+            "3. Change or remove the repeated tag in the sidecar"
+        ],
+        "validation_hints": [
+            "The sidecar alone fails; no row is needed to find the error",
+            "A row whose HED cell is n/a assembles to the same repeat"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {HED}), (Red)"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {HED}), (Blue)"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {HED}), (Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {HED}), (Blue)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "Blue"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-reference-removed",
+        "description": "A sidecar annotation repeats a tag once a curly-brace reference to another column is removed. Under rule 10 of the sidecar curly-brace rules, the annotation is also checked with all its references removed, as in a row whose referenced cell is n/a or blank (rule 3), so (Red, {color}), (Red) is invalid as a sidecar on its own even though no annotation of color is Red, and so is (Red, {rt}), (Red) for a value column rt. The combo items fail on rows whose color cell is n/a or blank (the empty string) and whose rt cell is n/a.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing a sidecar annotation that is only valid when a referenced column is filled",
+            "Repeating in a separate group a tag that sits beside a curly-brace reference"
+        ],
+        "explanation": "When a referenced cell is n/a or blank, the reference is removed together with its comma, so (Red, {color}), (Red) assembles to (Red), (Red), which repeats the group (Red). This holds for a categorical column such as color and for a value column such as rt. A validator checks each sidecar annotation with every reference removed, so the sidecar is invalid even if every row of the current file fills the referenced column.",
+        "correction_strategy": "Change the sidecar annotation so it stays valid when the referenced column is n/a or blank; do not rely on the column being filled",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"(Red, {color}), (Red)\"",
+                "correct": "face -> \"(Red, {color}), (Yellow)\"",
+                "explanation": "With the reference removed the annotation is (Red), (Yellow), which has no repeat"
+            },
+            {
+                "wrong": "face -> \"(Red, {rt}), (Red)\" and rt -> \"Label/#\"",
+                "correct": "face -> \"(Red, {rt})\" and rt -> \"Label/#\"",
+                "explanation": "The second (Red) adds nothing; dropping it removes the repeat"
+            }
+        ],
+        "correction_patterns": [
+            "Check each sidecar annotation with every curly-brace reference removed"
+        ],
+        "fix_instructions": [
+            "1. Find the sidecar annotation with the curly-brace reference",
+            "2. Remove each reference and its comma, and look for a repeated tag or group",
+            "3. Change or remove the repeated tag in the sidecar"
+        ],
+        "validation_hints": [
+            "The sidecar alone fails; no row is needed to find the error",
+            "A row whose referenced cell is n/a or blank assembles to the same repeat",
+            "A blank cell is written as the empty string, so the row keeps as many cells as the header"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {color}), (Red)"
+                            }
+                        },
+                        "color": {
+                            "HED": {
+                                "warm": "Blue",
+                                "cool": "Green"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {rt}), (Red)"
+                            }
+                        },
+                        "rt": {
+                            "HED": "Label/#"
+                        }
+                    }
+                ],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {color}), (Red)"
+                                }
+                            },
+                            "color": {
+                                "HED": {
+                                    "warm": "Blue",
+                                    "cool": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "color"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {color}), (Red)"
+                                }
+                            },
+                            "color": {
+                                "HED": {
+                                    "warm": "Blue",
+                                    "cool": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "color"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                ""
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {rt}), (Red)"
+                                }
+                            },
+                            "rt": {
+                                "HED": "Label/#"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "rt"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
+        "name": "tag-expression-repeated-curly-brace-substitution",
+        "description": "A sidecar annotation repeats a tag when the annotation of a column it references is substituted. Under rule 10 of the sidecar curly-brace rules, each annotation of each referenced column is substituted, one referenced column at a time with every other reference removed, whether or not a table uses that value. So (Red, {color}) is invalid if an annotation of color is Red, and (Red, {color}), (Blue, {shade}) is invalid for the same color with shade removed. A repeat that needs two referenced columns filled at once, such as ({color}, {shade}) when both give Red, is required only when a row is assembled; the combo fails item pins it, and no sidecar item depends on whether a validator reports it in the sidecar.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "semantic",
+        "common_causes": [
+            "Annotating a referenced column with a tag the referencing annotation already has",
+            "Assuming a sidecar is valid because no row of the current file uses the conflicting value"
+        ],
+        "explanation": "A curly-brace reference is replaced by the annotation of the referenced column. If any annotation of that column repeats a tag beside the reference, the substitution has a repeat: (Red, {color}) with color warm annotated Red gives (Red, Red). The sidecar is checked for every annotation of the referenced column, so it is invalid even if no row uses warm.",
+        "correction_strategy": "Change the referencing annotation or the referenced column's annotation so no substitution repeats a tag; do not rely on rows avoiding the conflicting value",
+        "correction_examples": [
+            {
+                "wrong": "face -> \"(Red, {color})\" and color warm -> \"Red\"",
+                "correct": "face -> \"(Red, {color})\" and color warm -> \"Green\"",
+                "explanation": "No annotation of color repeats Red, so every substitution is valid"
+            },
+            {
+                "wrong": "face -> \"(Red, {color}), (Blue, {shade})\" and color warm -> \"Red\"",
+                "correct": "face -> \"(Red, {color}), (Blue, {shade})\" and color warm -> \"Green\"",
+                "explanation": "Substituting color with shade removed gives (Red, Green), (Blue) or (Red, Blue), (Blue), neither of which repeats"
+            }
+        ],
+        "correction_patterns": [
+            "Substitute each annotation of each referenced column, one column at a time, and check the result"
+        ],
+        "fix_instructions": [
+            "1. For each annotation with curly braces, list the columns it references",
+            "2. For each such column, substitute each of its annotations, removing the other references",
+            "3. Look for a repeated tag or group in each result and change the sidecar to remove it"
+        ],
+        "validation_hints": [
+            "The sidecar fails items fail on the sidecar alone, with no row",
+            "A repeat that needs two referenced columns filled is only required at row assembly; a validator MAY also report it in the sidecar"
+        ],
+        "specification_reference": "3.2.9.3. Sidecar curly braces",
+        "related_errors": [
+            "SIDECAR_BRACES_INVALID"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {color})"
+                            }
+                        },
+                        "color": {
+                            "HED": {
+                                "warm": "Red",
+                                "cool": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {color}), (Blue, {shade})"
+                            }
+                        },
+                        "color": {
+                            "HED": {
+                                "warm": "Red",
+                                "cool": "Blue"
+                            }
+                        },
+                        "shade": {
+                            "HED": {
+                                "x": "Yellow"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {color})"
+                            }
+                        },
+                        "color": {
+                            "HED": {
+                                "warm": "Green",
+                                "cool": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "(Red, {color}), (Blue, {shade})"
+                            }
+                        },
+                        "color": {
+                            "HED": {
+                                "warm": "Green",
+                                "cool": "Blue"
+                            }
+                        },
+                        "shade": {
+                            "HED": {
+                                "x": "Yellow"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "({color}, {shade})"
+                                }
+                            },
+                            "color": {
+                                "HED": {
+                                    "warm": "Red",
+                                    "cool": "Blue"
+                                }
+                            },
+                            "shade": {
+                                "HED": {
+                                    "x": "Red",
+                                    "y": "Green"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "color",
+                                "shade"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "warm",
+                                "x"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "event_code": {
+                                "HED": {
+                                    "face": "(Red, {color}), (Blue, {shade})"
+                                }
+                            },
+                            "color": {
+                                "HED": {
+                                    "warm": "Green",
+                                    "cool": "Blue"
+                                }
+                            },
+                            "shade": {
+                                "HED": {
+                                    "x": "Yellow"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "event_code",
+                                "color",
+                                "shade"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "face",
+                                "warm",
+                                "x"
                             ]
                         ]
                     }
@@ -23113,7 +24070,7 @@
             "TAG_GROUP_ERROR"
         ],
         "name": "temporal-tag-error-duration-group",
-        "description": "A Duration or Delay has extra tags or groups.",
+        "description": "A Duration or Delay has extra tags or groups, or a Duration is missing its required group. The group rules are checked on the assembled row (rule 9 of the sidecar curly-brace rules): the value template (Duration/# s, {stim_desc}) is valid when the annotations of stim_desc supply the group, and a row whose stim_desc is n/a fails; (Duration/# s, {HED}) is valid in the sidecar, and a row whose HED cell is Red (no group) fails.",
         "warning": false,
         "schema": "8.4.0",
         "error_category": "structure",
@@ -23151,7 +24108,8 @@
         "validation_hints": [
             "Check Duration/Delay groups for extra content",
             "Ensure temporal tags appear with time values only",
-            "Verify proper separation of temporal and descriptive content"
+            "Verify proper separation of temporal and descriptive content",
+            "A curly-brace reference that supplies the inner group is not checked for the group in the sidecar; the row is checked after assembly (TEMPORAL_TAG_ERROR or TAG_GROUP_ERROR)"
         ],
         "specification_reference": "3.2.8.3. Duration and Delay group structure",
         "related_errors": [
@@ -23173,7 +24131,23 @@
             },
             "sidecar_tests": {
                 "fails": [],
-                "passes": []
+                "passes": [
+                    {
+                        "dur": {
+                            "HED": "(Duration/# s, {stim_desc})"
+                        },
+                        "stim_desc": {
+                            "HED": {
+                                "a": "(Red)"
+                            }
+                        }
+                    },
+                    {
+                        "dur": {
+                            "HED": "(Duration/# s, {HED})"
+                        }
+                    }
+                ]
             },
             "event_tests": {
                 "fails": [
@@ -23238,7 +24212,55 @@
                 ]
             },
             "combo_tests": {
-                "fails": [],
+                "fails": [
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {stim_desc})"
+                            },
+                            "stim_desc": {
+                                "HED": {
+                                    "a": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "stim_desc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "n/a"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {HED})"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "Red"
+                            ]
+                        ]
+                    }
+                ],
                 "passes": [
                     {
                         "sidecar": {
@@ -23280,6 +24302,53 @@
                                 0,
                                 "ball",
                                 "Green, Def/MyColor"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {stim_desc})"
+                            },
+                            "stim_desc": {
+                                "HED": {
+                                    "a": "(Red)"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "stim_desc"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "a"
+                            ]
+                        ]
+                    },
+                    {
+                        "sidecar": {
+                            "dur": {
+                                "HED": "(Duration/# s, {HED})"
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "dur",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                2,
+                                "(Red)"
                             ]
                         ]
                     }

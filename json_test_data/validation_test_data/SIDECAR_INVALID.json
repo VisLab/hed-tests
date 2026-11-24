@@ -862,5 +862,173 @@
                 ]
             }
         }
+    },
+    {
+        "error_code": "SIDECAR_INVALID",
+        "alt_codes": [],
+        "name": "sidecar-invalid-annotation-empty",
+        "description": "An annotation in a categorical entry of a sidecar is empty or consists only of blanks.",
+        "warning": false,
+        "schema": "8.4.0",
+        "error_category": "structure",
+        "common_causes": [
+            "Leaving a placeholder empty string for a value that has not been annotated yet",
+            "A spreadsheet-to-JSON conversion that writes blank cells as empty strings or spaces",
+            "Deleting the text of an annotation without deleting or replacing the entry"
+        ],
+        "explanation": "Every annotation in a categorical entry must say something. A column value that has no HED annotation is given the annotation n/a, which contributes nothing when a row is assembled and still counts as an entry, so no missing-entry warning is reported for it. An empty string or a string of blanks is not allowed.",
+        "correction_strategy": "Write the missing annotation, or replace the empty or blank string with n/a",
+        "correction_examples": [
+            {
+                "wrong": "code -> {\"HED\": {\"go\": \"\", \"stop\": \"Blue\"}}",
+                "correct": "code -> {\"HED\": {\"go\": \"n/a\", \"stop\": \"Blue\"}}",
+                "explanation": "A value with no annotation is written n/a"
+            },
+            {
+                "wrong": "code -> {\"HED\": {\"go\": \"   \", \"stop\": \"Blue\"}}",
+                "correct": "code -> {\"HED\": {\"go\": \"Sensory-event\", \"stop\": \"Blue\"}}",
+                "explanation": "Wrote the missing annotation in place of the blanks"
+            }
+        ],
+        "correction_patterns": [
+            "Replace an empty or blank annotation with n/a",
+            "Write the annotation that is missing",
+            "Keep the entry; do not delete the value from the sidecar"
+        ],
+        "fix_instructions": [
+            "1. Find categorical annotations that are empty or contain only blanks",
+            "2. Decide whether the value should be annotated",
+            "3. Write the annotation, or write n/a if the value has none"
+        ],
+        "validation_hints": [
+            "Strip blanks before testing whether an annotation is empty",
+            "n/a is a valid annotation of a categorical value and adds nothing to the row",
+            "A value entry (one HED string with #) can never be n/a; that is PLACEHOLDER_INVALID"
+        ],
+        "specification_reference": "3.2.9.2. Sidecar validation",
+        "related_errors": [
+            "SIDECAR_KEY_MISSING",
+            "PLACEHOLDER_INVALID",
+            "TAG_EMPTY"
+        ],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "",
+                                "stop": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "code": {
+                            "HED": {
+                                "go": " ",
+                                "stop": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "   ",
+                                "stop": "Blue"
+                            }
+                        }
+                    }
+                ],
+                "passes": [
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "n/a",
+                                "stop": "Blue"
+                            }
+                        }
+                    },
+                    {
+                        "code": {
+                            "HED": {
+                                "go": "n/a",
+                                "stop": "n/a"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": []
+            },
+            "combo_tests": {
+                "fails": [
+                    {
+                        "sidecar": {
+                            "code": {
+                                "HED": {
+                                    "go": "",
+                                    "stop": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
+                    }
+                ],
+                "passes": [
+                    {
+                        "sidecar": {
+                            "code": {
+                                "HED": {
+                                    "go": "n/a",
+                                    "stop": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "code",
+                                "HED"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go",
+                                "Red"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop",
+                                "n/a"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        }
     }
 ]

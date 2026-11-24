@@ -133,6 +133,33 @@
                                 "Green, Def/MyColor"
                             ]
                         ]
+                    },
+                    {
+                        "sidecar": {
+                            "code": {
+                                "HED": {
+                                    "go": "n/a",
+                                    "stop": "Blue"
+                                }
+                            }
+                        },
+                        "events": [
+                            [
+                                "onset",
+                                "duration",
+                                "code"
+                            ],
+                            [
+                                4.5,
+                                0,
+                                "go"
+                            ],
+                            [
+                                5.5,
+                                0,
+                                "stop"
+                            ]
+                        ]
                     }
                 ]
             }

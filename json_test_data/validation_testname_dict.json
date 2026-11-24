@@ -381,6 +381,9 @@
     "sidecar-invalid-hed-key-nested-beside-valid": [
         "SIDECAR_INVALID"
     ],
+    "sidecar-invalid-annotation-empty": [
+        "SIDECAR_INVALID"
+    ],
     "sidecar-key-missing": [
         "SIDECAR_KEY_MISSING"
     ],
@@ -427,6 +430,18 @@
         "TAG_EXPRESSION_REPEATED"
     ],
     "tag-expression-repeated-column-name-with-period": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-value-case": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-hed-column-reference": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-reference-removed": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
+    "tag-expression-repeated-curly-brace-substitution": [
         "TAG_EXPRESSION_REPEATED"
     ],
     "tag-extended-extension": [
