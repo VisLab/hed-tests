@@ -8,7 +8,7 @@
         "name": "value-invalid-#-substitution",
         "description": "The value substituted for a placeholder (`#`) is not valid.",
         "warning": false,
-        "schema": "8.3.0",
+        "schema": "8.5.0",
         "error_category": "validation",
         "common_causes": [
             "Using incorrect data types for tag values (e.g., text where numbers expected)",
@@ -168,7 +168,7 @@
         "name": "value-invalid-incompatible-value-class",
         "description": "A tag placeholder value is incompatible with the specified value class.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "validation",
         "common_causes": [
             "Using characters invalid for specific value classes (e.g., letters in numeric values)",
@@ -351,7 +351,7 @@
         "name": "value-invalid-blank-missing-before-units",
         "description": "The units are not separated from the value by a single blank.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "validation",
         "common_causes": [
             "Missing space between numeric value and units",
@@ -532,7 +532,7 @@
         "name": "invalid-character-numeric-class",
         "description": "An invalid character was used in an 8.3.0 or greater style numeric value class.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "validation",
         "common_causes": [
             "Including non-numeric characters in numeric values (letters, symbols)",
@@ -643,7 +643,7 @@
         "name": "bad-value-in-curly-column",
         "description": "A column referenced in curly braces has an invalid value in a row whose selected template does not substitute it.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "validation",
         "common_causes": [
             "Assuming a value column is only checked in the rows whose template substitutes it",
@@ -820,7 +820,7 @@
         "name": "value-invalid-date-time-format",
         "description": "A dateTimeClass value does not have the BIDS Datetime format (RFC 3339 with an optional offset), or its date does not exist in the Gregorian calendar.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "validation",
         "common_causes": [
             "Giving a date without a time, or a time without seconds",

@@ -5,7 +5,7 @@
         "name": "tag-invalid-in-schema",
         "description": "The tag is not valid in the schema it is associated with.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "semantic",
         "common_causes": [
             "Misspelling tag names",
@@ -150,7 +150,7 @@
         "name": "tag-has-extra-whitespace",
         "description": "A HED tag has extra internal whitespace, including directly before or after a slash of the tag path or the slash that begins a value.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "syntax",
         "common_causes": [
             "Extra spaces within tag names",
@@ -547,7 +547,7 @@
         "name": "tag-has-leading-trailing-or-consecutive-slashes",
         "description": "A HED tag has leading, trailing or consecutive slashes.",
         "warning": false,
-        "schema": "8.4.0",
+        "schema": "8.5.0",
         "error_category": "syntax",
         "common_causes": [
             "Leading slashes at beginning of tags",
