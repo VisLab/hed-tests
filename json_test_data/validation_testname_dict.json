@@ -516,6 +516,9 @@
     "tag-has-extra-whitespace": [
         "TAG_INVALID"
     ],
+    "tag-blank-next-to-slash-in-value": [
+        "TAG_INVALID"
+    ],
     "tag-has-leading-trailing-or-consecutive-slashes": [
         "TAG_INVALID"
     ],

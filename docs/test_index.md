@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 265 test cases in the HED test suite.
+Complete index of 266 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -33,7 +33,7 @@ Complete index of 265 test cases in the HED test suite.
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
-- [TAG_INVALID](#tag-invalid) (3 tests)
+- [TAG_INVALID](#tag-invalid) (4 tests)
 - [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (4 tests)
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (2 tests)
@@ -2434,9 +2434,22 @@ Complete index of 265 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_INVALID.json`
 
+### tag-blank-next-to-slash-in-value (correction guidance) (examples)
+
+**Description**: A blank next to the slash that begins a value is invalid; a blank next to a slash inside a value is not.
+
+**Schema**: 8.5.0 **Category**: syntax
+
+**Tests**:
+
+- `string_tests`: 2 fail, 6 pass
+- `sidecar_tests`: 1 fail, 2 pass
+- `event_tests`: 1 fail, 1 pass
+- `combo_tests`: 1 fail, 1 pass
+
 ### tag-has-extra-whitespace (correction guidance) (examples)
 
-**Description**: A HED tag has extra internal whitespace, including directly before or after slashes.
+**Description**: A HED tag has extra internal whitespace, including directly before or after a slash of the tag path or the slash that begins a value.
 
 **Schema**: 8.4.0 **Category**: syntax
 

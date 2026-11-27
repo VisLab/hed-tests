@@ -36,6 +36,7 @@
         "tag-group-error-missing",
         "tag-invalid-in-schema",
         "tag-has-extra-whitespace",
+        "tag-blank-next-to-slash-in-value",
         "tag-has-leading-trailing-or-consecutive-slashes",
         "value-invalid-#-substitution",
         "value-invalid-blank-missing-before-units",
