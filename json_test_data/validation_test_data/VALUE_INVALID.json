@@ -529,6 +529,43 @@
         "alt_codes": [
             "UNITS_INVALID"
         ],
+        "name": "value-invalid-multiple-blanks-before-units",
+        "description": "More than one blank separates a value from its units. This is VALUE_INVALID (d), which a validator MAY report as UNITS_INVALID; it is not TAG_INVALID.",
+        "warning": false,
+        "schema": "8.5.0",
+        "error_category": "validation",
+        "common_causes": [
+            "Typing two spaces between the number and the unit",
+            "Aligning values in a spreadsheet with extra spaces before the unit"
+        ],
+        "explanation": "A value with units is the number, exactly one blank, and the unit. HED parsers assume that the units are separated from the value by a single blank, so Duration/3  ms (two blanks) is an error.",
+        "correction_strategy": "Leave exactly one blank between the value and its units.",
+        "correction_examples": [
+            {
+                "wrong": "(Duration/3  ms, (Red))",
+                "correct": "(Duration/3 ms, (Red))",
+                "explanation": "Removed the second blank between the value and the unit"
+            }
+        ],
+        "specification_reference": "3.2.4. Tags that take values; Appendix B VALUE_INVALID d",
+        "related_errors": ["UNITS_INVALID", "TAG_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "(Duration/3  ms, (Red))"
+                ],
+                "passes": [
+                    "(Duration/3 ms, (Red))"
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "VALUE_INVALID",
+        "alt_codes": [
+            "UNITS_INVALID"
+        ],
         "name": "invalid-character-numeric-class",
         "description": "An invalid character was used in an 8.3.0 or greater style numeric value class.",
         "warning": false,

@@ -1,10 +1,10 @@
 # HED test suite index
 
-Complete index of 266 test cases in the HED test suite.
+Complete index of 268 test cases in the HED test suite.
 
 ## Quick navigation
 
-- [CHARACTER_INVALID](#character-invalid) (8 tests)
+- [CHARACTER_INVALID](#character-invalid) (9 tests)
 - [COMMA_MISSING](#comma-missing) (2 tests)
 - [DEFINITION_INVALID](#definition-invalid) (17 tests)
 - [DEF_EXPAND_INVALID](#def-expand-invalid) (7 tests)
@@ -39,12 +39,22 @@ Complete index of 266 test cases in the HED test suite.
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (2 tests)
 - [TEMPORAL_TAG_ERROR](#temporal-tag-error) (31 tests)
 - [UNITS_INVALID](#units-invalid) (8 tests)
-- [VALUE_INVALID](#value-invalid) (6 tests)
+- [VALUE_INVALID](#value-invalid) (7 tests)
 - [WIKI_DELIMITERS_INVALID](#wiki-delimiters-invalid) (1 test)
 
 ## CHARACTER_INVALID
 
 **File**: `json_test_data/validation_test_data/CHARACTER_INVALID.json`
+
+### character-invalid-blank-in-name-value (correction guidance) (examples)
+
+**Description**: A value of a nameClass placeholder, such as the value of Label, contains a blank. The name character set has no blank, so one blank or several are invalid. Blanks inside a value are judged by the value class, not by TAG_INVALID.
+
+**Schema**: 8.5.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 2 fail, 2 pass
 
 ### character-invalid-double-quote (correction guidance) (examples)
 
@@ -2449,13 +2459,13 @@ Complete index of 266 test cases in the HED test suite.
 
 ### tag-has-extra-whitespace (correction guidance) (examples)
 
-**Description**: A HED tag has extra internal whitespace, including directly before or after a slash of the tag path or the slash that begins a value.
+**Description**: A HED tag has extra internal whitespace, including directly before or after a slash of the tag path or the slash that begins a value. Blanks inside a value, such as the two in Description/This is text, are judged by the value class and are not this error.
 
 **Schema**: 8.5.0 **Category**: syntax
 
 **Tests**:
 
-- `string_tests`: 6 fail, 1 pass
+- `string_tests`: 6 fail, 2 pass
 - `sidecar_tests`: 2 fail, 1 pass
 - `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
@@ -2638,12 +2648,13 @@ Complete index of 266 test cases in the HED test suite.
 
 ### temporal-tag-error-duplicated-onset-or-offset (correction guidance) (examples)
 
-**Description**: An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.
+**Description**: An Onset, Offset or Inset with a given Def or Def-expand anchor occurs at the same time as another Onset, Offset or Inset that uses the same anchor, in one row or in two rows with the same onset.
 
 **Schema**: 8.5.0 **Category**: temporal_logic
 
 **Tests**:
 
+- `event_tests`: 2 fail, 1 pass
 - `combo_tests`: 3 fail, 1 pass
 
 ### temporal-tag-error-duplicated-onset-or-offset-delay (correction guidance) (examples)
@@ -3123,6 +3134,16 @@ Complete index of 266 test cases in the HED test suite.
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass
+
+### value-invalid-multiple-blanks-before-units (correction guidance) (examples)
+
+**Description**: More than one blank separates a value from its units. This is VALUE_INVALID (d), which a validator MAY report as UNITS_INVALID; it is not TAG_INVALID.
+
+**Schema**: 8.5.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 1 fail, 1 pass
 
 ## WIKI_DELIMITERS_INVALID
 

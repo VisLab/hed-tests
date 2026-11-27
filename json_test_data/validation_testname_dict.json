@@ -39,6 +39,10 @@
     "character-invalid-text-value-before-8-5-0": [
         "CHARACTER_INVALID"
     ],
+    "character-invalid-blank-in-name-value": [
+        "CHARACTER_INVALID",
+        "VALUE_INVALID"
+    ],
     "comma-missing-tag-groups": [
         "COMMA_MISSING"
     ],
@@ -702,6 +706,10 @@
         "VALUE_INVALID",
         "CHARACTER_INVALID",
         "TAG_INVALID",
+        "UNITS_INVALID"
+    ],
+    "value-invalid-multiple-blanks-before-units": [
+        "VALUE_INVALID",
         "UNITS_INVALID"
     ],
     "invalid-character-numeric-class": [

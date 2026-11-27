@@ -148,7 +148,7 @@
         "error_code": "TAG_INVALID",
         "alt_codes": [],
         "name": "tag-has-extra-whitespace",
-        "description": "A HED tag has extra internal whitespace, including directly before or after a slash of the tag path or the slash that begins a value.",
+        "description": "A HED tag has extra internal whitespace, including directly before or after a slash of the tag path or the slash that begins a value. Blanks inside a value, such as the two in Description/This is  text, are judged by the value class and are not this error.",
         "warning": false,
         "schema": "8.5.0",
         "error_category": "syntax",
@@ -223,7 +223,8 @@
                     "(Duration/ 3 s, (Red))"
                 ],
                 "passes": [
-                    "Sensory-event, Green"
+                    "Sensory-event, Green",
+                    "Description/This is  text"
                 ]
             },
             "sidecar_tests": {

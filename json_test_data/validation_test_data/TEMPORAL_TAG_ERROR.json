@@ -1412,7 +1412,7 @@
         "error_code": "TEMPORAL_TAG_ERROR",
         "alt_codes": [],
         "name": "temporal-tag-error-duplicated-onset-or-offset",
-        "description": "An Onset or an Offset with a given Def or Def-expand anchor appears in the same event marker with another Onset or Offset that uses the same anchor.",
+        "description": "An Onset, Offset or Inset with a given Def or Def-expand anchor occurs at the same time as another Onset, Offset or Inset that uses the same anchor, in one row or in two rows with the same onset.",
         "warning": false,
         "schema": "8.5.0",
         "error_category": "temporal_logic",
@@ -1422,7 +1422,7 @@
             "Copy-paste errors creating duplicate temporal tags",
             "Misunderstanding that each definition should have unique temporal markers"
         ],
-        "explanation": "Each definition should have at most one Onset and one Offset per event. Duplicate temporal tags for the same definition create ambiguous temporal sequences.",
+        "explanation": "Each definition anchor may have at most one Onset, Offset or Inset at any one time. Duplicate temporal tags for the same definition create ambiguous temporal sequences.",
         "correction_strategy": "Remove duplicate temporal tags or use different definitions",
         "correction_examples": [
             {
@@ -1471,8 +1471,81 @@
                 "passes": []
             },
             "event_tests": {
-                "fails": [],
-                "passes": []
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            0,
+                            "n/a",
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            1,
+                            "n/a",
+                            "(Def/MyColor, Inset, (Blue)), (Def/MyColor, Inset, (Green))"
+                        ],
+                        [
+                            2,
+                            "n/a",
+                            "(Def/MyColor, Offset)"
+                        ]
+                    ],
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            0,
+                            "n/a",
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            1,
+                            "n/a",
+                            "(Def/MyColor, Inset, (Blue))"
+                        ],
+                        [
+                            1,
+                            "n/a",
+                            "(Def/MyColor, Inset, (Green))"
+                        ],
+                        [
+                            2,
+                            "n/a",
+                            "(Def/MyColor, Offset)"
+                        ]
+                    ]
+                ],
+                "passes": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            0,
+                            "n/a",
+                            "(Def/MyColor, Onset)"
+                        ],
+                        [
+                            1,
+                            "n/a",
+                            "(Def/MyColor, Inset, (Blue))"
+                        ],
+                        [
+                            2,
+                            "n/a",
+                            "(Def/MyColor, Offset)"
+                        ]
+                    ]
+                ]
             },
             "combo_tests": {
                 "fails": [
