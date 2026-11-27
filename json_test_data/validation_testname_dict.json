@@ -251,6 +251,9 @@
     "prefixed-standard-version-twice-in-merge-group": [
         "SCHEMA_LOAD_FAILED"
     ],
+    "standard-version-twice-in-namespace-differing-case": [
+        "SCHEMA_LOAD_FAILED"
+    ],
     "unpartnered-library-in-shared-namespace": [
         "SCHEMA_LOAD_FAILED"
     ],
@@ -435,6 +438,9 @@
     "tag-expression-repeated-value-case": [
         "TAG_EXPRESSION_REPEATED"
     ],
+    "tag-expression-repeated-namespace-case": [
+        "TAG_EXPRESSION_REPEATED"
+    ],
     "tag-expression-repeated-hed-column-reference": [
         "TAG_EXPRESSION_REPEATED"
     ],
@@ -517,6 +523,9 @@
         "TAG_NAMESPACE_PREFIX_INVALID"
     ],
     "tag-namespace_prefix-with-colon-values": [
+        "TAG_NAMESPACE_PREFIX_INVALID"
+    ],
+    "tag-namespace-prefix-case-insensitive": [
         "TAG_NAMESPACE_PREFIX_INVALID"
     ],
     "tag-with-namespace-has-no-schema": [

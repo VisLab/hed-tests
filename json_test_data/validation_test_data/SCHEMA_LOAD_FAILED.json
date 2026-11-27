@@ -576,6 +576,47 @@
     {
         "error_code": "SCHEMA_LOAD_FAILED",
         "alt_codes": [],
+        "name": "standard-version-twice-in-namespace-differing-case",
+        "description": "The same standard schema version cannot be listed twice in one namespace written in different case.",
+        "warning": false,
+        "schema": [
+            "ts:8.5.0",
+            "TS:8.5.0"
+        ],
+        "error_category": "schema",
+        "explanation": "Namespace names are case-insensitive, so ts: and TS: are one namespace and both entries are in the same merge group. A standard schema listed twice in one merge group fails the load.",
+        "common_causes": [
+            "Assuming that ts: and TS: are different namespaces",
+            "Concatenating version specifications that write the same prefix in different case"
+        ],
+        "correction_strategy": "List the standard schema once per namespace; remove the duplicate, or give the second entry a namespace with a different name.",
+        "correction_examples": [
+            {
+                "wrong": "[\"ts:8.5.0\", \"TS:8.5.0\"]",
+                "correct": "[\"ts:8.5.0\"]",
+                "explanation": "ts: and TS: are the same namespace, so the second entry repeats the first; keep one."
+            },
+            {
+                "wrong": "[\"ts:8.5.0\", \"TS:8.5.0\"]",
+                "correct": "[\"ts:8.5.0\", \"other:8.5.0\"]",
+                "explanation": "If the same version is genuinely needed twice, put the second in a namespace with a different name and prefix its tags with other: in annotations."
+            }
+        ],
+        "specification_reference": "3.1.1. Schema versions; 3.1.2.4. Partnered combinations",
+        "related_errors": ["SCHEMA_VERSION_INVALID"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Red"
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "SCHEMA_LOAD_FAILED",
+        "alt_codes": [],
         "name": "unpartnered-library-in-shared-namespace",
         "description": "An unpartnered library schema cannot share a namespace with other schemas.",
         "warning": false,
