@@ -1298,6 +1298,70 @@
     {
         "error_code": "TAG_EXPRESSION_REPEATED",
         "alt_codes": [],
+        "name": "tag-expression-repeated-namespace-case",
+        "description": "Tags that differ only in the case of their namespace prefix are repeated.",
+        "warning": false,
+        "schema": ["ts:8.5.0"],
+        "error_category": "semantic",
+        "common_causes": [
+            "Writing the same prefixed tag twice with the prefix in different capitalization",
+            "Assuming that ts: and TS: are different namespaces"
+        ],
+        "explanation": "Namespace names are case-insensitive, so ts:Red and TS:Red are the same tag and may not appear twice at the same level.",
+        "correction_strategy": "Remove one of two tags that differ only in the case of their namespace prefix.",
+        "correction_examples": [
+            {
+                "wrong": "ts:Red, TS:Red",
+                "correct": "ts:Red",
+                "explanation": "ts: and TS: name the same namespace, so TS:Red repeats ts:Red"
+            }
+        ],
+        "specification_reference": "3.1.1. Schema versions; 3.2.3. Tag case-sensitivity",
+        "related_errors": [
+            "TAG_NAMESPACE_PREFIX_INVALID"
+        ],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [
+                    "ts:Red, TS:Red"
+                ],
+                "passes": []
+            },
+            "sidecar_tests": {
+                "fails": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "ts:Red, TS:Red"
+                            }
+                        }
+                    }
+                ],
+                "passes": []
+            },
+            "event_tests": {
+                "fails": [
+                    [
+                        [
+                            "onset",
+                            "duration",
+                            "HED"
+                        ],
+                        [
+                            4.5,
+                            0,
+                            "ts:Red, TS:Red"
+                        ]
+                    ]
+                ],
+                "passes": []
+            }
+        }
+    },
+    {
+        "error_code": "TAG_EXPRESSION_REPEATED",
+        "alt_codes": [],
         "name": "tag-expression-repeated-hed-column-reference",
         "description": "A sidecar annotation repeats a tag once its {HED} reference is removed. Under rule 10 of the sidecar curly-brace rules, a {HED} reference is always removed when the sidecar is checked, as it is in a row whose HED cell is n/a or blank, so (Red, {HED}), (Red) is invalid as a sidecar on its own: removing the reference leaves (Red), (Red). The combo item fails on a row whose HED cell is n/a. (Red, {HED}), (Blue) passes.",
         "warning": false,

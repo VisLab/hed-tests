@@ -1,6 +1,6 @@
 # HED test suite index
 
-Complete index of 262 test cases in the HED test suite.
+Complete index of 265 test cases in the HED test suite.
 
 ## Quick navigation
 
@@ -20,7 +20,7 @@ Complete index of 262 test cases in the HED test suite.
 - [SCHEMA_DUPLICATE_NODE](#schema-duplicate-node) (3 tests)
 - [SCHEMA_HEADER_INVALID](#schema-header-invalid) (3 tests)
 - [SCHEMA_LIBRARY_INVALID](#schema-library-invalid) (23 tests)
-- [SCHEMA_LOAD_FAILED](#schema-load-failed) (43 tests)
+- [SCHEMA_LOAD_FAILED](#schema-load-failed) (44 tests)
 - [SCHEMA_MISSING_EXTRA](#schema-missing-extra) (1 test)
 - [SCHEMA_RESERVED_INVALID](#schema-reserved-invalid) (2 tests)
 - [SCHEMA_SECTION_MISSING](#schema-section-missing) (1 test)
@@ -29,12 +29,12 @@ Complete index of 262 test cases in the HED test suite.
 - [SIDECAR_KEY_MISSING](#sidecar-key-missing) (2 tests)
 - [TABULAR_INVALID](#tabular-invalid) (6 tests)
 - [TAG_EMPTY](#tag-empty) (3 tests)
-- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (9 tests)
+- [TAG_EXPRESSION_REPEATED](#tag-expression-repeated) (10 tests)
 - [TAG_EXTENDED](#tag-extended) (1 test)
 - [TAG_EXTENSION_INVALID](#tag-extension-invalid) (9 tests)
 - [TAG_GROUP_ERROR](#tag-group-error) (6 tests)
 - [TAG_INVALID](#tag-invalid) (3 tests)
-- [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (3 tests)
+- [TAG_NAMESPACE_PREFIX_INVALID](#tag-namespace-prefix-invalid) (4 tests)
 - [TAG_NOT_UNIQUE](#tag-not-unique) (1 test)
 - [TAG_REQUIRES_CHILD](#tag-requires-child) (2 tests)
 - [TEMPORAL_TAG_ERROR](#temporal-tag-error) (31 tests)
@@ -1736,6 +1736,16 @@ Complete index of 262 test cases in the HED test suite.
 
 - `string_tests`: 2 fail, 0 pass
 
+### standard-version-twice-in-namespace-differing-case (correction guidance) (examples)
+
+**Description**: The same standard schema version cannot be listed twice in one namespace written in different case.
+
+**Schema**: ts:8.5.0, TS:8.5.0 **Category**: schema
+
+**Tests**:
+
+- `string_tests`: 1 fail, 0 pass
+
 ### two-standard-versions-in-same-merge-group (correction guidance) (examples)
 
 **Description**: Two different standard schema versions cannot appear in the same merge group.
@@ -2140,6 +2150,18 @@ Complete index of 262 test cases in the HED test suite.
 
 - `combo_tests`: 3 fail, 3 pass
 
+### tag-expression-repeated-namespace-case (correction guidance) (examples)
+
+**Description**: Tags that differ only in the case of their namespace prefix are repeated.
+
+**Schema**: ts:8.5.0 **Category**: semantic
+
+**Tests**:
+
+- `string_tests`: 1 fail, 0 pass
+- `sidecar_tests`: 1 fail, 0 pass
+- `event_tests`: 1 fail, 0 pass
+
 ### tag-expression-repeated-reference-removed (correction guidance) (examples)
 
 **Description**: A sidecar annotation repeats a tag once a curly-brace reference to another column is removed. Under rule 10 of the sidecar curly-brace rules, the annotation is also checked with all its references removed, as in a row whose referenced cell is n/a or blank (rule 3), so (Red, \{color}), (Red) is invalid as a sidecar on its own even though no annotation of color is Red, and so is (Red, \{rt}), (Red) for a value column rt. The combo items fail on rows whose color cell is n/a or blank (the empty string) and whose rt cell is n/a.
@@ -2455,6 +2477,18 @@ Complete index of 262 test cases in the HED test suite.
 
 **File**: `json_test_data/validation_test_data/TAG_NAMESPACE_PREFIX_INVALID.json`
 
+### tag-namespace-prefix-case-insensitive (correction guidance) (examples)
+
+**Description**: A namespace prefix matches the namespace of a loaded schema regardless of case.
+
+**Schema**: TS:8.5.0 **Category**: validation
+
+**Tests**:
+
+- `string_tests`: 0 fail, 1 pass
+- `sidecar_tests`: 0 fail, 1 pass
+- `event_tests`: 0 fail, 1 pass
+
 ### tag-namespace_prefix-invalid-characters (correction guidance) (examples)
 
 **Description**: A tag prefix has invalid characters.
@@ -2476,7 +2510,7 @@ Complete index of 262 test cases in the HED test suite.
 
 **Tests**:
 
-- `string_tests`: 1 fail, 1 pass
+- `string_tests`: 1 fail, 3 pass
 - `sidecar_tests`: 1 fail, 1 pass
 - `event_tests`: 1 fail, 1 pass
 - `combo_tests`: 1 fail, 1 pass

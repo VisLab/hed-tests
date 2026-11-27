@@ -269,6 +269,7 @@
         "two-standard-versions-in-same-merge-group",
         "same-standard-version-twice-in-merge-group",
         "prefixed-standard-version-twice-in-merge-group",
+        "standard-version-twice-in-namespace-differing-case",
         "unpartnered-library-in-shared-namespace",
         "two-unpartnered-libraries-in-same-namespace",
         "prefixed-group-with-mismatched-partners",
@@ -343,6 +344,7 @@
         "tag-expression-repeated-na-onset-row",
         "tag-expression-repeated-column-name-with-period",
         "tag-expression-repeated-value-case",
+        "tag-expression-repeated-namespace-case",
         "tag-expression-repeated-hed-column-reference",
         "tag-expression-repeated-reference-removed",
         "tag-expression-repeated-curly-brace-substitution"
@@ -353,6 +355,7 @@
     "TAG_NAMESPACE_PREFIX_INVALID": [
         "tag-namespace_prefix-invalid-characters",
         "tag-namespace_prefix-with-colon-values",
+        "tag-namespace-prefix-case-insensitive",
         "tag-with-namespace-has-no-schema"
     ],
     "TAG_NOT_UNIQUE": [

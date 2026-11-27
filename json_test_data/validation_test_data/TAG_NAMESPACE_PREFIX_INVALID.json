@@ -191,7 +191,9 @@
                     "Creation-date/2009-04-09T12:04:14"
                 ],
                 "passes": [
-                    "ts:Creation-date/2009-04-09T12:04:14"
+                    "ts:Creation-date/2009-04-09T12:04:14",
+                    "TS:Red",
+                    "Ts:Red"
                 ]
             },
             "sidecar_tests": {
@@ -210,7 +212,9 @@
                         "event_code": {
                             "HED": {
                                 "face": "ts:Creation-date/2009-04-09T12:04:14",
-                                "ball": "ts:Blue"
+                                "ball": "ts:Blue",
+                                "square": "TS:Red",
+                                "circle": "Ts:Red"
                             }
                         }
                     }
@@ -226,7 +230,9 @@
                 "passes": [
                     [
                         ["onset", "duration", "HED"],
-                        [4.5, 0, "ts:Creation-date/2009-04-09T12:04:14"]
+                        [4.5, 0, "ts:Creation-date/2009-04-09T12:04:14"],
+                        [5.5, 0, "TS:Red"],
+                        [6.5, 0, "Ts:Red"]
                     ]
                 ]
             },
@@ -266,6 +272,60 @@
                                 [ 5.0, 0, "ball", "ts:Green, ts:Def/MyColor"]
                             ]
                     }
+                ]
+            }
+        }
+    },
+    {
+        "error_code": "TAG_NAMESPACE_PREFIX_INVALID",
+        "alt_codes": [],
+        "name": "tag-namespace-prefix-case-insensitive",
+        "description": "A namespace prefix matches the namespace of a loaded schema regardless of case.",
+        "warning": false,
+        "schema": ["TS:8.5.0"],
+        "error_category": "validation",
+        "common_causes": [
+            "Believing that a tag prefix must repeat the capitalization used in the schema version specification",
+            "Using a prefix that names no loaded namespace in any capitalization"
+        ],
+        "explanation": "Namespace names are case-insensitive, so ts:, TS: and Ts: name the same namespace. A schema loaded as TS:8.5.0 is reached by tags prefixed with ts:, and the annotation is valid. A prefix is invalid only when no loaded schema has that namespace, compared without regard to case.",
+        "correction_strategy": "Leave a prefix that matches a loaded namespace in any capitalization; change a prefix that matches no loaded namespace to one that does.",
+        "correction_examples": [
+            {
+                "wrong": "xs:Red with schemas [\"TS:8.5.0\"]",
+                "correct": "ts:Red with schemas [\"TS:8.5.0\"]",
+                "explanation": "No schema is loaded in the xs namespace; ts: names the TS namespace because namespace names are compared without regard to case."
+            }
+        ],
+        "specification_reference": "3.1.1. Schema versions",
+        "related_errors": ["SCHEMA_LOAD_FAILED", "TAG_EXPRESSION_REPEATED"],
+        "definitions": [],
+        "tests": {
+            "string_tests": {
+                "fails": [],
+                "passes": [
+                    "ts:Red"
+                ]
+            },
+            "sidecar_tests": {
+                "fails": [],
+                "passes": [
+                    {
+                        "event_code": {
+                            "HED": {
+                                "face": "ts:Red"
+                            }
+                        }
+                    }
+                ]
+            },
+            "event_tests": {
+                "fails": [],
+                "passes": [
+                    [
+                        ["onset", "duration", "HED"],
+                        [4.5, 0, "ts:Red"]
+                    ]
                 ]
             }
         }
