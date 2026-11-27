@@ -61,6 +61,9 @@ def check_default_schema(cases: list) -> list[str]:
         name = case.get("name", "")
         if not isinstance(schema, str) or not STANDARD_VERSION.match(schema) or schema == DEFAULT_STANDARD_SCHEMA:
             continue
+        if not isinstance(name, str):
+            continue  # a malformed name is reported by the JSON Schema validation
+
         if EARLIER_SCHEMA_NAME.search(name) or name in EARLIER_SCHEMA_CASES:
             continue
         errors.append(

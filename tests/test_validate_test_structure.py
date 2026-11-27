@@ -39,6 +39,10 @@ class TestCheckDefaultSchema(unittest.TestCase):
     def test_list_schemas_are_not_checked(self):
         self.assertEqual(check_default_schema([case("merge-group-mismatch", ["8.4.0", "testconflict_2.0.0"])]), [])
 
+    def test_malformed_name_is_skipped(self):
+        cases = [case(None, "8.4.0"), case(3, "8.4.0"), case(["tag-invalid"], "8.4.0")]
+        self.assertEqual(check_default_schema(cases), [])
+
     def test_library_string_is_not_checked(self):
         self.assertEqual(check_default_schema([case("library-only", "testconflict_2.0.0")]), [])
 
